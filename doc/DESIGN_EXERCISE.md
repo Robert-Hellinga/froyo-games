@@ -3,6 +3,8 @@
 Nate Mela (nrm27)
 Robert Hellinga (rbh13)
 Lucas Carter (lbc21)
+Jincheng He (jh622)
+Yixuan Li (yl600)
 
 ## Fluxx
 
