@@ -1,64 +1,102 @@
 # OOGA Lab Discussion
 ## Names and NetIDs
-
+Nate Mela (nrm27)
+Robert Hellinga (rbh13)
+Lucas Carter (lbc21)
 
 ## Fluxx
 
 ### High Level Design Ideas
-
+Generic Card class, used by specific types of Cards (RuleCard, GoalCard, ActionCard).
+Generic attribute class, used to set different rules/goals/actions for each type of card. Child
+ RuleAttribute, GoalAttribute, ActionAttribute
+Dealer – class used if there is a dealer to deal cards
+Board – class used to manage current round states, and cycle turns
+Player – class used by client to interact with the Fluxx game
 
 ### CRC Card Classes
 
-This class's purpose or value is to manage something:
+This class's purpose is to be a generic card object:
 ```java
- public class Something {
-     public int getTotal (Collection<Integer> data)
-     public Value getValue ()
+ public abstract class Card {
+     public abstract void playCard();
+     public abstract void getCardValue();
+     public abstract void setCardAttribute(Atrribute atrribute);
  }
 ```
 
 This class's purpose or value is to be useful:
 ```java
- public class Value {
-     public void update (int data)
+ public class RuleCard extends Card {
+     public void playCard();
+     public void getCardValue();
+     public void setCardAttribute(Attribute atrribute);
+     public void setGameRule(Rule rule);
  }
 ```
 
-### Use Cases
+```java
+ public class Dealer implements Playable {
+     public void cycleTurn(); // from interface
+     public void changeGameRule(Rule rule);
+     public void changeGoal(Goal goal);
+     private boolean gameOver();
+ }
+```
+
+```java
+ public class Goal {
+    public Goal(Attribute attribute);
+ }
+```
+
+```java
+ public class Player implements Playable {
+     private List<Card> hand;
+     public void cycleTurn(); //from interface
+ }
+```
+
+```java
+ public class Board implements Playable {
+     private List<Card> activeCards;
+     private List<Player> players;
+     private void initializePlayers();
+     public void cycleTurn(); //from interface
+     private void displayWinner();
+     // holds buttons/controls for UI
+ }
+```
+
 
 ### Use Cases
 
- * A new game is started with five players, their scores are reset to 0.
+### Use Cases
+
+ * A new game is started with two players
  ```java
- Something thing = new Something();
- Value v = thing.getValue();
- v.update(13);
+Board board = new Board(2);
+board.initializePlayers();
  ```
 
- * A player chooses his RPS "weapon" with which he wants to play for this round.
+ * Player 1 plays a rule card
  ```java
- Something thing = new Something();
- Value v = thing.getValue();
- v.update(13);
+// Board has step method, which calls Player cycleTurn, which calls Card's playCaerd
+Board.step(); 
+RuleCard newRule = new RuleCard();
+newRule.setAttribute(A);
+player.getCard().playCard(newRule);
  ```
 
  * Given three players' choices, one player wins the round, and their scores are updated.
  ```java
- Something thing = new Something();
- Value v = thing.getValue();
- v.update(13);
+Board.step()
+if(dealer.gameOver()) 
+  Board.displayWinner();
  ```
 
- * A new choice is added to an existing game and its relationship to all the other choices is updated.
+ * A new Goal is added to the game and the win criteria is changed.
  ```java
- Something thing = new Something();
- Value v = thing.getValue();
- v.update(13);
- ```
-
- * A new game is added to the system, with its own relationships for its all its "weapons".
- ```java
- Something thing = new Something();
- Value v = thing.getValue();
- v.update(13);
+Goal newGoal = new Goal(Rule rule);
+Dealer.changeGoal(newGoal);
  ```
