@@ -98,3 +98,72 @@
       }
     }
 ``` 
+
+  * select a piece in Checker's game when it is your turn 
+```java
+    //When initializing game 
+    squares[i][j] = new CheckersSquare(i, j, event -> CheckersController.clickOnBlock(i, j));
+    
+    //in CheckerController
+    public void clickOnBlock(int i, int j) {
+        if (isPlayerTurn){
+            if (squares[i][j].hasPiece()){
+                squares[i][j].choosePiece();
+            }
+        }
+        else {
+            CheckersController.showError("Not your turn!");
+        }
+    }
+```  
+
+  * after the player select a piece in Checker's game, show possible moves it can make 
+  ``` java
+    public enmu Side {
+      UP,
+      DOWN
+    }
+
+    public void showPossibleMove(){
+      for (int x = 0; x < i; x ++){
+        for (int y = 0; y < j; y++){
+          if (square[i][j].isChoosen()){
+            if (player.getSide == Side.DOWN){
+              square[i+1][j-1].becomePossibleMove();
+              square[i+1][j+1].becomePossibleMove();
+            }
+            else if (player.getSide == Side.UP){
+              square[i-1][j-1].becomePossibleMove();
+              square[i-1][j+1].becomePossibleMove();
+            }
+          }
+        }
+      }
+    }
+  ```
+
+  * move the piece to a possible location in checker game
+  ```java
+  public void moveToPossibleLocation(int i, int j){
+    if (square[i][j].isPossibleLocation()){
+      Cell choosenCell = findSelectedCell(int i, int j);
+      squre[i][j].movePiece(choosenCell);
+      choosenCell.becomeaBlankBlock();
+    }
+  }
+
+  ```
+  * Save game and quit to homepage 
+  ```java
+  //this method will save current game and configure all information to a data file
+  saveCurrentGame();    
+  //this method will add homepage to root   
+  showHomePage();
+```
+
+  * restart the game 
+  ```java
+  loadInitialPattern();
+  resetTimer();
+  ```
+
