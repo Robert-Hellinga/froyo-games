@@ -1,15 +1,6 @@
 package Player;
 
-import java.util.*;
 
-/**
- *
- */
-public class CheckersPlayer {
+public interface CheckersPlayer extends Player {
 
-  /**
-   * Default constructor
-   */
-  public CheckersPlayer() {
-  }
 }

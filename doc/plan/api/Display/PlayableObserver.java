@@ -1,9 +1,5 @@
+package Display;
 
-import java.util.*;
-
-/**
- *
- */
 public interface PlayableObserver {
 
 

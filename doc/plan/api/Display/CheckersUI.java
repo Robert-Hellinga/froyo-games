@@ -1,4 +1,4 @@
-package UI;
+package Display;
 
 
 public interface CheckersUI extends GameUI {

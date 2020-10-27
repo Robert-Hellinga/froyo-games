@@ -13,6 +13,6 @@ public interface GridGame extends Playable {
 
   public void saveGame();
 
-  public void addObserver(? observer);
+  public void addObserver();
 
 }

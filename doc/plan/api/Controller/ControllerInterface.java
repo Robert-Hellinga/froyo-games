@@ -3,5 +3,5 @@ package Controller;
 
 public interface ControllerInterface {
 
-  public void makeMove(? Point);
+  public void makeMove();
 }

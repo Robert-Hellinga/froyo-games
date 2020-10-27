@@ -1,3 +1,4 @@
+package Display;
 
 import Game.Languagable;
 import Game.Styleable;

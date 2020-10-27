@@ -1,6 +1,8 @@
 package Player.AIPlayer;
 
 
-public interface AIPlayer {
+import Player.Player;
+
+public interface AIPlayer extends Player {
 
 }
