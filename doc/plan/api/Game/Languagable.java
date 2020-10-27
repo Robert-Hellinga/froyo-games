@@ -1,8 +1,6 @@
-import java.util.*;
+package Game;
 
-/**
- * 
- */
+
 public interface Languagable {
 
 }
