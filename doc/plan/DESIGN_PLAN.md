@@ -62,6 +62,6 @@
  * Design Considerations 
     * Issue: Figure out how to work with web server/API
     * Issue: player type selection (AI vs. human)
-        * Discussion was about whether we would have Player objects or Socialable interface
+        * Discussion was about whether we would have Player.Player objects or Socialable interface
         . Decision will be made after farther determining how web server will work
     * To-do: decide on data storage format

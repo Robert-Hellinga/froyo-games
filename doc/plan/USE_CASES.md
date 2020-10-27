@@ -2,7 +2,7 @@
 ```java
   Display display = new Display();
   //User clicks on Checkers button,
-  GridGame game = new Checkers(HumanPlayer, CheckersAI); //made in controller
+  GridGame game = new Checkers(Player.Player.HumanPlayer, CheckersAI); //made in controller
 ```  
   
 * User clicks on grid to move checker piece
@@ -20,8 +20,8 @@
 * User starts a new game of Connect 4 against another random person
 ```java
     // User clicks on connect 4 button and 
-    Player user = new HumanPlayer();
-    Player opponent = new HumanPlayer("Name of player");
+    Player.Player user = new Player.Player.HumanPlayer();
+    Player.Player opponent = new Player.Player.HumanPlayer("Name of player");
     GridGame game = new Connect4Game(user, opponent);
 ```  
 
@@ -42,9 +42,9 @@
  * Selecting username
 ```java
     Display display = new Display();
-    Player humanPlayer = new HumanPlayer("Name of player");
+    Player.Player humanPlayer = new Player.Player.HumanPlayer("Name of player");
     // Start game button is pressed
-    Player remotePlayer = new HumanPlayer("Name of remote player");
+    Player.Player remotePlayer = new Player.Player.HumanPlayer("Name of remote player");
     GridGame game = new Checkers(humanPlayer, remotePlayer); //made in controller
     
 ```  
@@ -53,8 +53,8 @@
 ```java
     GridGame.takeTurn(); // takeTurn method handles turn alternation
 
-    ArtificialPlayer.calculateTurn();
-    ArtificialPlayer.update(); // update method causes GridGame to update observers
+    Player.Player.ArtificialPlayer.calculateTurn();
+    Player.Player.ArtificialPlayer.update(); // update method causes GridGame to update observers
 ``` 
 
  * Selecting a game theme

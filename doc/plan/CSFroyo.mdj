@@ -1521,7 +1521,7 @@
 											"top": 663,
 											"width": 103,
 											"height": 13,
-											"text": "Player"
+											"text": "Player.Player"
 										},
 										{
 											"_type": "LabelView",
@@ -1697,7 +1697,7 @@
 											"top": 863,
 											"width": 83.0908203125,
 											"height": 13,
-											"text": "HumanPlayer"
+											"text": "Player.Player.HumanPlayer"
 										},
 										{
 											"_type": "LabelView",
@@ -1873,7 +1873,7 @@
 											"top": 863,
 											"width": 91.04443359375,
 											"height": 13,
-											"text": "ArtificialPlayer"
+											"text": "Player.Player.ArtificialPlayer"
 										},
 										{
 											"_type": "LabelView",
@@ -9469,7 +9469,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "AIPlayer"
+					"name": "Player.Player.AIPlayer"
 				},
 				{
 					"_type": "UMLClass",
@@ -9485,7 +9485,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Player",
+					"name": "Player.Player",
 					"isAbstract": true
 				},
 				{
@@ -9502,7 +9502,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "HumanPlayer",
+					"name": "Player.Player.HumanPlayer",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -9551,7 +9551,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "ArtificialPlayer",
+					"name": "Player.Player.ArtificialPlayer",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",

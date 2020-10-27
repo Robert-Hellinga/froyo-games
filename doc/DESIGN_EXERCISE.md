@@ -14,7 +14,7 @@ Generic attribute class, used to set different rules/goals/actions for each type
  RuleAttribute, GoalAttribute, ActionAttribute
 Dealer – class used if there is a dealer to deal cards
 Board – class used to manage current round states, and cycle turns
-Player – class used by client to interact with the Fluxx game
+Player.Player – class used by client to interact with the Fluxx game
 
 ### CRC Card Classes
 
@@ -53,14 +53,14 @@ This class's purpose or value is to be useful:
 ```
 
 ```java
- public class Player implements Playable {
+ public class Player.Player implements Playable {
      private List<Card> hand;
      public void cycleTurn(); //from interface
  }
 ```
 
 ```java
- public class Board implements Playable {
+ import Player.Player;public class Board implements Playable {
      private List<Card> activeCards;
      private List<Player> players;
      private void initializePlayers();
@@ -81,9 +81,9 @@ Board board = new Board(2);
 board.initializePlayers();
  ```
 
- * Player 1 plays a rule card
+ * Player.Player 1 plays a rule card
  ```java
-// Board has step method, which calls Player cycleTurn, which calls Card's playCaerd
+// Board has step method, which calls Player.Player cycleTurn, which calls Card's playCaerd
 Board.step(); 
 RuleCard newRule = new RuleCard();
 newRule.setAttribute(A);
