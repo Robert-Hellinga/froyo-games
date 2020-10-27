@@ -3,13 +3,13 @@ package Player;
 import java.util.*;
 
 /**
- * This class is for AI player
+ *
  */
-public class AIPlayer {
+public class CheckersPlayer {
 
   /**
    * Default constructor
    */
-  public AIPlayer() {
+  public CheckersPlayer() {
   }
 }

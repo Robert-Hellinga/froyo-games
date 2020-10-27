@@ -2,14 +2,6 @@ package Player;
 
 import java.util.*;
 
-/**
- *
- */
-public abstract class Player {
+public interface Player {
 
-  /**
-   * Default constructor
-   */
-  public Player() {
-  }
 }
