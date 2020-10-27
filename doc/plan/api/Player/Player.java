@@ -1,14 +1,15 @@
+package Player;
 
 import java.util.*;
 
 /**
  *
  */
-public class CheckersPlayer {
+public abstract class Player {
 
   /**
    * Default constructor
    */
-  public CheckersPlayer() {
+  public Player() {
   }
 }
