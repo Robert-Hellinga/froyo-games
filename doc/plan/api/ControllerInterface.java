@@ -1,6 +1,7 @@
-package plan.api;
+
 
 import java.util.*;
+import Game.BlockStructure;
 
 /**
  *
@@ -11,5 +12,5 @@ public interface ControllerInterface {
   /**
    * @param Point
    */
-  public void makeMove(void Point);
+  public void makeMove(BlockStructure Point);
 }

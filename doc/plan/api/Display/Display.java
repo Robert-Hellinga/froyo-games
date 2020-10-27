@@ -1,7 +1,7 @@
 package Display;
 
-import Game.Languagable;
-import Game.Styleable;
+import plan.api.Display.Languagable;
+import plan.api.Display.Styleable;
 
 /**
  *

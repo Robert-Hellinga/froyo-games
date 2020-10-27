@@ -1,6 +1,6 @@
 package Game;
 
-public interface GridGame extends Playable {
+public interface GridGame extends Game.Playable {
 
 
   public void checkForWin();
@@ -9,10 +9,5 @@ public interface GridGame extends Playable {
 
   public void notifyObservers();
 
-  public void startGame();
-
-  public void saveGame();
-
-  public void addObserver();
 
 }
