@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.exceptions.ClassOrMethodNotFoundException;
-import ooga.GameController.PlayerMode;
+import ooga.controller.GameController.PlayerMode;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockGrid;
 import ooga.model.player.Player;
