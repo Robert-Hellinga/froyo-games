@@ -1,14 +1,21 @@
 package ooga;
 
 
-/**
- * Feel free to completely change this code or delete it entirely. 
- */
-public class Main {
-    /**
-     * Start of the program.
-     */
-    public static void main (String[] args) {
-        System.out.println("Hello world");
+import javafx.application.Application;
+import javafx.stage.Stage;
+import ooga.controller.GridGameController;
+import ooga.view.Display;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage stage) {
+        GridGameController controller = new GridGameController();
+        Display display = new Display(controller);
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
