@@ -1,4 +1,4 @@
-package ooga.Exception;
+package ooga.exceptions;
 
 public class ClassOrMethodNotFoundException extends RuntimeException{
 

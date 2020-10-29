@@ -1,6 +1,6 @@
-package ooga.View.Pieces;
+package ooga.view.pieces;
 
-import ooga.View.Piece;
+import ooga.view.Piece;
 
 public class CheckersPieces extends Piece {
 

@@ -1,4 +1,4 @@
-package ooga.View;
+package ooga.view;
 
 import java.util.HashMap;
 import java.util.Map;

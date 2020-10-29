@@ -1,8 +1,7 @@
-package ooga.View;
+package ooga.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.shape.Circle;
 
 public class PieceStructure{
   private List<List<Piece>> allPieces = new ArrayList<>();

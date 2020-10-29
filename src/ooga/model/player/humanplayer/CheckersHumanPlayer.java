@@ -1,4 +1,4 @@
-package ooga.Model.Player.HumanPlayer;
+package ooga.model.player.humanplayer;
 
 public class CheckersHumanPlayer extends HumanPlayer{
 
