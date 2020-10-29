@@ -1,6 +1,6 @@
-package ooga.Model.Player.HumanPlayer;
+package ooga.model.player.humanplayer;
 
-import ooga.Model.Player.Player;
+import ooga.model.player.Player;
 
 public abstract class HumanPlayer extends Player {
 

@@ -1,7 +1,7 @@
-package ooga.Model.Player.AIPlayer;
+package ooga.model.player.aiplayer;
 
 
-import ooga.Model.Player.Move;
+import ooga.model.player.Move;
 
 public class CheckersAIPlayer extends AIPlayer {
 

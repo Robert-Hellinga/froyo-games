@@ -1,4 +1,4 @@
-package ooga.Model.Player;
+package ooga.model.player;
 
 public abstract class Player {
   protected static String name;

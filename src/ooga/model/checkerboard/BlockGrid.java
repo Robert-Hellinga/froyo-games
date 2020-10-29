@@ -1,8 +1,8 @@
-package ooga.Model.CheckerBoard;
+package ooga.model.checkerboard;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import ooga.Exception.ClassOrMethodNotFoundException;
+import ooga.exceptions.ClassOrMethodNotFoundException;
 
 public class BlockGrid {
   public enum BlockState {

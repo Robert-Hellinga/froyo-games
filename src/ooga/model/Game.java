@@ -1,14 +1,14 @@
-package ooga.Model;
+package ooga.model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import ooga.Exception.ClassOrMethodNotFoundException;
+import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.GameController.PlayerMode;
-import ooga.Model.CheckerBoard.BlockConfigStructure;
-import ooga.Model.CheckerBoard.BlockGrid;
-import ooga.Model.Player.Player;
+import ooga.model.checkerboard.BlockConfigStructure;
+import ooga.model.checkerboard.BlockGrid;
+import ooga.model.player.Player;
 
 public class Game {
   private String gameType;

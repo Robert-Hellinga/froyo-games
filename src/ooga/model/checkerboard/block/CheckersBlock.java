@@ -1,7 +1,7 @@
-package ooga.Model.CheckerBoard.block;
+package ooga.model.checkerboard.block;
 
-import ooga.Model.CheckerBoard.Block;
-import ooga.Model.CheckerBoard.BlockGrid.BlockState;
+import ooga.model.checkerboard.Block;
+import ooga.model.checkerboard.BlockGrid.BlockState;
 
 public class CheckersBlock extends Block {
 
