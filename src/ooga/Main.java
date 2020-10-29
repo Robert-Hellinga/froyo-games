@@ -1,14 +1,22 @@
 package ooga;
 
 
-/**
- * Feel free to completely change this code or delete it entirely. 
- */
-public class Main {
+import javafx.application.Application;
+import javafx.stage.Stage;
+import ooga.controller.GameControllerInterface;
+import ooga.controller.GameController;
+
+public class Main extends Application {
     /**
      * Start of the program.
      */
     public static void main (String[] args) {
-        System.out.println("Hello world");
+        launch(args);
+
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        GameControllerInterface controller = new GameController();
     }
 }
