@@ -1,4 +1,4 @@
-package ooga.game;
+package ooga.Model.game;
 
 public class GridGame {
   public enum BlockState {
