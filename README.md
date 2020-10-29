@@ -18,6 +18,7 @@ Hours Spent:
 
 
 ### Resources Used
+https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run/32468810#32468810
 
 
 ### Running the Program
