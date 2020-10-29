@@ -1,4 +1,4 @@
-package ooga.game;
+package ooga.Model.game;
 
 import java.util.ArrayList;
 import java.util.Collection;
