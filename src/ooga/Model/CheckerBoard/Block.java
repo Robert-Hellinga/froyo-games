@@ -1,6 +1,6 @@
-package ooga.Model.game;
+package ooga.Model.CheckerBoard;
 
-import ooga.Model.game.GridGame.BlockState;
+import ooga.Model.CheckerBoard.BlockGrid.BlockState;
 
 public abstract class Block {
   protected BlockState blockState;

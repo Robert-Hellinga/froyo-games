@@ -1,4 +1,4 @@
-package ooga.Model.game;
+package ooga.Model.CheckerBoard;
 
 import java.util.List;
 

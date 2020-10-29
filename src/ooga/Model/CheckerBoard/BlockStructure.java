@@ -1,7 +1,6 @@
-package ooga.Model.game;
+package ooga.Model.CheckerBoard;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class BlockStructure {
@@ -13,11 +12,11 @@ public class BlockStructure {
 
   private void initiateBlockStructure(BlockConfigStructure allBlockConfig, String gameType){
     List<List<Block>> initialAllBlocks = new ArrayList<>();
-    for (int i = 0; i < GridGame.SIZE; i++){
+    for (int i = 0; i < BlockGrid.SIZE; i++){
       List<Block> blockLine = new ArrayList<>();
-      for (int j = 0; j < GridGame.SIZE; j++){
+      for (int j = 0; j < BlockGrid.SIZE; j++){
         Integer cellConfig = allBlockConfig.getBlockConfigStructure().get(i).get(j);
-        blockLine.add(GridGame.createBlock(gameType, cellConfig));
+        blockLine.add(BlockGrid.createBlock(gameType, cellConfig));
       }
       initialAllBlocks.add(blockLine);
     }

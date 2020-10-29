@@ -1,9 +1,12 @@
 package ooga.Model.Player;
 
 public abstract class Player {
+  protected static String name;
+  protected static int ID;
 
-  private static String name;
-  private static int ID;
+  public Player(String name){
+    this.name = name;
+  }
 
   public static int getID() {
     return ID;

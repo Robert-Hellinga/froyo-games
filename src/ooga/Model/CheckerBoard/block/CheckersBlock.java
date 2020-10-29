@@ -1,7 +1,7 @@
-package ooga.Model.game.block;
+package ooga.Model.CheckerBoard.block;
 
-import ooga.Model.game.Block;
-import ooga.Model.game.GridGame.BlockState;
+import ooga.Model.CheckerBoard.Block;
+import ooga.Model.CheckerBoard.BlockGrid.BlockState;
 
 public class CheckersBlock extends Block {
 
@@ -17,4 +17,6 @@ public class CheckersBlock extends Block {
       default -> blockState = BlockState.EMPTY;
     }
   }
+
+
 }
