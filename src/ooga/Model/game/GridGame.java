@@ -1,7 +1,11 @@
 package ooga.Model.game;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import ooga.Model.Exception.ClassOrMethodNotFoundException;
 
 public class GridGame {
   public enum BlockState {
@@ -14,16 +18,23 @@ public class GridGame {
   private BlockStructure allBlocks;
   private String gameType;
 
-  public GridGame(String gameType){
+  public GridGame(String gameType, BlockConfigStructure allBlockConfig){
     this.gameType = gameType;
+    this.allBlocks = new BlockStructure(gameType, allBlockConfig);
   }
 
-  private void createAllBlock(){
-    Collection<Collection<Block>> initialAllBlocks = new ArrayList<>();
-    for (int i = 0; i < SIZE; i++){
-      for (int j = 0; j < SIZE; j++){
 
-      }
+  public static Block createBlock(String gameType, int blockConfig) throws ClassOrMethodNotFoundException{
+    try{
+      Class<?> block = Class.forName("ooga.Model.game.block." + gameType + "Block");
+      Class<?>[] param = {Integer.class};
+      Constructor<?> cons = block.getConstructor(param);
+      Object[] paramObject = {blockConfig};
+      Object gameBlock = cons.newInstance(paramObject);
+      return (Block) gameBlock;
+    }
+    catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e){
+      throw new ClassOrMethodNotFoundException("class or method is not found");
     }
   }
 }
