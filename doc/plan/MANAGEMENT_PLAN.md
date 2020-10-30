@@ -34,7 +34,7 @@ Tasks:
  * Create model functionality for Connect 4 and Checkers
  * Create controller and connect Model with View by end of sprint
 
-Sprint 2: Checkers, AI implemented
+Sprint 2: Othello, AI implemented
 
 Complete: Social working, double-check/fix design problems
 
