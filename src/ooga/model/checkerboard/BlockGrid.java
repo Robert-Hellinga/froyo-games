@@ -23,7 +23,7 @@ public class BlockGrid {
 
   public static Block createBlock(String gameType, int blockConfig) throws ClassOrMethodNotFoundException{
     try{
-      Class<?> block = Class.forName("ooga.Model.CheckerBoard.block." + gameType + "Block");
+      Class<?> block = Class.forName("ooga.model.checkerboard.block." + gameType + "Block");
       Class<?>[] param = {Integer.class};
       Constructor<?> cons = block.getConstructor(param);
       Object[] paramObject = {blockConfig};

@@ -21,7 +21,7 @@ public class PieceGrid {
 
   public static Piece createPiece(String gameType, int state, int xCoordinate, int yCoordinate){
     try{
-      Class<?> piece = Class.forName("ooga.View.Pieces." + gameType + "Piece");
+      Class<?> piece = Class.forName("ooga.view.pieces." + gameType + "Piece");
       Class<?>[] param = {Integer.class, Integer.class, Integer.class};
       Constructor<?> cons = piece.getConstructor(param);
       Object[] paramObject = {state, xCoordinate, yCoordinate};
