@@ -6,20 +6,22 @@ import ooga.exceptions.ClassOrMethodNotFoundException;
 
 public class BlockGrid {
 
-  public enum BlockState {
+  /*public enum BlockState {
     CHECKER_PLAYER_1,
     CHECKER_PLAYER_2,
     EMPTY,
-  }
+  }*/
 
   public final static int SIZE = 8;
+  private final int numPlayers;
 
   private BlockStructure allBlocks;
   private String gameType;
 
-  public BlockGrid(String gameType, BlockConfigStructure allBlockConfig) {
+  public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
     this.gameType = gameType;
     this.allBlocks = new BlockStructure(this.gameType, allBlockConfig);
+    this.numPlayers = numPlayers;
   }
 
 

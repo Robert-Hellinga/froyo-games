@@ -1,7 +1,6 @@
 package ooga.model.checkerboard.block;
 
 import ooga.model.checkerboard.Block;
-import ooga.model.checkerboard.BlockGrid.BlockState;
 
 public class CheckersBlock extends Block {
 
@@ -11,10 +10,10 @@ public class CheckersBlock extends Block {
 
   @Override
   public void initiateBlockState(int blockConfig) {
-    switch (blockConfig) {
-      case 1 -> blockState = BlockState.CHECKER_PLAYER_1;
-      case 2 -> blockState = BlockState.CHECKER_PLAYER_2;
-      default -> blockState = BlockState.EMPTY;
+    if (blockConfig == 0) {
+      this.isEmpty = true;
+    } else {
+      this.PlayerID = blockConfig;
     }
   }
 }

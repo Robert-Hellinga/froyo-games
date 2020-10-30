@@ -15,11 +15,12 @@ public class Game {
   private String gameType;
   private List<Player> allPlayers = new ArrayList<>();
   private BlockGrid checkBoard;
+  private int numPlayers;
   private Player currentPlayer;
 
   public Game(String gameType, String playerName, PlayerMode playerMode) {
     this.gameType = gameType;
-    checkBoard = new BlockGrid(gameType, getInitiationBlockConfig(gameType));
+    checkBoard = new BlockGrid(gameType, getInitiationBlockConfig(gameType), numPlayers);
     //there is always a player that is a human player
     allPlayers.add(createHumanPlayer(gameType, playerName));
     //player 2 depends on the player mode chosen

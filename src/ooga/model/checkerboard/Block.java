@@ -1,10 +1,10 @@
 package ooga.model.checkerboard;
 
-import ooga.model.checkerboard.BlockGrid.BlockState;
-
 public abstract class Block {
 
-  protected BlockState blockState;
+  //  protected BlockState blockState;
+  protected int PlayerID;
+  protected boolean isEmpty = false;
 
   public Block(int blockConfig) {
     initiateBlockState(blockConfig);
