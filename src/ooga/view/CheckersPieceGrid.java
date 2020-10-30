@@ -11,14 +11,14 @@ public class CheckersPieceGrid extends PieceGrid{
   }
 
   @Override
-  public void updatePieceGrid() {
-    updatePieceClickableStatus();
+  public void updatePieceGrid(int playerInTurn) {
+    updatePieceClickableStatus(playerInTurn);
   }
 
-  private void updatePieceClickableStatus(){
+  private void updatePieceClickableStatus(int playerInTurn){
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
       for(Piece piece : pieceList){
-        piece.makePieceClickable(allPieces);
+        piece.makePieceClickable(allPieces, playerInTurn);
       }
     }
   }

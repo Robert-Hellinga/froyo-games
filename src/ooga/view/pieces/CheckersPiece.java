@@ -13,8 +13,8 @@ public class CheckersPiece extends Piece {
   }
 
   @Override
-  public void makePieceClickable(PieceStructure allPieces) {
-    if (state != 0){
+  public void makePieceClickable(PieceStructure allPieces, int playerInTurn) {
+    if (state == playerInTurn){
       pieceShape.setOnMouseClicked(event -> choosePiece(allPieces));
     }
   }

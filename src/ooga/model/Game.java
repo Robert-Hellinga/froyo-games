@@ -27,7 +27,6 @@ public class Game {
   }
 
   public void play(){
-
     playerTakeTurn();
   }
 
@@ -39,7 +38,7 @@ public class Game {
 
   public static Player createHumanPlayer(String gameType, String name){
     try{
-      Class<?> player = Class.forName("ooga.model.player.humanplayer" + gameType + "HumanPlayer");
+      Class<?> player = Class.forName("ooga.model.player.humanplayer." + gameType + "HumanPlayer");
       Class<?>[] param = {String.class};
       Constructor<?> cons = player.getConstructor(param);
       Object[] paramObject = {name};
@@ -53,7 +52,7 @@ public class Game {
 
   public static Player createAIPlayer(String gameType){
     try{
-      Class<?> player = Class.forName("ooga.model.player.aiplayer" + gameType + "AIPlayer");
+      Class<?> player = Class.forName("ooga.model.player.aiplayer." + gameType + "AIPlayer");
       Class<?>[] param = {};
       Constructor<?> cons = player.getConstructor(param);
       Object[] paramObject = {};
@@ -94,6 +93,6 @@ public class Game {
   }
 
   public int getCurrentPlayerIndex(){
-    return allPlayers.indexOf(currentPlayer);
+    return allPlayers.indexOf(currentPlayer) + 1;
   }
 }

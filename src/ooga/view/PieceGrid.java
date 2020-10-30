@@ -33,7 +33,7 @@ public abstract class PieceGrid {
     }
   }
 
-  public abstract void updatePieceGrid();
+  public abstract void updatePieceGrid(int playerInTurn);
 
   private void setAllPiecesToRoot(){
     for (List<Piece> piecesLine : allPieces.getAllPieces()){

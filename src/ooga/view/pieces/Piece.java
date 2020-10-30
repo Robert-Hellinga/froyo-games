@@ -38,7 +38,7 @@ public abstract class Piece {
     pieceShape.setFill(STATE_COLOR.get(state));
   }
 
-  public abstract void makePieceClickable(PieceStructure allPieces);
+  public abstract void makePieceClickable(PieceStructure allPieces, int playerInTurn);
 
   public Circle getPieceShape() {
     return pieceShape;
