@@ -22,4 +22,12 @@ public class BlockConfigStructure {
   public List<List<Integer>> getBlockConfigStructure() {
     return blockConfigStructure;
   }
+
+  public int getBlockConfigStructureHeight(){
+    return blockConfigStructure.size();
+  }
+
+  public int getBlockConfigStructureWidth(){
+    return blockConfigStructure.get(0).size();
+  }
 }

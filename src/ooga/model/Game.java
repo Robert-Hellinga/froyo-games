@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
 import ooga.model.checkerboard.BlockConfigStructure;
@@ -92,5 +93,15 @@ public class Game {
 
   public int getCurrentPlayerIndex() {
     return allPlayers.indexOf(currentPlayer) + 1;
+  }
+
+  public void updatePieceChosen(Coordinate chosenPieceCoordinate){
+    if (chosenPieceCoordinate.xCoordinate() != -1){
+      checkBoard.setChosenBlock(chosenPieceCoordinate);
+    }
+  }
+
+  public List<Coordinate> getPotentialMovePos(){
+    return checkBoard.getAvailablePosition(getCurrentPlayerIndex());
   }
 }
