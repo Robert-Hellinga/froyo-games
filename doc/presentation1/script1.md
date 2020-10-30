@@ -18,7 +18,8 @@
     * Start the game over against AI (resets everything in current game)
     * Save the game
         * Saves state of board and whose turn it is, so that game can be resumed later
-    * 
+    * Change the look/theme of the game
+        * Using CSS files
 * who is expected to work on which parts of the project
 * what features you expect to complete during each of the three Sprints
 * demo the User Interface Wireframe to show how the user will interact with the program
