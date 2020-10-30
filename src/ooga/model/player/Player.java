@@ -1,10 +1,11 @@
 package ooga.model.player;
 
 public abstract class Player {
+
   protected static String name;
   protected static int ID;
 
-  public Player(String name){
+  public Player(String name) {
     this.name = name;
   }
 
