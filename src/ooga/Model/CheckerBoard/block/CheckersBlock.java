@@ -5,7 +5,7 @@ import ooga.Model.CheckerBoard.BlockGrid.BlockState;
 
 public class CheckersBlock extends Block {
 
-  public CheckersBlock(int blockConfig){
+  public CheckersBlock(Integer blockConfig){
     super(blockConfig);
   }
 

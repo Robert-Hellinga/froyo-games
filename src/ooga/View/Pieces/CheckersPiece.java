@@ -1,19 +1,25 @@
 package ooga.View.Pieces;
 
-import ooga.View.Piece;
+public class CheckersPiece extends Piece {
 
-public class CheckersPieces extends Piece {
+  private boolean pieceChosen = false;
 
-  public CheckersPieces(int state, int xCoordinate, int yCoordinate){
+  public CheckersPiece(Integer state, Integer xCoordinate, Integer yCoordinate){
     super(state, xCoordinate, yCoordinate);
+    makePieceClickable();
   }
 
   @Override
   protected void makePieceClickable() {
-    if 
+    if (state != 0){
+      pieceShape.setOnMouseClicked(event -> pieceChosen());
+    }
   }
 
   private void pieceChosen(){
-
+    pieceShape.setStroke(Piece.CHOSEN_COLOR);
+    pieceChosen = true;
   }
+
+
 }

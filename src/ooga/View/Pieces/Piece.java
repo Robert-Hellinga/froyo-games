@@ -1,4 +1,4 @@
-package ooga.View;
+package ooga.View.Pieces;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +10,8 @@ public abstract class Piece {
   //TODO: configure color data to data file
   public static final Map<Integer, Color> STATE_COLOR = new HashMap<>(){{
     put(0, Color.color(0,0,0,0));
-    put(1, Color.color(0, 188, 255));
-    put(2, Color.color(183, 29, 29));
+    put(1, Color.rgb(0, 188, 255));
+    put(2, Color.rgb(183, 29, 29));
   }};
   public static final Color CHOSEN_COLOR = Color.YELLOW;
 
@@ -36,4 +36,14 @@ public abstract class Piece {
   }
 
   protected abstract void makePieceClickable();
+
+  public Circle getPieceShape() {
+    return pieceShape;
+  }
+
+  public void setState(int state) {
+    this.state = state;
+  }
+
+
 }

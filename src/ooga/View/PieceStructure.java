@@ -2,20 +2,20 @@ package ooga.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.shape.Circle;
+import ooga.View.Pieces.Piece;
 
 public class PieceStructure{
   private List<List<Piece>> allPieces = new ArrayList<>();
 
-  public PieceStructure(PieceStateStructure allPiecesState){
-    initiateAllPieces(allPiecesState);
+  public PieceStructure(String gameType, PieceStateStructure allPiecesState){
+    initiateAllPieces(allPiecesState, gameType);
   }
 
-  private void initiateAllPieces(PieceStateStructure allPiecesState){
+  private void initiateAllPieces(PieceStateStructure allPiecesState, String gameType){
     for (int i = 0; i < allPiecesState.getPieceStructureHeight(); i++){
       List<Piece> pieceLine = new ArrayList<>();
       for (int j = 0; j < allPiecesState.getPieceStructureWidth(); j++){
-        pieceLine.add(new Piece(allPiecesState.getPieceState(j, i), j, i));
+        pieceLine.add(PieceGrid.createPiece(gameType, allPiecesState.getPieceState(j, i), j, i));
       }
       allPieces.add(pieceLine);
     }
