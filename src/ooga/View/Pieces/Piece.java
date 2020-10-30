@@ -6,13 +6,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public abstract class Piece {
-  public final int SIZE = 15;
+  public static final int SIZE = 15;
   //TODO: configure color data to data file
-  public final Map<Integer, Color> STATE_COLOR = new HashMap<>(){{
+  public static final Map<Integer, Color> STATE_COLOR = new HashMap<>(){{
     put(0, Color.color(0,0,0,0));
     put(1, Color.color(0, 188, 255));
     put(2, Color.color(183, 29, 29));
   }};
+  public static final Color CHOSEN_COLOR = Color.YELLOW;
 
   protected Circle pieceShape;
   protected int state;

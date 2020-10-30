@@ -10,7 +10,7 @@ public class CheckersPieces extends Piece {
 
   @Override
   protected void makePieceClickable() {
-
+    if 
   }
 
   private void pieceChosen(){
