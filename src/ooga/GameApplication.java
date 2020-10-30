@@ -9,13 +9,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Display extends Application {
+public class GameApplication extends Application {
 
   //just put some random value here
   public static final int SIZE_HEIGHT = 400;
   public static final int SIZE_WIDTH = 350;
   public static final Color BACKGROUND = Color.BLACK;
-  public static final int SECOND_DELAY = 20;
+  public static final int FRAMES_PER_SECOND = 60;
+  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
   private Stage stage;
   private Scene scene;
@@ -49,6 +50,6 @@ public class Display extends Application {
   }
 
   public void step(double elapsedTime){
-
+    gameController.update();
   }
 }

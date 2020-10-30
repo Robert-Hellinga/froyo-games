@@ -7,10 +7,10 @@ import javafx.scene.Group;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.view.pieces.Piece;
 
-public class PieceGrid {
-  private PieceStructure allPieces;
-  private String gameType;
-  private Group root;
+public abstract class PieceGrid {
+  protected PieceStructure allPieces;
+  protected String gameType;
+  protected Group root;
 
   public PieceGrid(String gameType, PieceStateStructure initiationPiecesState, Group root){
     this.gameType = gameType;
@@ -32,6 +32,8 @@ public class PieceGrid {
       throw new ClassOrMethodNotFoundException("class or method is not found");
     }
   }
+
+  public abstract void updatePieceGrid();
 
   private void setAllPiecesToRoot(){
     for (List<Piece> piecesLine : allPieces.getAllPieces()){

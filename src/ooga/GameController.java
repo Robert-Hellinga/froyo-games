@@ -3,6 +3,7 @@ package ooga;
 import javafx.scene.Group;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockGrid;
+import ooga.view.CheckersPieceGrid;
 import ooga.view.PieceGrid;
 import ooga.view.PieceStateStructure;
 
@@ -23,6 +24,10 @@ public class GameController {
 
   public GameController(String gameType, Group root){
     blockGrid = new BlockGrid(gameType, initialBlockConfig);
-    pieceGrid = new PieceGrid(gameType, initialPieceState, root);
+    pieceGrid = new CheckersPieceGrid(gameType, initialPieceState, root);
+  }
+
+  public void update(){
+    pieceGrid.updatePieceGrid();
   }
 }
