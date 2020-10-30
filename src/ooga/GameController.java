@@ -1,10 +1,10 @@
 package ooga;
 
 import javafx.scene.Group;
-import ooga.Model.CheckerBoard.BlockConfigStructure;
-import ooga.Model.CheckerBoard.BlockGrid;
-import ooga.View.PieceGrid;
-import ooga.View.PieceStateStructure;
+import ooga.model.checkerboard.BlockConfigStructure;
+import ooga.model.checkerboard.BlockGrid;
+import ooga.view.PieceGrid;
+import ooga.view.PieceStateStructure;
 
 public class GameController {
 

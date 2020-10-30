@@ -1,4 +1,5 @@
-package ooga.View.Pieces;
+
+package ooga.view.pieces;
 
 import java.util.HashMap;
 import java.util.Map;

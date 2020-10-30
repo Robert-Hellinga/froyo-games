@@ -1,8 +1,8 @@
-package ooga.View;
+package ooga.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import ooga.View.Pieces.Piece;
+import ooga.view.pieces.Piece;
 
 public class PieceStructure{
   private List<List<Piece>> allPieces = new ArrayList<>();

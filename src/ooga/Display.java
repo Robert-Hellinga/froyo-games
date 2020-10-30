@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.View.PieceGrid;
 
 public class Display extends Application {
 

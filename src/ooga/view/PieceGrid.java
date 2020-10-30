@@ -1,11 +1,11 @@
-package ooga.View;
+package ooga.view;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javafx.scene.Group;
-import ooga.Exception.ClassOrMethodNotFoundException;
-import ooga.View.Pieces.Piece;
+import ooga.exceptions.ClassOrMethodNotFoundException;
+import ooga.view.pieces.Piece;
 
 public class PieceGrid {
   private PieceStructure allPieces;

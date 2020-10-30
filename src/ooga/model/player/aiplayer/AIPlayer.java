@@ -1,7 +1,7 @@
-package ooga.Model.Player.AIPlayer;
+package ooga.model.player.aiplayer;
 
-import ooga.Model.Player.Move;
-import ooga.Model.Player.Player;
+import ooga.model.player.Move;
+import ooga.model.player.Player;
 
 public abstract class AIPlayer extends Player {
 

@@ -1,4 +1,4 @@
-package ooga.View;
+package ooga.view;
 
 import java.util.ArrayList;
 import java.util.List;
