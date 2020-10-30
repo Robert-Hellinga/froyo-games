@@ -28,8 +28,12 @@ public class Game {
     currentPlayer = decideWhichPlayerGoFirst(playerMode);
   }
 
+<<<<<<< HEAD
   public void play() {
 
+=======
+  public void play(){
+>>>>>>> master
     playerTakeTurn();
   }
 
@@ -39,9 +43,15 @@ public class Game {
     return new BlockConfigStructure();
   }
 
+<<<<<<< HEAD
   public static Player createHumanPlayer(String gameType, String name) {
     try {
       Class<?> player = Class.forName("ooga.model.player.humanplayer" + gameType + "HumanPlayer");
+=======
+  public static Player createHumanPlayer(String gameType, String name){
+    try{
+      Class<?> player = Class.forName("ooga.model.player.humanplayer." + gameType + "HumanPlayer");
+>>>>>>> master
       Class<?>[] param = {String.class};
       Constructor<?> cons = player.getConstructor(param);
       Object[] paramObject = {name};
@@ -52,9 +62,15 @@ public class Game {
     }
   }
 
+<<<<<<< HEAD
   public static Player createAIPlayer(String gameType) {
     try {
       Class<?> player = Class.forName("ooga.model.player.aiplayer" + gameType + "AIPlayer");
+=======
+  public static Player createAIPlayer(String gameType){
+    try{
+      Class<?> player = Class.forName("ooga.model.player.aiplayer." + gameType + "AIPlayer");
+>>>>>>> master
       Class<?>[] param = {};
       Constructor<?> cons = player.getConstructor(param);
       Object[] paramObject = {};
@@ -91,7 +107,12 @@ public class Game {
     }
   }
 
+<<<<<<< HEAD
   public int getCurrentPlayerIndex() {
     return allPlayers.indexOf(currentPlayer);
+=======
+  public int getCurrentPlayerIndex(){
+    return allPlayers.indexOf(currentPlayer) + 1;
+>>>>>>> master
   }
 }
