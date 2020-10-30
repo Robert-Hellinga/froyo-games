@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import ooga.Coordinate;
 import ooga.view.PieceStructure;
 
 public abstract class Piece {
@@ -15,26 +16,26 @@ public abstract class Piece {
     put(1, Color.rgb(0, 188, 255));
     put(2, Color.rgb(183, 29, 29));
   }};
-  public static final Color CHOSEN_COLOR = Color.YELLOW;
+  public static final Color CHOSEN_STROKE_COLOR = Color.YELLOW;
   public static final Color UNCHOSEN_COLOR = Color.rgb(0,0,0,0);
+  public static final Color POTENTIAL_COLOR = Color.rgb(39, 255, 0, 0.33);
+  public static final Color POTENTIAL_STROKE_COLOR = Color.rgb(39, 255, 0);
 
   protected Circle pieceShape;
   protected int state;
-  protected int xCoordinate;
-  protected int yCoordinate;
+  protected Coordinate coordinate;
 
-  public Piece(int state, int xCoordinate, int yCoordinate){
+  public Piece(int state, Coordinate coordinate){
     this.state = state;
-    this.xCoordinate = xCoordinate;
-    this.yCoordinate = yCoordinate;
-    initiatePieceShape(xCoordinate, yCoordinate);
+    this.coordinate = coordinate;
+    initiatePieceShape(coordinate);
   }
 
-  private void initiatePieceShape(int xCoordinate, int yCoordinate){
+  private void initiatePieceShape(Coordinate coordinate){
     pieceShape = new Circle();
     pieceShape.setRadius(SIZE);
-    pieceShape.setCenterY(SIZE + yCoordinate * 2 * SIZE);
-    pieceShape.setCenterX(SIZE + xCoordinate * 2 * SIZE);
+    pieceShape.setCenterY(SIZE + coordinate.yCoordinate() * 2 * SIZE);
+    pieceShape.setCenterX(SIZE + coordinate.xCoordinate() * 2 * SIZE);
     pieceShape.setFill(STATE_COLOR.get(state));
   }
 
@@ -53,4 +54,6 @@ public abstract class Piece {
   }
 
   public void unChoosePiece(){}
+
+  public void showAsPotentialMovePos(){}
 }

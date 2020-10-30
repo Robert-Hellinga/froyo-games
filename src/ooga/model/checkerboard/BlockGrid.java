@@ -2,7 +2,10 @@ package ooga.model.checkerboard;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
+import ooga.model.checkerboard.block.Block;
 
 public class BlockGrid {
 
@@ -12,11 +15,11 @@ public class BlockGrid {
     EMPTY,
   }*/
 
-  public final static int SIZE = 8;
   private final int numPlayers;
 
-  private BlockStructure allBlocks;
+  private final BlockStructure allBlocks;
   private String gameType;
+  private Coordinate chosenBlock;
 
   public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
     this.gameType = gameType;
@@ -25,13 +28,13 @@ public class BlockGrid {
   }
 
 
-  public static Block createBlock(String gameType, int blockConfig)
+  public static Block createBlock(String gameType, int blockConfig, Coordinate coordinate)
       throws ClassOrMethodNotFoundException {
     try {
       Class<?> block = Class.forName("ooga.model.checkerboard.block." + gameType + "Block");
-      Class<?>[] param = {Integer.class};
+      Class<?>[] param = {Integer.class, Coordinate.class};
       Constructor<?> cons = block.getConstructor(param);
-      Object[] paramObject = {blockConfig};
+      Object[] paramObject = {blockConfig, coordinate};
       Object gameBlock = cons.newInstance(paramObject);
       return (Block) gameBlock;
     } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
@@ -41,5 +44,14 @@ public class BlockGrid {
 
   public BlockStructure getAllBlocks() {
     return allBlocks;
+  }
+
+  public void setChosenBlock(Coordinate chosenBlock){
+    this.chosenBlock = chosenBlock;
+  }
+
+  //this method is only for checkers game
+  public List<Coordinate> getAvailablePosition(int currentPlayerIndex){
+    return allBlocks.getBlock(chosenBlock).getAvailablePosition(currentPlayerIndex, allBlocks);
   }
 }

@@ -21,11 +21,11 @@ public class PieceStateStructure {
     return pieceStateStructure;
   }
 
-  public int getPieceStructureHeight(){
+  public int getPieceStateStructureHeight(){
     return pieceStateStructure.size();
   }
 
-  public int getPieceStructureWidth(){
+  public int getPieceStateStructureWidth(){
     return pieceStateStructure.get(0).size();
   }
 

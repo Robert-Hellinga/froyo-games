@@ -1,10 +1,13 @@
-package ooga.view;
+package ooga.view.piecegrid;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javafx.scene.Group;
+import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
+import ooga.view.PieceStateStructure;
+import ooga.view.PieceStructure;
 import ooga.view.pieces.Piece;
 
 public abstract class PieceGrid {
@@ -19,12 +22,12 @@ public abstract class PieceGrid {
     setAllPiecesToRoot();
   }
 
-  public static Piece createPiece(String gameType, int state, int xCoordinate, int yCoordinate){
+  public static Piece createPiece(String gameType, int state, Coordinate coordinate){
     try{
       Class<?> piece = Class.forName("ooga.view.pieces." + gameType + "Piece");
-      Class<?>[] param = {Integer.class, Integer.class, Integer.class};
+      Class<?>[] param = {Integer.class, Coordinate.class};
       Constructor<?> cons = piece.getConstructor(param);
-      Object[] paramObject = {state, xCoordinate, yCoordinate};
+      Object[] paramObject = {state, coordinate};
       Object gamePiece = cons.newInstance(paramObject);
       return (Piece) gamePiece;
     }
@@ -33,7 +36,9 @@ public abstract class PieceGrid {
     }
   }
 
-  public abstract void updatePieceGrid(int playerInTurn);
+  public abstract void updatePieceClickableStatus(int playerInTurn);
+
+  public abstract Coordinate getChosenPieceCoordinate();
 
   private void setAllPiecesToRoot(){
     for (List<Piece> piecesLine : allPieces.getAllPieces()){
@@ -42,4 +47,6 @@ public abstract class PieceGrid {
       }
     }
   }
+
+  public void showPotentialMove(List<Coordinate> potentialCoordinate){ }
 }

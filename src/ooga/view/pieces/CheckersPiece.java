@@ -2,14 +2,15 @@ package ooga.view.pieces;
 
 import java.util.List;
 import java.util.Objects;
+import ooga.Coordinate;
 import ooga.view.PieceStructure;
 
 public class CheckersPiece extends Piece {
 
   private boolean pieceChosen = false;
 
-  public CheckersPiece(Integer state, Integer xCoordinate, Integer yCoordinate){
-    super(state, xCoordinate, yCoordinate);
+  public CheckersPiece(Integer state, Coordinate coordinate){
+    super(state, coordinate);
   }
 
   @Override
@@ -29,7 +30,7 @@ public class CheckersPiece extends Piece {
     if (checkIfThereIsPieceChosen(allPieces) != null){
       Objects.requireNonNull(checkIfThereIsPieceChosen(allPieces)).unChoosePiece();
     }
-    pieceShape.setStroke(Piece.CHOSEN_COLOR);
+    pieceShape.setStroke(Piece.CHOSEN_STROKE_COLOR);
     pieceChosen = true;
   }
 
@@ -44,6 +45,11 @@ public class CheckersPiece extends Piece {
     return null;
   }
 
+  @Override
+  public void showAsPotentialMovePos() {
+    pieceShape.setFill(Piece.POTENTIAL_COLOR);
+    pieceShape.setStroke(Piece.POTENTIAL_STROKE_COLOR);
+  }
 
   @Override
   public boolean getPieceChosen(){
