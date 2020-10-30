@@ -89,8 +89,22 @@
         * Open to extension
         * Lays out framework in advance so we know which methods we need to implement to have whole program function together
 * describe two Use Cases in detail that show off how to use each of the APIs described above
-    * User starts a game of checkers against AI player
-        * 
-    * 
+   * User starts a game of checkers against AI player
+```java
+  Display display = new Display();
+  //User clicks on Checkers button,
+  GridGame game = new Checkers(Player.Player.HumanPlayer, CheckersAI); //made in controller
+```  
+   * User makes a move on checker board
+```java
+    Point[] possibleMoves = CheckersController.getPossibleMoves(Point);
+    CheckersUI.showPossibleMoves(possibleMoves);
+    // User clicks on one of possible moves
+    CheckersController.movePiece(Point start, Point end);
+    //controller makes call to checkers game
+    CheckersGame.makeMove(Point start, Point end);
+    // make move notifies observers, which calls following
+    CheckersUI.update();
+```  
 * describe one alternative design considered and what trade-offs led to it not being chosen
-    * Having 
+    * Composition vs Inheritance for grid games
