@@ -50,6 +50,10 @@ public abstract class Piece {
     this.state = state;
   }
 
+  public int getState() {
+    return state;
+  }
+
   public boolean getPieceChosen() {
     return false;
   }

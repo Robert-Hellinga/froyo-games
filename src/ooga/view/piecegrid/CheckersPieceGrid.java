@@ -37,10 +37,12 @@ public class CheckersPieceGrid extends PieceGrid {
   public void showPotentialMove(List<Coordinate> potentialCoordinate) {
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
       for (Piece piece : pieceList) {
-        if (potentialCoordinate.contains(allPieces.getPieceCoordinate(piece))) {
-          piece.showAsPotentialMovePos();
-        } else {
-          piece.showAsUnPotentialMovePos();
+        if (piece.getState() == 0) {
+          if (potentialCoordinate.contains(allPieces.getPieceCoordinate(piece))) {
+            piece.showAsPotentialMovePos();
+          } else {
+            piece.showAsUnPotentialMovePos();
+          }
         }
       }
     }
