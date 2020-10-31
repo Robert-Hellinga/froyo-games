@@ -2,6 +2,7 @@ package ooga.model.checkerboard;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
@@ -52,6 +53,9 @@ public class BlockGrid {
 
   //this method is only for checkers game
   public List<Coordinate> getAvailablePosition(int currentPlayerIndex){
+    if (chosenBlock == null) {
+      return new ArrayList<>();
+    }
     return allBlocks.getBlock(chosenBlock).getAvailablePosition(currentPlayerIndex, allBlocks);
   }
 }
