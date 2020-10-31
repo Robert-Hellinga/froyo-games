@@ -18,9 +18,10 @@ public abstract class Block {
 
   public abstract void initiateBlockState(int blockConfig);
 
-  public abstract List<Coordinate> getAvailablePosition(int currentPlayerIndex, BlockStructure allBlocks);
+  public abstract List<Coordinate> getAvailablePosition(int currentPlayerIndex,
+      BlockStructure allBlocks);
 
-  public boolean getIsEmpty(){
+  public boolean getIsEmpty() {
     return isEmpty;
   }
 }

@@ -33,15 +33,15 @@ public class BlockStructure {
     this.blockStructure = blockStructure;
   }
 
-  public Block getBlock(Coordinate blockCoordinate){
+  public Block getBlock(Coordinate blockCoordinate) {
     return blockStructure.get(blockCoordinate.yCoordinate()).get(blockCoordinate.xCoordinate());
   }
 
-  public int getBlockStructureHeight(){
+  public int getBlockStructureHeight() {
     return blockStructure.size();
   }
 
-  public int getBlockStructureWidth(){
+  public int getBlockStructureWidth() {
     return blockStructure.get(0).size();
   }
 }

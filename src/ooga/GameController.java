@@ -25,13 +25,12 @@ public class GameController {
   private Coordinate pieceChosen;
 
 
-
-  public GameController(String gameType, Group root){
+  public GameController(String gameType, Group root) {
     game = new Game(gameType, "Anna", ooga.controller.GameController.PlayerMode.PLAY_WITH_AI);
     pieceGrid = new CheckersPieceGrid(gameType, initialPieceState, root);
   }
 
-  public void update(){
+  public void update() {
     playerInTurn = game.getCurrentPlayerIndex();
     pieceGrid.updatePieceClickableStatus(playerInTurn);
     pieceChosen = pieceGrid.getChosenPieceCoordinate();

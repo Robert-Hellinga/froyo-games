@@ -11,27 +11,27 @@ import ooga.view.PieceStructure;
 import ooga.view.pieces.Piece;
 
 public abstract class PieceGrid {
+
   protected PieceStructure allPieces;
   protected String gameType;
   protected Group root;
 
-  public PieceGrid(String gameType, PieceStateStructure initiationPiecesState, Group root){
+  public PieceGrid(String gameType, PieceStateStructure initiationPiecesState, Group root) {
     this.gameType = gameType;
     allPieces = new PieceStructure(this.gameType, initiationPiecesState);
     this.root = root;
     setAllPiecesToRoot();
   }
 
-  public static Piece createPiece(String gameType, int state, Coordinate coordinate){
-    try{
+  public static Piece createPiece(String gameType, int state, Coordinate coordinate) {
+    try {
       Class<?> piece = Class.forName("ooga.view.pieces." + gameType + "Piece");
       Class<?>[] param = {Integer.class, Coordinate.class};
       Constructor<?> cons = piece.getConstructor(param);
       Object[] paramObject = {state, coordinate};
       Object gamePiece = cons.newInstance(paramObject);
       return (Piece) gamePiece;
-    }
-    catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e){
+    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
       throw new ClassOrMethodNotFoundException("class or method is not found");
     }
   }
@@ -40,13 +40,13 @@ public abstract class PieceGrid {
 
   public abstract Coordinate getChosenPieceCoordinate();
 
-  private void setAllPiecesToRoot(){
-    for (List<Piece> piecesLine : allPieces.getAllPieces()){
-      for (Piece piece : piecesLine){
+  private void setAllPiecesToRoot() {
+    for (List<Piece> piecesLine : allPieces.getAllPieces()) {
+      for (Piece piece : piecesLine) {
         root.getChildren().add(piece.getPieceShape());
       }
     }
   }
 
-  public void showPotentialMove(List<Coordinate> potentialCoordinate){ }
+  public abstract void showPotentialMove(List<Coordinate> potentialCoordinate);
 }

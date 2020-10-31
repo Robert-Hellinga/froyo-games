@@ -7,14 +7,12 @@ public class GameController implements GameControllerInterface {
   Display myDisplay;
 
 
-
-
   public enum PlayerMode {
     PLAY_WITH_AI,
     PLAY_WITH_FRIEND
   }
 
-  public GameController(){
+  public GameController() {
     myDisplay = new Display(this);
   }
 
@@ -47,7 +45,6 @@ public class GameController implements GameControllerInterface {
   public void quitGame() {
 
   }
-
 
 
 }
