@@ -23,12 +23,12 @@ public class GameApplication extends Application {
   private GameController gameController;
   private Group root;
 
-  public static void main(String[] args){
+  public static void main(String[] args) {
     launch(args);
   }
 
   @Override
-  public void start(Stage stage){
+  public void start(Stage stage) {
     scene = setupScene(SIZE_WIDTH, SIZE_HEIGHT, BACKGROUND);
     stage.setScene(scene);
     stage.setTitle("Froyo Game");
@@ -43,13 +43,13 @@ public class GameApplication extends Application {
     animation.play();
   }
 
-  private Scene setupScene(int width, int height, Color background){
+  private Scene setupScene(int width, int height, Color background) {
     root = new Group();
     Scene scene = new Scene(root, width, height, background);
     return scene;
   }
 
-  public void step(double elapsedTime){
+  public void step(double elapsedTime) {
     gameController.update();
   }
 }

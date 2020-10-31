@@ -51,6 +51,11 @@ public class CheckersPiece extends Piece {
     pieceShape.setStroke(Piece.POTENTIAL_STROKE_COLOR);
   }
 
+  public void showAsUnPotentialMovePos() {
+    pieceShape.setFill(STATE_COLOR.get(state));
+    pieceShape.setStroke(STATE_COLOR.get(state));
+  }
+
   @Override
   public boolean getPieceChosen(){
     return pieceChosen;

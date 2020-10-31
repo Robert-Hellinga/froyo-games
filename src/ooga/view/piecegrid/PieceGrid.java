@@ -48,5 +48,5 @@ public abstract class PieceGrid {
     }
   }
 
-  public void showPotentialMove(List<Coordinate> potentialCoordinate){ }
+  public abstract void showPotentialMove(List<Coordinate> potentialCoordinate);
 }

@@ -8,7 +8,7 @@ import ooga.view.pieces.Piece;
 
 public class CheckersPieceGrid extends PieceGrid {
 
-  public CheckersPieceGrid(String gameType, PieceStateStructure initiationPiecesState, Group root){
+  public CheckersPieceGrid(String gameType, PieceStateStructure initiationPiecesState, Group root) {
     super(gameType, initiationPiecesState, root);
   }
 
@@ -16,8 +16,8 @@ public class CheckersPieceGrid extends PieceGrid {
   @Override
   public Coordinate getChosenPieceCoordinate() {
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
-      for(Piece piece : pieceList){
-        if (piece.getPieceChosen()){
+      for (Piece piece : pieceList) {
+        if (piece.getPieceChosen()) {
           return allPieces.getPieceCoordinate(piece);
         }
       }
@@ -25,9 +25,9 @@ public class CheckersPieceGrid extends PieceGrid {
     return new Coordinate(-1, -1);
   }
 
-  public void updatePieceClickableStatus(int playerInTurn){
+  public void updatePieceClickableStatus(int playerInTurn) {
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
-      for(Piece piece : pieceList){
+      for (Piece piece : pieceList) {
         piece.makePieceClickable(allPieces, playerInTurn);
       }
     }
@@ -35,7 +35,16 @@ public class CheckersPieceGrid extends PieceGrid {
 
   @Override
   public void showPotentialMove(List<Coordinate> potentialCoordinate) {
-    for (Coordinate coordinate : potentialCoordinate){
+    for (List<Piece> pieceList : allPieces.getAllPieces()) {
+      for (Piece piece : pieceList) {
+        if (potentialCoordinate.contains(allPieces.getPieceCoordinate(piece))) {
+          piece.showAsPotentialMovePos();
+        } else {
+          piece.showAsUnPotentialMovePos();
+        }
+      }
+    }
+    for (Coordinate coordinate : potentialCoordinate) {
       allPieces.getPiece(coordinate).showAsPotentialMovePos();
     }
   }
