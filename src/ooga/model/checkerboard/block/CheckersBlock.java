@@ -24,8 +24,9 @@ public class CheckersBlock extends Block {
   @Override
   public List<Coordinate> getAvailablePosition(int currentPlayerIndex, BlockStructure allBlocks) {
     List<Coordinate> allAvailablePosition = new ArrayList<>();
-    if (currentPlayerIndex == 1){
-      if (coordinate.xCoordinate()-1 >= 0 && coordinate.yCoordinate()+1 < allBlocks.getBlockStructureHeight()) {
+    if (currentPlayerIndex == 1) {
+      if (coordinate.xCoordinate() - 1 >= 0 && coordinate.yCoordinate() + 1 < allBlocks
+          .getBlockStructureHeight()) {
         if (allBlocks.getBlock(
             new Coordinate(coordinate.xCoordinate() - 1, coordinate.yCoordinate() + 1)
         ).isEmpty) {
@@ -34,7 +35,8 @@ public class CheckersBlock extends Block {
           );
         }
       }
-      if (coordinate.xCoordinate()+1 < allBlocks.getBlockStructureWidth() && coordinate.yCoordinate()+1 < allBlocks.getBlockStructureHeight()){
+      if (coordinate.xCoordinate() + 1 < allBlocks.getBlockStructureWidth()
+          && coordinate.yCoordinate() + 1 < allBlocks.getBlockStructureHeight()) {
         if (allBlocks.getBlock(
             new Coordinate(coordinate.xCoordinate() + 1, coordinate.yCoordinate() + 1)
         ).isEmpty) {
@@ -43,9 +45,8 @@ public class CheckersBlock extends Block {
           );
         }
       }
-    }
-    else if (currentPlayerIndex == 2){
-      if (coordinate.xCoordinate()-1 >= 0 && coordinate.yCoordinate()-1 >=0) {
+    } else if (currentPlayerIndex == 2) {
+      if (coordinate.xCoordinate() - 1 >= 0 && coordinate.yCoordinate() - 1 >= 0) {
         if (allBlocks.getBlock(
             new Coordinate(coordinate.xCoordinate() - 1, coordinate.yCoordinate() - 1)
         ).isEmpty) {
@@ -54,7 +55,8 @@ public class CheckersBlock extends Block {
           );
         }
       }
-      if (coordinate.xCoordinate()+1 < allBlocks.getBlockStructureWidth() && coordinate.yCoordinate()-1 >= 0) {
+      if (coordinate.xCoordinate() + 1 < allBlocks.getBlockStructureWidth()
+          && coordinate.yCoordinate() - 1 >= 0) {
         if (allBlocks.getBlock(
             new Coordinate(coordinate.xCoordinate() + 1, coordinate.yCoordinate() - 1)
         ).isEmpty) {

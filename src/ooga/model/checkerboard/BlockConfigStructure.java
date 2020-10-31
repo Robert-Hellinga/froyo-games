@@ -23,11 +23,11 @@ public class BlockConfigStructure {
     return blockConfigStructure;
   }
 
-  public int getBlockConfigStructureHeight(){
+  public int getBlockConfigStructureHeight() {
     return blockConfigStructure.size();
   }
 
-  public int getBlockConfigStructureWidth(){
+  public int getBlockConfigStructureWidth() {
     return blockConfigStructure.get(0).size();
   }
 }

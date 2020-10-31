@@ -47,12 +47,12 @@ public class BlockGrid {
     return allBlocks;
   }
 
-  public void setChosenBlock(Coordinate chosenBlock){
+  public void setChosenBlock(Coordinate chosenBlock) {
     this.chosenBlock = chosenBlock;
   }
 
   //this method is only for checkers game
-  public List<Coordinate> getAvailablePosition(int currentPlayerIndex){
+  public List<Coordinate> getAvailablePosition(int currentPlayerIndex) {
     if (chosenBlock == null) {
       return new ArrayList<>();
     }
