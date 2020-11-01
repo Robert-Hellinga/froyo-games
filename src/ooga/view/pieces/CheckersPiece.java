@@ -8,6 +8,7 @@ import ooga.view.PieceStructure;
 public class CheckersPiece extends Piece {
 
   private boolean pieceChosen = false;
+  private boolean pieceMoved = false;
 
   public CheckersPiece(Integer state, Coordinate coordinate) {
     super(state, coordinate);
@@ -17,6 +18,9 @@ public class CheckersPiece extends Piece {
   public void makePieceCanBeChosen(PieceStructure allPieces, int playerInTurn) {
     if (state == playerInTurn) {
       pieceShape.setOnMouseClicked(event -> choosePiece(allPieces));
+    }
+    else{
+      pieceShape.setOnMouseClicked(null);
     }
   }
 
@@ -35,7 +39,9 @@ public class CheckersPiece extends Piece {
       for (Piece piece : pieceList){
         if(piece.getPieceChosen()){
           this.setState(piece.getState());
+          updateColor();
           piece.setState(EMPTY_STATE);
+          pieceMoved = true;
         }
       }
     }
@@ -82,5 +88,15 @@ public class CheckersPiece extends Piece {
   public void updateColor(){
     pieceShape.setFill(STATE_COLOR.get(state));
     pieceShape.setStroke(STATE_COLOR.get(state));
+  }
+
+  @Override
+  public boolean getPieceMoved() {
+    return pieceMoved;
+  }
+
+  @Override
+  public void unMovedPiece() {
+    pieceMoved = false;
   }
 }

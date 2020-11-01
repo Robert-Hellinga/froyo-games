@@ -29,10 +29,6 @@ public class Game {
     currentPlayer = decideWhichPlayerGoFirst(playerMode);
   }
 
-  public void play() {
-    playerTakeTurn();
-  }
-
 
   //TODO: add implementation details in this method (not sure if the configuration will be featured in this level of code)
   private BlockConfigStructure getInitiationBlockConfig(String gameType) {
@@ -82,7 +78,7 @@ public class Game {
     }
   }
 
-  private void playerTakeTurn() {
+  public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
     if (currentPlayerIndex == allPlayers.size() - 1) {
       currentPlayer = allPlayers.get(0);

@@ -55,4 +55,8 @@ public abstract class PieceGrid {
   public abstract PieceStateStructure getCurrentPieceState();
 
   public abstract void setPieceState(PieceStateStructure pieceState);
+
+  public boolean checkIfPieceIsMoved(){return false;}
+
+  public void resetPieceMovedChecker(){}
 }

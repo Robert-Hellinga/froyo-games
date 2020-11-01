@@ -74,4 +74,25 @@ public class CheckersPieceGrid extends PieceGrid {
       }
     }
   }
+
+  @Override
+  public boolean checkIfPieceIsMoved() {
+    for (List<Piece> pieceList : allPieces.getAllPieces()) {
+      for (Piece piece : pieceList) {
+        if (piece.getPieceMoved()) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public void resetPieceMovedChecker() {
+    for (List<Piece> pieceList : allPieces.getAllPieces()) {
+      for (Piece piece : pieceList) {
+        piece.unMovedPiece();
+      }
+    }
+  }
 }

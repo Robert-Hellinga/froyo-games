@@ -70,4 +70,8 @@ public abstract class Piece {
   public abstract void makePotentialMovePosUnClickable();
 
   public abstract void updateColor();
+
+  public boolean getPieceMoved(){return false;}
+
+  public void unMovedPiece(){}
 }

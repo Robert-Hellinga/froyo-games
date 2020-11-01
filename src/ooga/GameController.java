@@ -36,9 +36,12 @@ public class GameController {
     pieceChosen = pieceGrid.getChosenPieceCoordinate();
     game.updatePieceChosen(pieceChosen);
     pieceGrid.showPotentialMoveAndMakeClickable(game.getPotentialMovePos());
-    pieceGrid.updateNonemptyColor();
-    convertPieceStateToBlock(game.getCheckBoard().getAllBlocks(), pieceGrid.getCurrentPieceState());
-
+    if (pieceGrid.checkIfPieceIsMoved()){
+      convertPieceStateToBlock(game.getCheckBoard().getAllBlocks(), pieceGrid.getCurrentPieceState());
+      game.playerTakeTurn();
+      pieceGrid.resetPieceMovedChecker();
+    }
+//    pieceGrid.setPieceState(convertBlockToPiece(game.getCheckBoard().getAllBlocks()));
   }
 
   public PieceStateStructure convertBlockToPiece(BlockStructure allBlocks){
@@ -64,6 +67,9 @@ public class GameController {
         Coordinate pieceCoordinate = new Coordinate(j, i);
         if (pieceStateStructure.getPieceState(pieceCoordinate) == Piece.EMPTY_STATE){
           allBlocks.getBlock(pieceCoordinate).setEmpty(true);
+        }
+        else{
+          allBlocks.getBlock(pieceCoordinate).setEmpty(false);
         }
         allBlocks.getBlock(pieceCoordinate).setPlayerID(pieceStateStructure.getPieceState(pieceCoordinate));
       }
