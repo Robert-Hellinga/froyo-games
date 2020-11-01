@@ -51,4 +51,8 @@ public abstract class PieceGrid {
   public abstract void showPotentialMoveAndMakeClickable(List<Coordinate> potentialCoordinate);
 
   public abstract void updateNonemptyColor();
+
+  public abstract PieceStateStructure getCurrentPieceState();
+
+  public abstract void setPieceState(PieceStateStructure pieceState);
 }

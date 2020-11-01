@@ -24,4 +24,16 @@ public abstract class Block {
   public boolean getIsEmpty() {
     return isEmpty;
   }
+
+  public int getPlayerID() {
+    return PlayerID;
+  }
+
+  public void setPlayerID(int playerID) {
+    PlayerID = playerID;
+  }
+
+  public void setEmpty(boolean isEmpty){
+    this.isEmpty = isEmpty;
+  }
 }

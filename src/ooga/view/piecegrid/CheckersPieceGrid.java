@@ -59,4 +59,19 @@ public class CheckersPieceGrid extends PieceGrid {
       }
     }
   }
+
+  @Override
+  public PieceStateStructure getCurrentPieceState() {
+    return allPieces.getAllPieceState();
+  }
+
+  @Override
+  public void setPieceState(PieceStateStructure pieceState) {
+    for (int i = 0; i < allPieces.getPieceStructureHeight(); i++){
+      for (int j = 0; j < allPieces.getPieceStructureWidth(); j++){
+        Coordinate coordinate = new Coordinate(j, i);
+        allPieces.getPiece(coordinate).setState(pieceState.getPieceState(coordinate));
+      }
+    }
+  }
 }

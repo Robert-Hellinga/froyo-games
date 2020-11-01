@@ -18,7 +18,7 @@ public class PieceStructure {
     for (int i = 0; i < allPiecesState.getPieceStateStructureHeight(); i++) {
       List<Piece> pieceLine = new ArrayList<>();
       for (int j = 0; j < allPiecesState.getPieceStateStructureWidth(); j++) {
-        pieceLine.add(PieceGrid.createPiece(gameType, allPiecesState.getPieceState(j, i),
+        pieceLine.add(PieceGrid.createPiece(gameType, allPiecesState.getPieceState(new Coordinate(j, i)),
             new Coordinate(j, i)));
       }
       allPieces.add(pieceLine);
@@ -60,5 +60,17 @@ public class PieceStructure {
 
   public Piece getPiece(Coordinate coordinate) {
     return allPieces.get(coordinate.yCoordinate()).get(coordinate.xCoordinate());
+  }
+
+  public PieceStateStructure getAllPieceState(){
+    List<List<Integer>> pieceStateStructure = new ArrayList<>();
+    for (List<Piece> pieceList : allPieces){
+      List<Integer> pieceStateList = new ArrayList<>();
+      for (Piece piece : pieceList){
+        pieceStateList.add(piece.getState());
+      }
+      pieceStateStructure.add(pieceStateList);
+    }
+    return new PieceStateStructure(pieceStateStructure);
   }
 }

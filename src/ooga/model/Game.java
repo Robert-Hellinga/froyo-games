@@ -104,4 +104,8 @@ public class Game {
   public List<Coordinate> getPotentialMovePos(){
     return checkBoard.getAvailablePosition(getCurrentPlayerIndex());
   }
+
+  public BlockGrid getCheckBoard() {
+    return checkBoard;
+  }
 }
