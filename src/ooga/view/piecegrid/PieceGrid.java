@@ -36,7 +36,7 @@ public abstract class PieceGrid {
     }
   }
 
-  public abstract void updatePieceClickableStatus(int playerInTurn);
+  public abstract void updatePieceCenBeChosenOrNotStatus(int playerInTurn);
 
   public abstract Coordinate getChosenPieceCoordinate();
 
@@ -48,5 +48,7 @@ public abstract class PieceGrid {
     }
   }
 
-  public abstract void showPotentialMove(List<Coordinate> potentialCoordinate);
+  public abstract void showPotentialMoveAndMakeClickable(List<Coordinate> potentialCoordinate);
+
+  public abstract void updateNonemptyColor();
 }

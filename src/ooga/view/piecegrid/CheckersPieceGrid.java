@@ -25,29 +25,38 @@ public class CheckersPieceGrid extends PieceGrid {
     return new Coordinate(-1, -1);
   }
 
-  public void updatePieceClickableStatus(int playerInTurn) {
+  public void updatePieceCenBeChosenOrNotStatus(int playerInTurn) {
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
       for (Piece piece : pieceList) {
-        piece.makePieceClickable(allPieces, playerInTurn);
+        piece.makePieceCanBeChosen(allPieces, playerInTurn);
+      }
+    }
+  }
+
+  public void updateNonemptyColor(){
+    for (List<Piece> pieceList : allPieces.getAllPieces()) {
+      for (Piece piece : pieceList) {
+        if (piece.getState() != 0 && !piece.getPieceChosen()) {
+          piece.updateColor();
+        }
       }
     }
   }
 
   @Override
-  public void showPotentialMove(List<Coordinate> potentialCoordinate) {
+  public void showPotentialMoveAndMakeClickable(List<Coordinate> potentialCoordinate) {
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
       for (Piece piece : pieceList) {
         if (piece.getState() == 0) {
           if (potentialCoordinate.contains(allPieces.getPieceCoordinate(piece))) {
             piece.showAsPotentialMovePos();
+            piece.makePotentialMovePosClickable(allPieces);
           } else {
-            piece.showAsUnPotentialMovePos();
+            piece.updateColor();
+            piece.makePotentialMovePosUnClickable();
           }
         }
       }
-    }
-    for (Coordinate coordinate : potentialCoordinate) {
-      allPieces.getPiece(coordinate).showAsPotentialMovePos();
     }
   }
 }

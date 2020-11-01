@@ -2,8 +2,6 @@ package ooga;
 
 import javafx.scene.Group;
 import ooga.model.Game;
-import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.checkerboard.BlockGrid;
 import ooga.view.piecegrid.CheckersPieceGrid;
 import ooga.view.piecegrid.PieceGrid;
 import ooga.view.PieceStateStructure;
@@ -32,9 +30,10 @@ public class GameController {
 
   public void update() {
     playerInTurn = game.getCurrentPlayerIndex();
-    pieceGrid.updatePieceClickableStatus(playerInTurn);
+    pieceGrid.updatePieceCenBeChosenOrNotStatus(playerInTurn);
     pieceChosen = pieceGrid.getChosenPieceCoordinate();
     game.updatePieceChosen(pieceChosen);
-    pieceGrid.showPotentialMove(game.getPotentialMovePos());
+    pieceGrid.showPotentialMoveAndMakeClickable(game.getPotentialMovePos());
+    pieceGrid.updateNonemptyColor();
   }
 }

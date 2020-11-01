@@ -21,6 +21,7 @@ public abstract class Piece {
   public static final Color UNCHOSEN_COLOR = Color.rgb(0, 0, 0, 0);
   public static final Color POTENTIAL_COLOR = Color.rgb(39, 255, 0, 0.33);
   public static final Color POTENTIAL_STROKE_COLOR = Color.rgb(39, 255, 0);
+  public static final int EMPTY_STATE = 0;
 
   protected Circle pieceShape;
   protected int state;
@@ -40,7 +41,7 @@ public abstract class Piece {
     pieceShape.setFill(STATE_COLOR.get(state));
   }
 
-  public abstract void makePieceClickable(PieceStructure allPieces, int playerInTurn);
+  public abstract void makePieceCanBeChosen(PieceStructure allPieces, int playerInTurn);
 
   public Circle getPieceShape() {
     return pieceShape;
@@ -62,5 +63,11 @@ public abstract class Piece {
 
   public abstract void showAsPotentialMovePos();
 
-  public abstract void showAsUnPotentialMovePos();
+//  public abstract void showAsUnPotentialMovePos();
+
+  public abstract void makePotentialMovePosClickable(PieceStructure allPieces);
+
+  public abstract void makePotentialMovePosUnClickable();
+
+  public abstract void updateColor();
 }
