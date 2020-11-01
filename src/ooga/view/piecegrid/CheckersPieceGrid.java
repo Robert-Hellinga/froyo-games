@@ -33,12 +33,12 @@ public class CheckersPieceGrid extends PieceGrid {
     }
   }
 
-  public void updateNonemptyColor(){
+  public void updateAllColor(){
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
       for (Piece piece : pieceList) {
-        if (piece.getState() != 0 && !piece.getPieceChosen()) {
+//        if (!piece.getPieceChosen()) {
           piece.updateColor();
-        }
+//        }
       }
     }
   }

@@ -39,6 +39,7 @@ public class GameController {
     if (pieceGrid.checkIfPieceIsMoved()){
       convertPieceStateToBlock(game.getCheckBoard().getAllBlocks(), pieceGrid.getCurrentPieceState());
       game.playerTakeTurn();
+      pieceGrid.updateAllColor();
       pieceGrid.resetPieceMovedChecker();
     }
 //    pieceGrid.setPieceState(convertBlockToPiece(game.getCheckBoard().getAllBlocks()));
