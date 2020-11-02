@@ -3,6 +3,7 @@ package ooga.model.checkerboard.block;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockStructure;
+import ooga.model.checkerboard.block.BlockState.CheckerBlockState;
 
 public abstract class Block {
 
@@ -10,6 +11,7 @@ public abstract class Block {
   protected int PlayerID;
   protected boolean isEmpty = false;
   protected Coordinate coordinate;
+  protected List<BlockState> blockStates;
 
   public Block(int blockConfig, Coordinate coordinate) {
     initiateBlockState(blockConfig);
@@ -33,7 +35,15 @@ public abstract class Block {
     PlayerID = playerID;
   }
 
-  public void setEmpty(boolean isEmpty){
+  public void setEmpty(boolean isEmpty) {
     this.isEmpty = isEmpty;
+  }
+
+  public List<BlockState> getState() {
+    return blockStates;
+  }
+
+  public void addState(BlockState blockState) {
+    blockStates.add(blockState);
   }
 }
