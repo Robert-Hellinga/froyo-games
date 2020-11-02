@@ -56,6 +56,7 @@ public class PieceGrid {
       for(int j = 0; j < allPieces.getPieceStructureWidth(); j++){
         Coordinate coordinate = new Coordinate(j, i);
         allPieces.getPiece(coordinate).setState(allPiecesState.getPieceState(coordinate));
+        allPieces.getPiece(coordinate).updateColor();
       }
     }
   }

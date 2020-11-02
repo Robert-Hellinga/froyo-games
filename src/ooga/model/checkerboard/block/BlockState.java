@@ -28,4 +28,12 @@ public class BlockState {
   public void unsetChosen() {
     isChosen = false;
   }
+
+  public boolean isEmpty() {
+    return isEmpty;
+  }
+
+  public int getPlayerID() {
+    return PlayerID;
+  }
 }

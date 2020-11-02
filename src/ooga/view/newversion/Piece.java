@@ -10,16 +10,22 @@ public class Piece {
 
   public static final int SIZE = 15;
   //TODO: configure color data to data file
-  public static final Map<Integer, Color> STATE_COLOR = new HashMap<>() {{
+  public static final Map<Integer, Color> FILL_COLOR = new HashMap<>() {{
     put(0, Color.color(0, 0, 0, 0));
     put(1, Color.rgb(0, 188, 255));
     put(2, Color.rgb(183, 29, 29));
+    put(3, Color.rgb(0, 188, 255));
+    put(4, Color.rgb(183, 29, 29));
+    put(5, Color.rgb(39, 255, 0, 0.33));
   }};
-  public static final Color CHOSEN_STROKE_COLOR = Color.YELLOW;
-  public static final Color UNCHOSEN_COLOR = Color.rgb(0, 0, 0, 0);
-  public static final Color POTENTIAL_COLOR = Color.rgb(39, 255, 0, 0.33);
-  public static final Color POTENTIAL_STROKE_COLOR = Color.rgb(39, 255, 0);
-  public static final int EMPTY_STATE = 0;
+  public static final Map<Integer, Color> STROKE_COLOR = new HashMap<>(){{
+    put(0, Color.color(0, 0, 0, 0));
+    put(1, Color.color(0, 0, 0, 0));
+    put(2, Color.color(0, 0, 0, 0));
+    put(3, Color.YELLOW);
+    put(4, Color.YELLOW);
+    put(5, Color.rgb(39, 255, 0));
+  }};
 
   private Circle pieceShape;
   private int state;
@@ -38,7 +44,7 @@ public class Piece {
     pieceShape.setRadius(SIZE);
     pieceShape.setCenterY(SIZE + coordinate.yCoordinate() * 2 * SIZE);
     pieceShape.setCenterX(SIZE + coordinate.xCoordinate() * 2 * SIZE);
-    pieceShape.setFill(STATE_COLOR.get(state));
+    updateColor();
   }
 
 //  public abstract void makePieceCanBeChosen(PieceStructure allPieces, int playerInTurn);
@@ -70,6 +76,11 @@ public class Piece {
 
   public void resetClickedStatus(){
     pieceClicked = false;
+  }
+
+  public void updateColor(){
+    pieceShape.setFill(FILL_COLOR.get(state));
+    pieceShape.setStroke(STROKE_COLOR.get(state));
   }
 
   //  public boolean getPieceChosen() {
