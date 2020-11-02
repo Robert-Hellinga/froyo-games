@@ -21,14 +21,16 @@ public class Piece {
   public static final Color POTENTIAL_STROKE_COLOR = Color.rgb(39, 255, 0);
   public static final int EMPTY_STATE = 0;
 
-  protected Circle pieceShape;
-  protected int state;
-  protected Coordinate coordinate;
+  private Circle pieceShape;
+  private int state;
+  private Coordinate coordinate;
+  private boolean pieceClicked = false;
 
   public Piece(int state, Coordinate coordinate) {
     this.state = state;
     this.coordinate = coordinate;
     initiatePieceShape(coordinate);
+    makePieceClickable();
   }
 
   private void initiatePieceShape(Coordinate coordinate) {
@@ -49,13 +51,28 @@ public class Piece {
     this.state = state;
   }
 
-  public int getState() {
-    return state;
+
+  private void makePieceClickable(){
+    pieceShape.setOnMouseClicked(event -> clickPiece());
   }
 
+  private void clickPiece(){
+    this.pieceClicked = true;
+  }
 
+  public boolean isPieceClicked() {
+    return pieceClicked;
+  }
 
-//  public boolean getPieceChosen() {
+  public Coordinate getCoordinate() {
+    return coordinate;
+  }
+
+  public void resetClickedStatus(){
+    pieceClicked = false;
+  }
+
+  //  public boolean getPieceChosen() {
 //    return false;
 //  }
 //

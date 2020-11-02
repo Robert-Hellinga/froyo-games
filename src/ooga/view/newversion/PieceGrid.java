@@ -3,37 +3,18 @@ package ooga.view.newversion;
 import java.util.List;
 import javafx.scene.Group;
 import ooga.Coordinate;
-import ooga.view.pieces.Piece;
+import ooga.view.newversion.Piece;
 
-public abstract class PieceGrid {
+public class PieceGrid {
 
-  protected PieceStructure allPieces;
-  protected String gameType;
-  protected Group root;
+  private PieceStructure allPieces;
+  private Group root;
 
-  public PieceGrid(String gameType, PieceStateStructure initiationPiecesState, Group root) {
-    this.gameType = gameType;
-    allPieces = new PieceStructure(this.gameType, initiationPiecesState);
+  public PieceGrid(PieceStateStructure initiationPiecesState, Group root) {
+    allPieces = new PieceStructure(initiationPiecesState);
     this.root = root;
     setAllPiecesToRoot();
   }
-
-//  public static Piece createPiece(String gameType, int state, Coordinate coordinate) {
-//    try {
-//      Class<?> piece = Class.forName("ooga.view.pieces." + gameType + "Piece");
-//      Class<?>[] param = {Integer.class, Coordinate.class};
-//      Constructor<?> cons = piece.getConstructor(param);
-//      Object[] paramObject = {state, coordinate};
-//      Object gamePiece = cons.newInstance(paramObject);
-//      return (Piece) gamePiece;
-//    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-//      throw new ClassOrMethodNotFoundException("class or method is not found");
-//    }
-//  }
-
-  public abstract void updatePieceCenBeChosenOrNotStatus(int playerInTurn);
-
-  public abstract Coordinate getChosenPieceCoordinate();
 
   private void setAllPiecesToRoot() {
     for (List<Piece> piecesLine : allPieces.getAllPieces()) {
@@ -43,30 +24,48 @@ public abstract class PieceGrid {
     }
   }
 
-  public abstract void showPotentialMoveAndMakeClickable(List<Coordinate> potentialCoordinate);
-
-  public abstract void updateAllColor();
-
-  public abstract PieceStateStructure getCurrentPieceState();
-
-  public abstract void setPieceState(PieceStateStructure pieceState);
-
-  public boolean checkIfPieceIsMoved() {
+  public boolean checkIfPieceIfClicked(){
+    for(List<Piece> pieces : allPieces.getAllPieces()){
+      for(Piece piece : pieces){
+        if (piece.isPieceClicked()){
+          return true;
+        }
+      }
+    }
     return false;
   }
 
-  public void resetPieceChosenAndMovedChecker() {
+  public Coordinate getClickedPieceCoordinate(){
+    for(List<Piece> pieces : allPieces.getAllPieces()){
+      for(Piece piece : pieces){
+        if (piece.isPieceClicked()){
+          return piece.getCoordinate();
+        }
+      }
+    }
+    return Coordinate.INVALID_COORDINATE;
   }
+
 
   public PieceStructure getAllPieces() {
     return allPieces;
   }
 
-  public Coordinate getNewPositionOfMovedPiece() {
-    return Coordinate.INVALID_COORDINATE;
+  public void updatePieceState(PieceStateStructure allPiecesState){
+    for(int i = 0; i < allPieces.getPieceStructureHeight(); i++){
+      for(int j = 0; j < allPieces.getPieceStructureWidth(); j++){
+        Coordinate coordinate = new Coordinate(j, i);
+        allPieces.getPiece(coordinate).setState(allPiecesState.getPieceState(coordinate));
+      }
+    }
   }
 
-  public Coordinate getNewlyMovedPosition() {
-    return Coordinate.INVALID_COORDINATE;
+  public void resetPiecesClickedStatus(){
+    for(List<Piece> pieces : allPieces.getAllPieces()){
+      for(Piece piece : pieces){
+        piece.resetClickedStatus();
+      }
+    }
   }
+
 }

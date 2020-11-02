@@ -6,10 +6,9 @@ import javafx.scene.Group;
 import ooga.model.Game;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
-import ooga.view.piecegrid.CheckersPieceGrid;
-import ooga.view.piecegrid.PieceGrid;
+import ooga.view.newversion.PieceGrid;
 import ooga.view.newversion.PieceStateStructure;
-import ooga.view.pieces.Piece;
+import ooga.view.newversion.Piece;
 
 public class GameController {
 
@@ -27,8 +26,7 @@ public class GameController {
 
   public GameController(String gameType, Group root) {
     game = new Game(gameType, "Anna", ooga.controller.GameController.PlayerMode.PLAY_WITH_AI);
-    pieceGrid = new CheckersPieceGrid(gameType,
-        convertBlockToPiece(game.getCheckBoard().getAllBlocks()), root);
+    pieceGrid = new PieceGrid(convertBlockToPiece(game.getCheckBoard().getAllBlocks()), root);
   }
 
 //  public void update() {
@@ -49,6 +47,12 @@ public class GameController {
 
   public void update() {
     //TODO: implement new version update method
+    if (pieceGrid.checkIfPieceIfClicked()){
+      //game.play(pieceGrid.getClickedPieceCoordinate());
+      //pieceGrid.updatePieceState(convertBlockStateToPiece(game.getCheckBoard().getBlockState()));
+      pieceGrid.resetPiecesClickedStatus();
+    }
+
   }
 
   public PieceStateStructure convertBlockToPiece(BlockStructure allBlocks) {
