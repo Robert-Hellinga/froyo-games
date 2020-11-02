@@ -51,8 +51,6 @@ public class Piece {
     pieceShape.setOnMouseClicked(value);
   }
 
-//  public abstract void makePieceCanBeChosen(PieceStructure allPieces, int playerInTurn);
-
   public Circle getPieceShape() {
     return pieceShape;
   }
@@ -69,30 +67,4 @@ public class Piece {
     pieceShape.setFill(FILL_COLOR.get(state));
     pieceShape.setStroke(STROKE_COLOR.get(state));
   }
-
-  //  public boolean getPieceChosen() {
-//    return false;
-//  }
-//
-//  public abstract void unChoosePiece();
-//
-//  public abstract void showAsPotentialMovePos();
-//
-////  public abstract void showAsUnPotentialMovePos();
-//
-//  public abstract void makePotentialMovePosClickable(PieceStructure allPieces);
-//
-//  public abstract void makePotentialMovePosUnClickable();
-//
-//  public abstract void updateColor();
-//
-//  public boolean getPieceMoved() {
-//    return false;
-//  }
-//
-//  public void unMovedPiece() {
-//  }
-//
-//  public void setPieceChosen(boolean pieceChosen) {
-//  }
 }

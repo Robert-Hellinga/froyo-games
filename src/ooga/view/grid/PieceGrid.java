@@ -13,29 +13,23 @@ import ooga.model.checkerboard.block.BlockState;
 public class PieceGrid extends GridPane {
 
   private List<List<Piece>> allPieces;
-  private List<List<Circle>> allPiecesShapes;
   private GameController controller;
 
   public PieceGrid(GameController controller) {
     this.controller = controller;
-    addAllPiecesToGrid();
+    updateGrid();
   }
 
-  private void addAllPiecesToGrid() {
+  public void updateGrid() {
+    getChildren().clear();
     allPieces = updatePieces(controller.getAllBlockStates());
 
     for(int i = 0; i < allPieces.size(); i++){
       for(int j = 0; j < allPieces.get(0).size(); j++){
         Piece currentPiece = allPieces.get(i).get(j);
-        Shape currentPieceShape = currentPiece.getPieceShape();
-        add(currentPieceShape, j, i);
+        add(currentPiece.getPieceShape(), j, i);
       }
     }
-  }
-
-  public void update() {
-    getChildren().clear();
-    addAllPiecesToGrid();
   }
 
   private List<List<Piece>> updatePieces(List<List<Integer>> newPieceStates) {

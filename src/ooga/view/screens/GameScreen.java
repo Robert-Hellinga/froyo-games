@@ -3,9 +3,11 @@ package ooga.view.screens;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import ooga.controller.GameController;
 import ooga.view.Styleable;
 import ooga.view.Util;
+import ooga.view.elements.GameScreenButtonBox;
 import ooga.view.grid.PieceGrid;
 
 public class GameScreen extends GridPane implements Styleable {
@@ -24,12 +26,17 @@ public class GameScreen extends GridPane implements Styleable {
     setStyleSheet(DEFAULT_STYLE_SHEET);
     setWidth(WIDTH);
     setHeight(HEIGHT);
-
-    add(makePieceGrid(), 0, 0);
+    
+    add(makeGameButtons(), 0, 0);
+    add(makePieceGrid(), 1, 0);
   }
 
   private Pane makePieceGrid() {
     return new PieceGrid(controller);
+  }
+
+  private VBox makeGameButtons() {
+    return new GameScreenButtonBox(resourceBundle);
   }
 
   @Override
