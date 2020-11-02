@@ -1,25 +1,20 @@
 package ooga.view.elements;
 
-import java.lang.ModuleLayer.Controller;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ooga.controller.GridGameController;
-import ooga.view.Display;
+import ooga.controller.GameController;
 
 public class SplashScreenButtonBox extends VBox {
 
   private ResourceBundle resourceBundle;
   private ToggleGroup gameToggleGroup, playerToggleGroup;
-  private GridGameController controller;
+  private GameController controller;
 
-  public SplashScreenButtonBox(ResourceBundle resourceBundle, GridGameController controller) {
+  public SplashScreenButtonBox(ResourceBundle resourceBundle, GameController controller) {
     this.resourceBundle = resourceBundle;
     this.controller = controller;
     setSpacing(15);

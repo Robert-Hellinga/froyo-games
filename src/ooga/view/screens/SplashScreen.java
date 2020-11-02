@@ -1,17 +1,13 @@
 package ooga.view.screens;
 
-import java.lang.ModuleLayer.Controller;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import ooga.controller.GridGameController;
+import ooga.controller.GameController;
 import ooga.view.Display;
 import ooga.view.Styleable;
 import ooga.view.Util;
 import ooga.view.elements.SplashScreenButtonBox;
-import ooga.view.elements.CustomButton;
 import ooga.view.elements.SplashScreenTitleBox;
 
 public class SplashScreen extends GridPane implements Styleable {
@@ -23,7 +19,7 @@ public class SplashScreen extends GridPane implements Styleable {
 
   private ResourceBundle resourceBundle;
 
-  public SplashScreen(ResourceBundle resourceBundle, GridGameController controller, Display display) {
+  public SplashScreen(ResourceBundle resourceBundle, GameController controller, Display display) {
     this.resourceBundle = resourceBundle;
     setStyleSheet(DEFAULT_STYLE_SHEET);
 

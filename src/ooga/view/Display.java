@@ -3,15 +3,15 @@ package ooga.view;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import ooga.controller.GridGameController;
+import ooga.controller.GameController;
 import ooga.view.screens.SplashScreen;
 
 public class Display {
 
   private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "ui.Display";
-  private static final GridGameController DEFAULT_CONTROLLER = new GridGameController();
+  private static final GameController DEFAULT_CONTROLLER = new GameController();
 
-  private GridGameController currentController;
+  private GameController currentController;
   private ResourceBundle resourceBundle;
   private Pane layout;
   private Scene scene;
@@ -20,7 +20,7 @@ public class Display {
     this(DEFAULT_CONTROLLER);
   }
 
-  public Display(GridGameController controller) {
+  public Display(GameController controller) {
     currentController = controller;
     resourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH);
     SplashScreen startScreen = new SplashScreen(resourceBundle, currentController, this);

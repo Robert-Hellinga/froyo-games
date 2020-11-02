@@ -2,7 +2,6 @@ package ooga;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import ooga.controller.GridGameController;
 import ooga.view.Display;
 
 public class Main extends Application {
