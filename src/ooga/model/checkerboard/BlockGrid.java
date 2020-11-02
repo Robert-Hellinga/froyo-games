@@ -14,7 +14,6 @@ public class BlockGrid {
 
   private final BlockStructure allBlocks;
   private String gameType;
-  private Coordinate chosenBlock;
 
   public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
     this.gameType = gameType;
@@ -49,12 +48,15 @@ public class BlockGrid {
   }
 
   //this method is only for checkers game
-  public List<Coordinate> getAvailablePosition(int currentPlayerIndex) {
-    if (chosenBlock.equals(Coordinate.INVALID_COORDINATE)) {
-      return new ArrayList<>();
+  public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
+    if (!chosenBlock.equals(Coordinate.INVALID_COORDINATE)) {
+      for (Coordinate coordinate :
+          allBlocks.getBlock(chosenBlock).getAvailablePosition(currentPlayerIndex, allBlocks)){
+        allBlocks.getBlock(coordinate).getBlockState().setPotentialMove();
+      }
     }
-    return allBlocks.getBlock(chosenBlock).getAvailablePosition(currentPlayerIndex, allBlocks);
   }
+
 
   //this method is only for checkers game
   public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
@@ -86,6 +88,16 @@ public class BlockGrid {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
         if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isChosen()) {
           allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unsetChosen();
+        }
+      }
+    }
+  }
+
+  public void unsetAllBlockPotential(){
+    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
+      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+        if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isPotentialMove()) {
+          allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unsetPotentialMove();
         }
       }
     }

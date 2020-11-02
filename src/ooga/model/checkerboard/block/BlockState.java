@@ -36,4 +36,12 @@ public class BlockState {
   public int getPlayerID() {
     return PlayerID;
   }
+
+  public void setPotentialMove() {
+    isPotentialMove = true;
+  }
+
+  public void unsetPotentialMove(){
+    isPotentialMove = false;
+  }
 }

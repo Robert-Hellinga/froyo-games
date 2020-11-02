@@ -96,10 +96,6 @@ public class Game {
     checkBoard.setChosenBlock(chosenPieceCoordinate);
   }
 
-  public List<Coordinate> getPotentialMovePos() {
-    return checkBoard.getAvailablePosition(getCurrentPlayerIndex());
-  }
-
   public BlockGrid getCheckBoard() {
     return checkBoard;
   }
@@ -116,14 +112,20 @@ public class Game {
       if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
           == getCurrentPlayerIndex()) {
         checkBoard.unChoseAllBlock();
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().isChosen();
+        checkBoard.unsetAllBlockPotential();
+        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().setChosen();
+        checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
       } else if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState()
           .isPotentialMove()) {
         checkBoard.unChoseAllBlock();
+        checkBoard.unsetAllBlockPotential();
         checkBoard.getAllBlocks().getBlock(passInCoordinate).setPlayerID(getCurrentPlayerIndex());
       }
     } else {
-      checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().setChosen();
+      if (!checkBoard.getAllBlocks().getBlock(passInCoordinate).getIsEmpty()) {
+        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().setChosen();
+        checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
+      }
     }
   }
 }

@@ -104,7 +104,7 @@ public class GameController {
     if (blockState.isEmpty() && !blockState.isPotentialMove()){
       return 0;
     }
-    else if (blockState.isEmpty() && blockState.isPotentialMove()){
+    else if (blockState.isPotentialMove()){
       return 5;
     }
     else {
