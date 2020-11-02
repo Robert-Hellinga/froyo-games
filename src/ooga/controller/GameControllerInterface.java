@@ -1,10 +1,11 @@
 package ooga.controller;
 
+import ooga.Coordinate;
+
 public interface GameControllerInterface {
 
   void createGame();
-  void clickPiece();
-  void clickBlock();
+  void clickPiece(Coordinate coordinate);
   void saveGame();
   void restartGame();
   void quitGame();

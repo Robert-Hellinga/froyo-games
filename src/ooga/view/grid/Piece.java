@@ -1,10 +1,15 @@
-package ooga.view;
+package ooga.view.grid;
 
+import java.lang.ModuleLayer.Controller;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import ooga.Coordinate;
+import ooga.controller.GameController;
 
 public class Piece {
 
@@ -30,21 +35,20 @@ public class Piece {
   private Circle pieceShape;
   private int state;
   private Coordinate coordinate;
-  private boolean pieceClicked = false;
 
-  public Piece(int state, Coordinate coordinate) {
+  public Piece(int state, Coordinate coordinate, EventHandler<MouseEvent> value) {
     this.state = state;
     this.coordinate = coordinate;
-    initiatePieceShape(coordinate);
-    makePieceClickable();
+    initiatePieceShape(coordinate, value);
   }
 
-  private void initiatePieceShape(Coordinate coordinate) {
+  private void initiatePieceShape(Coordinate coordinate, EventHandler<MouseEvent> value) {
     pieceShape = new Circle();
     pieceShape.setRadius(SIZE);
     pieceShape.setCenterY(SIZE + coordinate.yCoordinate() * 2 * SIZE);
     pieceShape.setCenterX(SIZE + coordinate.xCoordinate() * 2 * SIZE);
     updateColor();
+    pieceShape.setOnMouseClicked(value);
   }
 
 //  public abstract void makePieceCanBeChosen(PieceStructure allPieces, int playerInTurn);
@@ -57,25 +61,8 @@ public class Piece {
     this.state = state;
   }
 
-
-  private void makePieceClickable(){
-    pieceShape.setOnMouseClicked(event -> clickPiece());
-  }
-
-  private void clickPiece(){
-    this.pieceClicked = true;
-  }
-
-  public boolean isPieceClicked() {
-    return pieceClicked;
-  }
-
   public Coordinate getCoordinate() {
     return coordinate;
-  }
-
-  public void resetClickedStatus(){
-    pieceClicked = false;
   }
 
   public void updateColor(){
