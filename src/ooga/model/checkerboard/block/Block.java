@@ -6,9 +6,7 @@ import ooga.model.checkerboard.BlockStructure;
 
 public abstract class Block {
 
-  //  protected BlockState blockState;
-  protected int PlayerID;
-  protected boolean isEmpty = false;
+  protected BlockState blockState;
   protected Coordinate coordinate;
 
   public Block(int blockConfig, Coordinate coordinate) {
@@ -28,18 +26,18 @@ public abstract class Block {
       BlockStructure allBlocks);
 
   public boolean getIsEmpty() {
-    return isEmpty;
+    return this.blockState.isEmpty;
   }
 
   public int getPlayerID() {
-    return PlayerID;
+    return this.blockState.PlayerID;
   }
 
   public void setPlayerID(int playerID) {
-    PlayerID = playerID;
+    this.blockState.PlayerID = playerID;
   }
 
-  public void setEmpty(boolean isEmpty){
-    this.isEmpty = isEmpty;
+  public void setEmpty(boolean isEmpty) {
+    this.blockState.isEmpty = isEmpty;
   }
 }
