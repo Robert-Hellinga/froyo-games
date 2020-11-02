@@ -18,8 +18,8 @@ public class SplashScreen extends GridPane implements Styleable {
 
   private static final String BACKGROUND_STYLE_CLASS = "background";
   private static final String DEFAULT_STYLE_SHEET = "style/default.css";
-  private static final int WIDTH = 800;
-  private static final int HEIGHT = 600;
+  private static final int WIDTH = 600;
+  private static final int HEIGHT = 450;
 
   private ResourceBundle resourceBundle;
 
@@ -33,10 +33,10 @@ public class SplashScreen extends GridPane implements Styleable {
     getColumnConstraints().add(Util.getColumnConstraints(Priority.NEVER, true, WIDTH));
 
     add(new SplashScreenTitleBox(), 0, 0);
-    getRowConstraints().add(Util.getRowConstraints(Priority.NEVER, false, 150));
+    getRowConstraints().add(Util.getRowConstraints(Priority.NEVER, false, 120));
     getStyleClass().add(BACKGROUND_STYLE_CLASS);
 
-    add(new SplashScreenButtonBox(resourceBundle, controller, display), 0, 1);
+    add(new SplashScreenButtonBox(resourceBundle, controller), 0, 1);
     getRowConstraints().add(Util.getRowConstraints(Priority.SOMETIMES, true, 200));
   }
 

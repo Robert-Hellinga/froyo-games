@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,13 +17,20 @@ public class SplashScreenButtonBox extends VBox {
 
   private ResourceBundle resourceBundle;
   private ToggleGroup gameToggleGroup, playerToggleGroup;
+  private GridGameController controller;
 
-  public SplashScreenButtonBox(ResourceBundle resourceBundle, GridGameController controller, Display display) {
+  public SplashScreenButtonBox(ResourceBundle resourceBundle, GridGameController controller) {
     this.resourceBundle = resourceBundle;
+    this.controller = controller;
     setSpacing(15);
 
-    getChildren().addAll(getGameButtonGroup(), getPlayerButtonGroup());
+    getChildren().addAll(getGameButtonGroup(), getPlayerButtonGroup(), getStartButtonGroup());
+  }
 
+  private void startGame() {
+    Toggle selectedGame = gameToggleGroup.getSelectedToggle();
+    Toggle selectedPlayers = playerToggleGroup.getSelectedToggle();
+    // controller.initiateGame()
   }
 
   private VBox getGameButtonGroup() {
@@ -43,10 +51,18 @@ public class SplashScreenButtonBox extends VBox {
     result.setAlignment(Pos.CENTER);
     playerToggleGroup = new ToggleGroup();
     CustomToggleButton onePlayerBtn = new CustomToggleButton("One Player", playerToggleGroup, 150
-        , 60);
+        , 55);
     CustomToggleButton twoPlayerBtn = new CustomToggleButton("Two Player", playerToggleGroup, 150
-        , 60);
+        , 55);
     result.getChildren().addAll(onePlayerBtn, twoPlayerBtn);
+    return result;
+  }
+
+  private VBox getStartButtonGroup() {
+    VBox result = new VBox();
+    result.setAlignment(Pos.CENTER);
+    CustomButton startButton = new CustomButton("Start", event -> startGame());
+    result.getChildren().add(startButton);
     return result;
   }
 }

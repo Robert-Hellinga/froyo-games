@@ -8,8 +8,8 @@ import javafx.scene.control.ToggleGroup;
 
 public class CustomToggleButton extends ToggleButton {
 
-  private static final int DEFAULT_WIDTH = 200;
-  private static final int DEFAULT_HEIGHT = 60;
+  private static final int DEFAULT_WIDTH = 230;
+  private static final int DEFAULT_HEIGHT = 55;
 
   public CustomToggleButton(String text, ToggleGroup toggleGroup, int width, int height) {
     setToggleGroup(toggleGroup);
