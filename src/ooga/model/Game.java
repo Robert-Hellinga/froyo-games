@@ -9,20 +9,15 @@ import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockGrid;
-import ooga.model.checkerboard.BlockStructure;
-import ooga.model.checkerboard.block.Block;
 import ooga.model.player.*;
-import ooga.view.GameObserver;
 
-public class Game implements ObservedGrid {
+public class Game {
 
   private String gameType;
   private List<Player> allPlayers = new ArrayList<>();
   private BlockGrid checkBoard;
   private int numPlayers;
   private Player currentPlayer;
-
-  private List<GameObserver> observers;
 
   public Game(String gameType, String playerName, PlayerMode playerMode) {
     this.gameType = gameType;
@@ -137,25 +132,5 @@ public class Game implements ObservedGrid {
         checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
       }
     }
-  }
-
-  public void registerObservers() {
-    
-  }
-
-  @Override
-  public List<List<Integer>> getValue() {
-    BlockStructure blocks = checkBoard.getAllBlocks();
-
-    List<List<Integer>> blockState = new ArrayList<>();
-    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
-      List<Integer> blockStateLine = new ArrayList<>();
-      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
-        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
-        blockStateLine.add(currentBlock.getBlockState().getNumericState());
-      }
-      blockState.add(blockStateLine);
-    }
-    return blockState;
   }
 }

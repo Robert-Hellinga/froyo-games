@@ -37,7 +37,6 @@ public class SplashScreenButtonBox extends VBox {
 
     // controller.setNumPlayers(selectedPlayers);
     // controller.setGame(selectedGame);
-    // controller.startGame();
     GameScreen screen = new GameScreen(resourceBundle, controller);
     display.setNewLayout(screen);
   }

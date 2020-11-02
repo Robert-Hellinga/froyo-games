@@ -29,6 +29,20 @@ public class GameController implements GameControllerInterface {
     game = new Game(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
   }
 
+  public List<List<Integer>> getAllBlockStates() {
+    BlockStructure blocks = game.getCheckBoard().getAllBlocks();
+    List<List<Integer>> blockState = new ArrayList<>();
+    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
+      List<Integer> blockStateLine = new ArrayList<>();
+      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
+        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
+        blockStateLine.add(currentBlock.getBlockState().getNumericState());
+      }
+      blockState.add(blockStateLine);
+    }
+    return blockState;
+  }
+
   public void setPlayerMode(PlayerMode mode) {
 
   }
@@ -49,11 +63,7 @@ public class GameController implements GameControllerInterface {
   @Override
   public void clickPiece(Coordinate coordinate, PieceGrid grid) {
     game.play(coordinate);
-//    grid.updateGrid();
-
-
-    // update grid needs observer
-    // getting new states needs observer
+    grid.updateGrid();
   }
 
   @Override
