@@ -58,9 +58,15 @@ public abstract class PieceGrid {
 
   public boolean checkIfPieceIsMoved(){return false;}
 
-  public void resetPieceMovedChecker(){}
+  public void resetPieceChosenAndMovedChecker(){}
 
   public PieceStructure getAllPieces(){
     return allPieces;
   }
+
+  public Coordinate getNewPositionOfMovedPiece(){
+    return Coordinate.INVALID_COORDINATE;
+  }
+
+  public Coordinate getNewlyMovedPosition(){return Coordinate.INVALID_COORDINATE;}
 }

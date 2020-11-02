@@ -38,12 +38,12 @@ public class GameController {
     pieceGrid.showPotentialMoveAndMakeClickable(game.getPotentialMovePos());
     if (pieceGrid.checkIfPieceIsMoved()){
       convertPieceStateToBlock(game.getCheckBoard().getAllBlocks(), pieceGrid.getCurrentPieceState());
+      game.removeCheckedPiece(pieceGrid.getNewlyMovedPosition(), pieceChosen);
+      pieceGrid.setPieceState(convertBlockToPiece(game.getCheckBoard().getAllBlocks()));
       game.playerTakeTurn();
       pieceGrid.updateAllColor();
-      pieceGrid.resetPieceMovedChecker();
+      pieceGrid.resetPieceChosenAndMovedChecker();
     }
-
-//    pieceGrid.setPieceState(convertBlockToPiece(game.getCheckBoard().getAllBlocks()));
   }
 
   public PieceStateStructure convertBlockToPiece(BlockStructure allBlocks){

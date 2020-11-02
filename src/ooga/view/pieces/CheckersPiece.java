@@ -27,7 +27,9 @@ public class CheckersPiece extends Piece {
 
   @Override
   public void makePotentialMovePosClickable(PieceStructure allPieces) {
-    pieceShape.setOnMouseClicked(event -> movePieceToNewPosition(allPieces));
+    pieceShape.setOnMouseClicked(event -> {
+      movePieceToNewPosition(allPieces);
+    });
   }
 
   @Override
@@ -42,7 +44,6 @@ public class CheckersPiece extends Piece {
           this.setState(piece.getState());
           updateColor();
           piece.setState(EMPTY_STATE);
-          piece.setPieceChosen(false);
           pieceMoved = true;
         }
       }

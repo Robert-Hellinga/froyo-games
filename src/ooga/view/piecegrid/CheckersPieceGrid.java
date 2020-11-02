@@ -8,10 +8,12 @@ import ooga.view.pieces.Piece;
 
 public class CheckersPieceGrid extends PieceGrid {
 
+  private Coordinate newlyMovedPosition = Coordinate.INVALID_COORDINATE;
+
+
   public CheckersPieceGrid(String gameType, PieceStateStructure initiationPiecesState, Group root) {
     super(gameType, initiationPiecesState, root);
   }
-
 
   @Override
   public Coordinate getChosenPieceCoordinate() {
@@ -80,6 +82,7 @@ public class CheckersPieceGrid extends PieceGrid {
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
       for (Piece piece : pieceList) {
         if (piece.getPieceMoved()) {
+          newlyMovedPosition = allPieces.getPieceCoordinate(piece);
           return true;
         }
       }
@@ -88,11 +91,30 @@ public class CheckersPieceGrid extends PieceGrid {
   }
 
   @Override
-  public void resetPieceMovedChecker() {
+  public void resetPieceChosenAndMovedChecker() {
     for (List<Piece> pieceList : allPieces.getAllPieces()) {
       for (Piece piece : pieceList) {
         piece.unMovedPiece();
+        piece.unChoosePiece();
       }
     }
+    newlyMovedPosition = Coordinate.INVALID_COORDINATE;
+  }
+
+  @Override
+  public Coordinate getNewPositionOfMovedPiece() {
+    for (List<Piece> pieceList : allPieces.getAllPieces()) {
+      for (Piece piece : pieceList) {
+        if (piece.getPieceMoved()) {
+          return allPieces.getPieceCoordinate(piece);
+        }
+      }
+    }
+    return Coordinate.INVALID_COORDINATE;
+  }
+
+  @Override
+  public Coordinate getNewlyMovedPosition(){
+    return newlyMovedPosition;
   }
 }

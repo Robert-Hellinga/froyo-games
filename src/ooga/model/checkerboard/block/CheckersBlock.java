@@ -8,6 +8,7 @@ import ooga.model.checkerboard.BlockStructure;
 
 public class CheckersBlock extends Block {
 
+
   public CheckersBlock(Integer blockConfig, Coordinate coordinate) {
     super(blockConfig, coordinate);
   }

@@ -58,4 +58,18 @@ public class BlockGrid {
     }
     return allBlocks.getBlock(chosenBlock).getAvailablePosition(currentPlayerIndex, allBlocks);
   }
+
+  //this method is only for checkers game
+  public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition){
+    int xMovement = newPosition.xCoordinate() - originalPosition.xCoordinate();
+    int yMovement = newPosition.yCoordinate() - originalPosition.yCoordinate();
+    if (Math.abs(xMovement) == 2 && Math.abs(yMovement) == 2 ){
+      Coordinate pieceToRemoveCoordinate = new Coordinate(
+          originalPosition.xCoordinate() + xMovement / 2,
+          originalPosition.yCoordinate() + yMovement / 2
+      );
+      allBlocks.getBlock(pieceToRemoveCoordinate).setEmpty(true);
+      allBlocks.getBlock(pieceToRemoveCoordinate).setPlayerID(0);
+    }
+  }
 }
