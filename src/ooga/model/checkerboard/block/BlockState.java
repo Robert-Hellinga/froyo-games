@@ -1,7 +1,5 @@
 package ooga.model.checkerboard.block;
 
-import ooga.Coordinate;
-
 public class BlockState {
 
   protected int PlayerID;
@@ -10,4 +8,24 @@ public class BlockState {
 
   protected boolean isChosen;
   protected boolean isPotentialMove;
+
+  public boolean isChosen() {
+    return isChosen;
+  }
+
+  public boolean isKing() {
+    return isKing;
+  }
+
+  public boolean isPotentialMove() {
+    return isPotentialMove;
+  }
+
+  public void setChosen() {
+    isChosen = true;
+  }
+
+  public void unsetChosen() {
+    isChosen = false;
+  }
 }

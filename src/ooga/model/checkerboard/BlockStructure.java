@@ -18,8 +18,7 @@ public class BlockStructure {
       List<Block> blockLine = new ArrayList<>();
       for (int j = 0; j < allBlockConfig.getBlockConfigStructureWidth(); j++) {
         Integer cellConfig = allBlockConfig.getBlockConfigStructure().get(i).get(j);
-        blockLine.add(BlockGrid.createBlock(gameType, cellConfig,
-            new Coordinate(j, i)));
+        blockLine.add(BlockGrid.createBlock(gameType, cellConfig, new Coordinate(j, i)));
       }
       blockStructure.add(blockLine);
     }

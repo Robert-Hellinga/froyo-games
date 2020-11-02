@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JCheckBoxMenuItem;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
@@ -91,11 +92,11 @@ public class Game {
     return allPlayers.indexOf(currentPlayer) + 1;
   }
 
-  public void updatePieceChosen(Coordinate chosenPieceCoordinate){
+  public void updatePieceChosen(Coordinate chosenPieceCoordinate) {
     checkBoard.setChosenBlock(chosenPieceCoordinate);
   }
 
-  public List<Coordinate> getPotentialMovePos(){
+  public List<Coordinate> getPotentialMovePos() {
     return checkBoard.getAvailablePosition(getCurrentPlayerIndex());
   }
 
@@ -104,9 +105,25 @@ public class Game {
   }
 
   //this method is only for checkers game
-  public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition){
-    if(!newPosition.equals(Coordinate.INVALID_COORDINATE)){
+  public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
+    if (!newPosition.equals(Coordinate.INVALID_COORDINATE)) {
       checkBoard.removeCheckedPiece(newPosition, originalPosition);
+    }
+  }
+
+  public void play(Coordinate passInCoordinate) {
+    if (checkBoard.hasChosenBlock()) {
+      if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
+          == getCurrentPlayerIndex()) {
+        checkBoard.unChoseAllBlock();
+        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().isChosen();
+      } else if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState()
+          .isPotentialMove()) {
+        checkBoard.unChoseAllBlock();
+        checkBoard.getAllBlocks().getBlock(passInCoordinate).setPlayerID(getCurrentPlayerIndex());
+      }
+    } else {
+      checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().setChosen();
     }
   }
 }

@@ -47,9 +47,11 @@ public class GameController {
 
   public void update() {
     //TODO: implement new version update method
-    if (pieceGrid.checkIfPieceIfClicked()){
-      //game.play(pieceGrid.getClickedPieceCoordinate());
-      //pieceGrid.updatePieceState(convertBlockStateToPiece(game.getCheckBoard().getBlockState()));
+    if (pieceGrid.checkIfPieceIfClicked()) {
+
+      game.play(pieceGrid.getClickedPieceCoordinate());
+//      pieceGrid.updatePieceState(convertBlockStateToPiece(game.getCheckBoard().getBlockState()));
+
       pieceGrid.resetPiecesClickedStatus();
     }
 

@@ -10,12 +10,6 @@ import ooga.model.checkerboard.block.Block;
 
 public class BlockGrid {
 
-  /*public enum BlockState {
-    CHECKER_PLAYER_1,
-    CHECKER_PLAYER_2,
-    EMPTY,
-  }*/
-
   private final int numPlayers;
 
   private final BlockStructure allBlocks;
@@ -33,6 +27,7 @@ public class BlockGrid {
       throws ClassOrMethodNotFoundException {
     try {
       Class<?> block = Class.forName("ooga.model.checkerboard.block." + gameType + "Block");
+//      Class<?> block = Class.forName("ooga.model.checkerboard.block." + "Block");
       Class<?>[] param = {Integer.class, Coordinate.class};
       Constructor<?> cons = block.getConstructor(param);
       Object[] paramObject = {blockConfig, coordinate};
@@ -48,7 +43,8 @@ public class BlockGrid {
   }
 
   public void setChosenBlock(Coordinate chosenBlock) {
-    this.chosenBlock = chosenBlock;
+//    this.chosenBlock = chosenBlock;
+    allBlocks.getBlock(chosenBlock).getBlockState().setChosen();
   }
 
   //this method is only for checkers game
@@ -60,16 +56,37 @@ public class BlockGrid {
   }
 
   //this method is only for checkers game
-  public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition){
+  public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
     int xMovement = newPosition.xCoordinate() - originalPosition.xCoordinate();
     int yMovement = newPosition.yCoordinate() - originalPosition.yCoordinate();
-    if (Math.abs(xMovement) == 2 && Math.abs(yMovement) == 2 ){
+    if (Math.abs(xMovement) == 2 && Math.abs(yMovement) == 2) {
       Coordinate pieceToRemoveCoordinate = new Coordinate(
           originalPosition.xCoordinate() + xMovement / 2,
           originalPosition.yCoordinate() + yMovement / 2
       );
       allBlocks.getBlock(pieceToRemoveCoordinate).setEmpty(true);
       allBlocks.getBlock(pieceToRemoveCoordinate).setPlayerID(0);
+    }
+  }
+
+  public boolean hasChosenBlock() {
+    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
+      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+        if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isChosen()) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public void unChoseAllBlock() {
+    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
+      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+        if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isChosen()) {
+          allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unsetChosen();
+        }
+      }
     }
   }
 }

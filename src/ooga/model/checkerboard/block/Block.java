@@ -16,9 +16,13 @@ public abstract class Block {
 
   public void initiateBlockState(int blockConfig) {
     if (blockConfig == 0) {
-      this.isEmpty = true;
+      this.blockState.isEmpty = true;
     } else {
-      this.PlayerID = blockConfig;
+      this.blockState.PlayerID = blockConfig;
+
+      this.blockState.isChosen = false;
+      this.blockState.isPotentialMove = false;
+
     }
   }
 
@@ -39,5 +43,9 @@ public abstract class Block {
 
   public void setEmpty(boolean isEmpty) {
     this.blockState.isEmpty = isEmpty;
+  }
+
+  public BlockState getBlockState() {
+    return blockState;
   }
 }
