@@ -66,4 +66,18 @@ public class BlockState {
     return isChosen;
   }
 
+  @Override
+  protected BlockState clone() {
+    BlockState blockState = new BlockState();
+    try {
+      return (BlockState) super.clone();
+    } catch (CloneNotSupportedException e) {
+      blockState.PlayerID = this.PlayerID;
+      blockState.isEmpty = this.isEmpty;
+      blockState.isKing = this.isKing;
+      blockState.isChosen = this.isChosen;
+      blockState.isPotentialMove = this.isPotentialMove;
+    }
+    return blockState;
+  }
 }
