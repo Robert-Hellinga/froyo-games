@@ -5,9 +5,9 @@ import java.util.List;
 import ooga.Coordinate;
 import ooga.model.Game;
 import ooga.model.checkerboard.BlockStructure;
+import ooga.model.checkerboard.block.Block;
 import ooga.model.checkerboard.block.BlockState;
 import ooga.view.grid.PieceGrid;
-import ooga.view.grid.PieceStateStructure;
 
 public class GameController implements GameControllerInterface {
 
@@ -29,8 +29,18 @@ public class GameController implements GameControllerInterface {
     game = new Game(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
   }
 
-  public BlockStructure getAllBlocks() {
-    return game.getCheckBoard().getAllBlocks();
+  public List<List<Integer>> getAllBlockStates() {
+    BlockStructure blocks = game.getCheckBoard().getAllBlocks();
+    List<List<Integer>> blockState = new ArrayList<>();
+    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
+      List<Integer> blockStateLine = new ArrayList<>();
+      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
+        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
+        blockStateLine.add(currentBlock.getBlockState().getNumericState());
+      }
+      blockState.add(blockStateLine);
+    }
+    return blockState;
   }
 
   public void setPlayerMode(PlayerMode mode) {
@@ -40,8 +50,6 @@ public class GameController implements GameControllerInterface {
   public void setGameType(String gameType) {
 
   }
-
-
 
   public void update() {
 
