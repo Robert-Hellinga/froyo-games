@@ -17,7 +17,6 @@ public class BlockState {
     isChosen = false;
   }
 
-
   public void makePotentialMove() {
     isPotentialMove = true;
   }
@@ -67,7 +66,7 @@ public class BlockState {
   }
 
   @Override
-  protected BlockState clone() {
+  public BlockState clone() {
     BlockState blockState = new BlockState();
     try {
       return (BlockState) super.clone();

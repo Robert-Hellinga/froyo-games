@@ -66,8 +66,8 @@ public class BlockGrid {
           originalPosition.xCoordinate() + xMovement / 2,
           originalPosition.yCoordinate() + yMovement / 2
       );
-      allBlocks.getBlock(pieceToRemoveCoordinate).setEmpty(true);
-      allBlocks.getBlock(pieceToRemoveCoordinate).setPlayerID(0);
+      allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setEmpty(true);
+      allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setPlayerID(0);
     }
   }
 
@@ -115,6 +115,7 @@ public class BlockGrid {
 
   public void moveBlock(Coordinate originalCoordiante, Coordinate newCoordinate){
     allBlocks.getBlock(newCoordinate).setBlockState(
+        allBlocks.getBlock(originalCoordiante).getBlockState().clone()
     );
     allBlocks.getBlock(originalCoordiante).setEmpty(true);
   }
