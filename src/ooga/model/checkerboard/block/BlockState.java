@@ -65,6 +65,23 @@ public class BlockState {
     return isChosen;
   }
 
+  public int getNumericState() {
+    if (isEmpty() && !isPotentialMove()){
+      return 0;
+    }
+    else if (isPotentialMove()){
+      return 5;
+    }
+    else {
+      if (!isChosen()) {
+        return getPlayerID();
+      }
+      else{
+        return getPlayerID() + 2;
+      }
+    }
+  }
+
   @Override
   public BlockState clone() {
     BlockState blockState = new BlockState();

@@ -22,12 +22,6 @@ public class SplashScreenButtonBox extends VBox {
   private GameController controller;
   private Display display;
 
-
-  public static final int FRAMES_PER_SECOND = 60;
-  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-  private ooga.GameController temporary;
-  private Group root;
-
   public SplashScreenButtonBox(ResourceBundle resourceBundle, GameController controller,
       Display display) {
     this.resourceBundle = resourceBundle;
@@ -36,24 +30,14 @@ public class SplashScreenButtonBox extends VBox {
     setSpacing(15);
     getChildren().addAll(getGameButtonGroup(), getPlayerButtonGroup(), getStartButtonGroup());
 
-    root = new Group();
-    temporary = new ooga.GameController("Checkers", root);
-    KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
-    Timeline animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(frame);
-    animation.play();
   }
-
-  private void step(double elapsedTime) {
-    temporary.update();
-  }
-
   private void startGame() {
     Toggle selectedGame = gameToggleGroup.getSelectedToggle();
     Toggle selectedPlayers = playerToggleGroup.getSelectedToggle();
-    // controller.initiateGame()
-    GameScreen screen = new GameScreen(resourceBundle, controller, root);
+
+    // controller.setNumPlayers(selectedPlayers);
+    // controller.setGame(selectedGame);
+    GameScreen screen = new GameScreen(resourceBundle, controller);
     display.setNewLayout(screen);
   }
 
