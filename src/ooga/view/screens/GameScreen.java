@@ -5,12 +5,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import ooga.controller.GameController;
+import ooga.view.GameObserver;
 import ooga.view.Styleable;
 import ooga.view.Util;
 import ooga.view.elements.GameScreenButtonBox;
 import ooga.view.grid.PieceGrid;
 
-public class GameScreen extends GridPane implements Styleable {
+public class GameScreen extends GridPane implements Styleable, GameObserver {
 
   private static final int WIDTH = 400;
   private static final int HEIGHT = 350;
@@ -18,6 +19,7 @@ public class GameScreen extends GridPane implements Styleable {
 
   private GameController controller;
   private ResourceBundle resourceBundle;
+  private PieceGrid grid;
 
   public GameScreen(ResourceBundle resourceBundle, GameController controller) {
     this.controller = controller;
@@ -26,7 +28,7 @@ public class GameScreen extends GridPane implements Styleable {
     setStyleSheet(DEFAULT_STYLE_SHEET);
     setWidth(WIDTH);
     setHeight(HEIGHT);
-    
+
     add(makeGameButtons(), 0, 0);
     add(makePieceGrid(), 1, 0);
   }
@@ -48,5 +50,10 @@ public class GameScreen extends GridPane implements Styleable {
   @Override
   public String getStyleSheet() {
     return getStylesheets().get(0);
+  }
+
+  @Override
+  public void update() {
+
   }
 }
