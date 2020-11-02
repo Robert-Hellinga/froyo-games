@@ -3,47 +3,48 @@ package ooga.model.checkerboard.block;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockStructure;
-import ooga.model.checkerboard.block.BlockState.CheckerBlockState;
 
 public abstract class Block {
 
-  //  protected BlockState blockState;
-  protected int PlayerID;
-  protected boolean isEmpty = false;
+  protected BlockState blockState = new BlockState();
   protected Coordinate coordinate;
-  protected List<BlockState> blockStates;
 
-  public Block(int blockConfig, Coordinate coordinate) {
+  public Block(Integer blockConfig, Coordinate coordinate) {
     initiateBlockState(blockConfig);
     this.coordinate = coordinate;
   }
 
-  public abstract void initiateBlockState(int blockConfig);
+  public void initiateBlockState(int blockConfig) {
+    this.blockState.isEmpty = blockConfig == 0;
+    this.blockState.PlayerID = blockConfig;
+    this.blockState.isChosen = false;
+    this.blockState.isPotentialMove = false;
+  }
 
   public abstract List<Coordinate> getAvailablePosition(int currentPlayerIndex,
       BlockStructure allBlocks);
 
   public boolean getIsEmpty() {
-    return isEmpty;
+    return this.blockState.isEmpty;
   }
 
   public int getPlayerID() {
-    return PlayerID;
+    return this.blockState.PlayerID;
   }
 
   public void setPlayerID(int playerID) {
-    PlayerID = playerID;
+    this.blockState.PlayerID = playerID;
   }
 
   public void setEmpty(boolean isEmpty) {
-    this.isEmpty = isEmpty;
+    this.blockState.isEmpty = isEmpty;
   }
 
-  public List<BlockState> getState() {
-    return blockStates;
+  public BlockState getBlockState() {
+    return blockState;
   }
 
-  public void addState(BlockState blockState) {
-    blockStates.add(blockState);
+  public void setBlockState(BlockState blockState) {
+    this.blockState = blockState;
   }
 }

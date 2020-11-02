@@ -6,7 +6,7 @@ import javafx.scene.layout.GridPane;
 import ooga.controller.GameController;
 import ooga.view.Styleable;
 import ooga.view.Util;
-import ooga.view.elements.piecegrid.PieceGrid;
+import ooga.view.PieceGrid;
 
 public class GameScreen extends GridPane implements Styleable {
 
