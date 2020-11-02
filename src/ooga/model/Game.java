@@ -92,9 +92,7 @@ public class Game {
   }
 
   public void updatePieceChosen(Coordinate chosenPieceCoordinate){
-    if (chosenPieceCoordinate.xCoordinate() != -1){
-      checkBoard.setChosenBlock(chosenPieceCoordinate);
-    }
+    checkBoard.setChosenBlock(chosenPieceCoordinate);
   }
 
   public List<Coordinate> getPotentialMovePos(){

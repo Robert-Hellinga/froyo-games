@@ -14,7 +14,7 @@ public class GameApplication extends Application {
   //just put some random value here
   public static final int SIZE_HEIGHT = 400;
   public static final int SIZE_WIDTH = 350;
-  public static final Color BACKGROUND = Color.BLACK;
+  public static final Color BACKGROUND = Color.WHITE;
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 

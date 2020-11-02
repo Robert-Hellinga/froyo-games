@@ -21,6 +21,7 @@ public class CheckersPiece extends Piece {
     }
     else{
       pieceShape.setOnMouseClicked(null);
+      pieceShape.setOnMouseClicked(null);
     }
   }
 
@@ -41,6 +42,7 @@ public class CheckersPiece extends Piece {
           this.setState(piece.getState());
           updateColor();
           piece.setState(EMPTY_STATE);
+          piece.setPieceChosen(false);
           pieceMoved = true;
         }
       }
@@ -87,7 +89,7 @@ public class CheckersPiece extends Piece {
   @Override
   public void updateColor(){
     pieceShape.setFill(STATE_COLOR.get(state));
-    pieceShape.setStroke(STATE_COLOR.get(state));
+    pieceShape.setStroke(Piece.UNCHOSEN_COLOR);
   }
 
   @Override
@@ -98,5 +100,15 @@ public class CheckersPiece extends Piece {
   @Override
   public void unMovedPiece() {
     pieceMoved = false;
+  }
+
+  @Override
+  public void setPieceChosen(boolean pieceChosen) {
+    this.pieceChosen = pieceChosen;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(pieceChosen);
   }
 }

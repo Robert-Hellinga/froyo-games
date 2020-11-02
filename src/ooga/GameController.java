@@ -42,6 +42,7 @@ public class GameController {
       pieceGrid.updateAllColor();
       pieceGrid.resetPieceMovedChecker();
     }
+
 //    pieceGrid.setPieceState(convertBlockToPiece(game.getCheckBoard().getAllBlocks()));
   }
 

@@ -59,4 +59,8 @@ public abstract class PieceGrid {
   public boolean checkIfPieceIsMoved(){return false;}
 
   public void resetPieceMovedChecker(){}
+
+  public PieceStructure getAllPieces(){
+    return allPieces;
+  }
 }

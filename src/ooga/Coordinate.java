@@ -2,6 +2,8 @@ package ooga;
 
 public record Coordinate(int xCoordinate, int yCoordinate) {
 
+  public static final Coordinate INVALID_COORDINATE = new Coordinate(-1, -1);
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

@@ -74,4 +74,6 @@ public abstract class Piece {
   public boolean getPieceMoved(){return false;}
 
   public void unMovedPiece(){}
+
+  public void setPieceChosen(boolean pieceChosen){}
 }

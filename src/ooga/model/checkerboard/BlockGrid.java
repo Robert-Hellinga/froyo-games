@@ -53,7 +53,7 @@ public class BlockGrid {
 
   //this method is only for checkers game
   public List<Coordinate> getAvailablePosition(int currentPlayerIndex) {
-    if (chosenBlock == null) {
+    if (chosenBlock.equals(Coordinate.INVALID_COORDINATE)) {
       return new ArrayList<>();
     }
     return allBlocks.getBlock(chosenBlock).getAvailablePosition(currentPlayerIndex, allBlocks);
