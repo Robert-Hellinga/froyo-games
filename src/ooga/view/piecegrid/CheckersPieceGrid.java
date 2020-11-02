@@ -3,7 +3,7 @@ package ooga.view.piecegrid;
 import java.util.List;
 import javafx.scene.Group;
 import ooga.Coordinate;
-import ooga.view.PieceStateStructure;
+import ooga.view.newversion.PieceStateStructure;
 import ooga.view.pieces.Piece;
 
 public class CheckersPieceGrid extends PieceGrid {

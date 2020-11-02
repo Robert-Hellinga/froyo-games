@@ -3,15 +3,11 @@ package ooga.model.checkerboard.block;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockStructure;
-import ooga.model.checkerboard.block.BlockState.CheckerBlockState;
 
 public abstract class Block {
 
-  //  protected BlockState blockState;
-  protected int PlayerID;
-  protected boolean isEmpty = false;
+  protected BlockState blockState;
   protected Coordinate coordinate;
-  protected List<BlockState> blockStates;
 
   public Block(int blockConfig, Coordinate coordinate) {
     initiateBlockState(blockConfig);
@@ -24,26 +20,18 @@ public abstract class Block {
       BlockStructure allBlocks);
 
   public boolean getIsEmpty() {
-    return isEmpty;
+    return this.blockState.isEmpty;
   }
 
   public int getPlayerID() {
-    return PlayerID;
+    return this.blockState.PlayerID;
   }
 
   public void setPlayerID(int playerID) {
-    PlayerID = playerID;
+    this.blockState.PlayerID = playerID;
   }
 
   public void setEmpty(boolean isEmpty) {
-    this.isEmpty = isEmpty;
-  }
-
-  public List<BlockState> getState() {
-    return blockStates;
-  }
-
-  public void addState(BlockState blockState) {
-    blockStates.add(blockState);
+    this.blockState.isEmpty = isEmpty;
   }
 }

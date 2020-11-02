@@ -1,10 +1,11 @@
-package ooga.view;
+package ooga.view.newversion;
 
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
+import ooga.view.newversion.PieceStateStructure;
 import ooga.view.piecegrid.PieceGrid;
-import ooga.view.pieces.Piece;
+import ooga.view.newversion.Piece;
 
 public class PieceStructure {
 
@@ -18,8 +19,8 @@ public class PieceStructure {
     for (int i = 0; i < allPiecesState.getPieceStateStructureHeight(); i++) {
       List<Piece> pieceLine = new ArrayList<>();
       for (int j = 0; j < allPiecesState.getPieceStateStructureWidth(); j++) {
-        pieceLine.add(PieceGrid.createPiece(gameType, allPiecesState.getPieceState(new Coordinate(j, i)),
-            new Coordinate(j, i)));
+        pieceLine.add(
+            new Piece(allPiecesState.getPieceState(new Coordinate(j, i)), new Coordinate(j, i)));
       }
       allPieces.add(pieceLine);
     }
@@ -62,11 +63,11 @@ public class PieceStructure {
     return allPieces.get(coordinate.yCoordinate()).get(coordinate.xCoordinate());
   }
 
-  public PieceStateStructure getAllPieceState(){
+  public PieceStateStructure getAllPieceState() {
     List<List<Integer>> pieceStateStructure = new ArrayList<>();
-    for (List<Piece> pieceList : allPieces){
+    for (List<Piece> pieceList : allPieces) {
       List<Integer> pieceStateList = new ArrayList<>();
-      for (Piece piece : pieceList){
+      for (Piece piece : pieceList) {
         pieceStateList.add(piece.getState());
       }
       pieceStateStructure.add(pieceStateList);

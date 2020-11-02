@@ -6,8 +6,8 @@ import java.util.List;
 import javafx.scene.Group;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
-import ooga.view.PieceStateStructure;
-import ooga.view.PieceStructure;
+import ooga.view.newversion.PieceStateStructure;
+import ooga.view.newversion.PieceStructure;
 import ooga.view.pieces.Piece;
 
 public abstract class PieceGrid {

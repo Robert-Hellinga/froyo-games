@@ -16,9 +16,9 @@ public class CheckersBlock extends Block {
   @Override
   public void initiateBlockState(int blockConfig) {
     if (blockConfig == 0) {
-      this.isEmpty = true;
+      this.blockState.isEmpty = true;
     } else {
-      this.PlayerID = blockConfig;
+      this.blockState.PlayerID = blockConfig;
     }
   }
 
@@ -48,7 +48,7 @@ public class CheckersBlock extends Block {
 
     List<Coordinate> availableMoves = new ArrayList<>();
     for (Coordinate coor : getNeighbourMove(allBlocks, isDownDirection)) {
-      if (allBlocks.getBlock(coor).isEmpty) {
+      if (allBlocks.getBlock(coor).blockState.isEmpty) {
         availableMoves.add(coor);
       }
     }
@@ -60,7 +60,7 @@ public class CheckersBlock extends Block {
     List<Coordinate> tmpNeighbourMoves = new ArrayList<>();
     List<Coordinate> availableMoves = new ArrayList<>();
     for (Coordinate coor : getNeighbourMove(allBlocks, isDownDirection)) {
-      if (!allBlocks.getBlock(coor).isEmpty
+      if (!allBlocks.getBlock(coor).blockState.isEmpty
           && allBlocks.getBlock(coor).getPlayerID() != currentPlayerIndex) {
         tmpNeighbourMoves.add(coor);
       }
@@ -68,7 +68,8 @@ public class CheckersBlock extends Block {
     for (Coordinate coor : tmpNeighbourMoves) {
       Coordinate stepCoordinate = new Coordinate(coor.xCoordinate() * 2 - coordinate.xCoordinate(),
           coor.yCoordinate() * 2 - coordinate.yCoordinate());
-      if (checkInGrid(stepCoordinate, allBlocks) && allBlocks.getBlock(stepCoordinate).isEmpty) {
+      if (checkInGrid(stepCoordinate, allBlocks) && allBlocks
+          .getBlock(stepCoordinate).blockState.isEmpty) {
         availableMoves.add(stepCoordinate);
       }
     }
