@@ -20,20 +20,8 @@ public class Util {
     return resource.getString(key);
   }
 
-  public static void setSceneStylesheet(Scene scene, String stylesheet) {
-    scene.getStylesheets().add(Util.class.getClassLoader().getResource(stylesheet).toExternalForm());
-  }
-
   public static void setPaneStylesheet(Pane pane, String stylesheet) {
     pane.getStylesheets().add(Util.class.getClassLoader().getResource(stylesheet).toExternalForm());
-  }
-
-  public static void configureElement(Node element, Pos alignment) {
-
-  }
-
-  public static void configureElement() {
-
   }
 
   public static RowConstraints getRowConstraints(Priority Vgrow, boolean fillHeight,

@@ -6,9 +6,8 @@ import javafx.scene.layout.Pane;
 import ooga.controller.GridGameController;
 import ooga.view.screens.SplashScreen;
 
-public class Display implements Styleable {
+public class Display {
 
-  private static final String DEFAULT_STYLE_SHEET = "style/default.css";
   private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "ui.Display";
   private static final GridGameController DEFAULT_CONTROLLER = new GridGameController();
 
@@ -24,9 +23,8 @@ public class Display implements Styleable {
   public Display(GridGameController controller) {
     currentController = controller;
     resourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH);
-    SplashScreen startScreen = new SplashScreen(resourceBundle);
+    SplashScreen startScreen = new SplashScreen(resourceBundle, currentController, this);
     setNewLayout(startScreen);
-    Util.setSceneStylesheet(scene, DEFAULT_STYLE_SHEET);
   }
 
   public void setNewLayout(Pane layout) {
@@ -36,16 +34,5 @@ public class Display implements Styleable {
 
   public Scene getScene() {
     return scene;
-  }
-
-  @Override
-  public void setStyleSheet(String stylesheet) {
-    scene.getStylesheets().clear();
-    Util.setSceneStylesheet(scene, stylesheet);
-  }
-
-  @Override
-  public String getStyleSheet() {
-    return scene.getStylesheets().get(0);
   }
 }

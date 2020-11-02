@@ -1,50 +1,43 @@
 package ooga.view.screens;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.lang.ModuleLayer.Controller;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import ooga.controller.GridGameController;
+import ooga.view.Display;
 import ooga.view.Styleable;
 import ooga.view.Util;
+import ooga.view.elements.SplashScreenButtonBox;
+import ooga.view.elements.CustomButton;
+import ooga.view.elements.SplashScreenTitleBox;
 
 public class SplashScreen extends GridPane implements Styleable {
 
+  private static final String BACKGROUND_STYLE_CLASS = "background";
   private static final String DEFAULT_STYLE_SHEET = "style/default.css";
-  private static final String TITLE_IMG_PATH = "img/title.png";
   private static final int WIDTH = 800;
   private static final int HEIGHT = 600;
 
   private ResourceBundle resourceBundle;
 
-  public SplashScreen(ResourceBundle resourceBundle) {
-    super();
+  public SplashScreen(ResourceBundle resourceBundle, GridGameController controller, Display display) {
     this.resourceBundle = resourceBundle;
+    setStyleSheet(DEFAULT_STYLE_SHEET);
+
     setWidth(WIDTH);
     setHeight(HEIGHT);
-    setGridLinesVisible(true);
-    add(makeTitleBox(), 0, 0);
+
     getColumnConstraints().add(Util.getColumnConstraints(Priority.NEVER, true, WIDTH));
+
+    add(new SplashScreenTitleBox(), 0, 0);
     getRowConstraints().add(Util.getRowConstraints(Priority.NEVER, false, 150));
-  }
+    getStyleClass().add(BACKGROUND_STYLE_CLASS);
 
-  private HBox makeTitleBox() {
-    HBox titleBox = new HBox();
-    titleBox.getChildren().add(getTitle());
-    titleBox.setAlignment(Pos.CENTER);
-    Util.configureElement(getTitle(), Pos.CENTER);
-    return titleBox;
-  }
-
-  private ImageView getTitle() {
-    ImageView img = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(TITLE_IMG_PATH)));
-    img.setFitWidth(400);
-    img.setPreserveRatio(true);
-    return img;
+    add(new SplashScreenButtonBox(resourceBundle, controller, display), 0, 1);
+    getRowConstraints().add(Util.getRowConstraints(Priority.SOMETIMES, true, 200));
   }
 
   @Override
