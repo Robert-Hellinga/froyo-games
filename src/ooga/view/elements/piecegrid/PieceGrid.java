@@ -4,13 +4,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javafx.scene.Group;
+import javafx.scene.layout.GridPane;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.view.PieceStateStructure;
 import ooga.view.PieceStructure;
 import ooga.view.elements.pieces.Piece;
 
-public abstract class PieceGrid {
+public abstract class PieceGrid extends GridPane {
 
   protected PieceStructure allPieces;
   protected String gameType;
