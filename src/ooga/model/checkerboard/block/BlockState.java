@@ -5,43 +5,65 @@ public class BlockState {
   protected int PlayerID;
   protected boolean isEmpty = false;
   protected boolean isKing;
-
   protected boolean isChosen;
   protected boolean isPotentialMove;
 
-  public boolean isChosen() {
-    return isChosen;
-  }
 
-  public boolean isKing() {
-    return isKing;
-  }
-
-  public boolean isPotentialMove() {
-    return isPotentialMove;
-  }
-
-  public void setChosen() {
+  public void choose() {
     isChosen = true;
   }
 
-  public void unsetChosen() {
+  public void unchoose() {
     isChosen = false;
   }
 
-  public boolean isEmpty() {
-    return isEmpty;
+
+  public void makePotentialMove() {
+    isPotentialMove = true;
+  }
+
+  public void unmakePotentialMove(){
+    isPotentialMove = false;
+  }
+
+  public void setPlayerID(int playerID) {
+    PlayerID = playerID;
   }
 
   public int getPlayerID() {
     return PlayerID;
   }
 
-  public void setPotentialMove() {
-    isPotentialMove = true;
+  public void setEmpty(boolean empty) {
+    isEmpty = empty;
   }
 
-  public void unsetPotentialMove(){
-    isPotentialMove = false;
+  public boolean isEmpty() {
+    return isEmpty;
   }
+
+  public void setKing(boolean king) {
+    isKing = king;
+  }
+
+  public boolean isKing() {
+    return isKing;
+  }
+
+  public void setPotentialMove(boolean potentialMove) {
+    isPotentialMove = potentialMove;
+  }
+
+  public boolean isPotentialMove() {
+    return isPotentialMove;
+  }
+
+  public void setChosen(boolean chosen) {
+    isChosen = chosen;
+  }
+
+  public boolean isChosen() {
+    return isChosen;
+  }
+
 }

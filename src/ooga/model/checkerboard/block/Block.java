@@ -43,4 +43,8 @@ public abstract class Block {
   public BlockState getBlockState() {
     return blockState;
   }
+
+  public void setBlockState(BlockState blockState) {
+    this.blockState = blockState;
+  }
 }

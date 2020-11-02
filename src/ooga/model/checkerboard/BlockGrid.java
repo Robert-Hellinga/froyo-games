@@ -2,11 +2,10 @@ package ooga.model.checkerboard;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.checkerboard.block.Block;
+import ooga.model.checkerboard.block.BlockState;
 
 public class BlockGrid {
 
@@ -44,7 +43,7 @@ public class BlockGrid {
 
   public void setChosenBlock(Coordinate chosenBlock) {
 //    this.chosenBlock = chosenBlock;
-    allBlocks.getBlock(chosenBlock).getBlockState().setChosen();
+    allBlocks.getBlock(chosenBlock).getBlockState().choose();
   }
 
   //this method is only for checkers game
@@ -52,7 +51,7 @@ public class BlockGrid {
     if (!chosenBlock.equals(Coordinate.INVALID_COORDINATE)) {
       for (Coordinate coordinate :
           allBlocks.getBlock(chosenBlock).getAvailablePosition(currentPlayerIndex, allBlocks)){
-        allBlocks.getBlock(coordinate).getBlockState().setPotentialMove();
+        allBlocks.getBlock(coordinate).getBlockState().makePotentialMove();
       }
     }
   }
@@ -83,11 +82,22 @@ public class BlockGrid {
     return false;
   }
 
+  public Coordinate getChosenBlockCoordianate(){
+    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
+      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+        if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isChosen()) {
+          return new Coordinate(j, i);
+        }
+      }
+    }
+    return Coordinate.INVALID_COORDINATE;
+  }
+
   public void unChoseAllBlock() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
         if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isChosen()) {
-          allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unsetChosen();
+          allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unchoose();
         }
       }
     }
@@ -97,9 +107,15 @@ public class BlockGrid {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
         if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isPotentialMove()) {
-          allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unsetPotentialMove();
+          allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unmakePotentialMove();
         }
       }
     }
+  }
+
+  public void moveBlock(Coordinate originalCoordiante, Coordinate newCoordinate){
+    allBlocks.getBlock(newCoordinate).setBlockState(
+    );
+    allBlocks.getBlock(originalCoordiante).setEmpty(true);
   }
 }

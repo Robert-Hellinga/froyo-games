@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JCheckBoxMenuItem;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
@@ -113,17 +112,18 @@ public class Game {
           == getCurrentPlayerIndex()) {
         checkBoard.unChoseAllBlock();
         checkBoard.unsetAllBlockPotential();
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().setChosen();
+        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
         checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
       } else if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState()
           .isPotentialMove()) {
+        checkBoard.moveBlock(checkBoard.getChosenBlockCoordianate(), passInCoordinate);
         checkBoard.unChoseAllBlock();
         checkBoard.unsetAllBlockPotential();
         checkBoard.getAllBlocks().getBlock(passInCoordinate).setPlayerID(getCurrentPlayerIndex());
       }
     } else {
       if (!checkBoard.getAllBlocks().getBlock(passInCoordinate).getIsEmpty()) {
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().setChosen();
+        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
         checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
       }
     }
