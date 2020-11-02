@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
@@ -21,6 +22,10 @@ public class Util {
 
   public static void setSceneStylesheet(Scene scene, String stylesheet) {
     scene.getStylesheets().add(Util.class.getClassLoader().getResource(stylesheet).toExternalForm());
+  }
+
+  public static void setPaneStylesheet(Pane pane, String stylesheet) {
+    pane.getStylesheets().add(Util.class.getClassLoader().getResource(stylesheet).toExternalForm());
   }
 
   public static void configureElement(Node element, Pos alignment) {

@@ -24,16 +24,14 @@ public class Display implements Styleable {
   public Display(GridGameController controller) {
     currentController = controller;
     resourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH);
-    setNewLayout(new SplashScreen(resourceBundle));
+    SplashScreen startScreen = new SplashScreen(resourceBundle);
+    setNewLayout(startScreen);
     Util.setSceneStylesheet(scene, DEFAULT_STYLE_SHEET);
-    System.out.println("TEST");
   }
 
   public void setNewLayout(Pane layout) {
     this.layout = layout;
     scene = new Scene(layout, layout.getWidth(), layout.getHeight());
-    System.out.println(scene);
-
   }
 
   public Scene getScene() {
