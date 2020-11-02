@@ -100,6 +100,7 @@ public class Game {
   }
 
   //this method is only for checkers game
+  @Deprecated
   public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
     if (!newPosition.equals(Coordinate.INVALID_COORDINATE)) {
       checkBoard.removeCheckedPiece(newPosition, originalPosition);
@@ -125,7 +126,7 @@ public class Game {
       }
     } else {
       if (!checkBoard.getAllBlocks().getBlock(passInCoordinate).getIsEmpty()
-        && checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
+          && checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
           == getCurrentPlayerIndex()) {
         checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
         checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);

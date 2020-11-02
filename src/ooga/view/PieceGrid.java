@@ -1,9 +1,8 @@
-package ooga.view.newversion;
+package ooga.view;
 
 import java.util.List;
 import javafx.scene.Group;
 import ooga.Coordinate;
-import ooga.view.newversion.Piece;
 
 public class PieceGrid {
 
