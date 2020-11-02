@@ -17,8 +17,7 @@ public class Main extends Application {
     }
 
     private void playGame(Stage stage) {
-        GridGameController controller = new GridGameController();
-        Display display = new Display(controller);
+        Display display = new Display();
         stage.setScene(display.getScene());
         stage.setResizable(RESIZABLE_WINDOW);
         stage.setTitle(WINDOW_NAME);
