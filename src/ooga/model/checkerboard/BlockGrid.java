@@ -27,14 +27,15 @@ public class BlockGrid {
       throws ClassOrMethodNotFoundException {
     try {
       Class<?> block = Class.forName("ooga.model.checkerboard.block." + gameType + "Block");
-//      Class<?> block = Class.forName("ooga.model.checkerboard.block." + "Block");
       Class<?>[] param = {Integer.class, Coordinate.class};
       Constructor<?> cons = block.getConstructor(param);
       Object[] paramObject = {blockConfig, coordinate};
       Object gameBlock = cons.newInstance(paramObject);
       return (Block) gameBlock;
     } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+      e.printStackTrace();
       throw new ClassOrMethodNotFoundException("class or method is not found");
+
     }
   }
 

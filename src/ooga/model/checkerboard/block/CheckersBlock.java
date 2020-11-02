@@ -17,19 +17,11 @@ public class CheckersBlock extends Block {
   public List<Coordinate> getAvailablePosition(int currentPlayerIndex, BlockStructure allBlocks) {
     List<Coordinate> allAvailablePosition = new ArrayList<>();
     if (currentPlayerIndex == 1) {
-      for (Coordinate coor : getPotentialNeighbourMove(currentPlayerIndex, allBlocks, true)) {
-        allAvailablePosition.add(coor);
-      }
-      for (Coordinate coor : getPotentialStepMove(currentPlayerIndex, allBlocks, true)) {
-        allAvailablePosition.add(coor);
-      }
+      allAvailablePosition.addAll(getPotentialNeighbourMove(currentPlayerIndex, allBlocks, true));
+      allAvailablePosition.addAll(getPotentialStepMove(currentPlayerIndex, allBlocks, true));
     } else if (currentPlayerIndex == 2) {
-      for (Coordinate coor : getPotentialNeighbourMove(currentPlayerIndex, allBlocks, false)) {
-        allAvailablePosition.add(coor);
-      }
-      for (Coordinate coor : getPotentialStepMove(currentPlayerIndex, allBlocks, false)) {
-        allAvailablePosition.add(coor);
-      }
+      allAvailablePosition.addAll(getPotentialNeighbourMove(currentPlayerIndex, allBlocks, false));
+      allAvailablePosition.addAll(getPotentialStepMove(currentPlayerIndex, allBlocks, false));
     }
     return allAvailablePosition;
   }

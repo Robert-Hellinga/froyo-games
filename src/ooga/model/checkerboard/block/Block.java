@@ -6,24 +6,19 @@ import ooga.model.checkerboard.BlockStructure;
 
 public abstract class Block {
 
-  protected BlockState blockState;
+  protected BlockState blockState = new BlockState();
   protected Coordinate coordinate;
 
-  public Block(int blockConfig, Coordinate coordinate) {
+  public Block(Integer blockConfig, Coordinate coordinate) {
     initiateBlockState(blockConfig);
     this.coordinate = coordinate;
   }
 
   public void initiateBlockState(int blockConfig) {
-    if (blockConfig == 0) {
-      this.blockState.isEmpty = true;
-    } else {
-      this.blockState.PlayerID = blockConfig;
-
-      this.blockState.isChosen = false;
-      this.blockState.isPotentialMove = false;
-
-    }
+    this.blockState.isEmpty = blockConfig == 0;
+    this.blockState.PlayerID = blockConfig;
+    this.blockState.isChosen = false;
+    this.blockState.isPotentialMove = false;
   }
 
   public abstract List<Coordinate> getAvailablePosition(int currentPlayerIndex,
