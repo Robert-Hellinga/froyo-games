@@ -2,7 +2,6 @@ package ooga.model.checkerboard.block;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.layout.CornerRadii;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockStructure;
 
@@ -11,15 +10,6 @@ public class CheckersBlock extends Block {
 
   public CheckersBlock(Integer blockConfig, Coordinate coordinate) {
     super(blockConfig, coordinate);
-  }
-
-  @Override
-  public void initiateBlockState(int blockConfig) {
-    if (blockConfig == 0) {
-      this.isEmpty = true;
-    } else {
-      this.PlayerID = blockConfig;
-    }
   }
 
   @Override

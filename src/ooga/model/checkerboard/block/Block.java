@@ -16,7 +16,13 @@ public abstract class Block {
     this.coordinate = coordinate;
   }
 
-  public abstract void initiateBlockState(int blockConfig);
+  public void initiateBlockState(int blockConfig) {
+    if (blockConfig == 0) {
+      this.isEmpty = true;
+    } else {
+      this.PlayerID = blockConfig;
+    }
+  }
 
   public abstract List<Coordinate> getAvailablePosition(int currentPlayerIndex,
       BlockStructure allBlocks);
