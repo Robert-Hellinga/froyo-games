@@ -32,4 +32,12 @@ public class Coordinate {
     return xCoordinate == that.xCoordinate &&
         yCoordinate == that.yCoordinate;
   }
+
+  @Override
+  public String toString() {
+    return "Coordinate{" +
+        "xCoordinate=" + xCoordinate +
+        ", yCoordinate=" + yCoordinate +
+        '}';
+  }
 }

@@ -61,8 +61,9 @@ public class GameController implements GameControllerInterface {
   }
 
   @Override
-  public void clickPiece(Coordinate coordinate) {
+  public void clickPiece(Coordinate coordinate, PieceGrid grid) {
     game.play(coordinate);
+    grid.update();
   }
 
   @Override
