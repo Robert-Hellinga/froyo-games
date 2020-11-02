@@ -102,4 +102,11 @@ public class Game {
   public BlockGrid getCheckBoard() {
     return checkBoard;
   }
+
+  //this method is only for checkers game
+  public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition){
+    if(!newPosition.equals(Coordinate.INVALID_COORDINATE)){
+      checkBoard.removeCheckedPiece(newPosition, originalPosition);
+    }
+  }
 }
