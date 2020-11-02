@@ -6,10 +6,10 @@ import javafx.scene.Group;
 import ooga.model.Game;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
-import ooga.view.piecegrid.CheckersPieceGrid;
-import ooga.view.piecegrid.PieceGrid;
+import ooga.view.elements.piecegrid.CheckersPieceGrid;
+import ooga.view.elements.piecegrid.PieceGrid;
 import ooga.view.PieceStateStructure;
-import ooga.view.pieces.Piece;
+import ooga.view.elements.pieces.Piece;
 
 public class GameController {
 

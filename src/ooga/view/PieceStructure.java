@@ -3,8 +3,8 @@ package ooga.view;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
-import ooga.view.piecegrid.PieceGrid;
-import ooga.view.pieces.Piece;
+import ooga.view.elements.piecegrid.PieceGrid;
+import ooga.view.elements.pieces.Piece;
 
 public class PieceStructure {
 

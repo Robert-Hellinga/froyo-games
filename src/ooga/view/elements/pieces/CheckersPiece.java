@@ -1,4 +1,4 @@
-package ooga.view.pieces;
+package ooga.view.elements.pieces;
 
 import java.util.List;
 import java.util.Objects;

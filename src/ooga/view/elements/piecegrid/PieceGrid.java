@@ -1,4 +1,4 @@
-package ooga.view.piecegrid;
+package ooga.view.elements.piecegrid;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -8,7 +8,7 @@ import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.view.PieceStateStructure;
 import ooga.view.PieceStructure;
-import ooga.view.pieces.Piece;
+import ooga.view.elements.pieces.Piece;
 
 public abstract class PieceGrid {
 
@@ -25,7 +25,7 @@ public abstract class PieceGrid {
 
   public static Piece createPiece(String gameType, int state, Coordinate coordinate) {
     try {
-      Class<?> piece = Class.forName("ooga.view.pieces." + gameType + "Piece");
+      Class<?> piece = Class.forName("ooga.view.elements.pieces." + gameType + "Piece");
       Class<?>[] param = {Integer.class, Coordinate.class};
       Constructor<?> cons = piece.getConstructor(param);
       Object[] paramObject = {state, coordinate};
