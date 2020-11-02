@@ -1,31 +1,60 @@
 package ooga.view.elements;
 
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import ooga.controller.GameController;
+import ooga.model.Game;
+import ooga.view.Display;
+import ooga.view.screens.GameScreen;
 
 public class SplashScreenButtonBox extends VBox {
 
   private ResourceBundle resourceBundle;
   private ToggleGroup gameToggleGroup, playerToggleGroup;
   private GameController controller;
+  private Display display;
 
-  public SplashScreenButtonBox(ResourceBundle resourceBundle, GameController controller) {
+
+  public static final int FRAMES_PER_SECOND = 60;
+  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  private ooga.GameController temporary;
+  private Group root;
+
+  public SplashScreenButtonBox(ResourceBundle resourceBundle, GameController controller,
+      Display display) {
     this.resourceBundle = resourceBundle;
     this.controller = controller;
+    this.display = display;
     setSpacing(15);
-
     getChildren().addAll(getGameButtonGroup(), getPlayerButtonGroup(), getStartButtonGroup());
+
+    root = new Group();
+    temporary = new ooga.GameController("Checkers", root);
+    KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
+    Timeline animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+    animation.play();
+  }
+
+  private void step(double elapsedTime) {
+    temporary.update();
   }
 
   private void startGame() {
     Toggle selectedGame = gameToggleGroup.getSelectedToggle();
     Toggle selectedPlayers = playerToggleGroup.getSelectedToggle();
     // controller.initiateGame()
+    GameScreen screen = new GameScreen(resourceBundle, controller, root);
+    display.setNewLayout(screen);
   }
 
   private VBox getGameButtonGroup() {

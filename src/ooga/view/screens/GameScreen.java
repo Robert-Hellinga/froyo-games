@@ -10,12 +10,14 @@ import ooga.view.elements.piecegrid.PieceGrid;
 
 public class GameScreen extends GridPane implements Styleable {
 
+  private static final int WIDTH = 400;
+  private static final int HEIGHT = 350;
   private static final String DEFAULT_STYLE_SHEET = "style/default.css";
-
 
   public GameScreen(ResourceBundle resourceBundle, GameController controller, Group game) {
     setStyleSheet(DEFAULT_STYLE_SHEET);
-
+    setWidth(WIDTH);
+    setHeight(HEIGHT);
     add(game, 0, 0);
   }
 

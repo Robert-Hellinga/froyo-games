@@ -18,9 +18,11 @@ public class SplashScreen extends GridPane implements Styleable {
   private static final int HEIGHT = 450;
 
   private ResourceBundle resourceBundle;
+  private Display display;
 
   public SplashScreen(ResourceBundle resourceBundle, GameController controller, Display display) {
     this.resourceBundle = resourceBundle;
+    this.display = display;
     setStyleSheet(DEFAULT_STYLE_SHEET);
 
     setWidth(WIDTH);
@@ -32,7 +34,7 @@ public class SplashScreen extends GridPane implements Styleable {
     getRowConstraints().add(Util.getRowConstraints(Priority.NEVER, false, 120));
     getStyleClass().add(BACKGROUND_STYLE_CLASS);
 
-    add(new SplashScreenButtonBox(resourceBundle, controller), 0, 1);
+    add(new SplashScreenButtonBox(resourceBundle, controller, display), 0, 1);
     getRowConstraints().add(Util.getRowConstraints(Priority.SOMETIMES, true, 200));
   }
 

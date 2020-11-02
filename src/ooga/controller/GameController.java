@@ -13,7 +13,7 @@ public class GameController implements GameControllerInterface {
   }
 
   public GameController() {
-    myDisplay = new Display(this);
+//    myDisplay = new Display(this);
   }
 
   @Override
