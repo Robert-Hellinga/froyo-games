@@ -1,22 +1,23 @@
 package ooga;
 
-
 import javafx.application.Application;
 import javafx.stage.Stage;
-import ooga.controller.GameControllerInterface;
-import ooga.controller.GameController;
+import ooga.view.Display;
 
 public class Main extends Application {
-    /**
-     * Start of the program.
-     */
-    public static void main (String[] args) {
-        launch(args);
-
-    }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        GameControllerInterface controller = new GameController();
+    public void start(Stage stage) {
+        // TODO: temporary implementation, need to add language select
+        playGame(stage);
     }
+
+    private void playGame(Stage stage) {
+        Display display = new Display(stage);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
