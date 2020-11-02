@@ -59,19 +59,12 @@ public class CheckersBlock extends Block {
       boolean isDownDirection) {
     List<Coordinate> tmpNeighbourMoves = new ArrayList<>();
     List<Coordinate> availableMoves = new ArrayList<>();
-    int indicator;
-    if (isDownDirection) {
-      indicator = 1;
-    } else {
-      indicator = -1;
-    }
     for (Coordinate coor : getNeighbourMove(allBlocks, isDownDirection)) {
       if (!allBlocks.getBlock(coor).isEmpty
           && allBlocks.getBlock(coor).getPlayerID() != currentPlayerIndex) {
         tmpNeighbourMoves.add(coor);
       }
     }
-
     for (Coordinate coor : tmpNeighbourMoves) {
       Coordinate stepCoordinate = new Coordinate(coor.xCoordinate() * 2 - coordinate.xCoordinate(),
           coor.yCoordinate() * 2 - coordinate.yCoordinate());
