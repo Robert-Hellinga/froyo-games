@@ -59,7 +59,6 @@ public class BlockGrid {
 
   //this method is only for checkers game
   public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
-    //TODO: There is a bug here.
     int xMovement = newPosition.xCoordinate() - originalPosition.xCoordinate();
     int yMovement = newPosition.yCoordinate() - originalPosition.yCoordinate();
     if (Math.abs(xMovement) == 2 && Math.abs(yMovement) == 2) {
@@ -118,6 +117,19 @@ public class BlockGrid {
     allBlocks.getBlock(newCoordinate).setBlockState(
         allBlocks.getBlock(originalCoordiante).getBlockState().clone()
     );
-    allBlocks.getBlock(originalCoordiante).setEmpty(true);
+    allBlocks.getBlock(newCoordinate).getBlockState().setChosen(false);
+    allBlocks.getBlock(originalCoordiante).initiateBlockState(0);
+//    allBlocks.getBlock(originalCoordiante).setEmpty(true);
+  }
+
+  public void makeBlockKing(Coordinate newCoordinate){
+    if (newCoordinate.yCoordinate() == 0
+        && allBlocks.getBlock(newCoordinate).getPlayerID() == 2){
+      allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
+    }
+    else if (newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight() - 1
+      && allBlocks.getBlock(newCoordinate).getPlayerID() == 1){
+      allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
+    }
   }
 }

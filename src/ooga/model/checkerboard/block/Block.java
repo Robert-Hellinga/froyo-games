@@ -19,6 +19,7 @@ public abstract class Block {
     this.blockState.PlayerID = blockConfig;
     this.blockState.isChosen = false;
     this.blockState.isPotentialMove = false;
+    this.blockState.isKing = false;
   }
 
   public abstract List<Coordinate> getAvailablePosition(int currentPlayerIndex,

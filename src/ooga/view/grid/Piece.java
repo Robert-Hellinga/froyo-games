@@ -1,15 +1,19 @@
 package ooga.view.grid;
 
-import java.lang.ModuleLayer.Controller;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import javafx.event.ActionEvent;
+import java.util.Objects;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import ooga.Coordinate;
-import ooga.controller.GameController;
+import javafx.scene.image.Image;
+import ooga.Main;
+import ooga.exceptions.ResourcesFileNotFoundException;
 
 public class Piece {
 
@@ -22,6 +26,10 @@ public class Piece {
     put(3, Color.rgb(0, 188, 255));
     put(4, Color.rgb(183, 29, 29));
     put(5, Color.rgb(39, 255, 0, 0.33));
+    put(6, Color.color(0,0,0,0));
+    put(7, Color.color(0,0,0,0));
+    put(8, Color.color(0,0,0,0));
+    put(9, Color.color(0,0,0,0));
   }};
   public static final Map<Integer, Color> STROKE_COLOR = new HashMap<>(){{
     put(0, Color.color(0, 0, 0, 0));
@@ -30,7 +38,13 @@ public class Piece {
     put(3, Color.YELLOW);
     put(4, Color.YELLOW);
     put(5, Color.rgb(39, 255, 0));
+    put(6, Color.color(0, 0, 0, 0));
+    put(7, Color.color(0, 0, 0, 0));
+    put(8, Color.YELLOW);
+    put(9, Color.YELLOW);
   }};
+  public static final String KING_PIECE_IMAGE_BLUE = "img/king_piece_blue.png";
+  public static final String KING_PIECE_IMAGE_RED = "img/king_piece_red.png";
 
   private Circle pieceShape;
   private int state;
@@ -66,5 +80,21 @@ public class Piece {
   public void updateColor(){
     pieceShape.setFill(FILL_COLOR.get(state));
     pieceShape.setStroke(STROKE_COLOR.get(state));
+    if(state == 6 || state == 8){
+      Image kingPieceImage = loadImage(KING_PIECE_IMAGE_BLUE);
+      pieceShape.setFill(new ImagePattern(kingPieceImage));
+    }
+    else if (state == 7 || state == 9){
+      Image kingPieceImage = loadImage(KING_PIECE_IMAGE_RED);
+      pieceShape.setFill(new ImagePattern(kingPieceImage));
+    }
+  }
+
+  private Image loadImage(String imageFile) throws ResourcesFileNotFoundException {
+    try {
+      return new Image(imageFile, SIZE, SIZE, false, false);
+    }catch (IllegalArgumentException e){
+      throw new ResourcesFileNotFoundException("file is not found");
+    }
   }
 }

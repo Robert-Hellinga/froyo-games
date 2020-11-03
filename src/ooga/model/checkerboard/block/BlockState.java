@@ -41,6 +41,10 @@ public class BlockState {
     return isEmpty;
   }
 
+  public void makeKing(){
+    isKing = true;
+  }
+
   public void setKing(boolean king) {
     isKing = king;
   }
@@ -71,6 +75,14 @@ public class BlockState {
     }
     else if (isPotentialMove()){
       return 5;
+    }
+    else if (isKing()){
+      if (!isChosen()) {
+        return getPlayerID() + 5;
+      }
+      else{
+        return getPlayerID() + 7;
+      }
     }
     else {
       if (!isChosen()) {
