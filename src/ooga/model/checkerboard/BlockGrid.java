@@ -59,7 +59,6 @@ public class BlockGrid {
 
   //this method is only for checkers game
   public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
-    //TODO: There is a bug here.
     int xMovement = newPosition.xCoordinate() - originalPosition.xCoordinate();
     int yMovement = newPosition.yCoordinate() - originalPosition.yCoordinate();
     if (Math.abs(xMovement) == 2 && Math.abs(yMovement) == 2) {
