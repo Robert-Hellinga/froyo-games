@@ -35,6 +35,13 @@ public class CheckersBlock extends Block {
         availableMoves.add(coor);
       }
     }
+    if (blockState.isKing){
+      for (Coordinate coor : getNeighbourMove(allBlocks, !isDownDirection)) {
+        if (allBlocks.getBlock(coor).blockState.isEmpty) {
+          availableMoves.add(coor);
+        }
+      }
+    }
     return availableMoves;
   }
 
@@ -46,6 +53,14 @@ public class CheckersBlock extends Block {
       if (!allBlocks.getBlock(coor).blockState.isEmpty
           && allBlocks.getBlock(coor).getPlayerID() != currentPlayerIndex) {
         tmpNeighbourMoves.add(coor);
+      }
+    }
+    if (blockState.isKing){
+      for (Coordinate coor : getNeighbourMove(allBlocks, !isDownDirection)) {
+        if (!allBlocks.getBlock(coor).blockState.isEmpty
+            && allBlocks.getBlock(coor).getPlayerID() != currentPlayerIndex) {
+          tmpNeighbourMoves.add(coor);
+        }
       }
     }
     for (Coordinate coor : tmpNeighbourMoves) {
