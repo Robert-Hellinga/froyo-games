@@ -127,7 +127,7 @@ public class BlockGrid {
         && allBlocks.getBlock(newCoordinate).getPlayerID() == 2){
       allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
     }
-    else if (newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight()
+    else if (newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight() - 1
       && allBlocks.getBlock(newCoordinate).getPlayerID() == 1){
       allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
     }
