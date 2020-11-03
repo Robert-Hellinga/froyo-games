@@ -108,6 +108,7 @@ public class Game {
   }
 
   public void play(Coordinate passInCoordinate) {
+    System.out.println("First touch passincoor : " + passInCoordinate);
     if (checkBoard.hasChosenBlock()) {
       if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
           == getCurrentPlayerIndex()) {
@@ -117,8 +118,15 @@ public class Game {
         checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
       } else if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState()
           .isPotentialMove()) {
-        checkBoard.moveBlock(checkBoard.getChosenBlockCoordianate(), passInCoordinate);
+
+        System.out.println("ChosenCoor before move : " + checkBoard.getChosenBlockCoordianate());
+
         checkBoard.removeCheckedPiece(passInCoordinate, checkBoard.getChosenBlockCoordianate());
+        checkBoard.moveBlock(checkBoard.getChosenBlockCoordianate(), passInCoordinate);
+
+        System.out.println("Chosen block coordinate : " + checkBoard.getChosenBlockCoordianate());
+        System.out.println("PassIn block coordinate : " + passInCoordinate);
+        //TODO: there is a bug here
         checkBoard.unChoseAllBlock();
         checkBoard.unsetAllBlockPotential();
         checkBoard.getAllBlocks().getBlock(passInCoordinate).setPlayerID(getCurrentPlayerIndex());
