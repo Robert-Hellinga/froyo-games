@@ -24,4 +24,5 @@ public class CustomToggleButton extends ToggleButton {
   public CustomToggleButton(String text, ToggleGroup toggleGroup) {
     this(text, toggleGroup, DEFAULT_WIDTH, DEFAULT_HEIGHT);
   }
+
 }

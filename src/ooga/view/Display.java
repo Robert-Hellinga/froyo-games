@@ -7,57 +7,33 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.controller.GameController;
+import ooga.controller.IFroyoController;
 import ooga.view.screens.SplashScreen;
 
-public class Display {
+public class Display implements IDisplay {
 
   private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "resources.ui.Display";
-  private static final GameController DEFAULT_CONTROLLER = new GameController();
-  private static final boolean RESIZABLE_WINDOW = false;
-  private static final String WINDOW_NAME = "Froyo Games";
-  public static final int FRAMES_PER_SECOND = 60;
-  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  //private static final GameController DEFAULT_CONTROLLER = new GameController();
 
-  private GameController currentController;
+  private IFroyoController myController;
   private ResourceBundle resourceBundle;
   private Scene scene;
   private Stage stage;
 
-  public Display(Stage stage) {
-    this(stage, DEFAULT_CONTROLLER);
-  }
+//  public Display(Stage stage) {
+//    this(stage, DEFAULT_CONTROLLER);
+//  }
 
-  public Display(Stage stage, GameController controller) {
-    this.stage = stage;
-    currentController = controller;
+  public Display(IFroyoController controller) {
+    myController = controller;
     resourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH);
-    SplashScreen startScreen = new SplashScreen(resourceBundle, currentController, this);
-    setNewLayout(startScreen);
-    setupStage();
-    setupAnimation();
+    SplashScreen startScreen = new SplashScreen(resourceBundle, myController, this);
+    myController.setNewLayout(startScreen);
   }
 
-  private void setupStage() {
-    stage.setResizable(RESIZABLE_WINDOW);
-    stage.setTitle(WINDOW_NAME);
-    stage.show();
-  }
 
-  private void setupAnimation() {
-    KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
-    Timeline animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(frame);
-    animation.play();
-  }
 
-  private void step(double elapsedTime) {
-    currentController.update();
-  }
 
-  public void setNewLayout(Pane layout) {
-    scene = new Scene(layout, layout.getWidth(), layout.getHeight());
-    stage.setScene(scene);
-  }
+
+
 }

@@ -1,17 +1,12 @@
 package ooga.view.elements;
 
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import ooga.controller.GameController;
-import ooga.model.Game;
+import ooga.controller.IFroyoController;
 import ooga.view.Display;
 import ooga.view.screens.GameScreen;
 
@@ -19,10 +14,10 @@ public class SplashScreenButtonBox extends VBox {
 
   private ResourceBundle resourceBundle;
   private ToggleGroup gameToggleGroup, playerToggleGroup;
-  private GameController controller;
+  private IFroyoController controller;
   private Display display;
 
-  public SplashScreenButtonBox(ResourceBundle resourceBundle, GameController controller,
+  public SplashScreenButtonBox(ResourceBundle resourceBundle, IFroyoController controller,
       Display display) {
     this.resourceBundle = resourceBundle;
     this.controller = controller;
@@ -31,15 +26,7 @@ public class SplashScreenButtonBox extends VBox {
     getChildren().addAll(getGameButtonGroup(), getPlayerButtonGroup(), getStartButtonGroup());
 
   }
-  private void startGame() {
-    Toggle selectedGame = gameToggleGroup.getSelectedToggle();
-    Toggle selectedPlayers = playerToggleGroup.getSelectedToggle();
 
-    // controller.setNumPlayers(selectedPlayers);
-    // controller.setGame(selectedGame);
-    GameScreen screen = new GameScreen(resourceBundle, controller);
-    display.setNewLayout(screen);
-  }
 
   private VBox getGameButtonGroup() {
     VBox result = new VBox();
@@ -66,10 +53,12 @@ public class SplashScreenButtonBox extends VBox {
     return result;
   }
 
+
+
   private VBox getStartButtonGroup() {
     VBox result = new VBox();
     result.setAlignment(Pos.CENTER);
-    CustomButton startButton = new CustomButton("Start", event -> startGame());
+    CustomButton startButton = new CustomButton("Start", event -> controller.startGame("Checkers"));
     result.getChildren().add(startButton);
     return result;
   }

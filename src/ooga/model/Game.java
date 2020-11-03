@@ -9,7 +9,10 @@ import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockGrid;
+import ooga.model.checkerboard.BlockStructure;
+import ooga.model.checkerboard.block.Block;
 import ooga.model.player.*;
+import ooga.view.GameObserver;
 
 public class Game {
 
@@ -18,6 +21,7 @@ public class Game {
   private BlockGrid checkBoard;
   private int numPlayers;
   private Player currentPlayer;
+  private List<GameObserver> observers;
 
   public Game(String gameType, String playerName, PlayerMode playerMode) {
     this.gameType = gameType;
@@ -27,6 +31,7 @@ public class Game {
     //player 2 depends on the player mode chosen
     allPlayers.add(createSecondPlayer(playerMode));
     currentPlayer = decideWhichPlayerGoFirst(playerMode);
+    observers = new ArrayList<>();
   }
 
 
@@ -133,6 +138,35 @@ public class Game {
         checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
         checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
       }
+    }
+    notifyObservers();
+  }
+
+  public List<List<Integer>> getAllBlockStates() {
+    BlockStructure blocks = getCheckBoard().getAllBlocks();
+    List<List<Integer>> blockState = new ArrayList<>();
+    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
+      List<Integer> blockStateLine = new ArrayList<>();
+      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
+        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
+        blockStateLine.add(currentBlock.getBlockState().getNumericState());
+      }
+      blockState.add(blockStateLine);
+    }
+    return blockState;
+  }
+
+  public void registerObserver(GameObserver observer){
+    observers.add(observer);
+  }
+
+  public void removeObserver(GameObserver observer){
+    observers.remove(observer);
+  }
+
+  private void notifyObservers() {
+    for (GameObserver observer : observers){
+      observer.update();
     }
   }
 }
