@@ -120,4 +120,15 @@ public class BlockGrid {
     );
     allBlocks.getBlock(originalCoordiante).setEmpty(true);
   }
+
+  public void makeBlockKing(Coordinate newCoordinate){
+    if (newCoordinate.yCoordinate() == 0
+        && allBlocks.getBlock(newCoordinate).getPlayerID() == 2){
+      allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
+    }
+    else if (newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight()
+      && allBlocks.getBlock(newCoordinate).getPlayerID() == 1){
+      allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
+    }
+  }
 }

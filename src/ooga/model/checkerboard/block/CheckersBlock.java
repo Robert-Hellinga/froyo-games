@@ -86,4 +86,5 @@ public class CheckersBlock extends Block {
     return coor.xCoordinate() >= 0 && coor.xCoordinate() < allBlocks.getBlockStructureWidth()
         && coor.yCoordinate() >= 0 && coor.yCoordinate() < allBlocks.getBlockStructureHeight();
   }
+
 }
