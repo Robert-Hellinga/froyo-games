@@ -14,7 +14,7 @@ public class GameScreen extends GridPane implements Styleable {
 
   private static final int WIDTH = 400;
   private static final int HEIGHT = 350;
-  private static final String DEFAULT_STYLE_SHEET = "style/default.css";
+  private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
 
   private GameController controller;
   private ResourceBundle resourceBundle;

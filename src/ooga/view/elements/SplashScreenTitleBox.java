@@ -8,7 +8,7 @@ import ooga.view.Util;
 
 public class SplashScreenTitleBox extends HBox {
 
-  private static final String TITLE_IMG_PATH = "img/title.png";
+  private static final String TITLE_IMG_PATH = "resources/img/title.png";
 
   public SplashScreenTitleBox() {
     getChildren().add(getTitle());

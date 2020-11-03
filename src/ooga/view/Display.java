@@ -12,7 +12,7 @@ import ooga.view.screens.SplashScreen;
 
 public class Display {
 
-  private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "ui.Display";
+  private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "resources.ui.Display";
   private static final GameController DEFAULT_CONTROLLER = new GameController();
   private static final boolean RESIZABLE_WINDOW = false;
   private static final String WINDOW_NAME = "Froyo Games";
