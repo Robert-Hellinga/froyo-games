@@ -118,6 +118,8 @@ public class BlockGrid {
     allBlocks.getBlock(newCoordinate).setBlockState(
         allBlocks.getBlock(originalCoordiante).getBlockState().clone()
     );
-    allBlocks.getBlock(originalCoordiante).setEmpty(true);
+    allBlocks.getBlock(newCoordinate).getBlockState().setChosen(false);
+    allBlocks.getBlock(originalCoordiante).initiateBlockState(0);
+//    allBlocks.getBlock(originalCoordiante).setEmpty(true);
   }
 }
