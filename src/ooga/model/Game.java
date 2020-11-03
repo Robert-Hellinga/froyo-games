@@ -117,8 +117,9 @@ public class Game {
         checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
       } else if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState()
           .isPotentialMove()) {
-        checkBoard.moveBlock(checkBoard.getChosenBlockCoordianate(), passInCoordinate);
+
         checkBoard.removeCheckedPiece(passInCoordinate, checkBoard.getChosenBlockCoordianate());
+        checkBoard.moveBlock(checkBoard.getChosenBlockCoordianate(), passInCoordinate);
         checkBoard.makeBlockKing(passInCoordinate);
         checkBoard.unChoseAllBlock();
         checkBoard.unsetAllBlockPotential();
