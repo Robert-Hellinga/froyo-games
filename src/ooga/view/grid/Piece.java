@@ -1,10 +1,8 @@
 package ooga.view.grid;
 
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -12,8 +10,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import ooga.Coordinate;
 import javafx.scene.image.Image;
-import ooga.Main;
-import ooga.exceptions.ResourcesFileNotFoundException;
+import ooga.exceptions.ResourceException;
 
 public class Piece {
 
@@ -90,11 +87,11 @@ public class Piece {
     }
   }
 
-  private Image loadImage(String imageFile) throws ResourcesFileNotFoundException {
+  private Image loadImage(String imageFile) throws ResourceException {
     try {
       return new Image(imageFile, SIZE, SIZE, false, false);
     }catch (IllegalArgumentException e){
-      throw new ResourcesFileNotFoundException("file is not found");
+      throw new ResourceException("file is not found");
     }
   }
 }
