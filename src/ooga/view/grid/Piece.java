@@ -40,8 +40,8 @@ public class Piece {
     put(8, Color.YELLOW);
     put(9, Color.YELLOW);
   }};
-  public static final String KING_PIECE_IMAGE_BLUE = "img/king_piece_blue.png";
-  public static final String KING_PIECE_IMAGE_RED = "img/king_piece_red.png";
+  public static final String KING_PIECE_IMAGE_BLUE = "resources/img/king_piece_blue.png";
+  public static final String KING_PIECE_IMAGE_RED = "resources/img/king_piece_red.png";
 
   private Circle pieceShape;
   private int state;

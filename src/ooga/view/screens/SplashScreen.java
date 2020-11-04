@@ -3,7 +3,7 @@ package ooga.view.screens;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import ooga.controller.GameController;
+import ooga.controller.IFroyoController;
 import ooga.view.Display;
 import ooga.view.Styleable;
 import ooga.view.Util;
@@ -13,14 +13,14 @@ import ooga.view.elements.SplashScreenTitleBox;
 public class SplashScreen extends GridPane implements Styleable {
 
   private static final String BACKGROUND_STYLE_CLASS = "background";
-  private static final String DEFAULT_STYLE_SHEET = "default.css";
+  private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final int WIDTH = 600;
   private static final int HEIGHT = 450;
 
   private ResourceBundle resourceBundle;
   private Display display;
 
-  public SplashScreen(ResourceBundle resourceBundle, GameController controller, Display display) {
+  public SplashScreen(ResourceBundle resourceBundle, IFroyoController controller, Display display) {
     this.resourceBundle = resourceBundle;
     this.display = display;
     setStyleSheet(DEFAULT_STYLE_SHEET);
