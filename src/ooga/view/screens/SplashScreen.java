@@ -13,7 +13,7 @@ import ooga.view.elements.SplashScreenTitleBox;
 public class SplashScreen extends GridPane implements Styleable {
 
   private static final String BACKGROUND_STYLE_CLASS = "background";
-  private static final String DEFAULT_STYLE_SHEET = "style/default.css";
+  private static final String DEFAULT_STYLE_SHEET = "default.css";
   private static final int WIDTH = 600;
   private static final int HEIGHT = 450;
 

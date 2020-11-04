@@ -10,7 +10,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import ooga.Coordinate;
 import javafx.scene.image.Image;
-import ooga.exceptions.ResourcesException;
+import ooga.exceptions.ResourceException;
 
 public class Piece {
 
@@ -87,11 +87,11 @@ public class Piece {
     }
   }
 
-  private Image loadImage(String imageFile) throws ResourcesException {
+  private Image loadImage(String imageFile) throws ResourceException {
     try {
       return new Image(imageFile, SIZE, SIZE, false, false);
     }catch (IllegalArgumentException e){
-      throw new ResourcesException("file is not found");
+      throw new ResourceException("file is not found");
     }
   }
 }
