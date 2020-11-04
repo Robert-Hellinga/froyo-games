@@ -9,27 +9,27 @@
         * View: contains all UI elements
         * Controller: contains controller for interaction between model and view, contains
          interaction with web server for social elements
- * Overview
+ 
+ * Overview - (ROUGH DRAFT, VIEW UML FOR NEWER VERSION)
     * Model:
         * Playable: startGame(), saveGame()
-        * Socialable
+        * Socialable?
         * GridGame: checkForWin(), contains 2D array of Cell objects
             * Connect4Game 
             * OthelloGame
             * CheckersGame
-        * Cell
-            * Connect4Cell
-            * OthelloCell
-            * CheckersCell
         * AI
         * Util
     * View:
         * Languagable Interface
         * Styleable Interface
-        * UI
-            * GameUI
-            * SocialUI
-            * SplashScreen
+        * Display
+        * GameUI
+            * OthelloUI
+            * CheckersUI
+            * Connect4UI
+        * SocialUI
+        * SplashScreen
         * UI Elements
             * Button
             * Dropdown
@@ -42,7 +42,16 @@
         * DataWriter: writes saves to files
         
  * Design Details 
-    * 
+    * GridGame: Generic model game class that is extended to implement game-specific calculations
+     and functionality
+    * AI: Class used to calculate single-player opponent moves using AI
+    * GameUI: Generic view class that is extended to implement the specific UI for each game
+    * SocialUI: UI class used for social functionality
+    * Display: primary UI class, try to keep as small as possible
+    * Controller: Class used by Display to manipulate the different game types within model. Will
+     have a field containing the current GridGame being run
+    * SocialController: Class used to interact with web server for multiplayer game mode
+ 
  * Example games
     * Connect 4 – can only pick a column to place pieces, win condition is 4 in a row diagonally
     /horizontally/vertically.
@@ -53,6 +62,6 @@
  * Design Considerations 
     * Issue: Figure out how to work with web server/API
     * Issue: player type selection (AI vs. human)
-        * Discussion was about whether we would have Player objects or Socialable interface
+        * Discussion was about whether we would have Player.Player objects or Socialable interface
         . Decision will be made after farther determining how web server will work
     * To-do: decide on data storage format
