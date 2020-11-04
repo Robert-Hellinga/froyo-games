@@ -54,7 +54,6 @@ public class SplashScreenButtonBox extends VBox {
   }
 
 
-
   private VBox getStartButtonGroup() {
     VBox result = new VBox();
     result.setAlignment(Pos.CENTER);
