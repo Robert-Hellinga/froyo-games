@@ -1,6 +1,8 @@
 package ooga.view.elements;
 
+import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
@@ -12,6 +14,8 @@ import ooga.view.screens.GameScreen;
 
 public class SplashScreenButtonBox extends VBox {
 
+  private static final Map<Integer, String> gameClasses = Map.of(0, "Othello", 1, "Checkers", 2,
+      "Connect4");
   private ResourceBundle resourceBundle;
   private ToggleGroup gameToggleGroup, playerToggleGroup;
   private IFroyoController controller;
@@ -53,12 +57,28 @@ public class SplashScreenButtonBox extends VBox {
     return result;
   }
 
-
   private VBox getStartButtonGroup() {
     VBox result = new VBox();
     result.setAlignment(Pos.CENTER);
-    CustomButton startButton = new CustomButton("Start", event -> controller.startGame("Checkers"));
+    String gameType = gameClasses.get(getToggleIndexSelected(gameToggleGroup));
+    boolean onePlayer = getToggleIndexSelected(gameToggleGroup) == 0 ? true : false;
+    CustomButton startButton = new CustomButton("Start", event -> startGame(gameType,
+        onePlayer, null));
     result.getChildren().add(startButton);
     return result;
+  }
+
+  private void startGame(String gameType, boolean onePlayer, String playerName) {
+    controller.startGame(gameType, onePlayer, playerName);
+  }
+
+  private int getToggleIndexSelected(ToggleGroup group) {
+    ObservableList<Toggle> toggles = group.getToggles();
+    for(int i = 0; i < toggles.size(); i++) {
+      if(toggles.get(i).isSelected()) {
+        return i;
+      }
+    }
+    return -1; // No toggle selected
   }
 }
