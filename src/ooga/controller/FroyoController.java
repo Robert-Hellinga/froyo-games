@@ -30,7 +30,7 @@ public class FroyoController implements IFroyoController{
 
 
   @Override
-  public void startGame(String gameType) {
+  public void startGame(String gameType, boolean onePlayer, String playerName) {
     Game game = new Game(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
     IGameController gameController = new GameController(game);
     GameScreen gameScreen = new GameScreen(ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH), gameController, game);
