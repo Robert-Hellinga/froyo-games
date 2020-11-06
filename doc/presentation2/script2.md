@@ -35,7 +35,25 @@ NOTE, as each feature is shown, someone on the team should briefly describe how 
         * Refactored design
 
 * describe a specific significant event that occurred this Sprint and what was learned from it
-    * 
+    * We weren't adhering as much as we should've to creating APIs that other people can work with
+        * Had to meet and discuss working within our own packages/classes and providing public methods for people to work with
+        * Had to refactor to make this work, now all on same page.
 * describe what worked regarding your teamwork and communication, what did not, and something specific that is planned for improvement next Sprint
-
+    * What worked
+        * Worked well within our timezones
+            * Able to discuss design questions and pair program some
+        * Everyone was understanding of design concerns
+    * What didn't
+        * Still struggled some with timezone differences and communicating big changes
+        * Weren't always sticking to design plan
+    * Specific
+        * Having people look over merge requests before merging
+        * Working within our classes and communicating/working together if it involves broad design and interaction between classes
+            * Making public APIs that other members can work with
 * what features are planned to be completed during the next Sprint (taking into account what was, or was not, done this Sprint), who will work on each feature, and any concerns that may complicate the plan
+    * Sprint 2
+        * Checkers double jump (Yixuan/Jincheng)
+        * Connect 4 game (Yixuan/Jincheng)
+        * Player classes (Lucas)
+        * Beginning server functionality (Nate)
+        * Saving games (Robert)
