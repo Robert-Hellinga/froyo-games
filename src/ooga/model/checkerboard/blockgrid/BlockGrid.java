@@ -1,9 +1,11 @@
-package ooga.model.checkerboard;
+package ooga.model.checkerboard.blockgrid;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
+import ooga.model.checkerboard.BlockConfigStructure;
+import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 import ooga.model.checkerboard.block.BlockState;
 

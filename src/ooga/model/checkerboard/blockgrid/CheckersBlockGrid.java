@@ -1,8 +1,10 @@
-package ooga.model.checkerboard;
+package ooga.model.checkerboard.blockgrid;
 
 import ooga.Coordinate;
+import ooga.model.checkerboard.BlockConfigStructure;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
 
-public class CheckersBlockGrid extends BlockGrid{
+public class CheckersBlockGrid extends BlockGrid {
 
   public CheckersBlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers){
     super(gameType, allBlockConfig, numPlayers);

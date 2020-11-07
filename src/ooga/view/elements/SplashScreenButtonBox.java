@@ -57,7 +57,7 @@ public class SplashScreenButtonBox extends VBox {
   private VBox getStartButtonGroup() {
     VBox result = new VBox();
     result.setAlignment(Pos.CENTER);
-    CustomButton startButton = new CustomButton("Start", event -> controller.startGame("Checkers"));
+    CustomButton startButton = new CustomButton("Start", event -> controller.startGame("Connect4"));
     result.getChildren().add(startButton);
     return result;
   }

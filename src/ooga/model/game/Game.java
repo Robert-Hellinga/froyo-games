@@ -8,7 +8,7 @@ import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
 import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.checkerboard.BlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 import ooga.model.player.*;

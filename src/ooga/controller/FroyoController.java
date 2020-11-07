@@ -46,7 +46,7 @@ public class FroyoController implements IFroyoController{
     myStage.setScene(scene);
   }
 
-  public Game createGame(String gameType, String playerName, PlayerMode playerMode){
+  public static Game createGame(String gameType, String playerName, PlayerMode playerMode){
     try {
       Class<?> game = Class.forName("ooga.model.game." + gameType + "Game");
       Class<?>[] param = {String.class, String.class, PlayerMode.class};
