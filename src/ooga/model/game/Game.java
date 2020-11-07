@@ -18,14 +18,13 @@ public abstract class Game {
 
   protected String gameType;
   protected List<Player> allPlayers = new ArrayList<>();
-  protected BlockGrid checkBoard;
   protected int numPlayers;
   protected Player currentPlayer;
   protected List<GameObserver> observers;
 
   public Game(String gameType, String playerName, PlayerMode playerMode) {
     this.gameType = gameType;
-    checkBoard = new BlockGrid(gameType, getInitiationBlockConfig(gameType), numPlayers);
+
     //there is always a player that is a human player
     allPlayers.add(createHumanPlayer(gameType, playerName));
     //player 2 depends on the player mode chosen
@@ -36,7 +35,7 @@ public abstract class Game {
 
 
   //TODO: add implementation details in this method (not sure if the configuration will be featured in this level of code)
-  private BlockConfigStructure getInitiationBlockConfig(String gameType) {
+  protected BlockConfigStructure getInitiationBlockConfig(String gameType) {
     return new BlockConfigStructure();
   }
 
@@ -96,13 +95,7 @@ public abstract class Game {
     return allPlayers.indexOf(currentPlayer) + 1;
   }
 
-  public void updatePieceChosen(Coordinate chosenPieceCoordinate) {
-    checkBoard.setChosenBlock(chosenPieceCoordinate);
-  }
-
-  public BlockGrid getCheckBoard() {
-    return checkBoard;
-  }
+  public abstract BlockGrid getCheckBoard();
 
   public abstract void play(Coordinate passInCoordinate);
 
