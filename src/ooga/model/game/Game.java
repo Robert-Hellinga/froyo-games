@@ -95,14 +95,14 @@ public abstract class Game {
     return allPlayers.indexOf(currentPlayer) + 1;
   }
 
-  public abstract BlockGrid getCheckBoard();
+  public abstract BlockGrid getBoard();
 
   public abstract void play(Coordinate passInCoordinate);
 
 
 
   public List<List<Integer>> getAllBlockStates() {
-    BlockStructure blocks = getCheckBoard().getAllBlocks();
+    BlockStructure blocks = getBoard().getAllBlocks();
     List<List<Integer>> blockState = new ArrayList<>();
     for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
       List<Integer> blockStateLine = new ArrayList<>();
