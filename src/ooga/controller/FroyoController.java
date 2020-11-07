@@ -35,9 +35,7 @@ public class FroyoController implements IFroyoController{
 
   @Override
   public void startGame(String gameType, boolean onePlayer, String playerName) {
-    //TODO: extend to automatically choose what game to play
-//    Game game = new CheckersGame(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
-    Game game = new Connect4Game(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
+    Game game = createGame(gameType, playerName, PlayerMode.PLAY_WITH_AI);
     IGameController gameController = new GameController(game);
     GameScreen gameScreen = new GameScreen(ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH), gameController, game);
     game.registerObserver(gameScreen);
