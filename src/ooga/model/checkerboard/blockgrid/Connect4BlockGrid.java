@@ -14,6 +14,7 @@ public class Connect4BlockGrid extends BlockGrid {
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++){
       for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++){
+        //TODO: bug here
         Coordinate coordinate = new Coordinate(allBlocks.getBlockStructureHeight()-1-j, i);
         if (allBlocks.getBlock(coordinate).getIsEmpty()){
           allBlocks.getBlock(coordinate).getBlockState().makePotentialMove();

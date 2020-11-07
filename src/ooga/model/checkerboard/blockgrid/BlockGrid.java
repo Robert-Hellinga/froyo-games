@@ -52,7 +52,7 @@ public abstract class BlockGrid{
   public boolean hasChosenBlock() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isChosen()) {
+        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
           return true;
         }
       }
@@ -63,8 +63,8 @@ public abstract class BlockGrid{
   public Coordinate getChosenBlockCoordianate(){
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isChosen()) {
-          return new Coordinate(j, i);
+        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
+          return new Coordinate(i, j);
         }
       }
     }
@@ -74,8 +74,8 @@ public abstract class BlockGrid{
   public void unChoseAllBlock() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isChosen()) {
-          allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unchoose();
+        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
+          allBlocks.getBlock(new Coordinate(i, j)).getBlockState().unchoose();
         }
       }
     }
@@ -84,8 +84,8 @@ public abstract class BlockGrid{
   public void unsetAllBlockPotential(){
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(j, i)).getBlockState().isPotentialMove()) {
-          allBlocks.getBlock(new Coordinate(j, i)).getBlockState().unmakePotentialMove();
+        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isPotentialMove()) {
+          allBlocks.getBlock(new Coordinate(i, j)).getBlockState().unmakePotentialMove();
         }
       }
     }
