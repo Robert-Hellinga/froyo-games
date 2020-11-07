@@ -46,7 +46,7 @@ public class CheckersGame extends Game {
   }
 
   @Override
-  public BlockGrid getCheckBoard(){
+  public BlockGrid getBoard(){
     return checkBoard;
   }
 }
