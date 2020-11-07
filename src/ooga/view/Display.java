@@ -32,8 +32,4 @@ public class Display implements IDisplay {
   }
 
 
-
-
-
-
 }

@@ -1,15 +1,18 @@
 package ooga.controller;
 
-import java.awt.Panel;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import ooga.Coordinate;
 import ooga.controller.GameController.PlayerMode;
-import ooga.model.Game;
+import ooga.exceptions.ClassOrMethodNotFoundException;
+import ooga.model.checkerboard.block.Block;
+import ooga.model.game.CheckersGame;
+import ooga.model.game.Game;
+import ooga.model.player.Player;
 import ooga.view.Display;
 import ooga.view.IDisplay;
 import ooga.view.screens.GameScreen;
@@ -31,7 +34,7 @@ public class FroyoController implements IFroyoController{
 
   @Override
   public void startGame(String gameType, boolean onePlayer, String playerName) {
-    Game game = new Game(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
+    Game game = new CheckersGame(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
     IGameController gameController = new GameController(game);
     GameScreen gameScreen = new GameScreen(ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH), gameController, game);
     game.registerObserver(gameScreen);
@@ -42,6 +45,20 @@ public class FroyoController implements IFroyoController{
   public void setNewLayout(Pane layout) {
     Scene scene = new Scene(layout, layout.getWidth(), layout.getHeight());
     myStage.setScene(scene);
+  }
+
+  public static Game createGame(String gameType, String playerName, PlayerMode playerMode){
+    try {
+      Class<?> game = Class.forName("ooga.model.game." + gameType + "Game");
+      Class<?>[] param = {String.class, String.class, PlayerMode.class};
+      Constructor<?> cons = game.getConstructor(param);
+      Object[] paramObject = {gameType, playerName, playerMode};
+      Object gameObject = cons.newInstance(paramObject);
+      return (Game) gameObject;
+    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+      e.printStackTrace();
+      throw new ClassOrMethodNotFoundException("class or method is not found");
+    }
   }
 
 

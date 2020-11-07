@@ -2,11 +2,9 @@ package ooga.view.screens;
 
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import ooga.controller.GameController;
 import ooga.controller.IGameController;
-import ooga.model.Game;
+import ooga.model.game.Game;
 import ooga.view.GameObserver;
 import ooga.view.Styleable;
 import ooga.view.Util;
