@@ -22,10 +22,6 @@ public class GameController implements IGameController {
   private int playerInTurn;
   private Coordinate pieceChosen;
 
-//  public GameController() {
-//    this("Checkers"); // TODO rework constructors
-//  }
-
   public GameController(Game game) {
     this.game = game;
     setupAnimation();
