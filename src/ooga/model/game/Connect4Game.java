@@ -17,11 +17,14 @@ public class Connect4Game extends Game {
   @Override
   public void play(Coordinate passInCoordinate) {
     int xCoordinate = passInCoordinate.xCoordinate();
-    for (int i = 0; i < connect4Board.getAllBlocks().getBlockStructureHeight(); i++) {
-      Coordinate coordinate = new Coordinate(xCoordinate,
-          connect4Board.getAllBlocks().getBlockStructureHeight() - 1 - i);
-      if (connect4Board.getAllBlocks().getBlock(coordinate).getBlockState().isPotentialMove()) {
-        connect4Board.addBlock(getCurrentPlayerIndex(), coordinate);
+    connect4Board.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
+    for (int j = connect4Board.getAllBlocks().getBlockStructureHeight() - 1; j >= 0; j--) {
+      Coordinate coordinate = new Coordinate(xCoordinate, j);
+      if (connect4Board.getAllBlocks().getBlock(coordinate).getBlockState().isEmpty()) {
+//        connect4Board.addBlock(getCurrentPlayerIndex(), coordinate);
+        connect4Board.getAllBlocks().getBlock(coordinate).setPlayerID(getCurrentPlayerIndex());
+        playerTakeTurn();
+        break;
       }
     }
   }
