@@ -11,6 +11,7 @@ import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.checkerboard.block.Block;
 import ooga.model.game.CheckersGame;
+import ooga.model.game.Connect4Game;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
 import ooga.view.Display;
@@ -34,7 +35,9 @@ public class FroyoController implements IFroyoController{
 
   @Override
   public void startGame(String gameType, boolean onePlayer, String playerName) {
-    Game game = new CheckersGame(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
+    //TODO: extend to automatically choose what game to play
+//    Game game = new CheckersGame(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
+    Game game = new Connect4Game(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
     IGameController gameController = new GameController(game);
     GameScreen gameScreen = new GameScreen(ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH), gameController, game);
     game.registerObserver(gameScreen);

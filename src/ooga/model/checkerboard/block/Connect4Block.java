@@ -20,8 +20,8 @@ public class Connect4Block extends Block {
         Coordinate coor = new Coordinate(i, j);
         if (allBlocks.getBlock(coor).getIsEmpty()) {
           availablePositions.add(coor);
+          break;
         }
-        break;
       }
     }
     return availablePositions;
