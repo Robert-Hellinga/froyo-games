@@ -12,7 +12,7 @@ import ooga.view.screens.SplashScreen;
 
 public class Display implements IDisplay {
 
-  private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "resources.ui.Display";
+  private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "resources.ui.Display_en";
   //private static final GameController DEFAULT_CONTROLLER = new GameController();
 
   private IFroyoController myController;

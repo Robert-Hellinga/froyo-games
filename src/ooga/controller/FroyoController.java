@@ -16,7 +16,7 @@ import ooga.view.screens.GameScreen;
 
 public class FroyoController implements IFroyoController{
 
-  private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "resources.ui.Display"; //needed right now to work with GameScreen's current implementation
+  private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "resources.ui.Display_en"; //needed right now to work with GameScreen's current implementation
 
   private Stage myStage;
   private IDisplay myDisplay;
