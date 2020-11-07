@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.game;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -14,14 +14,14 @@ import ooga.model.checkerboard.block.Block;
 import ooga.model.player.*;
 import ooga.view.GameObserver;
 
-public class Game {
+public abstract class Game {
 
-  private String gameType;
-  private List<Player> allPlayers = new ArrayList<>();
-  private BlockGrid checkBoard;
-  private int numPlayers;
-  private Player currentPlayer;
-  private List<GameObserver> observers;
+  protected String gameType;
+  protected List<Player> allPlayers = new ArrayList<>();
+  protected BlockGrid checkBoard;
+  protected int numPlayers;
+  protected Player currentPlayer;
+  protected List<GameObserver> observers;
 
   public Game(String gameType, String playerName, PlayerMode playerMode) {
     this.gameType = gameType;
@@ -104,43 +104,9 @@ public class Game {
     return checkBoard;
   }
 
-  //this method is only for checkers game
-  @Deprecated
-  public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
-    if (!newPosition.equals(Coordinate.INVALID_COORDINATE)) {
-      checkBoard.removeCheckedPiece(newPosition, originalPosition);
-    }
-  }
+  public abstract void play(Coordinate passInCoordinate);
 
-  public void play(Coordinate passInCoordinate) {
-    if (checkBoard.hasChosenBlock()) {
-      if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
-          == getCurrentPlayerIndex()) {
-        checkBoard.unChoseAllBlock();
-        checkBoard.unsetAllBlockPotential();
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
-        checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
-      } else if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState()
-          .isPotentialMove()) {
 
-        checkBoard.removeCheckedPiece(passInCoordinate, checkBoard.getChosenBlockCoordianate());
-        checkBoard.moveBlock(checkBoard.getChosenBlockCoordianate(), passInCoordinate);
-        checkBoard.makeBlockKing(passInCoordinate);
-        checkBoard.unChoseAllBlock();
-        checkBoard.unsetAllBlockPotential();
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).setPlayerID(getCurrentPlayerIndex());
-        playerTakeTurn();
-      }
-    } else {
-      if (!checkBoard.getAllBlocks().getBlock(passInCoordinate).getIsEmpty()
-          && checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
-          == getCurrentPlayerIndex()) {
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
-        checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
-      }
-    }
-    notifyObservers();
-  }
 
   public List<List<Integer>> getAllBlockStates() {
     BlockStructure blocks = getCheckBoard().getAllBlocks();
@@ -164,7 +130,7 @@ public class Game {
     observers.remove(observer);
   }
 
-  private void notifyObservers() {
+  protected void notifyObservers() {
     for (GameObserver observer : observers){
       observer.update();
     }

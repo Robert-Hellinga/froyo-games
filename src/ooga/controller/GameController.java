@@ -1,14 +1,10 @@
 package ooga.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import ooga.Coordinate;
-import ooga.model.Game;
-import ooga.model.checkerboard.BlockStructure;
-import ooga.model.checkerboard.block.Block;
+import ooga.model.game.Game;
 import ooga.view.grid.PieceGrid;
 
 public class GameController implements IGameController {

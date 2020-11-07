@@ -33,7 +33,6 @@ public class BlockGrid {
     } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
       e.printStackTrace();
       throw new ClassOrMethodNotFoundException("class or method is not found");
-
     }
   }
 
