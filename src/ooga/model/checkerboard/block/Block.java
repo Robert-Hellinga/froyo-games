@@ -34,10 +34,12 @@ public abstract class Block {
   }
 
   public void setPlayerID(int playerID) {
+    this.blockState.setEmpty(false);
     this.blockState.PlayerID = playerID;
   }
 
   public void setEmpty(boolean isEmpty) {
+    this.blockState.PlayerID = 0;
     this.blockState.isEmpty = isEmpty;
   }
 
