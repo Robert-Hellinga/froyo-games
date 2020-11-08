@@ -12,6 +12,7 @@ public class Connect4BlockGrid extends BlockGrid {
 
   @Override
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
+    System.out.println("Chosen block coordinate = " + chosenBlock);
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
       for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
         Coordinate coordinate = new Coordinate(i, j);
