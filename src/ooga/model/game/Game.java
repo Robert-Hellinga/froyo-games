@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.game;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -8,24 +8,23 @@ import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
 import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.checkerboard.BlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 import ooga.model.player.*;
 import ooga.view.GameObserver;
 
-public class Game {
+public abstract class Game {
 
-  private String gameType;
-  private List<Player> allPlayers = new ArrayList<>();
-  private BlockGrid checkBoard;
-  private int numPlayers;
-  private Player currentPlayer;
-  private List<GameObserver> observers;
+  protected String gameType;
+  protected List<Player> allPlayers = new ArrayList<>();
+  protected int numPlayers;
+  protected Player currentPlayer;
+  protected List<GameObserver> observers;
 
   public Game(String gameType, String playerName, PlayerMode playerMode) {
     this.gameType = gameType;
-    checkBoard = new BlockGrid(gameType, getInitiationBlockConfig(gameType), numPlayers);
+
     //there is always a player that is a human player
     allPlayers.add(createHumanPlayer(gameType, playerName));
     //player 2 depends on the player mode chosen
@@ -36,7 +35,7 @@ public class Game {
 
 
   //TODO: add implementation details in this method (not sure if the configuration will be featured in this level of code)
-  private BlockConfigStructure getInitiationBlockConfig(String gameType) {
+  protected BlockConfigStructure getInitiationBlockConfig(String gameType) {
     return new BlockConfigStructure();
   }
 
@@ -96,54 +95,14 @@ public class Game {
     return allPlayers.indexOf(currentPlayer) + 1;
   }
 
-  public void updatePieceChosen(Coordinate chosenPieceCoordinate) {
-    checkBoard.setChosenBlock(chosenPieceCoordinate);
-  }
+  public abstract BlockGrid getBoard();
 
-  public BlockGrid getCheckBoard() {
-    return checkBoard;
-  }
+  public abstract void play(Coordinate passInCoordinate);
 
-  //this method is only for checkers game
-  @Deprecated
-  public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
-    if (!newPosition.equals(Coordinate.INVALID_COORDINATE)) {
-      checkBoard.removeCheckedPiece(newPosition, originalPosition);
-    }
-  }
 
-  public void play(Coordinate passInCoordinate) {
-    if (checkBoard.hasChosenBlock()) {
-      if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
-          == getCurrentPlayerIndex()) {
-        checkBoard.unChoseAllBlock();
-        checkBoard.unsetAllBlockPotential();
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
-        checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
-      } else if (checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState()
-          .isPotentialMove()) {
-
-        checkBoard.removeCheckedPiece(passInCoordinate, checkBoard.getChosenBlockCoordianate());
-        checkBoard.moveBlock(checkBoard.getChosenBlockCoordianate(), passInCoordinate);
-        checkBoard.makeBlockKing(passInCoordinate);
-        checkBoard.unChoseAllBlock();
-        checkBoard.unsetAllBlockPotential();
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).setPlayerID(getCurrentPlayerIndex());
-        playerTakeTurn();
-      }
-    } else {
-      if (!checkBoard.getAllBlocks().getBlock(passInCoordinate).getIsEmpty()
-          && checkBoard.getAllBlocks().getBlock(passInCoordinate).getPlayerID()
-          == getCurrentPlayerIndex()) {
-        checkBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
-        checkBoard.setAvailablePosition(getCurrentPlayerIndex(), passInCoordinate);
-      }
-    }
-    notifyObservers();
-  }
 
   public List<List<Integer>> getAllBlockStates() {
-    BlockStructure blocks = getCheckBoard().getAllBlocks();
+    BlockStructure blocks = getBoard().getAllBlocks();
     List<List<Integer>> blockState = new ArrayList<>();
     for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
       List<Integer> blockStateLine = new ArrayList<>();
@@ -164,7 +123,7 @@ public class Game {
     observers.remove(observer);
   }
 
-  private void notifyObservers() {
+  protected void notifyObservers() {
     for (GameObserver observer : observers){
       observer.update();
     }
