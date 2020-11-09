@@ -1,4 +1,4 @@
-package ooga.model.player;
+package ooga.model;
 
 public class Player{
 

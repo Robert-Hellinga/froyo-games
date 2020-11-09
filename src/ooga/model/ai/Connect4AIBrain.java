@@ -8,7 +8,7 @@ import ooga.model.checkerboard.blockgrid.BlockGrid;
 public class Connect4AIBrain implements AIBrain {
 
   @Override
-  public List<Coordinate> decideMove(BlockGrid checkBoard) {
+  public List<Coordinate> decideMove(BlockGrid checkBoard, Integer currentPlayerIndex) {
     List<Coordinate> aiMoves = new ArrayList<>();
 
 

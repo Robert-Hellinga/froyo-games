@@ -5,7 +5,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import ooga.Coordinate;
 import ooga.model.game.Game;
-import ooga.model.player.Player.PlayerType;
+import ooga.model.Player.PlayerType;
 import ooga.view.grid.PieceGrid;
 
 public class GameController implements IGameController {

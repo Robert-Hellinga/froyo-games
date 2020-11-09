@@ -9,14 +9,13 @@ import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
+import ooga.model.Player;
 import ooga.model.ai.AIBrain;
-import ooga.model.ai.CheckersAIBrain;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.player.*;
-import ooga.model.player.Player.PlayerType;
+import ooga.model.Player.PlayerType;
 import ooga.view.GameObserver;
 
 public abstract class Game {
@@ -44,7 +43,7 @@ public abstract class Game {
 
 
   public void aiPlay(){
-    List<Coordinate> aiMoves = aiBrain.decideMove(getBoard());
+    List<Coordinate> aiMoves = aiBrain.decideMove(getBoard(), getCurrentPlayerIndex());
     for (Coordinate coordinate : aiMoves){
       play(coordinate);
     }
