@@ -99,8 +99,6 @@ public abstract class Game {
 
   public abstract void play(Coordinate passInCoordinate);
 
-
-
   public List<List<Integer>> getAllBlockStates() {
     BlockStructure blocks = getBoard().getAllBlocks();
     List<List<Integer>> blockState = new ArrayList<>();

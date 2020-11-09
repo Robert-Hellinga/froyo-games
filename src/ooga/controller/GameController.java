@@ -48,7 +48,6 @@ public class GameController implements IGameController {
   @Override
   public void clickPiece(Coordinate coordinate) {
     game.play(coordinate);
-    //grid.updateGrid();
   }
 
   @Override
