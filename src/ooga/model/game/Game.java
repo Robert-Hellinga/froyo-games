@@ -5,15 +5,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
-import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
+import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
+import ooga.model.Player;
+import ooga.model.ai.AIBrain;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.player.*;
+import ooga.model.Player.PlayerType;
 import ooga.view.GameObserver;
 
 public abstract class Game {
@@ -23,65 +25,49 @@ public abstract class Game {
   protected int numPlayers;
   protected Player currentPlayer;
   protected List<GameObserver> observers;
+  protected AIBrain aiBrain;
 
   public Game(String gameType, String playerName, PlayerMode playerMode) {
     this.gameType = gameType;
-
-    //there is always a player that is a human player
-    allPlayers.add(createHumanPlayer(gameType, playerName));
-    //player 2 depends on the player mode chosen
+    allPlayers.add(new Player(playerName, PlayerType.HUMAN));
     allPlayers.add(createSecondPlayer(playerMode));
-    currentPlayer = decideWhichPlayerGoFirst(playerMode);
+    currentPlayer = allPlayers.get(0);
     observers = new ArrayList<>();
   }
 
 
-  //TODO: add implementation details in this method (not sure if the configuration will be featured in this level of code)
   protected BlockConfigStructure getInitiationBlockConfig(String gameType) throws FileException {
-    FileReader fileReader = new FileReader(gameType, "original");
+    FileReader fileReader = new FileReader(gameType, "default");
     return fileReader.readInAllData();
   }
 
-  public static Player createHumanPlayer(String gameType, String name) {
-    try {
-      Class<?> player = Class.forName("ooga.model.player.humanplayer." + gameType + "HumanPlayer");
-      Class<?>[] param = {String.class};
-      Constructor<?> cons = player.getConstructor(param);
-      Object[] paramObject = {name};
-      Object gameHumanPlayer = cons.newInstance(paramObject);
-      return (Player) gameHumanPlayer;
-    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-      throw new ClassOrMethodNotFoundException("class or method is not found");
-    }
-  }
 
-  public static Player createAIPlayer(String gameType) {
-    try {
-      Class<?> player = Class.forName("ooga.model.player.aiplayer." + gameType + "AIPlayer");
-      Class<?>[] param = {};
-      Constructor<?> cons = player.getConstructor(param);
-      Object[] paramObject = {};
-      Object gameAIPlayer = cons.newInstance(paramObject);
-      return (Player) gameAIPlayer;
-    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-      throw new ClassOrMethodNotFoundException("class or method is not found");
+  public void aiPlay(){
+    List<Coordinate> aiMoves = aiBrain.decideMove(getBoard(), getCurrentPlayerIndex());
+    for (Coordinate coordinate : aiMoves){
+      play(coordinate);
     }
   }
 
   private Player createSecondPlayer(PlayerMode playerMode) {
     if (playerMode.equals(PlayerMode.PLAY_WITH_AI)) {
-      return createAIPlayer(gameType);
+      this.aiBrain = createAIBrain(gameType);
+      return new Player("AI player", PlayerType.AI);
     }
-    //TODO: need to implement the social feature: connect with another human player
-    return createHumanPlayer(gameType, "my friend");
+    //TODO: need to implement the social feature: connect with another human player through social network
+    return new Player("my friend", PlayerType.HUMAN);
   }
 
-  private Player decideWhichPlayerGoFirst(PlayerMode playerMode) {
-    if (playerMode.equals(PlayerMode.PLAY_WITH_AI)) {
-      return allPlayers.get(0);
-    } else {
-      //TODO: need to decide which player go first when there are multiple human players
-      return allPlayers.get(1);
+  public static AIBrain createAIBrain(String gameType){
+    try {
+      Class<?> aiBrain = Class.forName("ooga.model.ai." + gameType + "AIBrain");
+      Class<?>[] param = {};
+      Constructor<?> cons = aiBrain.getConstructor(param);
+      Object[] paramObject = {};
+      Object gameAibrain = cons.newInstance(paramObject);
+      return (AIBrain) gameAibrain;
+    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+      throw new ClassOrMethodNotFoundException("class or method is not found");
     }
   }
 
@@ -92,6 +78,10 @@ public abstract class Game {
     } else {
       currentPlayer = allPlayers.get(currentPlayerIndex + 1);
     }
+  }
+
+  public Player getCurrentPlayer(){
+    return currentPlayer;
   }
 
   public int getCurrentPlayerIndex() {

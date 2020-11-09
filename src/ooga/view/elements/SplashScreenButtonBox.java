@@ -67,7 +67,7 @@ public class SplashScreenButtonBox extends VBox {
 
   private void startGame() {
     String gameType = gameClasses.get(getToggleIndexSelected(gameToggleGroup));
-    boolean onePlayer = getToggleIndexSelected(gameToggleGroup) == 0 ? true : false;
+    boolean onePlayer = getToggleIndexSelected(gameToggleGroup) == 0;
     controller.startGame(gameType, onePlayer, null);
   }
 

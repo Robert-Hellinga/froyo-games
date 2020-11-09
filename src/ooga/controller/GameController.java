@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import ooga.Coordinate;
 import ooga.model.game.Game;
+import ooga.model.Player.PlayerType;
 import ooga.view.grid.PieceGrid;
 
 public class GameController implements IGameController {
@@ -36,8 +37,10 @@ public class GameController implements IGameController {
 
   }
 
-  public void update() {
-
+  public void checkForAITurn() {
+    if (game.getCurrentPlayer().getType().equals(PlayerType.AI)){
+      game.aiPlay();
+    }
   }
 
   @Override
@@ -47,7 +50,9 @@ public class GameController implements IGameController {
 
   @Override
   public void clickPiece(Coordinate coordinate) {
-    game.play(coordinate);
+    if (game.getCurrentPlayer().getType().equals(PlayerType.HUMAN)){
+      game.play(coordinate);
+    }
   }
 
   @Override
@@ -74,6 +79,6 @@ public class GameController implements IGameController {
   }
 
   private void step(double elapsedTime) {
-    //myController.update();
+    checkForAITurn();
   }
 }
