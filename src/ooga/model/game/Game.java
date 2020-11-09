@@ -38,7 +38,7 @@ public abstract class Game {
 
   //TODO: add implementation details in this method (not sure if the configuration will be featured in this level of code)
   protected BlockConfigStructure getInitiationBlockConfig(String gameType) throws FileException {
-    FileReader fileReader = new FileReader(gameType, "start");
+    FileReader fileReader = new FileReader(gameType, "original");
     return fileReader.readInAllData();
   }
 

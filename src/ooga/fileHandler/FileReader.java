@@ -20,7 +20,7 @@ public class FileReader {
 
 
     public FileReader(String gameType, String patternType) {
-        this.fileName = "newgame/" + gameType + "_" + patternType + ".csv";
+        this.fileName = "configuration/" + gameType + "_" + patternType + ".csv";
         System.out.println(fileName);
 //        try{
 //            readInAllData();
