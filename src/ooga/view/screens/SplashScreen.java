@@ -37,6 +37,7 @@ public class SplashScreen extends GridPane implements Styleable {
 
     add(new SplashScreenButtonBox(resources, controller), 0, 1);
     getRowConstraints().add(Util.getRowConstraints(Priority.SOMETIMES, 200));
+    controller.setNewLayout(this);
   }
 
   @Override
