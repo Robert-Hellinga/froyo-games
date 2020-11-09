@@ -20,6 +20,8 @@ Hours Spent:
 ### Resources Used
 https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run/32468810#32468810
 
+Credit to https://github.com/dicolar/jbootx for base bootstrap CSS theme
+
 
 ### Running the Program
 
