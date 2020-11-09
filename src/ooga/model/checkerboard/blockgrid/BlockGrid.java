@@ -100,5 +100,5 @@ public abstract class BlockGrid{
 //    allBlocks.getBlock(originalCoordiante).setEmpty(true);
   }
 
-
+  public abstract BlockGrid clone();
 }
