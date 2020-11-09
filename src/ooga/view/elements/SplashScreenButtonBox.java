@@ -10,8 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ooga.controller.IFroyoController;
 import ooga.fileHandler.Resources;
-import ooga.view.Display;
-import ooga.view.screens.GameScreen;
 
 public class SplashScreenButtonBox extends VBox {
 

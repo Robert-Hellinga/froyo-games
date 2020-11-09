@@ -5,7 +5,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import ooga.controller.IFroyoController;
 import ooga.fileHandler.Resources;
-import ooga.view.Display;
 import ooga.view.Styleable;
 import ooga.view.Util;
 import ooga.view.elements.SplashScreenButtonBox;

@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.game.Game;
-import ooga.view.Display;
 import ooga.view.screens.GameScreen;
 
 public class FroyoController implements IFroyoController{

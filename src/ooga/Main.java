@@ -2,12 +2,9 @@ package ooga;
 
 import java.util.Locale;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
-import ooga.view.Display;
 import ooga.view.screens.SplashScreen;
 
 public class Main extends Application {
