@@ -1,6 +1,7 @@
 package ooga.view.screens;
 
 import java.util.Locale;
+import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import ooga.controller.IFroyoController;
@@ -23,8 +24,9 @@ public class SplashScreen extends GridPane implements Styleable {
   public SplashScreen(Locale locale, IFroyoController controller) {
 
     resources = new Resources(locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
-    setStyleSheet(DEFAULT_STYLE_SHEET);
 
+    setAlignment(Pos.CENTER);
+    setStyleSheet(DEFAULT_STYLE_SHEET);
     setWidth(SCREEN_WIDTH);
     setHeight(SCREEN_HEIGHT);
 

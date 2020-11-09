@@ -92,7 +92,7 @@ public class SplashScreenButtonBox extends VBox {
   private void startGame(String username) {
     String gameType = gameClasses.get(getToggleIndexSelected(gameToggleGroup));
     boolean onePlayer = getToggleIndexSelected(gameToggleGroup) == 0 ? true : false;
-    controller.startGame(gameType, onePlayer, username);
+    controller.startGame(resources.getLocale(), gameType, onePlayer, username);
   }
 
   private int getToggleIndexSelected(ToggleGroup group) {

@@ -12,22 +12,21 @@ import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.game.Game;
 import ooga.view.screens.GameScreen;
+import ooga.view.screens.SplashScreen;
 
 public class FroyoController implements IFroyoController{
 
   private Stage myStage;
-  private Locale myLocale;
 
-  public FroyoController(Stage stage, Locale locale){
+  public FroyoController(Stage stage){
     myStage = stage;
-    myLocale = locale;
   }
 
   @Override
-  public void startGame(String gameType, boolean onePlayer, String playerName) {
+  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName) {
     Game game = createGame(gameType, playerName, PlayerMode.PLAY_WITH_AI);
     IGameController gameController = new GameController(game);
-    GameScreen gameScreen = new GameScreen(myLocale, gameController, game);
+    GameScreen gameScreen = new GameScreen(locale, gameController, game);
     game.registerObserver(gameScreen);
     setNewLayout(gameScreen);
   }

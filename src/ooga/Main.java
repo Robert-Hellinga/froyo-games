@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
+import ooga.view.screens.LanguageScreen;
 import ooga.view.screens.SplashScreen;
 
 public class Main extends Application {
@@ -15,8 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         setUpStage(stage);
-        // TODO: temporary implementation, need to add language select
-        playGame(stage);
+        startGame(stage);
     }
 
     private void setUpStage(Stage stage) {
@@ -24,10 +24,9 @@ public class Main extends Application {
         stage.setTitle(WINDOW_NAME);
     }
 
-    private void playGame(Stage stage) {
-        Locale locale = new Locale("en");
-        IFroyoController controller = new FroyoController(stage, locale);
-        SplashScreen startScreen = new SplashScreen(locale, controller);
+    private void startGame(Stage stage) {
+        IFroyoController controller = new FroyoController(stage);
+        LanguageScreen startScreen = new LanguageScreen(controller);
     }
 
     public static void main(String[] args) {

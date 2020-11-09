@@ -9,11 +9,14 @@ import ooga.controller.IGameController;
 
 public class PieceGrid extends GridPane {
 
+  private static final int GRID_SPACING = 5;
   private IGameController controller;
 
   public PieceGrid(IGameController controller, List<List<Integer>> initialPieceLayout) {
     this.controller = controller;
     update(initialPieceLayout);
+    setHgap(GRID_SPACING);
+    setVgap(GRID_SPACING);
   }
 
   public void update(List<List<Integer>> newPieceStates) {

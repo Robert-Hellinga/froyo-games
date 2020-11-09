@@ -55,4 +55,8 @@ public class Resources {
     }
     throw new ResourceException(String.format(resources.getString("ResourceKeyNotFound"), key));
   }
+
+  public Locale getLocale() {
+    return resources.getLocale();
+  }
 }
