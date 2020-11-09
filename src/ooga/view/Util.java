@@ -1,6 +1,5 @@
 package ooga.view;
 
-import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,14 +10,6 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 public class Util {
-
-  public static int getResourceAsInt(ResourceBundle resource, String key) {
-    return Integer.parseInt(resource.getString(key));
-  }
-
-  public static String getResourceAsString(ResourceBundle resource, String key) {
-    return resource.getString(key);
-  }
 
   public static void setPaneStylesheet(Pane pane, String stylesheet) {
     pane.getStylesheets().add(stylesheet);

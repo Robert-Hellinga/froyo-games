@@ -1,7 +1,6 @@
 package ooga.view.elements;
 
 import java.util.Map;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Toggle;
@@ -9,23 +8,30 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ooga.controller.IFroyoController;
+import ooga.fileHandler.Resources;
 import ooga.view.Display;
 import ooga.view.screens.GameScreen;
 
 public class SplashScreenButtonBox extends VBox {
 
-  private static final Map<Integer, String> gameClasses = Map.of(0, "Othello", 1, "Checkers", 2,
-      "Connect4");
-  private ResourceBundle resourceBundle;
+  private static final Map<Integer, String> gameClasses = Map.of(0, "Othello", 1, "Checkers", 2, "Connect4");
+  private static final String OTHELLO_BTN = "Othello";
+  private static final String CHECKERS_BTN = "Checkers";
+  private static final String CONNECT_4_BTN = "Connect 4";
+  private static final String ONE_PLAYER_BTN = "One Player";
+  private static final String TWO_PLAYER_BTN = "Two Player";
+  private static final String START_BTN = "Two Player";
+  private static final int GAME_BTN_WIDTH = 150;
+  private static final int GAME_BTN_HEIGHT = 55;
+
+
+  private Resources resources;
   private ToggleGroup gameToggleGroup, playerToggleGroup;
   private IFroyoController controller;
-  private Display display;
 
-  public SplashScreenButtonBox(ResourceBundle resourceBundle, IFroyoController controller,
-      Display display) {
-    this.resourceBundle = resourceBundle;
+  public SplashScreenButtonBox(Resources resources, IFroyoController controller) {
+    this.resources = resources;
     this.controller = controller;
-    this.display = display;
     setSpacing(15);
     getChildren().addAll(getGameButtonGroup(), getPlayerButtonGroup(), getStartButtonGroup());
 

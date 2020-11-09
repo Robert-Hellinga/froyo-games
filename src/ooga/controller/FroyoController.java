@@ -2,34 +2,26 @@ package ooga.controller;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ResourceBundle;
+import java.util.Locale;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ooga.Coordinate;
 import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
-import ooga.model.checkerboard.block.Block;
-import ooga.model.game.CheckersGame;
-import ooga.model.game.Connect4Game;
 import ooga.model.game.Game;
-import ooga.model.player.Player;
 import ooga.view.Display;
-import ooga.view.IDisplay;
 import ooga.view.screens.GameScreen;
 
 public class FroyoController implements IFroyoController{
 
-  private static final String DEFAULT_RESOURCE_BUNDLE_PATH = "resources.ui.Display_en"; //needed right now to work with GameScreen's current implementation
-
   private Stage myStage;
-  private IDisplay myDisplay;
+  private Display myDisplay;
+  private Locale myLocale;
 
-
-
-  public FroyoController(Stage stage){
+  public FroyoController(Stage stage, Locale locale){
     myStage = stage;
-    myDisplay = new Display(this);
+    myLocale = locale;
+    myDisplay = new Display(this, myLocale);
   }
 
 
@@ -37,7 +29,7 @@ public class FroyoController implements IFroyoController{
   public void startGame(String gameType, boolean onePlayer, String playerName) {
     Game game = createGame(gameType, playerName, PlayerMode.PLAY_WITH_AI);
     IGameController gameController = new GameController(game);
-    GameScreen gameScreen = new GameScreen(ResourceBundle.getBundle(DEFAULT_RESOURCE_BUNDLE_PATH), gameController, game);
+    GameScreen gameScreen = new GameScreen(myLocale, gameController, game);
     game.registerObserver(gameScreen);
     setNewLayout(gameScreen);
   }

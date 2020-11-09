@@ -1,5 +1,6 @@
 package ooga.fileHandler;
 
+import java.util.Locale;
 import ooga.exceptions.ResourceException;
 
 import java.util.ResourceBundle;
@@ -11,19 +12,22 @@ public class Resources {
 
   public static final String RESOURCES = "resources/";
   public static final String RESOURCE_PACKAGE = RESOURCES.replace("/", ".");
+  public static final String UI_RESOURCE_PACKAGE = RESOURCE_PACKAGE + ".ui.";
   public static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES;
   public static final String ERROR_MESSAGES_FILE = "errorMessages";
+  private static final Locale DEFAULT_LOCALE = new Locale("en");
+
   ResourceBundle resources;
 
   public Resources(String propertiesFilename) {
-    this(RESOURCE_PACKAGE, propertiesFilename);
+    this(DEFAULT_LOCALE, RESOURCE_PACKAGE, propertiesFilename);
   }
 
-  public Resources(String resourcePackage, String propertiesFilename) {
+  public Resources(Locale locale, String resourcePackage, String propertiesFilename) {
     String filePath = resourcePackage + propertiesFilename;
     filePath.replace("/", ".");
 
-    resources = ResourceBundle.getBundle(filePath);
+    resources = ResourceBundle.getBundle(filePath, locale);
   }
 
   /**

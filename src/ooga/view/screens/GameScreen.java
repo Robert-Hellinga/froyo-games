@@ -1,9 +1,10 @@
 package ooga.view.screens;
 
-import java.util.ResourceBundle;
+import java.util.Locale;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import ooga.controller.IGameController;
+import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.view.GameObserver;
 import ooga.view.Styleable;
@@ -16,16 +17,20 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
   private static final int WIDTH = 400;
   private static final int HEIGHT = 350;
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
+  private static final String RESOURCE_FILE = "GameScreen";
 
   private IGameController controller;
-  private ResourceBundle resourceBundle;
+  private Resources resources;
   private Game game;
   private PieceGrid myGrid;
+  private Locale locale;
 
-  public GameScreen(ResourceBundle resourceBundle, IGameController controller, Game game) {
+
+  public GameScreen(Locale locale, IGameController controller, Game game) {
     this.controller = controller;
-    this.resourceBundle = resourceBundle;
     this.game = game;
+    this.locale = locale;
+    resources = new Resources(this.locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
     myGrid = makePieceGrid();
 
     setStyleSheet(DEFAULT_STYLE_SHEET);
@@ -41,7 +46,7 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
   }
 
   private VBox makeGameButtons() {
-    return new GameScreenButtonBox(resourceBundle);
+    return new GameScreenButtonBox(resources);
   }
 
   @Override

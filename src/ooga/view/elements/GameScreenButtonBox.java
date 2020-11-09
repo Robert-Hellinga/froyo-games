@@ -1,14 +1,14 @@
 package ooga.view.elements;
 
-import java.util.ResourceBundle;
 import javafx.scene.layout.VBox;
+import ooga.fileHandler.Resources;
 
 public class GameScreenButtonBox extends VBox {
 
-  private ResourceBundle resourceBundle;
+  private Resources resources;
 
-  public GameScreenButtonBox(ResourceBundle resourceBundle) {
-    this.resourceBundle = resourceBundle;
+  public GameScreenButtonBox(Resources resources) {
+    this.resources = resources;
 
     CustomButton startButton = new CustomButton("Home", event -> goToHomeScreen());
 

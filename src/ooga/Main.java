@@ -1,5 +1,6 @@
 package ooga;
 
+import java.util.Locale;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
@@ -25,8 +26,8 @@ public class Main extends Application {
     }
 
     private void playGame(Stage stage) {
-        IFroyoController controller = new FroyoController(stage);
-        //Display display = new Display(stage);
+        Locale en = new Locale("en");
+        IFroyoController controller = new FroyoController(stage, en);
     }
 
     public static void main(String[] args) {
