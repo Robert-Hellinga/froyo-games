@@ -17,12 +17,12 @@ public class SplashScreenButtonBox extends VBox {
   private static final Map<Integer, String> gameClasses = Map.of(0, "Othello", 1, "Checkers", 2, "Connect4");
   private static final String OTHELLO_BTN = "Othello";
   private static final String CHECKERS_BTN = "Checkers";
-  private static final String CONNECT_4_BTN = "Connect 4";
-  private static final String ONE_PLAYER_BTN = "One Player";
-  private static final String TWO_PLAYER_BTN = "Two Player";
-  private static final String START_BTN = "Two Player";
-  private static final int GAME_BTN_WIDTH = 150;
-  private static final int GAME_BTN_HEIGHT = 55;
+  private static final String CONNECT_4_BTN = "Connect4";
+  private static final String ONE_PLAYER_BTN = "OnePlayer";
+  private static final String TWO_PLAYER_BTN = "TwoPlayer";
+  private static final String START_BTN = "Start";
+  private static final int PLAYER_BTN_WIDTH = 150;
+  private static final int PLAYER_BTN_HEIGHT = 55;
 
 
   private Resources resources;
@@ -37,15 +37,17 @@ public class SplashScreenButtonBox extends VBox {
 
   }
 
-
   private VBox getGameButtonGroup() {
     VBox result = new VBox();
     result.setSpacing(10);
     result.setAlignment(Pos.CENTER);
     gameToggleGroup = new ToggleGroup();
-    CustomToggleButton othelloBtn = new CustomToggleButton("Othello", gameToggleGroup);
-    CustomToggleButton checkersBtn = new CustomToggleButton("Checkers", gameToggleGroup);
-    CustomToggleButton connect4Btn = new CustomToggleButton("Connect 4", gameToggleGroup);
+    CustomToggleButton othelloBtn = new CustomToggleButton(resources.getString(OTHELLO_BTN),
+        gameToggleGroup);
+    CustomToggleButton checkersBtn = new CustomToggleButton(resources.getString(CHECKERS_BTN),
+        gameToggleGroup);
+    CustomToggleButton connect4Btn = new CustomToggleButton(resources.getString(CONNECT_4_BTN),
+        gameToggleGroup);
     result.getChildren().addAll(othelloBtn, checkersBtn, connect4Btn);
     return result;
   }
@@ -55,10 +57,12 @@ public class SplashScreenButtonBox extends VBox {
     result.setSpacing(20);
     result.setAlignment(Pos.CENTER);
     playerToggleGroup = new ToggleGroup();
-    CustomToggleButton onePlayerBtn = new CustomToggleButton("One Player", playerToggleGroup, 150
-        , 55);
-    CustomToggleButton twoPlayerBtn = new CustomToggleButton("Two Player", playerToggleGroup, 150
-        , 55);
+    CustomToggleButton onePlayerBtn = new CustomToggleButton(resources.getString(ONE_PLAYER_BTN),
+        playerToggleGroup, PLAYER_BTN_WIDTH
+        , PLAYER_BTN_HEIGHT);
+    CustomToggleButton twoPlayerBtn = new CustomToggleButton(resources.getString(TWO_PLAYER_BTN),
+        playerToggleGroup, PLAYER_BTN_WIDTH
+        , PLAYER_BTN_HEIGHT);
     result.getChildren().addAll(onePlayerBtn, twoPlayerBtn);
     return result;
   }
@@ -66,7 +70,7 @@ public class SplashScreenButtonBox extends VBox {
   private VBox getStartButtonGroup() {
     VBox result = new VBox();
     result.setAlignment(Pos.CENTER);
-    CustomButton startButton = new CustomButton("Start", event -> startGame());
+    CustomButton startButton = new CustomButton(resources.getString(START_BTN), event -> startGame());
     result.getChildren().add(startButton);
     return result;
   }

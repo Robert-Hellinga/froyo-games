@@ -16,8 +16,8 @@ public class SplashScreen extends GridPane implements Styleable {
   private static final String BACKGROUND_STYLE_CLASS = "background";
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String RESOURCE_FILE = "SplashScreen";
-  private static final int WIDTH = 600;
-  private static final int HEIGHT = 450;
+  private static final int SCREEN_WIDTH = 600;
+  private static final int SCREEN_HEIGHT = 450;
 
   private Resources resources;
 
@@ -26,17 +26,17 @@ public class SplashScreen extends GridPane implements Styleable {
     resources = new Resources(locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
     setStyleSheet(DEFAULT_STYLE_SHEET);
 
-    setWidth(WIDTH);
-    setHeight(HEIGHT);
+    setWidth(SCREEN_WIDTH);
+    setHeight(SCREEN_HEIGHT);
 
-    getColumnConstraints().add(Util.getColumnConstraints(Priority.NEVER, true, WIDTH));
+    getColumnConstraints().add(Util.getColumnConstraints(Priority.NEVER, SCREEN_WIDTH));
 
     add(new SplashScreenTitleBox(), 0, 0);
-    getRowConstraints().add(Util.getRowConstraints(Priority.NEVER, false, 120));
+    getRowConstraints().add(Util.getRowConstraints(Priority.NEVER, 120));
     getStyleClass().add(BACKGROUND_STYLE_CLASS);
 
     add(new SplashScreenButtonBox(resources, controller), 0, 1);
-    getRowConstraints().add(Util.getRowConstraints(Priority.SOMETIMES, true, 200));
+    getRowConstraints().add(Util.getRowConstraints(Priority.SOMETIMES, 200));
   }
 
   @Override

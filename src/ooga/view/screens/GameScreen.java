@@ -14,10 +14,10 @@ import ooga.view.grid.PieceGrid;
 
 public class GameScreen extends GridPane implements Styleable, GameObserver {
 
-  private static final int WIDTH = 400;
-  private static final int HEIGHT = 350;
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String RESOURCE_FILE = "GameScreen";
+  private static final int SCREEN_WIDTH = 400;
+  private static final int SCREEN_HEIGHT = 350;
 
   private IGameController controller;
   private Resources resources;
@@ -34,8 +34,8 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
     myGrid = makePieceGrid();
 
     setStyleSheet(DEFAULT_STYLE_SHEET);
-    setWidth(WIDTH);
-    setHeight(HEIGHT);
+    setWidth(SCREEN_WIDTH);
+    setHeight(SCREEN_HEIGHT);
     
     add(makeGameButtons(), 0, 0);
     add(myGrid, 1, 0);
