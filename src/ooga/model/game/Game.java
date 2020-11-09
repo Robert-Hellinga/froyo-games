@@ -7,6 +7,8 @@ import java.util.List;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.controller.GameController.PlayerMode;
+import ooga.exceptions.FileException;
+import ooga.fileHandler.FileReader;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
@@ -35,8 +37,9 @@ public abstract class Game {
 
 
   //TODO: add implementation details in this method (not sure if the configuration will be featured in this level of code)
-  protected BlockConfigStructure getInitiationBlockConfig(String gameType) {
-    return new BlockConfigStructure();
+  protected BlockConfigStructure getInitiationBlockConfig(String gameType) throws FileException {
+    FileReader fileReader = new FileReader(gameType, "start");
+    return fileReader.readInAllData();
   }
 
   public static Player createHumanPlayer(String gameType, String name) {
