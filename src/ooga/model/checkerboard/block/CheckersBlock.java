@@ -23,6 +23,21 @@ public class CheckersBlock extends Block {
       allAvailablePosition.addAll(getPotentialNeighbourMove(currentPlayerIndex, allBlocks, false));
       allAvailablePosition.addAll(getPotentialStepMove(currentPlayerIndex, allBlocks, false));
     }
+    List<Coordinate> furtherAvailablePosition = new ArrayList<>();
+    for (Coordinate coordinate : allAvailablePosition) {
+      if (Math.abs(coordinate.xCoordinate() - this.coordinate.xCoordinate()) == 2
+          && Math.abs(coordinate.yCoordinate() - this.coordinate.yCoordinate()) == 2) {
+        List<Coordinate> additionalAvailablePosition = allBlocks.getBlock(coordinate)
+            .getAvailablePosition(currentPlayerIndex, allBlocks);
+        for (Coordinate additionalMove : additionalAvailablePosition) {
+          if (Math.abs(additionalMove.xCoordinate() - coordinate.xCoordinate()) == 2
+              && Math.abs(additionalMove.yCoordinate() - coordinate.yCoordinate()) == 2) {
+            furtherAvailablePosition.add(additionalMove);
+          }
+        }
+      }
+    }
+    allAvailablePosition.addAll(furtherAvailablePosition);
     return allAvailablePosition;
   }
 
@@ -35,7 +50,7 @@ public class CheckersBlock extends Block {
         availableMoves.add(coor);
       }
     }
-    if (blockState.isKing){
+    if (blockState.isKing) {
       for (Coordinate coor : getNeighbourMove(allBlocks, !isDownDirection)) {
         if (allBlocks.getBlock(coor).blockState.isEmpty) {
           availableMoves.add(coor);
@@ -55,7 +70,7 @@ public class CheckersBlock extends Block {
         tmpNeighbourMoves.add(coor);
       }
     }
-    if (blockState.isKing){
+    if (blockState.isKing) {
       for (Coordinate coor : getNeighbourMove(allBlocks, !isDownDirection)) {
         if (!allBlocks.getBlock(coor).blockState.isEmpty
             && allBlocks.getBlock(coor).getPlayerID() != currentPlayerIndex) {
