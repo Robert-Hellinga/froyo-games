@@ -1,27 +1,44 @@
 package ooga.model.player;
 
-public abstract class Player {
+public class Player{
 
-  protected static String name;
-  protected static int ID;
+  public enum PlayerType{
+    AI,
+    HUMAN
+  }
 
-  public Player(String name) {
+  private String name;
+  private int ID;
+  private PlayerType type;
+
+  public Player(String name, PlayerType playerType){
     this.name = name;
+    this.type = playerType;
   }
 
-  public static int getID() {
-    return ID;
-  }
-
-  public static String getName() {
+  public String getName() {
     return name;
   }
 
-  public static void setID(int ID) {
-    Player.ID = ID;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public static void setName(String name) {
-    Player.name = name;
+  public int getID() {
+    return ID;
   }
+
+  public PlayerType getType() {
+    return type;
+  }
+
+
+  public void setID(int ID) {
+    this.ID = ID;
+  }
+
+  public void setType(PlayerType type) {
+    this.type = type;
+  }
+
 }
