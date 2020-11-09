@@ -1,8 +1,12 @@
 package ooga.view.screens;
 
+import java.awt.Label;
 import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 import ooga.controller.IFroyoController;
 import ooga.fileHandler.Resources;
 import ooga.view.Styleable;
@@ -11,56 +15,62 @@ import ooga.view.elements.CustomButton;
 import ooga.view.elements.LabeledDropdown;
 import ooga.view.grid.PieceGrid;
 
-public class LanguageScreen extends GridPane implements Styleable {
+public class LanguageScreen extends GridPane {
 
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
-  private static final int SCREEN_WIDTH = 400;
-  private static final int SCREEN_HEIGHT = 350;
-  private static final String[] AVAILABLE_LOCALES = {"en", "it", "es"};
+  private static final String START_BTN_TEXT = "Start / Début / Start";
+  private static final String DROPDOWN_LABEL_TEXT = "Choose Language / Choisissez la Langue / "
+      + "Sprache Wählen"; // Not in a resource bundle; language hasn't been selected yet
+  private static final int SCREEN_WIDTH = 450;
+  private static final int SCREEN_HEIGHT = 150;
+  private static final int SCREEN_SPACING = 20;
+  private static final int START_BTN_WIDTH = 140;
+  private static final int START_BTN_HEIGHT = 30;
+  private static final Locale[] AVAILABLE_LOCALES = {Locale.ENGLISH, Locale.FRENCH, Locale.GERMAN};
 
   public LanguageScreen(IFroyoController controller) {
 
     setAlignment(Pos.CENTER);
-    setStyleSheet(DEFAULT_STYLE_SHEET);
+    Util.setPaneStylesheet(this, DEFAULT_STYLE_SHEET);
     setWidth(SCREEN_WIDTH);
     setHeight(SCREEN_HEIGHT);
 
-    setGridLinesVisible(true);
-    LabeledDropdown languageDropdown = new LabeledDropdown("TEST", AVAILABLE_LOCALES[0], AVAILABLE_LOCALES);
-    add(languageDropdown, 0, 0);
-
-    CustomButton testButton = new CustomButton("Start",
-        event -> new SplashScreen(new Locale((String) languageDropdown.getValue()), controller));
-    add(testButton, 0, 1);
+    add(getStartButtonGroup(controller), 0, 0);
     controller.setNewLayout(this);
   }
 
-  private void getLanguageCells() {
+  private VBox getStartButtonGroup(IFroyoController controller) {
+    VBox result = new VBox();
+    result.setAlignment(Pos.CENTER);
+    result.setSpacing(SCREEN_SPACING);
 
+    LabeledDropdown<Locale> languageSelector = getLanguageDropdown();
+
+    CustomButton startButton = new CustomButton(START_BTN_TEXT,
+        event -> new SplashScreen(languageSelector.getValue(), controller),
+        START_BTN_WIDTH,
+        START_BTN_HEIGHT
+    );
+    startButton.getStyleClass().add("success");
+
+    result.getChildren().addAll(languageSelector, startButton);
+
+    return result;
   }
 
-  @Override
-  public void setStyleSheet(String stylesheet) {
-    getStylesheets().clear();
-    Util.setPaneStylesheet(this, stylesheet);
-  }
+  private LabeledDropdown getLanguageDropdown() {
+    LabeledDropdown<Locale> languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT, AVAILABLE_LOCALES);
+    languageDropdown.setConverter(new StringConverter<>() {
+      @Override
+      public String toString(Locale locale) {
+        return locale.getDisplayName();
+      }
 
-  @Override
-  public String getStyleSheet() {
-    return getStylesheets().get(0);
-  }
-
-  private class LanguageCell {
-
-    private Locale locale;
-
-    public LanguageCell(String key) {
-      this.locale = new Locale(key);
-    }
-
-    @Override
-    public String toString() {
-      return locale.getDisplayName();
-    }
+      @Override
+      public Locale fromString(String string) {
+        return new Locale(string);
+      }
+    });
+    return languageDropdown;
   }
 }

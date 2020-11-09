@@ -29,7 +29,6 @@ public class SplashScreenButtonBox extends VBox {
   private static final int MEDIUM_SPACING = 15;
   private static final int SMALL_SPACING = 10;
 
-
   private Resources resources;
   private ToggleGroup gameToggleGroup, playerToggleGroup;
   private IFroyoController controller;
