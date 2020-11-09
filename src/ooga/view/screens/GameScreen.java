@@ -18,11 +18,13 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
   private static final String RESOURCE_FILE = "GameScreen";
   private static final int SCREEN_WIDTH = 400;
   private static final int SCREEN_HEIGHT = 350;
+  private static final int SCREEN_H_SPACING = 10;
+  private static final int SCREEN_V_SPACING = 10;
 
   private IGameController controller;
   private Resources resources;
   private Game game;
-  private PieceGrid myGrid;
+  private PieceGrid grid;
   private Locale locale;
 
 
@@ -31,22 +33,16 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
     this.game = game;
     this.locale = locale;
     resources = new Resources(this.locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
-    myGrid = makePieceGrid();
+    grid = new PieceGrid(controller, game.getAllBlockStates());
 
     setStyleSheet(DEFAULT_STYLE_SHEET);
     setWidth(SCREEN_WIDTH);
     setHeight(SCREEN_HEIGHT);
+    setVgap(SCREEN_V_SPACING);
+    setHgap(SCREEN_H_SPACING);
     
-    add(makeGameButtons(), 0, 0);
-    add(myGrid, 1, 0);
-  }
-
-  private PieceGrid makePieceGrid() {
-    return new PieceGrid(controller, game.getAllBlockStates());
-  }
-
-  private VBox makeGameButtons() {
-    return new GameScreenButtonBox(resources);
+    add(new GameScreenButtonBox(resources, controller), 0, 0);
+    add(grid, 1, 0);
   }
 
   @Override
@@ -62,6 +58,6 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
 
   @Override
   public void update() {
-    myGrid.updateGrid(game.getAllBlockStates());
+    grid.update(game.getAllBlockStates());
   }
 }

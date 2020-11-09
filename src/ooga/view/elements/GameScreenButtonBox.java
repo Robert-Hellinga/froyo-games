@@ -3,15 +3,20 @@ package ooga.view.elements;
 import javafx.geometry.Pos;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
+import ooga.controller.IGameController;
 import ooga.fileHandler.Resources;
 
 public class GameScreenButtonBox extends VBox {
 
   private static final String HOME_BTN = "Home";
-  private Resources resources;
+  private static final String SAVE_BTN = "Save";
 
-  public GameScreenButtonBox(Resources resources) {
+  private Resources resources;
+  private IGameController controller;
+
+  public GameScreenButtonBox(Resources resources, IGameController controller) {
     this.resources = resources;
+    this.controller = controller;
 
     getChildren().addAll(getControlButtonGroup());
   }
@@ -22,13 +27,20 @@ public class GameScreenButtonBox extends VBox {
     result.setAlignment(Pos.CENTER);
 
     CustomButton startButton = new CustomButton(resources.getString(HOME_BTN),
-        event -> goToHomeScreen());
+        event -> goToHomeScreen(), 65, 20);
 
-    result.getChildren().addAll(startButton);
+    CustomButton saveButton = new CustomButton(resources.getString(SAVE_BTN),
+        event -> saveGame(), 65, 20);
+
+    result.getChildren().addAll(startButton, saveButton);
     return result;
   }
 
   private void goToHomeScreen() {
+
+  }
+
+  private void saveGame() {
 
   }
 

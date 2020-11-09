@@ -23,6 +23,8 @@ public class SplashScreenButtonBox extends VBox {
   private static final String TWO_PLAYER_BTN = "TwoPlayer";
   private static final String START_BTN = "Start";
   private static final String PLAYER_NAME_FIELD = "Username";
+  private static final String SUCCESS_BTN = "success";
+  private static final String INFO_BTN = "info";
   private static final int PLAYER_BTN_WIDTH = 140;
   private static final int PLAYER_BTN_HEIGHT = 50;
   private static final int LARGE_SPACING = 20;
@@ -68,8 +70,8 @@ public class SplashScreenButtonBox extends VBox {
     CustomToggleButton twoPlayerBtn = new CustomToggleButton(resources.getString(TWO_PLAYER_BTN),
         playerToggleGroup, PLAYER_BTN_WIDTH
         , PLAYER_BTN_HEIGHT);
-    onePlayerBtn.getStyleClass().add("info");
-    twoPlayerBtn.getStyleClass().add("info");
+    onePlayerBtn.getStyleClass().add(INFO_BTN);
+    twoPlayerBtn.getStyleClass().add(INFO_BTN);
     result.getChildren().addAll(onePlayerBtn, twoPlayerBtn);
     return result;
   }
@@ -82,23 +84,23 @@ public class SplashScreenButtonBox extends VBox {
     TextField playerName = new TextField();
     playerName.setPrefColumnCount(8);
     playerName.setPromptText(resources.getString(PLAYER_NAME_FIELD));
-    CustomButton startButton = new CustomButton(resources.getString(START_BTN), event -> startGame());
-    startButton.getStyleClass().add("success");
+    CustomButton startButton = new CustomButton(resources.getString(START_BTN),
+        event -> startGame(playerName.getText()));
+    startButton.getStyleClass().add(SUCCESS_BTN);
     result.getChildren().addAll(playerName, startButton);
     return result;
   }
 
-  private void startGame() {
+  private void startGame(String username) {
     String gameType = gameClasses.get(getToggleIndexSelected(gameToggleGroup));
     boolean onePlayer = getToggleIndexSelected(gameToggleGroup) == 0 ? true : false;
-    controller.startGame(gameType, onePlayer, null);
+    controller.startGame(gameType, onePlayer, username);
   }
 
   private int getToggleIndexSelected(ToggleGroup group) {
     ObservableList<Toggle> toggles = group.getToggles();
     for(int i = 0; i < toggles.size(); i++) {
       if(toggles.get(i).isSelected()) {
-        System.out.println(i);
         return i;
       }
     }

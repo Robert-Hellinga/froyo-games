@@ -9,43 +9,24 @@ import ooga.controller.IGameController;
 
 public class PieceGrid extends GridPane {
 
-  private List<List<Piece>> allPieces;
   private IGameController controller;
 
   public PieceGrid(IGameController controller, List<List<Integer>> initialPieceLayout) {
     this.controller = controller;
-    updateGrid(initialPieceLayout);
+    update(initialPieceLayout);
   }
 
-  public void updateGrid(List<List<Integer>> newPieceStates) {
+  public void update(List<List<Integer>> newPieceStates) {
     getChildren().clear();
-    allPieces = updatePieces(newPieceStates);
 
-    for(int i = 0; i < allPieces.size(); i++){
-      for(int j = 0; j < allPieces.get(0).size(); j++){
-        Piece currentPiece = allPieces.get(i).get(j);
-        add(currentPiece.getPieceShape(), j, i);
-      }
-    }
-  }
-
-  private List<List<Piece>> updatePieces(List<List<Integer>> newPieceStates) {
-    List<List<Piece>> newPieces = new ArrayList<>();
     for (int i = 0; i < newPieceStates.size(); i++) {
-      List<Piece> pieceLine = new ArrayList<>();
       for (int j = 0; j < newPieceStates.get(0).size(); j++) {
         Coordinate position = new Coordinate(j, i);
-        pieceLine.add(
-            new Piece(
-                newPieceStates.get(i).get(j),
-                position,
-                event -> controller.clickPiece(position)
-            )
-        );
+        int newState = newPieceStates.get(i).get(j);
+        Piece piece = new Piece(newState, position, event -> controller.clickPiece(position));
+        add(piece.getPieceShape(), j, i);
       }
-      newPieces.add(pieceLine);
     }
-    return newPieces;
   }
 
 }
