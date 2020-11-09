@@ -26,7 +26,7 @@ public class FroyoController implements IFroyoController{
   public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName) {
     Game game = createGame(gameType, playerName, PlayerMode.PLAY_WITH_AI);
     IGameController gameController = new GameController(game);
-    GameScreen gameScreen = new GameScreen(locale, gameController, game);
+    GameScreen gameScreen = new GameScreen(locale, gameController, this, game);
     game.registerObserver(gameScreen);
     setNewLayout(gameScreen);
   }
