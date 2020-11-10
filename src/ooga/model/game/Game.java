@@ -27,7 +27,7 @@ public abstract class Game {
   protected List<GameObserver> observers;
   protected AIBrain aiBrain;
 
-  public Game(String gameType, String playerName, PlayerMode playerMode) {
+  public Game(String gameType, String playerName, PlayerMode playerMode, String startPattern) {
     this.gameType = gameType;
     allPlayers.add(new Player(playerName, PlayerType.HUMAN));
     allPlayers.add(createSecondPlayer(playerMode));
@@ -36,8 +36,8 @@ public abstract class Game {
   }
 
 
-  protected BlockConfigStructure getInitiationBlockConfig(String gameType) throws FileException {
-    FileReader fileReader = new FileReader(gameType, "default");
+  protected BlockConfigStructure getInitiationBlockConfig(String gameType, String startPattern) throws FileException {
+    FileReader fileReader = new FileReader(gameType, startPattern);
     return fileReader.makeBlockStructure();
   }
 

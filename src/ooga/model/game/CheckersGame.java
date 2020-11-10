@@ -9,9 +9,9 @@ public class CheckersGame extends Game {
 
   private CheckersBlockGrid checkBoard;
 
-  public CheckersGame(String gameType, String playerName, PlayerMode playerMode){
-    super(gameType, playerName, playerMode);
-    checkBoard = new CheckersBlockGrid(gameType, getInitiationBlockConfig(gameType), numPlayers);
+  public CheckersGame(String gameType, String playerName, PlayerMode playerMode, String startPattern){
+    super(gameType, playerName, playerMode, startPattern);
+    checkBoard = new CheckersBlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 
   @Override
