@@ -45,7 +45,6 @@ public class CheckersAIBrain implements AIBrain {
         }
       }
     }
-
     return bestMove;
   }
 

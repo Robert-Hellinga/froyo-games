@@ -7,7 +7,6 @@ public class FileException extends RuntimeException {
 
     public FileException(String message) {
       super(message);
-      System.out.println("hi");
     }
 
     public FileException(String message, Throwable cause) {
