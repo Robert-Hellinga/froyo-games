@@ -1,5 +1,6 @@
 package ooga.model.checkerboard.blockgrid;
 
+import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
@@ -28,9 +29,36 @@ public class CheckersBlockGrid extends BlockGrid {
           originalPosition.xCoordinate() + xMovement / 2,
           originalPosition.yCoordinate() + yMovement / 2
       );
-      allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setEmpty(true);
-      allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setPlayerID(0);
+      crossPiece(pieceToRemoveCoordinate);
     }
+    if (Math.abs(xMovement) > 2 || Math.abs(yMovement) > 2){
+      for (int xIndicator: List.of(-2, 2)){
+        boolean breakLoop = false;
+        for (int yIndicator: List.of(-2, 2)){
+          if (newPosition.xCoordinate() + xIndicator > 0 && newPosition.xCoordinate() + xIndicator < allBlocks
+              .getBlockStructureWidth() - 1 && newPosition.yCoordinate() + yIndicator > 0 && newPosition.yCoordinate() + yIndicator < allBlocks
+              .getBlockStructureHeight() - 1) {
+            Coordinate interCoordinate = new Coordinate(newPosition.xCoordinate() + xIndicator,
+                newPosition.yCoordinate() + yIndicator);
+            if (allBlocks.getBlock(interCoordinate).getBlockState().isPotentialMove()){
+              removeCheckedPiece(interCoordinate, originalPosition);
+              crossPiece(new Coordinate(newPosition.xCoordinate() + xIndicator/2,
+                  newPosition.yCoordinate() + yIndicator/2));
+              breakLoop = true;
+              break;
+            }
+          }
+        }
+        if (breakLoop){
+          break;
+        }
+      }
+    }
+  }
+
+  private void crossPiece(Coordinate pieceToRemoveCoordinate){
+    allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setEmpty(true);
+    allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setPlayerID(0);
   }
 
   public void makeBlockKing(Coordinate newCoordinate){
@@ -42,5 +70,18 @@ public class CheckersBlockGrid extends BlockGrid {
         && allBlocks.getBlock(newCoordinate).getPlayerID() == 1){
       allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
     }
+  }
+
+  @Override
+  public BlockGrid clone() {
+    BlockGrid blockGrid = new CheckersBlockGrid(gameType, allBlocks.getBlockConfigStructure(), numPlayers);
+    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++){
+      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++){
+        blockGrid.getAllBlocks().getBlock(new Coordinate(j,i)).setBlockState(
+            allBlocks.getBlock(new Coordinate(j,i)).getBlockState().clone()
+        );
+      }
+    }
+    return blockGrid;
   }
 }
