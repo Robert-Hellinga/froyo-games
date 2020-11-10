@@ -40,6 +40,7 @@ public class CheckersAIBrain implements AIBrain {
             List<Coordinate> potentialMoves = newCheckBoard.getAllBlocks()
                 .getBlock(new Coordinate(j, i)).getAvailablePosition(currentPlayerIndex,
                     newCheckBoard.getAllBlocks());
+            BlockGrid newGird = newCheckBoard.clone();
 
           }
         }
