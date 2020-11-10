@@ -9,16 +9,23 @@ import org.junit.jupiter.api.Test;
 
 class CheckersBlockGridTest {
 
-  BlockConfigStructure allBlockConfig = new BlockConfigStructure();
-  CheckersBlockGrid checkersBlockGrid = new CheckersBlockGrid("Checkers", allBlockConfig, 2);
+//  BlockConfigStructure allBlockConfig = new BlockConfigStructure();
+//  CheckersBlockGrid checkersBlockGrid = new CheckersBlockGrid("Checkers", allBlockConfig, 2);
+//
+//  @Test
+//  void setAvailablePosition() {
 
   @Test
   void setAvailablePosition() {
-    int currentPlayerIndex = 2;
-    Coordinate chosenBlock = new Coordinate(1, 5);
-    checkersBlockGrid.setAvailablePosition(currentPlayerIndex, chosenBlock);
-    assertTrue(checkersBlockGrid.allBlocks.getBlock(new Coordinate(0, 4)).getBlockState()
-        .isPotentialMove());
+//  }
+//
+//  @Test
+//  void removeCheckedPiece() {
+//  }
+//
+//  @Test
+//  void makeBlockKing() {
+//  }
   }
 
   @Test
