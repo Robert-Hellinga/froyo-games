@@ -9,7 +9,7 @@ import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class CheckersAIBrain implements AIBrain {
 
-  public static final int SEARCH_LAYER = 4;
+  public static final int SEARCH_LAYER = 2;
   public static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
 
 

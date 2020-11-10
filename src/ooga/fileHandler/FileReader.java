@@ -2,11 +2,9 @@ package ooga.fileHandler;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+
 import com.opencsv.CSVReader;
 import ooga.exceptions.FileException;
 import ooga.model.checkerboard.BlockConfigStructure;
@@ -14,18 +12,17 @@ import ooga.model.checkerboard.BlockConfigStructure;
 
 public class FileReader {
 
-  private final String fileName;
-  private Resources resources;
+  private String filePath;
+  private Resources error;
 
   public FileReader(String gameType, String patternType) {
-    this.fileName = "configuration/" + gameType + "_" + patternType + ".csv";
+    this("configuration/" + gameType + "_" + patternType + ".csv");
+  }
 
-    //        try{
-//            readInAllData();
-//        }
-//        catch(Exception e){
-//            throw new FileException(String.format(resources.getString("CannotReadFile"), fileName), e);
-//        }
+  public FileReader(String filePathName){
+    this.filePath = filePathName;
+    error = new Resources(Resources.ERROR_MESSAGES_FILE);
+
   }
 
   // ------------------ Helper Methods ------------------
@@ -35,28 +32,38 @@ public class FileReader {
    *
    * @return List of each row from the configuration file
    */
-  public BlockConfigStructure readInAllData() throws FileException {
+  public BlockConfigStructure makeBlockStructure(){
+    List<String[]> grid = readData();
+    String gameType = grid.get(0)[0];
+    grid.remove(0);
+    List<List<Integer>> allConfig = new ArrayList<>();
+    for (String[] configLine: grid){
+      List<Integer> configList = new ArrayList<>();
+      for (String config: configLine){
+        configList.add(Integer.parseInt(config));
+      }
+      allConfig.add(configList);
+    }
+
+    return new BlockConfigStructure(allConfig);
+  }
+
+
+  public List<String[]> readData() throws FileException {
     try {
-      InputStream streamData = CSVReader.class.getClassLoader().getResourceAsStream(fileName);
+      InputStream streamData = CSVReader.class.getClassLoader().getResourceAsStream(filePath);
       assert streamData != null;
       CSVReader csvReader = new com.opencsv.CSVReader(
           new InputStreamReader(streamData));
-      List<String[]> allData = csvReader.readAll();
-//            String gameType = allData.get(0)[0];
-      allData.remove(0);
-      List<List<Integer>> allConfig = new ArrayList<>();
-      for (String[] configLine: allData){
-        List<Integer> configList = new ArrayList<>();
-        for (String config: configLine){
-          configList.add(Integer.parseInt(config));
-        }
-        allConfig.add(configList);
-      }
-      return new BlockConfigStructure(allConfig);
+      return csvReader.readAll();
 
     } catch (Exception e) {
       e.printStackTrace();
-      throw new FileException(String.format(resources.getString("CannotReadFile"), fileName), e);
+      throw new FileException(String.format(error.getString("CannotReadFile"), filePath), e);
     }
+  }
+
+  public void setFilePath(String newPath){
+    filePath = newPath;
   }
 }
