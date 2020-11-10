@@ -38,7 +38,7 @@ public abstract class Game {
 
   protected BlockConfigStructure getInitiationBlockConfig(String gameType) throws FileException {
     FileReader fileReader = new FileReader(gameType, "default");
-    return fileReader.readInAllData();
+    return fileReader.makeBlockStructure();
   }
 
 
