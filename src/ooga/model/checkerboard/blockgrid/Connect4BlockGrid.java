@@ -10,6 +10,8 @@ public class Connect4BlockGrid extends BlockGrid {
     super(gameType, allBlockConfig, numPlayers);
   }
 
+
+
   @Override
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
     System.out.println("Chosen block coordinate = " + chosenBlock);
@@ -30,8 +32,17 @@ public class Connect4BlockGrid extends BlockGrid {
 //    }
   }
 
-  public void addBlock(int currentPlayerIndex, Coordinate chosenBlock) {
-    allBlocks.getBlock(chosenBlock).setPlayerID(currentPlayerIndex);
+  public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
+    int xCoordinate = passInCoordinate.xCoordinate();
+    for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
+      Coordinate coordinate = new Coordinate(xCoordinate, j);
+      if (allBlocks.getBlock(coordinate).getIsEmpty()) {
+        allBlocks.getBlock(coordinate).setPlayerID(currentPlayerIndex);
+        finishARound = true;
+        break;
+      }
+    }
+    unsetAllBlockPotential();
   }
 
   @Override
