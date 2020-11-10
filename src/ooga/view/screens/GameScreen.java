@@ -20,7 +20,7 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
 
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String RESOURCE_FILE = "GameScreen";
-  private static final int SCREEN_WIDTH = 450;
+  private static final int SCREEN_WIDTH = 500;
   private static final int SCREEN_HEIGHT = 500;
   private static final int SCREEN_H_SPACING = 20;
   private static final int SCREEN_V_SPACING = 30;

@@ -13,8 +13,8 @@ public class GameScreenButtonBox extends VBox {
 
   private static final String HOME_BTN = "Home";
   private static final String SAVE_BTN = "Save";
-  private static final int CONTROL_BTN_WIDTH = 65;
-  private static final int CONTROL_BTN_HEIGHT = 65;
+  private static final int CONTROL_BTN_WIDTH = 100;
+  private static final int CONTROL_BTN_HEIGHT = 100;
   private static final int CONTROL_BTN_SPACING = 10;
   private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
 

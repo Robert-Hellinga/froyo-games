@@ -10,7 +10,7 @@ import javafx.scene.control.ToggleGroup;
 
 public class ButtonFactory {
 
-  private static final int DEFAULT_BTN_WIDTH = 100;
+  private static final int DEFAULT_BTN_WIDTH = 130;
   private static final int DEFAULT_BTN_HEIGHT = 20;
   private static final int DEFAULT_TOGGLE_BTN_WIDTH = 230;
   private static final int DEFAULT_TOGGLE_BTN_HEIGHT = 55;
