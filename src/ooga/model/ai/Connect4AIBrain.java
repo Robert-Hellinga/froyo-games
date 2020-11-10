@@ -1,6 +1,7 @@
 package ooga.model.ai;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javafx.util.Pair;
 import ooga.Coordinate;
@@ -9,7 +10,8 @@ import ooga.model.BlockGrid;
 public class Connect4AIBrain implements AIBrain {
 
   public static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
-  public static final int DEPTH = 2;
+  public static final int DEPTH = 5;
+  public static final int WINDOWLENGTH = 4;
   public int AIID;
 
   @Override
@@ -186,7 +188,7 @@ public class Connect4AIBrain implements AIBrain {
   private float scorePositoin(BlockGrid connect4grid, int playerID) {
     float score = 0;
 
-    // Score center column
+    // Center column score
     int col = connect4grid.getAllBlocks().getBlockStructureWidth() / 2;
     int centerCount = 0;
     for (int row = 0; row < connect4grid.getAllBlocks().getBlockStructureHeight(); row++) {
@@ -198,13 +200,74 @@ public class Connect4AIBrain implements AIBrain {
     score += centerCount * 3;
 
     // Horizontal Score
-    for (int row = 0; row < connect4grid.getAllBlocks().getBlockStructureHeight(); row++) {
+    for (int r = connect4grid.getAllBlocks().getBlockStructureHeight() - 1; r >= 0; r--) {
+      for (int c = 0; c < connect4grid.getAllBlocks().getBlockStructureWidth() - 3; c++) {
+        ArrayList<Integer> window = new ArrayList<>();
 
+        for (int c_ = c; c_ < c + WINDOWLENGTH; c_++) {
+          if (!connect4grid.getAllBlocks().getBlock(new Coordinate(c_, r)).getIsEmpty()) {
+            window.add(connect4grid.getAllBlocks().getBlock(new Coordinate(c_, r)).getPlayerID());
+          } else {
+            window.add(0);
+          }
+        }
+        score += evaluateWindow(window, playerID);
+      }
     }
 
+    // Vertical Score
+    for (int c = 0; c < connect4grid.getAllBlocks().getBlockStructureWidth(); c++) {
+      for (int r = connect4grid.getAllBlocks().getBlockStructureHeight() - 1; r >= 3; r--) {
+        ArrayList<Integer> window = new ArrayList<>();
+
+        for (int r_ = r; r_ > r - WINDOWLENGTH; r_--) {
+          if (!connect4grid.getAllBlocks().getBlock(new Coordinate(c, r_)).getIsEmpty()) {
+            window.add(connect4grid.getAllBlocks().getBlock(new Coordinate(c, r_)).getPlayerID());
+          } else {
+            window.add(0);
+          }
+        }
+        score += evaluateWindow(window, playerID);
+      }
+    }
+
+    // Diagonal Score
+    for (int r = connect4grid.getAllBlocks().getBlockStructureHeight() - 1; r >= 3; r--) {
+      for (int c = 0; c < connect4grid.getAllBlocks().getBlockStructureWidth() - 3; c++) {
+
+        ArrayList<Integer> windowPositive = new ArrayList<>();
+        ArrayList<Integer> windowNegative = new ArrayList<>();
+
+        for (int i = 0; i < WINDOWLENGTH; i++) {
+          windowPositive.add(
+              connect4grid.getAllBlocks().getBlock(new Coordinate(c + i, r - i)).getPlayerID());
+          windowNegative.add(
+              connect4grid.getAllBlocks().getBlock(new Coordinate(c + i, r - 3 + i)).getPlayerID());
+
+          score += evaluateWindow(windowPositive, playerID);
+          score += evaluateWindow(windowNegative, playerID);
+        }
+      }
+    }
+    return score;
+  }
 
 
-
+  private float evaluateWindow(List<Integer> window, int playerID) {
+    float score = 0;
+    int thisPlayerCount = Collections.frequency(window, playerID);
+    int emptyCount = Collections.frequency(window, 0);
+    int otherPlayerCount = window.size() - thisPlayerCount - emptyCount;
+    if (thisPlayerCount == 4) {
+      score += 100;
+    } else if (thisPlayerCount == 3 && emptyCount == 1) {
+      score += 5;
+    } else if (thisPlayerCount == 2 && emptyCount == 2) {
+      score += 2;
+    }
+    if (otherPlayerCount == 3 && emptyCount == 1) {
+      score -= 4;
+    }
     return score;
   }
 }
