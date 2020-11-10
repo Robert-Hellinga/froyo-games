@@ -25,7 +25,7 @@ public class FroyoController implements IFroyoController{
   @Override
   public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName) {
     Game game = createGame(gameType, playerName, onePlayer ? PlayerMode.PLAY_WITH_AI :
-        PlayerMode.PLAY_WITH_FRIEND);
+        PlayerMode.PLAY_WITH_FRIEND, "default");
     IGameController gameController = new GameController(game);
     GameScreen gameScreen = new GameScreen(locale, gameController, this, game);
     game.registerObserver(gameScreen);
@@ -43,12 +43,12 @@ public class FroyoController implements IFroyoController{
     myStage.show();
   }
 
-  public static Game createGame(String gameType, String playerName, PlayerMode playerMode){
+  public static Game createGame(String gameType, String playerName, PlayerMode playerMode, String startPattern){
     try {
       Class<?> game = Class.forName("ooga.model.game." + gameType + "Game");
-      Class<?>[] param = {String.class, String.class, PlayerMode.class};
+      Class<?>[] param = {String.class, String.class, PlayerMode.class, String.class};
       Constructor<?> cons = game.getConstructor(param);
-      Object[] paramObject = {gameType, playerName, playerMode};
+      Object[] paramObject = {gameType, playerName, playerMode, startPattern};
       Object gameObject = cons.newInstance(paramObject);
       return (Game) gameObject;
     } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
