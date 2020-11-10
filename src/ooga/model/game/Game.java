@@ -12,7 +12,7 @@ import ooga.fileHandler.FileReader;
 import ooga.model.Player;
 import ooga.model.ai.AIBrain;
 import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 import ooga.model.Player.PlayerType;

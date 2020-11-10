@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Vector;
 import javafx.util.Pair;
 import ooga.Coordinate;
+import ooga.model.BlockGrid;
 import ooga.model.Player;
-import ooga.model.checkerboard.block.Block;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
+
 
 public class Connect4AIBrain implements AIBrain {
 
