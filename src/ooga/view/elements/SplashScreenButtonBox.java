@@ -30,6 +30,7 @@ public class SplashScreenButtonBox extends VBox {
   private static final String START_BTN = "Start";
   private static final String PLAYER_NAME_FIELD = "Username";
   private static final String NO_NAME_MESSAGE = "NoNameMessage";
+  private static final String BTN_STRING = "Btn"; // for id's
 
   private static final int PLAYER_BTN_WIDTH = 140;
   private static final int PLAYER_BTN_HEIGHT = 50;
@@ -56,10 +57,13 @@ public class SplashScreenButtonBox extends VBox {
     gameToggleGroup = new ToggleGroup();
     ToggleButton othelloBtn = BUTTON_FACTORY
         .makeToggleButton(resources.getString(OTHELLO_BTN), gameToggleGroup);
+    othelloBtn.setId(OTHELLO_BTN + BTN_STRING);
     ToggleButton checkersBtn = BUTTON_FACTORY
         .makeToggleButton(resources.getString(CHECKERS_BTN), gameToggleGroup);
+    checkersBtn.setId(CHECKERS_BTN + BTN_STRING);
     ToggleButton connect4Btn = BUTTON_FACTORY
         .makeToggleButton(resources.getString(CONNECT_4_BTN), gameToggleGroup);
+    connect4Btn.setId(CONNECT_4_BTN + BTN_STRING);
 
     result.getChildren().addAll(othelloBtn, checkersBtn, connect4Btn);
     return result;
@@ -74,9 +78,11 @@ public class SplashScreenButtonBox extends VBox {
     ToggleButton onePlayerBtn = BUTTON_FACTORY.makeToggleButton(resources.getString(ONE_PLAYER_BTN),
         playerToggleGroup, PLAYER_BTN_WIDTH
         , PLAYER_BTN_HEIGHT);
+    onePlayerBtn.setId(ONE_PLAYER_BTN + BTN_STRING);
     ToggleButton twoPlayerBtn = BUTTON_FACTORY.makeToggleButton(resources.getString(TWO_PLAYER_BTN),
         playerToggleGroup, PLAYER_BTN_WIDTH
         , PLAYER_BTN_HEIGHT);
+    twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
     onePlayerBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
     twoPlayerBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
     result.getChildren().addAll(onePlayerBtn, twoPlayerBtn);
@@ -93,6 +99,7 @@ public class SplashScreenButtonBox extends VBox {
     playerName.setPromptText(resources.getString(PLAYER_NAME_FIELD));
     Button startButton = BUTTON_FACTORY.makeButton(resources.getString(START_BTN),
         event -> startGame(playerName.getText()));
+    startButton.setId(START_BTN + BTN_STRING);
 
     startButton.getStyleClass().add(BUTTON_FACTORY.SUCCESS_STYLE);
     result.getChildren().addAll(playerName, startButton);
