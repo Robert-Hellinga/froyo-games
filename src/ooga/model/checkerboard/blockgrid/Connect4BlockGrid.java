@@ -32,6 +32,7 @@ public class Connect4BlockGrid extends BlockGrid {
 //    }
   }
 
+  @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
     int xCoordinate = passInCoordinate.xCoordinate();
     for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {

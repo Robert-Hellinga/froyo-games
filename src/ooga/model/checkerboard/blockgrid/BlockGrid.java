@@ -110,4 +110,6 @@ public abstract class BlockGrid{
   }
 
   public abstract BlockGrid clone();
+
+  public abstract void play(Coordinate passInCoordinate, Integer currentPlayerIndex);
 }
