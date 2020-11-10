@@ -1,8 +1,7 @@
-package ooga.model.checkerboard.blockgrid;
+package ooga.model;
 
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class Connect4BlockGrid extends BlockGrid {
 

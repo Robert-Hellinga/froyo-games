@@ -1,9 +1,8 @@
-package ooga.model.checkerboard.blockgrid;
+package ooga.model;
 
 import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class CheckersBlockGrid extends BlockGrid {
 
