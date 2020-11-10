@@ -14,11 +14,9 @@ class CheckersBlockGridTest {
 //
 //  @Test
 //  void setAvailablePosition() {
-//    int currentPlayerIndex = 2;
-//    Coordinate chosenBlock = new Coordinate(1, 5);
-//    checkersBlockGrid.setAvailablePosition(currentPlayerIndex, chosenBlock);
-//    assertTrue(checkersBlockGrid.allBlocks.getBlock(new Coordinate(0, 4)).getBlockState()
-//        .isPotentialMove());
+
+  @Test
+  void setAvailablePosition() {
 //  }
 //
 //  @Test
@@ -28,4 +26,13 @@ class CheckersBlockGridTest {
 //  @Test
 //  void makeBlockKing() {
 //  }
+  }
+
+  @Test
+  void removeCheckedPiece() {
+  }
+
+  @Test
+  void makeBlockKing() {
+  }
 }

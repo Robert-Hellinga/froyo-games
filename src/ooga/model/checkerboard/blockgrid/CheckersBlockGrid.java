@@ -71,4 +71,17 @@ public class CheckersBlockGrid extends BlockGrid {
       allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
     }
   }
+
+  @Override
+  public BlockGrid clone() {
+    BlockGrid blockGrid = new CheckersBlockGrid(gameType, allBlocks.getBlockConfigStructure(), numPlayers);
+    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++){
+      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++){
+        blockGrid.getAllBlocks().getBlock(new Coordinate(j,i)).setBlockState(
+            allBlocks.getBlock(new Coordinate(j,i)).getBlockState().clone()
+        );
+      }
+    }
+    return blockGrid;
+  }
 }

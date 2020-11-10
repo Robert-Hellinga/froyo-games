@@ -1,10 +1,12 @@
 package ooga;
 
+import java.util.Locale;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
-import ooga.view.Display;
+import ooga.view.screens.LanguageScreen;
+import ooga.view.screens.SplashScreen;
 
 public class Main extends Application {
 
@@ -14,19 +16,17 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         setUpStage(stage);
-        // TODO: temporary implementation, need to add language select
-        playGame(stage);
+        startGame(stage);
     }
 
     private void setUpStage(Stage stage) {
         stage.setResizable(RESIZABLE_WINDOW);
         stage.setTitle(WINDOW_NAME);
-        stage.show();
     }
 
-    private void playGame(Stage stage) {
+    private void startGame(Stage stage) {
         IFroyoController controller = new FroyoController(stage);
-        //Display display = new Display(stage);
+        LanguageScreen startScreen = new LanguageScreen(controller);
     }
 
     public static void main(String[] args) {
