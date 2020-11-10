@@ -929,6 +929,15 @@ VBox > .split-menu-button.last > .arrow-button {
   -fx-pref-width: 5;
 }
 
+.turnbox {
+  -fx-background-color: #FFFFFF;
+  -fx-background-radius: 10px;
+  /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 6, 0.5, 1, 1);*/
+  -fx-pref-height: 50;
+  -fx-alignment: center-right;
+  -fx-padding: 10;
+  -fx-spacing: 20;
+}
 
 .background {
   -fx-background-color: #e6e6e6;

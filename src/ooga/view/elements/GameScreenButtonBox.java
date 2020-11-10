@@ -14,7 +14,8 @@ public class GameScreenButtonBox extends VBox {
   private static final String HOME_BTN = "Home";
   private static final String SAVE_BTN = "Save";
   private static final int CONTROL_BTN_WIDTH = 65;
-  private static final int CONTROL_BTN_HEIGHT = 20;
+  private static final int CONTROL_BTN_HEIGHT = 65;
+  private static final int CONTROL_BTN_SPACING = 10;
   private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
 
   private Resources resources;
@@ -29,7 +30,7 @@ public class GameScreenButtonBox extends VBox {
 
   private VBox getControlButtonGroup() {
     VBox result = new VBox();
-    result.setSpacing(10);
+    result.setSpacing(CONTROL_BTN_SPACING);
     result.setAlignment(Pos.CENTER);
 
     Button startButton = BUTTON_FACTORY.makeButton(resources.getString(HOME_BTN),
@@ -41,10 +42,6 @@ public class GameScreenButtonBox extends VBox {
 
     result.getChildren().addAll(startButton, saveButton);
     return result;
-  }
-
-  private void goToHomeScreen() {
-
   }
 
   private void saveGame() {

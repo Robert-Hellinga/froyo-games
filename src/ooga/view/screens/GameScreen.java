@@ -21,22 +21,17 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String RESOURCE_FILE = "GameScreen";
   private static final int SCREEN_WIDTH = 450;
-  private static final int SCREEN_HEIGHT = 350;
+  private static final int SCREEN_HEIGHT = 500;
   private static final int SCREEN_H_SPACING = 20;
-  private static final int SCREEN_V_SPACING = 10;
+  private static final int SCREEN_V_SPACING = 30;
 
-  private IGameController gameController;
-  private IFroyoController froyoController;
   private Resources resources;
   private Game game;
   private PieceGrid grid;
   private Locale locale;
 
-
   public GameScreen(Locale locale, IGameController gameController,
       IFroyoController froyoController, Game game) {
-    this.gameController = gameController;
-    this.froyoController = froyoController;
     this.game = game;
     this.locale = locale;
     resources = new Resources(this.locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
@@ -48,8 +43,6 @@ public class GameScreen extends GridPane implements Styleable, GameObserver {
     setHeight(SCREEN_HEIGHT);
     setVgap(SCREEN_V_SPACING);
     setHgap(SCREEN_H_SPACING);
-
-    setGridLinesVisible(true);
 
     add(new PlayerTurnBox(), 1, 0);
     add(new GameScreenButtonBox(resources, froyoController), 0, 1);
