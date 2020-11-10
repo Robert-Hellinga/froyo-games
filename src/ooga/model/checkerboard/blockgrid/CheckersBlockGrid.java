@@ -23,6 +23,7 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
+  @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
     if (hasChosenBlock()) {
       if (allBlocks.getBlock(passInCoordinate).getPlayerID()
