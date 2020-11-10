@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import ooga.Coordinate;
+import ooga.model.ai.AIBrain;
 import ooga.model.game.Game;
 import ooga.model.Player.PlayerType;
 import ooga.view.grid.PieceGrid;
@@ -12,6 +13,9 @@ public class GameController implements IGameController {
 
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  public static final double AI_DELAY = 0.05;
+
+  private double delayCounter = AI_DELAY;
 
   public enum PlayerMode {
     PLAY_WITH_AI,
@@ -37,9 +41,15 @@ public class GameController implements IGameController {
 
   }
 
-  public void checkForAITurn() {
+  public void checkForAITurn(double elapsedTime) {
     if (game.getCurrentPlayer().getType().equals(PlayerType.AI)){
-      game.aiPlay();
+      if (delayCounter - elapsedTime < 0){
+        game.aiPlay();
+        delayCounter = AI_DELAY;
+      }
+      else{
+        delayCounter -= elapsedTime;
+      }
     }
   }
 
@@ -79,6 +89,6 @@ public class GameController implements IGameController {
   }
 
   private void step(double elapsedTime) {
-    checkForAITurn();
+    checkForAITurn(elapsedTime);
   }
 }

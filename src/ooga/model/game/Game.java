@@ -43,7 +43,6 @@ public abstract class Game {
 
 
   public void aiPlay(){
-    System.out.println("ai is playing");
     List<Coordinate> aiMoves = aiBrain.decideMove(getBoard(), getCurrentPlayerIndex());
     for (Coordinate coordinate : aiMoves){
       play(coordinate);
