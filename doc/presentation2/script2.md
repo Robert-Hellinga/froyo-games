@@ -23,6 +23,8 @@ NOTE, as each feature is shown, someone on the team should briefly describe how 
     * Testing plan
         * JUnit for model, with boards
         * JUnit for file opening
+            * Check for files with incorrect dimensions of board in game
+            * Check for missing keys
         * TestFX for running program
             * Test pressing start without selecting anything
 
@@ -33,7 +35,6 @@ NOTE, as each feature is shown, someone on the team should briefly describe how 
     * Impeded progress
         * Weren't all on same page design wise
         * Refactored design
-
 * describe a specific significant event that occurred this Sprint and what was learned from it
     * We weren't adhering as much as we should've to creating APIs that other people can work with
         * Had to meet and discuss working within our own packages/classes and providing public methods for people to work with
