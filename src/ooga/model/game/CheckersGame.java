@@ -2,8 +2,8 @@ package ooga.model.game;
 
 import ooga.Coordinate;
 import ooga.controller.GameController.PlayerMode;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
-import ooga.model.checkerboard.blockgrid.CheckersBlockGrid;
+import ooga.model.BlockGrid;
+import ooga.model.CheckersBlockGrid;
 
 public class CheckersGame extends Game {
 

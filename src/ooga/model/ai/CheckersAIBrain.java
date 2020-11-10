@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Vector;
 import ooga.Coordinate;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.BlockGrid;
 
 public class CheckersAIBrain implements AIBrain {
 

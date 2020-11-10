@@ -2,7 +2,7 @@ package ooga.model.ai;
 
 import java.util.List;
 import ooga.Coordinate;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.BlockGrid;
 
 public interface AIBrain {
 

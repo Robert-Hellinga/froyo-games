@@ -2,12 +2,9 @@ package ooga.model.ai;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import javafx.util.Pair;
 import ooga.Coordinate;
-import ooga.model.Player;
-import ooga.model.checkerboard.block.Block;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.BlockGrid;
 
 public class Connect4AIBrain implements AIBrain {
 
