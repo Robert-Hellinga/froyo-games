@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import ooga.Coordinate;
@@ -16,9 +17,14 @@ import ooga.exceptions.ResourceException;
 
 public class Piece {
 
-  public static final int SIZE = 15;
+  private static final int SIZE = 20;
+  private static final int HIGHLIGHT_STROKE_WIDTH = 3;
+  private static final Paint GRID_BACKGROUND_COLOR = Color.web("e6e6e6");
+  private static final Paint GRID_BACKGROUND_STROKE_COLOR = Color.web("cccccc");
+  private static final int GRID_BACKGROUND_STROKE_WIDTH = 2;
+
   //TODO: configure color data to data file
-  public static final Map<Integer, Color> FILL_COLOR = new HashMap<>() {{
+  private static final Map<Integer, Color> FILL_COLOR = new HashMap<>() {{
     put(0, Color.color(0, 0, 0, 0));
     put(1, Color.rgb(0, 188, 255));
     put(2, Color.rgb(183, 29, 29));
@@ -30,7 +36,7 @@ public class Piece {
     put(8, Color.color(0,0,0,0));
     put(9, Color.color(0,0,0,0));
   }};
-  public static final Map<Integer, Color> STROKE_COLOR = new HashMap<>(){{
+  private static final Map<Integer, Color> STROKE_COLOR = new HashMap<>(){{
     put(0, Color.color(0, 0, 0, 0));
     put(1, Color.color(0, 0, 0, 0));
     put(2, Color.color(0, 0, 0, 0));
@@ -42,8 +48,8 @@ public class Piece {
     put(8, Color.YELLOW);
     put(9, Color.YELLOW);
   }};
-  public static final String KING_PIECE_IMAGE_BLUE = "resources/img/king_piece_blue.png";
-  public static final String KING_PIECE_IMAGE_RED = "resources/img/king_piece_red.png";
+  private static final String KING_PIECE_IMAGE_BLUE = "resources/img/king_piece_blue.png";
+  private static final String KING_PIECE_IMAGE_RED = "resources/img/king_piece_red.png";
 
   private Circle pieceShape;
   private int state;
@@ -66,9 +72,9 @@ public class Piece {
 
   public StackPane getPieceShape() {
     StackPane pane = new StackPane();
-    Rectangle rectangle = new Rectangle(30, 30, Color.web("e6e6e6"));
-    rectangle.setStrokeWidth(1);
-    rectangle.setStroke(Color.web("cccccc"));
+    Rectangle rectangle = new Rectangle(2 * SIZE, 2 * SIZE, GRID_BACKGROUND_COLOR);
+    rectangle.setStrokeWidth(GRID_BACKGROUND_STROKE_WIDTH);
+    rectangle.setStroke(GRID_BACKGROUND_STROKE_COLOR);
     pane.getChildren().addAll(rectangle, pieceShape);
     return pane;
   }
@@ -84,6 +90,8 @@ public class Piece {
   public void updateColor(){
     pieceShape.setFill(FILL_COLOR.get(state));
     pieceShape.setStroke(STROKE_COLOR.get(state));
+    pieceShape.setStrokeWidth(HIGHLIGHT_STROKE_WIDTH);
+
     if(state == 6 || state == 8){
       Image kingPieceImage = loadImage(KING_PIECE_IMAGE_BLUE);
       pieceShape.setFill(new ImagePattern(kingPieceImage));
