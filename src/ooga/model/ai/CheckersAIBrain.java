@@ -45,6 +45,8 @@ public class CheckersAIBrain implements AIBrain {
         }
       }
     }
+
+    return null; // TODO; delete this line, @Nate added this so program runs
   }
 
   private void resetSearchCondition() {

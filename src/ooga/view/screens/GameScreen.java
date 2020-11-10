@@ -8,7 +8,6 @@ import ooga.controller.IFroyoController;
 import ooga.controller.IGameController;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
-import ooga.model.player.Player;
 import ooga.view.GameObserver;
 import ooga.view.Styleable;
 import ooga.view.Util;
