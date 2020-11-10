@@ -16,6 +16,7 @@ public class GameScreenButtonBox extends VBox {
   private static final int CONTROL_BTN_WIDTH = 100;
   private static final int CONTROL_BTN_HEIGHT = 100;
   private static final int CONTROL_BTN_SPACING = 10;
+  private static final int CONTROL_BTN_FONT_SIZE = 18;
   private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
 
   private Resources resources;
@@ -35,10 +36,10 @@ public class GameScreenButtonBox extends VBox {
 
     Button startButton = BUTTON_FACTORY.makeButton(resources.getString(HOME_BTN),
         event -> new SplashScreen(resources.getLocale(), controller), CONTROL_BTN_WIDTH,
-        CONTROL_BTN_HEIGHT);
+        CONTROL_BTN_HEIGHT, CONTROL_BTN_FONT_SIZE);
 
     Button saveButton = BUTTON_FACTORY.makeButton(resources.getString(SAVE_BTN),
-        event -> saveGame(), CONTROL_BTN_WIDTH, CONTROL_BTN_HEIGHT);
+        event -> saveGame(), CONTROL_BTN_WIDTH, CONTROL_BTN_HEIGHT, CONTROL_BTN_FONT_SIZE);
 
     result.getChildren().addAll(startButton, saveButton);
     return result;

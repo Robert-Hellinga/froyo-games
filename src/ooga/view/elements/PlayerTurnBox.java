@@ -9,17 +9,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import ooga.view.GameObserver;
 
 public class PlayerTurnBox extends HBox implements GameObserver {
 
   private static final String STYLE_CLASS = "turnbox";
-  private static final int CIRCLE_RADIUS = 15;
+  private static final int CIRCLE_RADIUS = 20;
 
   public PlayerTurnBox() {
     getStyleClass().add(STYLE_CLASS);
 
     Label text = new Label("Player");
+    text.setFont(new Font(20));
 
     getChildren().addAll(text, makePlayerCircle());
   }

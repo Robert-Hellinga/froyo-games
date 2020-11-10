@@ -14,7 +14,7 @@
 }
 
 .button,.menu-button,.toggle-button,.split-menu-button {
-  -fx-font-size: 14;
+  /*-fx-font-size: 14;*/
   -fx-background-radius: 4;
   -fx-border-radius: 4;
   -fx-pref-height: 30;
@@ -930,8 +930,11 @@ VBox > .split-menu-button.last > .arrow-button {
 }
 
 .turnbox {
-  -fx-background-color: #FFFFFF;
+  -fx-background-color: #e6e6e6;
+  -fx-border-color: #cccccc;
+  -fx-border-width: 1;
   -fx-background-radius: 10px;
+  -fx-border-radius: 10px;
   /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 6, 0.5, 1, 1);*/
   -fx-pref-height: 50;
   -fx-alignment: center-right;
