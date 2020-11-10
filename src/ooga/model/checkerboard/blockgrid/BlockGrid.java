@@ -14,6 +14,7 @@ public abstract class BlockGrid{
   protected final int numPlayers;
   protected final BlockStructure allBlocks;
   protected String gameType;
+  protected boolean finishARound = false;
 
   public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
     this.gameType = gameType;
@@ -98,6 +99,14 @@ public abstract class BlockGrid{
     allBlocks.getBlock(newCoordinate).getBlockState().setChosen(false);
     allBlocks.getBlock(originalCoordiante).initiateBlockState(0);
 //    allBlocks.getBlock(originalCoordiante).setEmpty(true);
+  }
+
+  public boolean isFinishARound() {
+    return finishARound;
+  }
+
+  public void resetFinishAround(){
+    this.finishARound = false;
   }
 
   public abstract BlockGrid clone();

@@ -29,7 +29,7 @@ public class CheckersAIBrain implements AIBrain {
 
     BlockGrid newCheckBoard = checkBoard.clone();
 
-    Vector<Coordinate> bestMove;
+    Vector<Coordinate> bestMove = new Vector<>();
     if (maxPlayer) {
       Float value = Float.NEGATIVE_INFINITY;
       for (int i = 0; i < newCheckBoard.getAllBlocks().getBlockStructureHeight(); i++) {
@@ -45,6 +45,8 @@ public class CheckersAIBrain implements AIBrain {
         }
       }
     }
+
+    return bestMove;
   }
 
   private void resetSearchCondition() {
