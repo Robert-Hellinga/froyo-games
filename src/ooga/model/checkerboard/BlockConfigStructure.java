@@ -5,8 +5,9 @@ import java.util.List;
 
 public class BlockConfigStructure {
 
+
   //just for test of checkers
-  private List<List<Integer>> blockConfigStructure = new ArrayList<>() {{
+//  private List<List<Integer>> blockConfigStructure = new ArrayList<>() {{
 //    add(List.of(1, 0, 1, 0, 1, 0, 1, 0));
 //    add(List.of(0, 1, 0, 1, 0, 1, 0, 1));
 //    add(List.of(1, 0, 1, 0, 1, 0, 1, 0));
@@ -19,17 +20,21 @@ public class BlockConfigStructure {
 
 //  just for test of connect4
 //  private List<List<Integer>> blockConfigStructure = new ArrayList<>() {{
-    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
-    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
-    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
-    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
-    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
-    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
-    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
-    add(List.of(1, 2, 1, 0, 1, 2, 1, 2));
-  }};
+//    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+//    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+//    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+//    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+//    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+//    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+//    add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+//    add(List.of(1, 2, 1, 0, 1, 2, 1, 2));
+//  }};
 
-//  private List<List<Integer>> blockConfiguration;
+  private List<List<Integer>> blockConfigStructure;
+
+  public BlockConfigStructure(List<List<Integer>> allConfig){
+    blockConfigStructure = allConfig;
+  }
 
   public List<List<Integer>> getBlockConfigStructure() {
     return blockConfigStructure;

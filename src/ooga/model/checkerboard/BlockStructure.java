@@ -44,4 +44,21 @@ public class BlockStructure {
   public int getBlockStructureWidth() {
     return blockStructure.get(0).size();
   }
+
+  public BlockConfigStructure getBlockConfigStructure(){
+    List<List<Integer>> allBlockConfig = new ArrayList<>();
+    for (List<Block> bLockList: blockStructure){
+      List<Integer> configList = new ArrayList<>();
+      for (Block block: bLockList){
+        if (block.getIsEmpty()){
+          configList.add(0);
+        }
+        else{
+          configList.add(block.getPlayerID());
+        }
+      }
+      allBlockConfig.add(configList);
+    }
+    return new BlockConfigStructure(allBlockConfig);
+  }
 }

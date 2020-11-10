@@ -33,4 +33,17 @@ public class Connect4BlockGrid extends BlockGrid {
   public void addBlock(int currentPlayerIndex, Coordinate chosenBlock) {
     allBlocks.getBlock(chosenBlock).setPlayerID(currentPlayerIndex);
   }
+
+  @Override
+  public BlockGrid clone(){
+    BlockGrid blockGrid = new Connect4BlockGrid(gameType, allBlocks.getBlockConfigStructure(), numPlayers);
+    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++){
+      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++){
+        blockGrid.getAllBlocks().getBlock(new Coordinate(j,i)).setBlockState(
+            allBlocks.getBlock(new Coordinate(j,i)).getBlockState().clone()
+        );
+      }
+    }
+    return blockGrid;
+  }
 }
