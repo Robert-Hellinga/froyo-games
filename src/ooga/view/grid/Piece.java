@@ -5,9 +5,11 @@ import java.util.Map;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import ooga.Coordinate;
 import javafx.scene.image.Image;
 import ooga.exceptions.ResourceException;
@@ -62,8 +64,13 @@ public class Piece {
     pieceShape.setOnMouseClicked(value);
   }
 
-  public Circle getPieceShape() {
-    return pieceShape;
+  public StackPane getPieceShape() {
+    StackPane pane = new StackPane();
+    Rectangle rectangle = new Rectangle(30, 30, Color.web("e6e6e6"));
+    rectangle.setStrokeWidth(1);
+    rectangle.setStroke(Color.web("cccccc"));
+    pane.getChildren().addAll(rectangle, pieceShape);
+    return pane;
   }
 
   public void setState(int state) {
