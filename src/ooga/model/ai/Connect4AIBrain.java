@@ -56,10 +56,10 @@ public class Connect4AIBrain implements AIBrain {
       float value = Float.NEGATIVE_INFINITY;
       for (Coordinate coor : potentialMoves) {
         int next_open_row = get_next_open_row(newConnect4Board, coor.xCoordinate());
-        newConnect4Board = newConnect4Board.clone();
-        newConnect4Board
+        BlockGrid newnewConnect4Board = newConnect4Board.clone();
+        newnewConnect4Board
             .play(new Coordinate(coor.xCoordinate(), next_open_row), currentPlayerIndex);
-        Float new_score = miniMax(newConnect4Board, depth - 1, alpha, beta, false,
+        Float new_score = miniMax(newnewConnect4Board, depth - 1, alpha, beta, false,
             playerTakeTurn(currentPlayerIndex)).getValue();
         if (new_score > value) {
           value = new_score;
@@ -76,10 +76,10 @@ public class Connect4AIBrain implements AIBrain {
       float value = Float.POSITIVE_INFINITY;
       for (Coordinate coor : potentialMoves) {
         int next_open_row = get_next_open_row(newConnect4Board, coor.xCoordinate());
-        newConnect4Board = newConnect4Board.clone();
-        newConnect4Board
+        BlockGrid newnewConnect4Board = newConnect4Board.clone();
+        newnewConnect4Board
             .play(new Coordinate(coor.xCoordinate(), next_open_row), currentPlayerIndex);
-        Float new_score = miniMax(newConnect4Board, depth - 1, alpha, beta, true,
+        Float new_score = miniMax(newnewConnect4Board, depth - 1, alpha, beta, true,
             playerTakeTurn(currentPlayerIndex)).getValue();
         if (new_score < value) {
           value = new_score;
@@ -99,7 +99,7 @@ public class Connect4AIBrain implements AIBrain {
     // Check horizontal loacations for win
     for (int col = 0; col < connect4Grid.getAllBlocks().getBlockStructureWidth() - 3; col++) {
       for (int row = connect4Grid.getAllBlocks().getBlockStructureHeight() - 1;
-          row >= connect4Grid.getAllBlocks().getBlockStructureHeight() - 4; row--) {
+          row >= 0; row--) {
         if (connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row)).getPlayerID() == playerID
             && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 1, row)).getPlayerID()
             == playerID
