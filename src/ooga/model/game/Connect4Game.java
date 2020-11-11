@@ -2,16 +2,16 @@ package ooga.model.game;
 
 import ooga.Coordinate;
 import ooga.controller.GameController.PlayerMode;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
-import ooga.model.checkerboard.blockgrid.Connect4BlockGrid;
+import ooga.model.BlockGrid;
+import ooga.model.Connect4BlockGrid;
 
 public class Connect4Game extends Game {
 
   private Connect4BlockGrid connect4Board;
 
-  public Connect4Game(String gameType, String playerName, PlayerMode playerMode) {
-    super(gameType, playerName, playerMode);
-    connect4Board = new Connect4BlockGrid(gameType, getInitiationBlockConfig(gameType), numPlayers);
+  public Connect4Game(String gameType, String playerName, PlayerMode playerMode, String startPattern) {
+    super(gameType, playerName, playerMode, startPattern);
+    connect4Board = new Connect4BlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 
   @Override

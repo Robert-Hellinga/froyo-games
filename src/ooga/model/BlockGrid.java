@@ -1,4 +1,4 @@
-package ooga.model.checkerboard.blockgrid;
+package ooga.model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -7,7 +7,6 @@ import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.checkerboard.block.BlockState;
 
 public abstract class BlockGrid{
 
