@@ -3,19 +3,18 @@ package ooga.view.screens;
 import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import ooga.controller.IFroyoController;
 import ooga.controller.IGameController;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
-import ooga.view.GameObserver;
+import ooga.view.ModelObserver;
 import ooga.view.Styleable;
 import ooga.view.Util;
 import ooga.view.elements.GameScreenButtonBox;
 import ooga.view.elements.PlayerTurnBox;
 import ooga.view.grid.PieceGrid;
 
-public class GameScreen extends GridPane implements Styleable, GameObserver {
+public class GameScreen extends GridPane implements Styleable, ModelObserver {
 
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String RESOURCE_FILE = "GameScreen";

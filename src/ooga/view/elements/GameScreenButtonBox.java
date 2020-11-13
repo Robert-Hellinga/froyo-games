@@ -34,14 +34,14 @@ public class GameScreenButtonBox extends VBox {
     result.setSpacing(CONTROL_BTN_SPACING);
     result.setAlignment(Pos.CENTER);
 
-    Button startButton = BUTTON_FACTORY.makeButton(resources.getString(HOME_BTN),
+    Button homeButton = BUTTON_FACTORY.makeButton(resources.getString(HOME_BTN),
         event -> new SplashScreen(resources.getLocale(), controller), CONTROL_BTN_WIDTH,
         CONTROL_BTN_HEIGHT, CONTROL_BTN_FONT_SIZE);
 
     Button saveButton = BUTTON_FACTORY.makeButton(resources.getString(SAVE_BTN),
         event -> saveGame(), CONTROL_BTN_WIDTH, CONTROL_BTN_HEIGHT, CONTROL_BTN_FONT_SIZE);
 
-    result.getChildren().addAll(startButton, saveButton);
+    result.getChildren().addAll(homeButton, saveButton);
     return result;
   }
 

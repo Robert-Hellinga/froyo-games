@@ -1,6 +1,6 @@
 package ooga.view;
 
-public interface GameObserver {
+public interface ModelObserver {
 
   void update();
 

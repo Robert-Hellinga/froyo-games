@@ -9,14 +9,14 @@ import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
-import ooga.model.Player;
+import ooga.model.player.Player;
 import ooga.model.ai.AIBrain;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.Player.PlayerType;
-import ooga.view.GameObserver;
+//import ooga.model.player.Player.PlayerType;
+import ooga.view.ModelObserver;
 
 public abstract class Game {
 
@@ -24,14 +24,12 @@ public abstract class Game {
   protected List<Player> allPlayers = new ArrayList<>();
   protected int numPlayers;
   protected Player currentPlayer;
-  protected List<GameObserver> observers;
-  protected AIBrain aiBrain;
+  protected List<ModelObserver> observers;
 
-  public Game(String gameType, String playerName, PlayerMode playerMode, String startPattern) {
-    this.gameType = gameType;
-    allPlayers.add(new Player(playerName, PlayerType.HUMAN));
-    allPlayers.add(createSecondPlayer(playerMode));
-    currentPlayer = allPlayers.get(0);
+  public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
+    allPlayers.add(playerOne);
+    allPlayers.add(playerTwo);
+    currentPlayer = playerOne;
     observers = new ArrayList<>();
   }
 
@@ -42,34 +40,23 @@ public abstract class Game {
   }
 
 
-  public void aiPlay(){
-    List<Coordinate> aiMoves = aiBrain.decideMove(getBoard(), getCurrentPlayerIndex());
-    for (Coordinate coordinate : aiMoves){
-      play(coordinate);
-    }
-  }
+//  public void aiPlay(){
+//    List<Coordinate> aiMoves = aiBrain.decideMove(getBoard(), getCurrentPlayerIndex());
+//    for (Coordinate coordinate : aiMoves){
+//      play(coordinate);
+//    }
+//  }
 
-  private Player createSecondPlayer(PlayerMode playerMode) {
-    if (playerMode.equals(PlayerMode.PLAY_WITH_AI)) {
-      this.aiBrain = createAIBrain(gameType);
-      return new Player("AI player", PlayerType.AI);
-    }
-    //TODO: need to implement the social feature: connect with another human player through social network
-    return new Player("my friend", PlayerType.HUMAN);
-  }
+//  private Player createSecondPlayer(PlayerMode playerMode) {
+//    if (playerMode.equals(PlayerMode.PLAY_WITH_AI)) {
+//      this.aiBrain = createAIBrain(gameType);
+//      return new Player("AI player", PlayerType.AI);
+//    }
+//    //TODO: need to implement the social feature: connect with another human player through social network
+//    return new Player("my friend", PlayerType.HUMAN);
+//  }
 
-  public static AIBrain createAIBrain(String gameType){
-    try {
-      Class<?> aiBrain = Class.forName("ooga.model.ai." + gameType + "AIBrain");
-      Class<?>[] param = {};
-      Constructor<?> cons = aiBrain.getConstructor(param);
-      Object[] paramObject = {};
-      Object gameAibrain = cons.newInstance(paramObject);
-      return (AIBrain) gameAibrain;
-    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-      throw new ClassOrMethodNotFoundException("class or method is not found");
-    }
-  }
+
 
   public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
@@ -106,17 +93,21 @@ public abstract class Game {
     return blockState;
   }
 
-  public void registerObserver(GameObserver observer){
+  public void registerObserver(ModelObserver observer){
     observers.add(observer);
   }
 
-  public void removeObserver(GameObserver observer){
+  public void removeObserver(ModelObserver observer){
     observers.remove(observer);
   }
 
   protected void notifyObservers() {
-    for (GameObserver observer : observers){
+    for (ModelObserver observer : observers){
       observer.update();
     }
+  }
+
+  public List<Player> getAllPlayers(){
+    return allPlayers;
   }
 }

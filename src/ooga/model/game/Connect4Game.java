@@ -4,13 +4,14 @@ import ooga.Coordinate;
 import ooga.controller.GameController.PlayerMode;
 import ooga.model.BlockGrid;
 import ooga.model.Connect4BlockGrid;
+import ooga.model.player.Player;
 
 public class Connect4Game extends Game {
 
   private Connect4BlockGrid connect4Board;
 
-  public Connect4Game(String gameType, String playerName, PlayerMode playerMode, String startPattern) {
-    super(gameType, playerName, playerMode, startPattern);
+  public Connect4Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
+    super(gameType, playerOne, playerTwo, startPattern);
     connect4Board = new Connect4BlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 

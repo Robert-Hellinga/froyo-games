@@ -2,8 +2,10 @@ package ooga.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Locale;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import ooga.model.game.Game;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -20,10 +22,7 @@ class FroyoControllerTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testSwitchingLayout(){
-    Pane testPane = new Pane();
-    testPane.setId("testPane");
-    froyoController.setNewLayout(testPane);
+  public void testCreatingAIGame(){
 
   }
 

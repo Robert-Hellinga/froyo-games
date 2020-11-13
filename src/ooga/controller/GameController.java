@@ -1,12 +1,13 @@
 package ooga.controller;
 
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import ooga.Coordinate;
-import ooga.model.ai.AIBrain;
 import ooga.model.game.Game;
-import ooga.model.Player.PlayerType;
+//import ooga.model.player.Player.PlayerType;
+import ooga.model.player.Player;
 import ooga.view.grid.PieceGrid;
 
 public class GameController implements IGameController {
@@ -26,25 +27,30 @@ public class GameController implements IGameController {
   private Game game;
   private int playerInTurn;
   private Coordinate pieceChosen;
+  private List<Player> allPlayers;
+  private PlayerMode mode;
 
-  public GameController(Game game) {
+  public GameController(Game game, PlayerMode playerMode) {
     this.game = game;
+    this.mode = playerMode;
+    allPlayers = game.getAllPlayers();
     setupAnimation();
   }
 
 
-  public void setPlayerMode(PlayerMode mode) {
 
-  }
 
   public void setGameType(String gameType) {
 
   }
 
   public void checkForAITurn(double elapsedTime) {
-    if (game.getCurrentPlayer().getType().equals(PlayerType.AI)){
+    if (game.getCurrentPlayerIndex() == 2 && mode == PlayerMode.PLAY_WITH_AI){
       if (delayCounter - elapsedTime < 0){
-        game.aiPlay();
+        List<Coordinate> coords = game.getCurrentPlayer().calculateNextCoordinates();
+        for(Coordinate coord : coords){
+          game.getCurrentPlayer().makePlay(coord);
+        }
         delayCounter = AI_DELAY;
       }
       else{
@@ -60,9 +66,8 @@ public class GameController implements IGameController {
 
   @Override
   public void clickPiece(Coordinate coordinate) {
-    if (game.getCurrentPlayer().getType().equals(PlayerType.HUMAN)){
-      game.play(coordinate);
-    }
+      Player currentPlayer = game.getCurrentPlayer();
+      currentPlayer.makePlay(coordinate);
   }
 
   @Override

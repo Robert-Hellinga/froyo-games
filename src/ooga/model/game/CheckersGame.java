@@ -4,13 +4,14 @@ import ooga.Coordinate;
 import ooga.controller.GameController.PlayerMode;
 import ooga.model.BlockGrid;
 import ooga.model.CheckersBlockGrid;
+import ooga.model.player.Player;
 
 public class CheckersGame extends Game {
 
   private CheckersBlockGrid checkBoard;
 
-  public CheckersGame(String gameType, String playerName, PlayerMode playerMode, String startPattern){
-    super(gameType, playerName, playerMode, startPattern);
+  public CheckersGame(String gameType, Player playerOne, Player playerTwo, String startPattern){
+    super(gameType, playerOne, playerTwo, startPattern);
     checkBoard = new CheckersBlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 
