@@ -27,6 +27,7 @@ public class SplashScreenButtonBox extends VBox {
   private static final String CONNECT_4_BTN = "Connect4";
   private static final String ONE_PLAYER_BTN = "OnePlayer";
   private static final String TWO_PLAYER_BTN = "TwoPlayer";
+  private static final String TWO_PLAYER_ONLINE_BTN = "TwoPlayerOnline";
   private static final String START_BTN = "Start";
   private static final String PLAYER_NAME_FIELD = "Username";
   private static final String NO_NAME_MESSAGE = "NoNameMessage";
@@ -75,6 +76,7 @@ public class SplashScreenButtonBox extends VBox {
     result.setAlignment(Pos.CENTER);
     playerToggleGroup = new ToggleGroup();
 
+    // TODO: create wrapper for toggle button groups
     ToggleButton onePlayerBtn = BUTTON_FACTORY.makeToggleButton(resources.getString(ONE_PLAYER_BTN),
         playerToggleGroup, PLAYER_BTN_WIDTH
         , PLAYER_BTN_HEIGHT);
@@ -82,10 +84,15 @@ public class SplashScreenButtonBox extends VBox {
     ToggleButton twoPlayerBtn = BUTTON_FACTORY.makeToggleButton(resources.getString(TWO_PLAYER_BTN),
         playerToggleGroup, PLAYER_BTN_WIDTH
         , PLAYER_BTN_HEIGHT);
+    ToggleButton twoPlayerOnlineBtn =
+        BUTTON_FACTORY.makeToggleButton(resources.getString(TWO_PLAYER_ONLINE_BTN),
+        playerToggleGroup, PLAYER_BTN_WIDTH
+        , PLAYER_BTN_HEIGHT);
     twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
     onePlayerBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
     twoPlayerBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
-    result.getChildren().addAll(onePlayerBtn, twoPlayerBtn);
+    twoPlayerOnlineBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
+    result.getChildren().addAll(onePlayerBtn, twoPlayerBtn, twoPlayerOnlineBtn);
     return result;
   }
 
@@ -115,9 +122,7 @@ public class SplashScreenButtonBox extends VBox {
         boolean onePlayer = getToggleIndexSelected(playerToggleGroup) == 0;
         controller.startGame(resources.getLocale(), gameType, onePlayer, username);
       }
-
     }
-
   }
 
   private void noNamePopUp() {

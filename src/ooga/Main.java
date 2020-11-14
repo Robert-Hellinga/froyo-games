@@ -44,10 +44,10 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        Database db = new Database();
-        db.addNewGame("Test Game");
+//        Database db = new Database();
+//        db.addNewGame("Test Game");
 
-//        launch(args);
+        launch(args);
     }
 
 }
