@@ -1,14 +1,15 @@
-package ooga.model.checkerboard.blockgrid;
+package ooga.model;
 
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class Connect4BlockGrid extends BlockGrid {
 
   public Connect4BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
     super(gameType, allBlockConfig, numPlayers);
   }
+
+
 
   @Override
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
@@ -30,8 +31,18 @@ public class Connect4BlockGrid extends BlockGrid {
 //    }
   }
 
-  public void addBlock(int currentPlayerIndex, Coordinate chosenBlock) {
-    allBlocks.getBlock(chosenBlock).setPlayerID(currentPlayerIndex);
+  @Override
+  public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
+    int xCoordinate = passInCoordinate.xCoordinate();
+    for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
+      Coordinate coordinate = new Coordinate(xCoordinate, j);
+      if (allBlocks.getBlock(coordinate).getIsEmpty()) {
+        allBlocks.getBlock(coordinate).setPlayerID(currentPlayerIndex);
+        finishARound = true;
+        break;
+      }
+    }
+    unsetAllBlockPotential();
   }
 
   @Override

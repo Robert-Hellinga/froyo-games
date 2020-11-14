@@ -1,18 +1,13 @@
 package ooga.view.elements;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import ooga.view.GameObserver;
+import ooga.view.ModelObserver;
 
-public class PlayerTurnBox extends HBox implements GameObserver {
+public class PlayerTurnBox extends HBox implements ModelObserver {
 
   private static final String STYLE_CLASS = "turnbox";
   private static final int CIRCLE_RADIUS = 20;

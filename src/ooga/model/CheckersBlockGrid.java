@@ -1,15 +1,16 @@
-package ooga.model.checkerboard.blockgrid;
+package ooga.model;
 
 import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class CheckersBlockGrid extends BlockGrid {
 
   public CheckersBlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers){
     super(gameType, allBlockConfig, numPlayers);
   }
+
+
 
   @Override
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
@@ -20,6 +21,38 @@ public class CheckersBlockGrid extends BlockGrid {
       }
     }
   }
+
+  @Override
+  public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
+    if (hasChosenBlock()) {
+      if (allBlocks.getBlock(passInCoordinate).getPlayerID()
+          == currentPlayerIndex) {
+        unChoseAllBlock();
+        unsetAllBlockPotential();
+        getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
+        setAvailablePosition(currentPlayerIndex, passInCoordinate);
+      } else if (allBlocks.getBlock(passInCoordinate).getBlockState()
+          .isPotentialMove()) {
+
+        removeCheckedPiece(passInCoordinate, getChosenBlockCoordianate());
+        moveBlock(getChosenBlockCoordianate(), passInCoordinate);
+        makeBlockKing(passInCoordinate);
+        unChoseAllBlock();
+        unsetAllBlockPotential();
+        getAllBlocks().getBlock(passInCoordinate).setPlayerID(currentPlayerIndex);
+        finishARound = true;
+      }
+    } else {
+      if (!allBlocks.getBlock(passInCoordinate).getIsEmpty()
+          && allBlocks.getBlock(passInCoordinate).getPlayerID()
+          == currentPlayerIndex) {
+        allBlocks.getBlock(passInCoordinate).getBlockState().choose();
+        setAvailablePosition(currentPlayerIndex, passInCoordinate);
+      }
+    }
+  }
+
+
 
   public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
     int xMovement = newPosition.xCoordinate() - originalPosition.xCoordinate();
