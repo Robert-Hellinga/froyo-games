@@ -5,6 +5,7 @@
 <version>master-SNAPSHOT</version>
 <packaging>jar</packaging>
 
+
 <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
 </properties>
@@ -43,6 +44,12 @@
         <groupId>com.google.firebase</groupId>
         <artifactId>firebase-admin</artifactId>
         <version>7.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.6.2</version>
+        <scope>test</scope>
     </dependency>
 </dependencies>
 
