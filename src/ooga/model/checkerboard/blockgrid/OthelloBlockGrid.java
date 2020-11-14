@@ -57,6 +57,11 @@ public class OthelloBlockGrid extends BlockGrid {
         Coordinate extendedNeighbor = new Coordinate(neighbors.xCoordinate() + xIncrement,
             neighbors.yCoordinate() + yIncrement);
         while (true) {
+          if (extendedNeighbor.xCoordinate() < 0 || extendedNeighbor.yCoordinate() < 0 || extendedNeighbor.xCoordinate() >= allBlocks
+              .getBlockStructureWidth() || extendedNeighbor.yCoordinate() >= allBlocks
+              .getBlockStructureHeight()){
+            break;
+          }
           if (!allBlocks.getBlock(extendedNeighbor).getBlockState().isEmpty()) {
             if (allBlocks.getBlock(extendedNeighbor).getBlockState().getPlayerID() == currentPlayerIndex) {
               changePieceSeriesState(passInCoordinate, extendedNeighbor, currentPlayerIndex, allBlocks);
