@@ -13,6 +13,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import ooga.exceptions.FileException;
 
 public class Database {
@@ -21,6 +25,7 @@ public class Database {
   private static final String APP_URL = "https://froyogames-1df28.firebaseio.com/";
 
   private Resources error;
+  private DatabaseReference ref;
 
   public Database() {
     error = new Resources(Resources.ERROR_MESSAGES_FILE);
@@ -38,6 +43,7 @@ public class Database {
           .setDatabaseUrl(APP_URL)
           .build();
       FirebaseApp.initializeApp(options);
+      ref = FirebaseDatabase.getInstance().getReference("/games");
     } catch (FileNotFoundException e) {
       throw new FileException(String.format(error.getString("InvalidCredentialFile"), KEY_PATH), e);
     } catch (IOException e) {
@@ -45,8 +51,10 @@ public class Database {
     }
   }
 
-  public void addNewGame() {
-
+  public void addNewGame(String creatorName) {
+    Map<String, DatabaseGame> game = new HashMap<>();
+    game.put(creatorName, new DatabaseGame(creatorName, "test"));
+    ref.setValueAsync(game);
   }
 
   public void getGameTurn() {
@@ -58,19 +66,6 @@ public class Database {
   }
 
   public void read() {
-    // As an admin, the app has access to read and write all data, regardless of Security Rules
-    DatabaseReference ref = FirebaseDatabase.getInstance()
-        .getReference("restricted_access/secret_document");
-    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-      @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
-        Object document = dataSnapshot.getValue();
-        System.out.println(document);
-      }
 
-      @Override
-      public void onCancelled(DatabaseError error) {
-      }
-    });
   }
 }
