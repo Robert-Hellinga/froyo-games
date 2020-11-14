@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import javafx.util.Pair;
 import ooga.Coordinate;
-import ooga.model.BlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class Connect4AIBrain implements AIBrain {
 
