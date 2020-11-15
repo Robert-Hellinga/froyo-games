@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Locale;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ class SplashScreenTest extends DukeApplicationTest {
   private ToggleButton twoPlayerBtn;
   private ToggleGroup gameToggle;
   private ToggleGroup playerToggle;
+  private TextField nameField;
   private Button startBtn;
 
 
@@ -46,6 +48,7 @@ class SplashScreenTest extends DukeApplicationTest {
     twoPlayerBtn = lookup("#TwoPlayerBtn").queryAs(ToggleButton.class);
     playerToggle = onePlayerBtn.getToggleGroup();
 
+    nameField = lookup("#UsernameField").queryAs(TextField.class);;
     startBtn = lookup("#StartBtn").queryAs(Button.class);;
   }
 
@@ -73,7 +76,6 @@ class SplashScreenTest extends DukeApplicationTest {
   }
 
 
-
   // tests for game not starting because no name is given
   @Test
   public void testNotStartingGameName() {
@@ -82,5 +84,14 @@ class SplashScreenTest extends DukeApplicationTest {
     clickOn(startBtn);
     assertEquals(getDialogMessage(), "Please enter a name.");
   }
+
+//  @Test
+//  public void testStartingCheckersOnePlayer(){
+//    clickOn(checkersBtn);
+//    clickOn(onePlayerBtn);
+//    clickOn(nameField).write("John");
+//    clickOn(startBtn);
+//    // assert something here
+//  }
 }
 
