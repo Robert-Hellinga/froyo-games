@@ -47,7 +47,6 @@ public class Connect4AIBrain implements AIBrain {
     }
 
     BlockGrid newConnect4Board = connect4Grid.clone();
-    ArrayList<Coordinate> bestMove = new ArrayList<>();
     List<Coordinate> potentialMoves = newConnect4Board.getAllBlocks().getBlock(new Coordinate(0, 0))
         .getAvailablePosition(0, newConnect4Board.getAllBlocks());
 
