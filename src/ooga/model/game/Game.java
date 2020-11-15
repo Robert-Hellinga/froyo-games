@@ -56,7 +56,13 @@ public abstract class Game {
 //    return new Player("my friend", PlayerType.HUMAN);
 //  }
 
+  public String getGameType() {
+    return gameType;
+  }
 
+  public void setCurrentPlayer(Player player) {
+    currentPlayer = player;
+  }
 
   public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
@@ -91,6 +97,19 @@ public abstract class Game {
       blockState.add(blockStateLine);
     }
     return blockState;
+  }
+
+  public String getAllBlockStatesAsString() {
+    BlockStructure blocks = getBoard().getAllBlocks();
+    String result = "";
+    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
+      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
+        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
+        result += currentBlock.getBlockState().getNumericState() + ",";
+      }
+      result += "~";
+    }
+    return result;
   }
 
   public void registerObserver(ModelObserver observer){

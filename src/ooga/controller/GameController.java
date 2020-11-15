@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import ooga.Coordinate;
+import ooga.fileHandler.Database;
 import ooga.model.game.Game;
 //import ooga.model.player.Player.PlayerType;
 import ooga.model.player.Player;
@@ -29,10 +30,12 @@ public class GameController implements IGameController {
   private Coordinate pieceChosen;
   private List<Player> allPlayers;
   private PlayerMode mode;
+  private Database database;
 
-  public GameController(Game game, PlayerMode playerMode) {
+  public GameController(Game game, Database database, PlayerMode playerMode) {
     this.game = game;
     this.mode = playerMode;
+    this.database = database;
     allPlayers = game.getAllPlayers();
     setupAnimation();
   }
@@ -68,6 +71,9 @@ public class GameController implements IGameController {
   public void clickPiece(Coordinate coordinate) {
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
+      if(database != null) {
+        database.updateGame(game.getAllBlockStatesAsString());
+      }
   }
 
   @Override

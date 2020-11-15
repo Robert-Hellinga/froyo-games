@@ -32,16 +32,17 @@ public class FroyoController implements IFroyoController{
     Player userPlayer = new HumanPlayer(playerName);
     Player secondPlayer = createSecondPlayer(onePlayer, opponentName);
 
-    if(online) {
-      database = new Database(userPlayer, secondPlayer);
-      database.addNewGame();
-    }
-
     Game game = createGame(gameType, userPlayer, secondPlayer, "default");
     userPlayer.setMyGame(game, gameType);
     secondPlayer.setMyGame(game, gameType);
 
-    IGameController gameController = new GameController(game, onePlayer ? PlayerMode.PLAY_WITH_AI : PlayerMode.PLAY_WITH_FRIEND);
+    if(online) {
+      database = new Database(userPlayer, secondPlayer, game);
+      database.addNewGame();
+    }
+
+    IGameController gameController = new GameController(game, database, onePlayer ?
+        PlayerMode.PLAY_WITH_AI : PlayerMode.PLAY_WITH_FRIEND);
 
     GameScreen gameScreen = new GameScreen(locale, gameController, this, game);
     game.registerObserver(gameScreen);

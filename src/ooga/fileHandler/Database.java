@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import ooga.exceptions.FileException;
+import ooga.model.game.Game;
 import ooga.model.player.Player;
 
 public class Database {
@@ -29,10 +30,12 @@ public class Database {
   private Resources error;
   private DatabaseReference ref, gameRef;
   private Player creatorPlayer, opponentPlayer;
+  private Game game;
 
-  public Database(Player creatorPlayer, Player opponentPlayer) {
+  public Database(Player creatorPlayer, Player opponentPlayer, Game game) {
     this.creatorPlayer = creatorPlayer;
     this.opponentPlayer = opponentPlayer;
+    this.game = game;
     error = new Resources(Resources.ERROR_MESSAGES_FILE);
     initializeDB();
   }
@@ -58,17 +61,17 @@ public class Database {
 
   private void createGame(boolean alreadyExists, Iterable<DataSnapshot> gameData) {
     if(alreadyExists) {
-//      createTurnListener();
       gameRef = ref.child(opponentPlayer.getName());
       System.out.println("Already exists, data: ");
+      game.setCurrentPlayer(opponentPlayer);
+      createTurnListener();
     }
     else {
-      Map<String, DatabaseGame> game = new HashMap<>();
-      game.put(creatorPlayer.getName(), new DatabaseGame(creatorPlayer.getName(), "test"));
-      ref.setValueAsync(game);
+      Map<String, DatabaseGame> newGame = new HashMap<>();
+      newGame.put(creatorPlayer.getName(), new DatabaseGame(game.getAllBlockStatesAsString(), game.getGameType()));
+      ref.setValueAsync(newGame);
       gameRef = ref.child(creatorPlayer.getName());
-      System.out.println("Created new game with data: ");
-
+      System.out.println("Created new game");
     }
     for(DataSnapshot snapshot : gameData) {
       System.out.println(snapshot.getValue());
@@ -94,7 +97,9 @@ public class Database {
     gameRef.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
+        System.out.println("Opponent Moved!");
         System.out.println(dataSnapshot.getChildren());
+        game.setCurrentPlayer(creatorPlayer);
       }
 
       @Override
@@ -105,7 +110,7 @@ public class Database {
   }
 
 
-  public void getGameTurn() {
+  public void updateGame(String boardState) {
 
   }
 }
