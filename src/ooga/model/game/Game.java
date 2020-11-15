@@ -30,6 +30,7 @@ public abstract class Game {
 
   public Game(String gameType, Player playerOne, Player playerTwo, String startPattern,
       Database database) {
+    this.gameType = gameType;
     this.database = database;
     allPlayers.add(playerOne);
     allPlayers.add(playerTwo);

@@ -39,8 +39,6 @@ public class GameController implements IGameController {
   }
 
 
-
-
   public void setGameType(String gameType) {
 
   }

@@ -24,7 +24,7 @@ import ooga.model.player.Player;
 
 public class Database {
 
-  private static final String KEY_PATH = "/Users/nate/Documents/Duke/CS307/final_team11/src/resources/social/froyogames-1df28-8e29e2f7996b.json";
+  private static final String KEY_PATH = "/Users/lucascarter/Desktop/307_WORKSPACE/final_team11/src/resources/social/froyogames-1df28-8e29e2f7996b.json";
   private static final String APP_URL = "https://froyogames-1df28.firebaseio.com/";
 
   private Resources error;
@@ -100,7 +100,7 @@ public class Database {
         System.out.println("Opponent Moved!");
 
         for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-          System.out.println(dataSnapshot.getValue());
+          System.out.println(snapshot.getValue());
         }
         game.setCurrentPlayer(creatorPlayer);
       }
