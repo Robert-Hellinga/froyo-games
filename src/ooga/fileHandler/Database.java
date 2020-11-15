@@ -114,6 +114,8 @@ public class Database {
 
 
   public void updateGame(String boardState) {
-    createTurnListener();
+    if(game.getCurrentPlayer().equals(opponentPlayer)) {
+      createTurnListener();
+    }
   }
 }
