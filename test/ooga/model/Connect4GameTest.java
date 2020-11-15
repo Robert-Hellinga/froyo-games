@@ -14,15 +14,14 @@ import org.junit.jupiter.api.Test;
 class Connect4GameTest {
 
   private final String gameType = "Connect4";
-  private final String playerName = "a";
-  private final PlayerMode playerMode = PlayerMode.PLAY_WITH_FRIEND;
   private final String startPattern = "test";
   private Game connect4Game;
 
+  private final Player playerOne = new HumanPlayer("Player 1");
+  private final Player playerTwo = new HumanPlayer("Player 2");
+
   @Test
   public void testDropPiece(){
-    Player playerOne = new HumanPlayer("Player 1");
-    Player playerTwo = new HumanPlayer("Player 2");
     connect4Game = new Connect4Game(gameType, playerOne, playerTwo, startPattern);
     Coordinate pieceToPress = new Coordinate(0,0);
     connect4Game.play(pieceToPress);
@@ -36,8 +35,6 @@ class Connect4GameTest {
 
   @Test
   public void testDropPieceOnOtherPiece(){
-    Player playerOne = new HumanPlayer("Player 1");
-    Player playerTwo = new HumanPlayer("Player 2");
     connect4Game = new Connect4Game(gameType, playerOne, playerTwo, startPattern);
     Coordinate pieceToPress = new Coordinate(0,0);
     connect4Game.play(pieceToPress);

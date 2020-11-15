@@ -1,9 +1,8 @@
 package ooga.model.game;
 
 import ooga.Coordinate;
-import ooga.controller.GameController.PlayerMode;
-import ooga.model.BlockGrid;
-import ooga.model.Connect4BlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.checkerboard.blockgrid.Connect4BlockGrid;
 import ooga.model.player.Player;
 
 public class Connect4Game extends Game {

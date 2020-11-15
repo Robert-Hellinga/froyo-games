@@ -23,12 +23,9 @@ public class GameController implements IGameController {
     PLAY_WITH_FRIEND
   }
 
-  private PieceGrid pieceGrid;
-  private Game game;
-  private int playerInTurn;
-  private Coordinate pieceChosen;
+  private final Game game;
   private List<Player> allPlayers;
-  private PlayerMode mode;
+  private final PlayerMode mode;
 
   public GameController(Game game, PlayerMode playerMode) {
     this.game = game;
@@ -36,9 +33,6 @@ public class GameController implements IGameController {
     allPlayers = game.getAllPlayers();
     setupAnimation();
   }
-
-
-
 
   public void setGameType(String gameType) {
 

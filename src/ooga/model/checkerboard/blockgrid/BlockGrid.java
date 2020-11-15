@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.checkerboard.blockgrid;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

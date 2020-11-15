@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.checkerboard.blockgrid;
 
 import java.util.List;
 import ooga.Coordinate;

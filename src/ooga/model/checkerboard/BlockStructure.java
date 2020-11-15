@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.BlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class BlockStructure {
 
