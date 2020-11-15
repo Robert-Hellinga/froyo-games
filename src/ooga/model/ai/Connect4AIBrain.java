@@ -9,10 +9,10 @@ import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class Connect4AIBrain implements AIBrain {
 
-  public static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
-  public static final int DEPTH = 5;
-  public static final int WINDOWLENGTH = 4;
-  public int AIID;
+  private static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
+  private static final int DEPTH = 5;
+  private static final int WINDOWLENGTH = 4;
+  private int AIID;
 
   @Override
   public List<Coordinate> decideMove(BlockGrid connect4Grid, Integer currentPlayerIndex) {
