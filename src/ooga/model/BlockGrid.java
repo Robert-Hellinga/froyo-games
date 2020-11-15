@@ -2,9 +2,10 @@ package ooga.model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
-import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 
@@ -15,7 +16,7 @@ public abstract class BlockGrid{
   protected String gameType;
   protected boolean finishARound = false;
 
-  public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
+  public BlockGrid(String gameType, List<List<Integer>> allBlockConfig, int numPlayers) {
     this.gameType = gameType;
     this.allBlocks = new BlockStructure(this.gameType, allBlockConfig);
     this.numPlayers = numPlayers;

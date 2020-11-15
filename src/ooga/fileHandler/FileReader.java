@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 import ooga.exceptions.FileException;
-import ooga.model.checkerboard.BlockConfigStructure;
 
 
 public class FileReader {
@@ -32,7 +31,7 @@ public class FileReader {
    *
    * @return List of each row from the configuration file
    */
-  public BlockConfigStructure makeBlockStructure(){
+  public List<List<Integer>> readBlockLayout(){
     List<String[]> grid = readData();
     String gameType = grid.get(0)[0];
     grid.remove(0);
@@ -45,7 +44,7 @@ public class FileReader {
       allConfig.add(configList);
     }
 
-    return new BlockConfigStructure(allConfig);
+    return allConfig;
   }
 
 

@@ -2,11 +2,10 @@ package ooga.model;
 
 import java.util.List;
 import ooga.Coordinate;
-import ooga.model.checkerboard.BlockConfigStructure;
 
 public class CheckersBlockGrid extends BlockGrid {
 
-  public CheckersBlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers){
+  public CheckersBlockGrid(String gameType, List<List<Integer>> allBlockConfig, int numPlayers){
     super(gameType, allBlockConfig, numPlayers);
   }
 

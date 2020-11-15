@@ -1,17 +1,11 @@
 package ooga.model.game;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
-import ooga.controller.GameController.PlayerMode;
-import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
 import ooga.model.player.Player;
-import ooga.model.ai.AIBrain;
-import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
@@ -34,9 +28,9 @@ public abstract class Game {
   }
 
 
-  protected BlockConfigStructure getInitiationBlockConfig(String gameType, String startPattern) throws FileException {
+  protected List<List<Integer>> getInitiationBlockConfig(String gameType, String startPattern) throws FileException {
     FileReader fileReader = new FileReader(gameType, startPattern);
-    return fileReader.makeBlockStructure();
+    return fileReader.readBlockLayout();
   }
 
 
