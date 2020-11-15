@@ -13,8 +13,6 @@ public class ButtonFactory {
 
   private static final int DEFAULT_BTN_WIDTH = 130;
   private static final int DEFAULT_BTN_HEIGHT = 20;
-  private static final int DEFAULT_TOGGLE_BTN_WIDTH = 230;
-  private static final int DEFAULT_TOGGLE_BTN_HEIGHT = 55;
   private static final int DEFAULT_TEXT_SIZE = 14;
   public static final String SUCCESS_STYLE = "success";
   public static final String INFO_STYLE = "info";
@@ -22,17 +20,6 @@ public class ButtonFactory {
 
   public ButtonFactory() {
 
-  }
-
-  public ToggleButton makeToggleButton(String text, ToggleGroup toggleGroup) {
-    return makeToggleButton(text, toggleGroup, DEFAULT_TOGGLE_BTN_WIDTH, DEFAULT_TOGGLE_BTN_HEIGHT);
-  }
-
-  public ToggleButton makeToggleButton(String text, ToggleGroup toggleGroup, int width, int height) {
-    ToggleButton button = new ToggleButton();
-    button.setToggleGroup(toggleGroup);
-    configureButton(button, text, width, height, DEFAULT_TEXT_SIZE);
-    return button;
   }
 
   public Button makeButton(String text, EventHandler<ActionEvent> handler) {

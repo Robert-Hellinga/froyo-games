@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -22,12 +23,10 @@ public class SplashScreenButtonBox extends VBox {
       .of(0, "Othello", 1, "Checkers", 2, "Connect4");
   private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
 
-  private static final String OTHELLO_BTN = "Othello";
-  private static final String CHECKERS_BTN = "Checkers";
-  private static final String CONNECT_4_BTN = "Connect4";
-  private static final String ONE_PLAYER_BTN = "OnePlayer";
-  private static final String TWO_PLAYER_BTN = "TwoPlayer";
-  private static final String TWO_PLAYER_ONLINE_BTN = "TwoPlayerOnline";
+
+  private static final String[] GAME_BUTTONS = {"Othello", "Checkers", "Connect4"};
+  private static final String[] PLAYER_BUTTONS = {"OnePlayer", "TwoPlayer", "TwoPlayerOnline"};
+
   private static final String START_BTN = "Start";
   private static final String PLAYER_NAME_FIELD = "Username";
   private static final String NO_NAME_MESSAGE = "NoNameMessage";
@@ -40,8 +39,9 @@ public class SplashScreenButtonBox extends VBox {
   private static final int SMALL_SPACING = 10;
 
   private Resources resources;
-  private ToggleGroup gameToggleGroup, playerToggleGroup;
+  private ToggleButtonGroup gameButtonGroup, playerButtonGroup;
   private IFroyoController controller;
+  private String opponentName;
 
   public SplashScreenButtonBox(Resources resources, IFroyoController controller) {
     this.resources = resources;
@@ -55,18 +55,15 @@ public class SplashScreenButtonBox extends VBox {
     VBox result = new VBox();
     result.setSpacing(SMALL_SPACING);
     result.setAlignment(Pos.CENTER);
-    gameToggleGroup = new ToggleGroup();
-    ToggleButton othelloBtn = BUTTON_FACTORY
-        .makeToggleButton(resources.getString(OTHELLO_BTN), gameToggleGroup);
-    othelloBtn.setId(OTHELLO_BTN + BTN_STRING);
-    ToggleButton checkersBtn = BUTTON_FACTORY
-        .makeToggleButton(resources.getString(CHECKERS_BTN), gameToggleGroup);
-    checkersBtn.setId(CHECKERS_BTN + BTN_STRING);
-    ToggleButton connect4Btn = BUTTON_FACTORY
-        .makeToggleButton(resources.getString(CONNECT_4_BTN), gameToggleGroup);
-    connect4Btn.setId(CONNECT_4_BTN + BTN_STRING);
+    gameButtonGroup = new ToggleButtonGroup(
+        result,
+        resources,
+        14,
+        GAME_BUTTONS
+    );
 
-    result.getChildren().addAll(othelloBtn, checkersBtn, connect4Btn);
+//    connect4Btn.setId(CONNECT_4_BTN + BTN_STRING);
+
     return result;
   }
 
@@ -74,26 +71,28 @@ public class SplashScreenButtonBox extends VBox {
     HBox result = new HBox();
     result.setSpacing(LARGE_SPACING);
     result.setAlignment(Pos.CENTER);
-    playerToggleGroup = new ToggleGroup();
 
-    // TODO: create wrapper for toggle button groups
-    ToggleButton onePlayerBtn = BUTTON_FACTORY.makeToggleButton(resources.getString(ONE_PLAYER_BTN),
-        playerToggleGroup, PLAYER_BTN_WIDTH
-        , PLAYER_BTN_HEIGHT);
-    onePlayerBtn.setId(ONE_PLAYER_BTN + BTN_STRING);
-    ToggleButton twoPlayerBtn = BUTTON_FACTORY.makeToggleButton(resources.getString(TWO_PLAYER_BTN),
-        playerToggleGroup, PLAYER_BTN_WIDTH
-        , PLAYER_BTN_HEIGHT);
-    ToggleButton twoPlayerOnlineBtn =
-        BUTTON_FACTORY.makeToggleButton(resources.getString(TWO_PLAYER_ONLINE_BTN),
-        playerToggleGroup, PLAYER_BTN_WIDTH
-        , PLAYER_BTN_HEIGHT);
-    twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
-    onePlayerBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
-    twoPlayerBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
-    twoPlayerOnlineBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
-    result.getChildren().addAll(onePlayerBtn, twoPlayerBtn, twoPlayerOnlineBtn);
+    playerButtonGroup = new ToggleButtonGroup(result,
+        resources,
+        PLAYER_BTN_WIDTH,
+        PLAYER_BTN_HEIGHT,
+        14,
+        PLAYER_BUTTONS
+    );
+
+    playerButtonGroup.setOnButtonPushed(2, event -> getOpponentName());
+
+    playerButtonGroup.setButtonStyles(BUTTON_FACTORY.INFO_STYLE);
+//    twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
+
     return result;
+  }
+
+  private void getOpponentName() {
+    TextInputDialog dialog = new TextInputDialog("Opponent Name");
+    dialog.setHeaderText("Enter Opponent Name");
+    dialog.showAndWait();
+    opponentName = dialog.getEditor().getText();
   }
 
   private HBox getStartButtonGroup() {
@@ -118,8 +117,8 @@ public class SplashScreenButtonBox extends VBox {
       if (username.isEmpty()) {
         noNamePopUp();
       } else {
-        String gameType = gameClasses.get(getToggleIndexSelected(gameToggleGroup));
-        boolean onePlayer = getToggleIndexSelected(playerToggleGroup) == 0;
+        String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());
+        boolean onePlayer = playerButtonGroup.getToggleIndexSelected() == 0;
         controller.startGame(resources.getLocale(), gameType, onePlayer, username);
       }
     }
@@ -131,17 +130,6 @@ public class SplashScreenButtonBox extends VBox {
   }
 
   private boolean buttonsAreSelected() {
-    return (gameToggleGroup.getSelectedToggle() != null) && (playerToggleGroup.getSelectedToggle()
-        != null);
-  }
-
-  private int getToggleIndexSelected(ToggleGroup group) {
-    ObservableList<Toggle> toggles = group.getToggles();
-    for (int i = 0; i < toggles.size(); i++) {
-      if (toggles.get(i).isSelected()) {
-        return i;
-      }
-    }
-    return -1; // No toggle selected
+    return gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle();
   }
 }
