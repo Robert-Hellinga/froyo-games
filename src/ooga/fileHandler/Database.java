@@ -3,6 +3,7 @@ package ooga.fileHandler;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import ooga.exceptions.FileException;
+import ooga.model.player.Player;
 
 public class Database {
 
@@ -25,9 +27,12 @@ public class Database {
   private static final String APP_URL = "https://froyogames-1df28.firebaseio.com/";
 
   private Resources error;
-  private DatabaseReference ref;
+  private DatabaseReference ref, gameRef;
+  private Player creatorPlayer, opponentPlayer;
 
-  public Database() {
+  public Database(Player creatorPlayer, Player opponentPlayer) {
+    this.creatorPlayer = creatorPlayer;
+    this.opponentPlayer = opponentPlayer;
     error = new Resources(Resources.ERROR_MESSAGES_FILE);
     initializeDB();
   }
@@ -51,21 +56,56 @@ public class Database {
     }
   }
 
-  public void addNewGame(String creatorName) {
-    Map<String, DatabaseGame> game = new HashMap<>();
-    game.put(creatorName, new DatabaseGame(creatorName, "test"));
-    ref.setValueAsync(game);
+  private void createGame(boolean alreadyExists, Iterable<DataSnapshot> gameData) {
+    if(alreadyExists) {
+//      createTurnListener();
+      gameRef = ref.child(opponentPlayer.getName());
+      System.out.println("Already exists, data: ");
+    }
+    else {
+      Map<String, DatabaseGame> game = new HashMap<>();
+      game.put(creatorPlayer.getName(), new DatabaseGame(creatorPlayer.getName(), "test"));
+      ref.setValueAsync(game);
+      gameRef = ref.child(creatorPlayer.getName());
+      System.out.println("Created new game with data: ");
+
+    }
+    for(DataSnapshot snapshot : gameData) {
+      System.out.println(snapshot.getValue());
+    }
   }
+
+  public void addNewGame() {
+    ref.child(opponentPlayer.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot snapshot) {
+          createGame(snapshot.exists(), snapshot.getChildren());
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+
+      }
+    });
+  }
+
+
+  private void createTurnListener() {
+    gameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot dataSnapshot) {
+        System.out.println(dataSnapshot.getChildren());
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+        // ...
+      }
+    });
+  }
+
 
   public void getGameTurn() {
-
-  }
-
-  public void write() {
-
-  }
-
-  public void read() {
 
   }
 }

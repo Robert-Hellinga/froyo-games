@@ -10,6 +10,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
+import ooga.fileHandler.Database;
 import ooga.model.game.Game;
 import ooga.model.player.AIPlayer;
 import ooga.model.player.HumanPlayer;
@@ -19,15 +20,22 @@ import ooga.view.screens.GameScreen;
 public class FroyoController implements IFroyoController{
 
   private Stage myStage;
+  private Database database;
 
   public FroyoController(Stage stage){
     myStage = stage;
   }
 
   @Override
-  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName) {
+  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName,
+      boolean online, String opponentName) {
     Player userPlayer = new HumanPlayer(playerName);
-    Player secondPlayer = createSecondPlayer(onePlayer);
+    Player secondPlayer = createSecondPlayer(onePlayer, opponentName);
+
+    if(online) {
+      database = new Database(userPlayer, secondPlayer);
+      database.addNewGame();
+    }
 
     Game game = createGame(gameType, userPlayer, secondPlayer, "default");
     userPlayer.setMyGame(game, gameType);
@@ -42,12 +50,13 @@ public class FroyoController implements IFroyoController{
 
 
 
-  private Player createSecondPlayer(boolean onePlayer) {
+  private Player createSecondPlayer(boolean onePlayer, String name) {
+    name = name == null ? "Player 2" : name;
     if(onePlayer){
       return new AIPlayer();
     }
     else{
-      return new HumanPlayer("Player 2");
+      return new HumanPlayer(name);
     }
   }
 
