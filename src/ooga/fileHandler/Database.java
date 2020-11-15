@@ -98,7 +98,10 @@ public class Database {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
         System.out.println("Opponent Moved!");
-        System.out.println(dataSnapshot.getChildren());
+
+        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+          System.out.println(dataSnapshot.getValue());
+        }
         game.setCurrentPlayer(creatorPlayer);
       }
 
@@ -111,6 +114,6 @@ public class Database {
 
 
   public void updateGame(String boardState) {
-
+    createTurnListener();
   }
 }

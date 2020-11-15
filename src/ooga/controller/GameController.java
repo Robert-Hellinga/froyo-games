@@ -30,12 +30,10 @@ public class GameController implements IGameController {
   private Coordinate pieceChosen;
   private List<Player> allPlayers;
   private PlayerMode mode;
-  private Database database;
 
-  public GameController(Game game, Database database, PlayerMode playerMode) {
+  public GameController(Game game, PlayerMode playerMode) {
     this.game = game;
     this.mode = playerMode;
-    this.database = database;
     allPlayers = game.getAllPlayers();
     setupAnimation();
   }
@@ -71,9 +69,6 @@ public class GameController implements IGameController {
   public void clickPiece(Coordinate coordinate) {
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
-      if(database != null) {
-        database.updateGame(game.getAllBlockStatesAsString());
-      }
   }
 
   @Override

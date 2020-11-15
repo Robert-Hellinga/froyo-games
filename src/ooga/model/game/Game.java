@@ -8,6 +8,7 @@ import ooga.Coordinate;
 import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.exceptions.FileException;
+import ooga.fileHandler.Database;
 import ooga.fileHandler.FileReader;
 import ooga.model.player.Player;
 import ooga.model.ai.AIBrain;
@@ -25,8 +26,11 @@ public abstract class Game {
   protected int numPlayers;
   protected Player currentPlayer;
   protected List<ModelObserver> observers;
+  protected Database database;
 
-  public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
+  public Game(String gameType, Player playerOne, Player playerTwo, String startPattern,
+      Database database) {
+    this.database = database;
     allPlayers.add(playerOne);
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
@@ -65,6 +69,10 @@ public abstract class Game {
   }
 
   public void playerTakeTurn() {
+    if(currentPlayer == allPlayers.get(0) && database != null) {
+      database.updateGame(getAllBlockStatesAsString());
+    }
+
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
     if (currentPlayerIndex == allPlayers.size() - 1) {
       currentPlayer = allPlayers.get(0);

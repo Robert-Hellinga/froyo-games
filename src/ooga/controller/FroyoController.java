@@ -41,8 +41,7 @@ public class FroyoController implements IFroyoController{
       database.addNewGame();
     }
 
-    IGameController gameController = new GameController(game, database, onePlayer ?
-        PlayerMode.PLAY_WITH_AI : PlayerMode.PLAY_WITH_FRIEND);
+    IGameController gameController = new GameController(game, onePlayer ? PlayerMode.PLAY_WITH_AI : PlayerMode.PLAY_WITH_FRIEND);
 
     GameScreen gameScreen = new GameScreen(locale, gameController, this, game);
     game.registerObserver(gameScreen);
