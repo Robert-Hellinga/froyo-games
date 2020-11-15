@@ -3,53 +3,33 @@ package ooga.view.grid;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
 import ooga.Coordinate;
 import ooga.controller.GameController;
-import ooga.model.checkerboard.BlockStructure;
-import ooga.model.checkerboard.block.BlockState;
+import ooga.controller.IGameController;
 
 public class PieceGrid extends GridPane {
 
-  private List<List<Piece>> allPieces;
-  private GameController controller;
+  private static final int GRID_SPACING = 4;
+  private IGameController controller;
 
-  public PieceGrid(GameController controller) {
+  public PieceGrid(IGameController controller, List<List<Integer>> initialPieceLayout) {
     this.controller = controller;
-    updateGrid();
+    update(initialPieceLayout);
+    setHgap(GRID_SPACING);
+    setVgap(GRID_SPACING);
   }
 
-  public void updateGrid() {
+  public void update(List<List<Integer>> newPieceStates) {
     getChildren().clear();
-    allPieces = updatePieces(controller.getAllBlockStates());
-
-    for(int i = 0; i < allPieces.size(); i++){
-      for(int j = 0; j < allPieces.get(0).size(); j++){
-        Piece currentPiece = allPieces.get(i).get(j);
-        add(currentPiece.getPieceShape(), j, i);
-      }
-    }
-  }
-
-  private List<List<Piece>> updatePieces(List<List<Integer>> newPieceStates) {
-    List<List<Piece>> newPieces = new ArrayList<>();
 
     for (int i = 0; i < newPieceStates.size(); i++) {
-      List<Piece> pieceLine = new ArrayList<>();
       for (int j = 0; j < newPieceStates.get(0).size(); j++) {
         Coordinate position = new Coordinate(j, i);
-        pieceLine.add(
-            new Piece(
-                newPieceStates.get(i).get(j),
-                position,
-                event -> controller.clickPiece(position, this)
-            )
-        );
+        int newState = newPieceStates.get(i).get(j);
+        Piece piece = new Piece(newState, position, event -> controller.clickPiece(position));
+        add(piece.getPieceShape(), j, i);
       }
-      newPieces.add(pieceLine);
     }
-    return newPieces;
   }
 
 }

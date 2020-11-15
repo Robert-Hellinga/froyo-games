@@ -1,76 +1,142 @@
 package ooga.view.elements;
 
-import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import java.util.Map;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import ooga.controller.GameController;
-import ooga.model.Game;
-import ooga.view.Display;
-import ooga.view.screens.GameScreen;
+import ooga.controller.IFroyoController;
+import ooga.fileHandler.Resources;
 
 public class SplashScreenButtonBox extends VBox {
 
-  private ResourceBundle resourceBundle;
-  private ToggleGroup gameToggleGroup, playerToggleGroup;
-  private GameController controller;
-  private Display display;
+  private static final Map<Integer, String> gameClasses = Map
+      .of(0, "Othello", 1, "Checkers", 2, "Connect4");
+  private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
 
-  public SplashScreenButtonBox(ResourceBundle resourceBundle, GameController controller,
-      Display display) {
-    this.resourceBundle = resourceBundle;
+  private static final String OTHELLO_BTN = "Othello";
+  private static final String CHECKERS_BTN = "Checkers";
+  private static final String CONNECT_4_BTN = "Connect4";
+  private static final String ONE_PLAYER_BTN = "OnePlayer";
+  private static final String TWO_PLAYER_BTN = "TwoPlayer";
+  private static final String START_BTN = "Start";
+  private static final String PLAYER_NAME_FIELD = "Username";
+  private static final String NO_NAME_MESSAGE = "NoNameMessage";
+  private static final String BTN_STRING = "Btn"; // for id's
+
+  private static final int PLAYER_BTN_WIDTH = 140;
+  private static final int PLAYER_BTN_HEIGHT = 50;
+  private static final int LARGE_SPACING = 20;
+  private static final int MEDIUM_SPACING = 15;
+  private static final int SMALL_SPACING = 10;
+
+  private Resources resources;
+  private ToggleGroup gameToggleGroup, playerToggleGroup;
+  private IFroyoController controller;
+
+  public SplashScreenButtonBox(Resources resources, IFroyoController controller) {
+    this.resources = resources;
     this.controller = controller;
-    this.display = display;
-    setSpacing(15);
+    setSpacing(MEDIUM_SPACING);
     getChildren().addAll(getGameButtonGroup(), getPlayerButtonGroup(), getStartButtonGroup());
 
-  }
-  private void startGame() {
-    Toggle selectedGame = gameToggleGroup.getSelectedToggle();
-    Toggle selectedPlayers = playerToggleGroup.getSelectedToggle();
-
-    // controller.setNumPlayers(selectedPlayers);
-    // controller.setGame(selectedGame);
-    GameScreen screen = new GameScreen(resourceBundle, controller);
-    display.setNewLayout(screen);
   }
 
   private VBox getGameButtonGroup() {
     VBox result = new VBox();
-    result.setSpacing(10);
+    result.setSpacing(SMALL_SPACING);
     result.setAlignment(Pos.CENTER);
     gameToggleGroup = new ToggleGroup();
-    CustomToggleButton othelloBtn = new CustomToggleButton("Othello", gameToggleGroup);
-    CustomToggleButton checkersBtn = new CustomToggleButton("Checkers", gameToggleGroup);
-    CustomToggleButton connect4Btn = new CustomToggleButton("Connect 4", gameToggleGroup);
+    ToggleButton othelloBtn = BUTTON_FACTORY
+        .makeToggleButton(resources.getString(OTHELLO_BTN), gameToggleGroup);
+    othelloBtn.setId(OTHELLO_BTN + BTN_STRING);
+    ToggleButton checkersBtn = BUTTON_FACTORY
+        .makeToggleButton(resources.getString(CHECKERS_BTN), gameToggleGroup);
+    checkersBtn.setId(CHECKERS_BTN + BTN_STRING);
+    ToggleButton connect4Btn = BUTTON_FACTORY
+        .makeToggleButton(resources.getString(CONNECT_4_BTN), gameToggleGroup);
+    connect4Btn.setId(CONNECT_4_BTN + BTN_STRING);
+
     result.getChildren().addAll(othelloBtn, checkersBtn, connect4Btn);
     return result;
   }
 
   private HBox getPlayerButtonGroup() {
     HBox result = new HBox();
-    result.setSpacing(20);
+    result.setSpacing(LARGE_SPACING);
     result.setAlignment(Pos.CENTER);
     playerToggleGroup = new ToggleGroup();
-    CustomToggleButton onePlayerBtn = new CustomToggleButton("One Player", playerToggleGroup, 150
-        , 55);
-    CustomToggleButton twoPlayerBtn = new CustomToggleButton("Two Player", playerToggleGroup, 150
-        , 55);
+
+    ToggleButton onePlayerBtn = BUTTON_FACTORY.makeToggleButton(resources.getString(ONE_PLAYER_BTN),
+        playerToggleGroup, PLAYER_BTN_WIDTH
+        , PLAYER_BTN_HEIGHT);
+    onePlayerBtn.setId(ONE_PLAYER_BTN + BTN_STRING);
+    ToggleButton twoPlayerBtn = BUTTON_FACTORY.makeToggleButton(resources.getString(TWO_PLAYER_BTN),
+        playerToggleGroup, PLAYER_BTN_WIDTH
+        , PLAYER_BTN_HEIGHT);
+    twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
+    onePlayerBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
+    twoPlayerBtn.getStyleClass().add(BUTTON_FACTORY.INFO_STYLE);
     result.getChildren().addAll(onePlayerBtn, twoPlayerBtn);
     return result;
   }
 
-  private VBox getStartButtonGroup() {
-    VBox result = new VBox();
+  private HBox getStartButtonGroup() {
+    HBox result = new HBox();
     result.setAlignment(Pos.CENTER);
-    CustomButton startButton = new CustomButton("Start", event -> startGame());
-    result.getChildren().add(startButton);
+    result.setSpacing(MEDIUM_SPACING);
+
+    TextField playerName = new TextField();
+    playerName.setPrefColumnCount(8);
+    playerName.setPromptText(resources.getString(PLAYER_NAME_FIELD));
+    Button startButton = BUTTON_FACTORY.makeButton(resources.getString(START_BTN),
+        event -> startGame(playerName.getText()));
+    startButton.setId(START_BTN + BTN_STRING);
+
+    startButton.getStyleClass().add(BUTTON_FACTORY.SUCCESS_STYLE);
+    result.getChildren().addAll(playerName, startButton);
     return result;
+  }
+
+  private void startGame(String username) {
+    if (buttonsAreSelected()) {
+      if (username.isEmpty()) {
+        noNamePopUp();
+      } else {
+        String gameType = gameClasses.get(getToggleIndexSelected(gameToggleGroup));
+        boolean onePlayer = getToggleIndexSelected(playerToggleGroup) == 0;
+        controller.startGame(resources.getLocale(), gameType, onePlayer, username);
+      }
+
+    }
+
+  }
+
+  private void noNamePopUp() {
+    Alert alert = new Alert(AlertType.NONE, resources.getString(NO_NAME_MESSAGE), ButtonType.OK);
+    alert.showAndWait();
+  }
+
+  private boolean buttonsAreSelected() {
+    return (gameToggleGroup.getSelectedToggle() != null) && (playerToggleGroup.getSelectedToggle()
+        != null);
+  }
+
+  private int getToggleIndexSelected(ToggleGroup group) {
+    ObservableList<Toggle> toggles = group.getToggles();
+    for (int i = 0; i < toggles.size(); i++) {
+      if (toggles.get(i).isSelected()) {
+        return i;
+      }
+    }
+    return -1; // No toggle selected
   }
 }

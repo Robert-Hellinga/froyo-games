@@ -1,27 +1,49 @@
 package ooga.model.player;
 
-public abstract class Player {
+import java.util.ArrayList;
+import java.util.List;
+import ooga.Coordinate;
+import ooga.model.game.Game;
 
-  protected static String name;
-  protected static int ID;
+public abstract class Player{
 
-  public Player(String name) {
-    this.name = name;
-  }
+  private String name;
+  private int ID;
+  private Game myGame;
+  private Coordinate nextCoordinate;
 
-  public static int getID() {
-    return ID;
-  }
-
-  public static String getName() {
+  public String getName() {
     return name;
   }
 
-  public static void setID(int ID) {
-    Player.ID = ID;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public static void setName(String name) {
-    Player.name = name;
+  public void setMyGame(Game game, String gameType){
+    this.myGame = game;
   }
+
+  public int getID() {
+    return ID;
+  }
+
+  public void setID(int ID) {
+    this.ID = ID;
+  }
+
+  public List<Coordinate> calculateNextCoordinates(){
+    return new ArrayList<Coordinate>();
+  }
+
+  public void makePlay(Coordinate coordinate){
+    myGame.play(coordinate);
+  }
+
+  protected Game getMyGame(){
+    return myGame;
+  }
+
+
+
 }

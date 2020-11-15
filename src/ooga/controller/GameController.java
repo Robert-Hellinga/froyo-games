@@ -1,15 +1,22 @@
 package ooga.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import ooga.Coordinate;
-import ooga.model.Game;
-import ooga.model.checkerboard.BlockStructure;
-import ooga.model.checkerboard.block.Block;
-import ooga.model.checkerboard.block.BlockState;
+import ooga.model.game.Game;
+//import ooga.model.player.Player.PlayerType;
+import ooga.model.player.Player;
 import ooga.view.grid.PieceGrid;
 
-public class GameController implements GameControllerInterface {
+public class GameController implements IGameController {
+
+  public static final int FRAMES_PER_SECOND = 60;
+  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  public static final double AI_DELAY = 0.05;
+
+  private double delayCounter = AI_DELAY;
 
   public enum PlayerMode {
     PLAY_WITH_AI,
@@ -20,39 +27,36 @@ public class GameController implements GameControllerInterface {
   private Game game;
   private int playerInTurn;
   private Coordinate pieceChosen;
+  private List<Player> allPlayers;
+  private PlayerMode mode;
 
-  public GameController() {
-    this("Checkers"); // TODO rework constructors
+  public GameController(Game game, PlayerMode playerMode) {
+    this.game = game;
+    this.mode = playerMode;
+    allPlayers = game.getAllPlayers();
+    setupAnimation();
   }
 
-  public GameController(String gameType) {
-    game = new Game(gameType, "Anna", PlayerMode.PLAY_WITH_AI);
-  }
 
-  public List<List<Integer>> getAllBlockStates() {
-    BlockStructure blocks = game.getCheckBoard().getAllBlocks();
-    List<List<Integer>> blockState = new ArrayList<>();
-    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
-      List<Integer> blockStateLine = new ArrayList<>();
-      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
-        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
-        blockStateLine.add(currentBlock.getBlockState().getNumericState());
-      }
-      blockState.add(blockStateLine);
-    }
-    return blockState;
-  }
 
-  public void setPlayerMode(PlayerMode mode) {
-
-  }
 
   public void setGameType(String gameType) {
 
   }
 
-  public void update() {
-
+  public void checkForAITurn(double elapsedTime) {
+    if (game.getCurrentPlayerIndex() == 2 && mode == PlayerMode.PLAY_WITH_AI){
+      if (delayCounter - elapsedTime < 0){
+        List<Coordinate> coords = game.getCurrentPlayer().calculateNextCoordinates();
+        for(Coordinate coord : coords){
+          game.getCurrentPlayer().makePlay(coord);
+        }
+        delayCounter = AI_DELAY;
+      }
+      else{
+        delayCounter -= elapsedTime;
+      }
+    }
   }
 
   @Override
@@ -61,9 +65,9 @@ public class GameController implements GameControllerInterface {
   }
 
   @Override
-  public void clickPiece(Coordinate coordinate, PieceGrid grid) {
-    game.play(coordinate);
-    grid.updateGrid();
+  public void clickPiece(Coordinate coordinate) {
+      Player currentPlayer = game.getCurrentPlayer();
+      currentPlayer.makePlay(coordinate);
   }
 
   @Override
@@ -79,5 +83,17 @@ public class GameController implements GameControllerInterface {
   @Override
   public void quitGame() {
 
+  }
+
+  private void setupAnimation() {
+    KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
+    Timeline animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+    animation.play();
+  }
+
+  private void step(double elapsedTime) {
+    checkForAITurn(elapsedTime);
   }
 }
