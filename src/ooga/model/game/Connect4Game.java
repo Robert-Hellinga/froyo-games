@@ -11,8 +11,8 @@ public class Connect4Game extends Game {
 
   private Connect4BlockGrid connect4Board;
 
-  public Connect4Game(String gameType, Player playerOne, Player playerTwo, String startPattern, Database database) {
-    super(gameType, playerOne, playerTwo, startPattern, database);
+  public Connect4Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
+    super(gameType, playerOne, playerTwo, startPattern);
     connect4Board = new Connect4BlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 

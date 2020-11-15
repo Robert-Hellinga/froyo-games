@@ -11,8 +11,8 @@ public class CheckersGame extends Game {
 
   private CheckersBlockGrid checkBoard;
 
-  public CheckersGame(String gameType, Player playerOne, Player playerTwo, String startPattern, Database database){
-    super(gameType, playerOne, playerTwo, startPattern, database);
+  public CheckersGame(String gameType, Player playerOne, Player playerTwo, String startPattern){
+    super(gameType, playerOne, playerTwo, startPattern);
     checkBoard = new CheckersBlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 

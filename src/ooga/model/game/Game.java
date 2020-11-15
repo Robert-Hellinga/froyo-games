@@ -28,10 +28,9 @@ public abstract class Game {
   protected List<ModelObserver> observers;
   protected Database database;
 
-  public Game(String gameType, Player playerOne, Player playerTwo, String startPattern,
-      Database database) {
+  public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     this.gameType = gameType;
-    this.database = database;
+    database = null;
     allPlayers.add(playerOne);
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
@@ -42,6 +41,10 @@ public abstract class Game {
   protected BlockConfigStructure getInitiationBlockConfig(String gameType, String startPattern) throws FileException {
     FileReader fileReader = new FileReader(gameType, startPattern);
     return fileReader.makeBlockStructure();
+  }
+
+  public void setDatabase(Database database) {
+    this.database = database;
   }
 
 
@@ -72,6 +75,7 @@ public abstract class Game {
   public void playerTakeTurn() {
     if(currentPlayer == allPlayers.get(0) && database != null) {
       database.updateGame(getAllBlockStatesAsString());
+      System.out.println("Updating game");
     }
 
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
