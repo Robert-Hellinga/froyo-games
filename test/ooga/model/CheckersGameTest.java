@@ -14,15 +14,14 @@ import org.junit.jupiter.api.Test;
 class CheckersGameTest{
 
   private final String gameType = "Checkers";
-  private final String playerName = "a";
-  private final PlayerMode playerMode = PlayerMode.PLAY_WITH_AI;
   private final String startPattern = "test";
   private Game checkersGame;
 
+  private final Player playerOne = new HumanPlayer("Player 1");
+  private final Player playerTwo = new HumanPlayer("Player 2");
+
   @Test
   public void testChooseAPiece(){
-    Player playerOne = new HumanPlayer("Player 1");
-    Player playerTwo = new HumanPlayer("Player 2");
     checkersGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
     Coordinate pieceToChoose = new Coordinate(0,0);
     checkersGame.play(pieceToChoose);
@@ -31,8 +30,6 @@ class CheckersGameTest{
 
   @Test
   public void testChooseAPieceAndMoveIt(){
-    Player playerOne = new HumanPlayer("Player 1");
-    Player playerTwo = new HumanPlayer("Player 2");
     checkersGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
     Coordinate pieceToChoose = new Coordinate(2,0);
     Coordinate pieceToMoveTo = new Coordinate(3,1);
@@ -48,8 +45,6 @@ class CheckersGameTest{
 
   @Test
   public void testChooseAPieceAndCrossAnotherPiece(){
-    Player playerOne = new HumanPlayer("Player 1");
-    Player playerTwo = new HumanPlayer("Player 2");
     checkersGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
     Coordinate pieceToChoose = new Coordinate(0,0);
     Coordinate pieceToMoveTo = new Coordinate(2,2);
@@ -65,8 +60,6 @@ class CheckersGameTest{
 
   @Test
   public void testAPieceBecomeKingWhenItReachesOtherEnd(){
-    Player playerOne = new HumanPlayer("Player 1");
-    Player playerTwo = new HumanPlayer("Player 2");
     checkersGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
     Coordinate pieceToChoose = new Coordinate(0,0);
     Coordinate pieceToMoveTo = new Coordinate(2,2);
@@ -77,8 +70,6 @@ class CheckersGameTest{
 
   @Test
   public void testIfKingPieceCanMoveBackward(){
-    Player playerOne = new HumanPlayer("Player 1");
-    Player playerTwo = new HumanPlayer("Player 2");
     checkersGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
     Coordinate pieceToChoose = new Coordinate(0,0);
     Coordinate pieceToKing = new Coordinate(2,2);
