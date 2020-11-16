@@ -74,7 +74,7 @@ public abstract class Game {
 
   public void playerTakeTurn() {
     if(currentPlayer == allPlayers.get(0) && database != null) {
-      database.updateGame(getAllBlockStatesAsString());
+      database.updateGame();
       System.out.println("Updating game");
     }
 

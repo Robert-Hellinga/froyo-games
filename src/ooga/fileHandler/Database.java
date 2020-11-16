@@ -9,6 +9,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.SyncTree.CompletionListener;
+import com.google.firebase.database.core.view.Event;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,6 +32,7 @@ public class Database {
   private Resources error;
   private DatabaseReference ref, gameRef;
   private Player creatorPlayer, opponentPlayer;
+  private String gameName;
   private Game game;
 
   public Database(Player creatorPlayer, Player opponentPlayer, Game game) {
@@ -65,6 +68,7 @@ public class Database {
       System.out.println("Already exists, data: ");
       game.setCurrentPlayer(opponentPlayer);
       createTurnListener();
+      gameName = opponentPlayer.getName();
     }
     else {
       Map<String, DatabaseGame> newGame = new HashMap<>();
@@ -72,6 +76,7 @@ public class Database {
       ref.setValueAsync(newGame);
       gameRef = ref.child(creatorPlayer.getName());
       System.out.println("Created new game");
+      gameName = creatorPlayer.getName();
     }
     for(DataSnapshot snapshot : gameData) {
       System.out.println(snapshot.getValue());
@@ -94,28 +99,57 @@ public class Database {
 
 
   private void createTurnListener() {
-    gameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    System.out.println("I was called");
+
+    gameRef.addChildEventListener(new ChildEventListener() {
+
       @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
+      public void onChildAdded(DataSnapshot dataSnapshot, String s) {}
+
+      @Override
+      public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
         System.out.println("Opponent Moved!");
 
-        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-          System.out.println(snapshot.getValue());
-        }
+//        if(!dataSnapshot.getKey("boardState").equals()) {
+//
+//        }
+        System.out.println(prevChildKey);
+        System.out.println(dataSnapshot.getValue());
         game.setCurrentPlayer(creatorPlayer);
+        gameRef.removeEventListener(this);
       }
 
       @Override
-      public void onCancelled(DatabaseError databaseError) {
-        // ...
-      }
+      public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+      @Override
+      public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {}
     });
   }
 
 
-  public void updateGame(String boardState) {
-    if(game.getCurrentPlayer().equals(opponentPlayer)) {
+  public void updateGame() {
+      Map<String, Object> update = new HashMap<>();
+      update.put("boardState", game.getAllBlockStatesAsString());
+      gameRef.updateChildrenAsync(update);
       createTurnListener();
-    }
+
+//    gameRef.child("boardState").setValue(, new DatabaseReference.CompletionListener() {
+//      @Override
+//      public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+//        if (databaseError != null) {
+//          System.out.println("Data could not be saved " + databaseError.getMessage());
+//        } else {
+//          System.out.println("Data saved successfully.");
+//          createTurnListener();
+//        }
+//      }
+//    });
+
+
   }
 }
