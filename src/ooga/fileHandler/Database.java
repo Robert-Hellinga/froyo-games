@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import ooga.Coordinate;
 import ooga.exceptions.FileException;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
@@ -65,7 +66,7 @@ public class Database {
   private void createGame(boolean alreadyExists, Iterable<DataSnapshot> gameData) {
     if(alreadyExists) {
       gameRef = ref.child(opponentPlayer.getName());
-      System.out.println("Already exists, data: ");
+      System.out.println("Game already exists, joining...");
       game.setCurrentPlayer(opponentPlayer);
       createTurnListener();
       gameName = opponentPlayer.getName();
@@ -77,9 +78,6 @@ public class Database {
       gameRef = ref.child(creatorPlayer.getName());
       System.out.println("Created new game");
       gameName = creatorPlayer.getName();
-    }
-    for(DataSnapshot snapshot : gameData) {
-      System.out.println(snapshot.getValue());
     }
   }
 
@@ -99,8 +97,7 @@ public class Database {
 
 
   private void createTurnListener() {
-    System.out.println("I was called");
-
+    game.disableTurns();
     gameRef.addChildEventListener(new ChildEventListener() {
 
       @Override
@@ -108,15 +105,12 @@ public class Database {
 
       @Override
       public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-
+        System.out.println(game.getAllBlockStatesAsString());
         System.out.println("Opponent Moved!");
-
-//        if(!dataSnapshot.getKey("boardState").equals()) {
-//
-//        }
-        System.out.println(prevChildKey);
-        System.out.println(dataSnapshot.getValue());
-        game.setCurrentPlayer(creatorPlayer);
+        game.setAllBlockStates((String) dataSnapshot.getValue());
+        System.out.println(game.getAllBlockStatesAsString());
+        game.enableTurns();
+        game.getCurrentPlayer().makePlay(new Coordinate(0, 0));
         gameRef.removeEventListener(this);
       }
 
@@ -129,26 +123,27 @@ public class Database {
       @Override
       public void onCancelled(DatabaseError databaseError) {}
     });
+
   }
 
 
   public void updateGame() {
-      Map<String, Object> update = new HashMap<>();
-      update.put("boardState", game.getAllBlockStatesAsString());
-      gameRef.updateChildrenAsync(update);
-      createTurnListener();
+//      Map<String, Object> update = new HashMap<>();
+//      update.put("boardState", game.getAllBlockStatesAsString());
+//      gameRef.updateChildrenAsync(update);
+//      createTurnListener();
 
-//    gameRef.child("boardState").setValue(, new DatabaseReference.CompletionListener() {
-//      @Override
-//      public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//        if (databaseError != null) {
-//          System.out.println("Data could not be saved " + databaseError.getMessage());
-//        } else {
-//          System.out.println("Data saved successfully.");
-//          createTurnListener();
-//        }
-//      }
-//    });
+    gameRef.child("boardState").setValue(game.getAllBlockStatesAsString(), new DatabaseReference.CompletionListener() {
+      @Override
+      public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+        if (databaseError != null) {
+          System.out.println("Data could not be saved " + databaseError.getMessage());
+        } else {
+          System.out.println("Data saved successfully.");
+          createTurnListener();
+        }
+      }
+    });
 
 
   }

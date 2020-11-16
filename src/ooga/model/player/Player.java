@@ -38,6 +38,7 @@ public abstract class Player{
 
   public void makePlay(Coordinate coordinate){
     myGame.play(coordinate);
+    System.out.println("Played");
   }
 
   protected Game getMyGame(){

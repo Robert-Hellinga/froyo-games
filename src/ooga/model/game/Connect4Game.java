@@ -18,12 +18,15 @@ public class Connect4Game extends Game {
 
   @Override
   public void play(Coordinate passInCoordinate) {
-    connect4Board.play(passInCoordinate, getCurrentPlayerIndex());
-    if (connect4Board.isFinishARound()){
-      playerTakeTurn();
-      connect4Board.resetFinishAround();
+    System.out.println("Playing... " + passInCoordinate + " turnsEnabled: " + turnsEnabled);
+    if(turnsEnabled) {
+      connect4Board.play(passInCoordinate, getCurrentPlayerIndex());
+      if (connect4Board.isFinishARound()){
+        playerTakeTurn();
+        connect4Board.resetFinishAround();
+      }
+      notifyObservers();
     }
-    notifyObservers();
   }
 
   @Override

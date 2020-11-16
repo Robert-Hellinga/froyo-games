@@ -94,5 +94,6 @@ public class GameController implements IGameController {
 
   private void step(double elapsedTime) {
     checkForAITurn(elapsedTime);
+//    game.notifyObservers();
   }
 }

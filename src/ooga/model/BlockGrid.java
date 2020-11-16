@@ -2,6 +2,9 @@ package ooga.model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.checkerboard.BlockConfigStructure;
@@ -13,12 +16,30 @@ public abstract class BlockGrid{
   protected final int numPlayers;
   protected final BlockStructure allBlocks;
   protected String gameType;
+  protected BlockConfigStructure allBlockConfig;
   protected boolean finishARound = false;
 
   public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
     this.gameType = gameType;
+    this.allBlockConfig = allBlockConfig;
     this.allBlocks = new BlockStructure(this.gameType, allBlockConfig);
     this.numPlayers = numPlayers;
+  }
+
+  public void setAllBlockStates(String stateString) {
+    List<List<Block>> newBlockStates = new ArrayList<>();
+    String[] rows = stateString.split("~");
+
+    for(int i = 0; i < rows.length; i++) {
+      String[] row = rows[i].split(",");
+      List<Block> blockLine = new ArrayList<>();
+      for(int j = 0; j < row.length; j++) {
+        Integer cellConfig = Integer.parseInt(row[j]);
+        blockLine.add(BlockGrid.createBlock(gameType, cellConfig, new Coordinate(j, i)));
+      }
+      newBlockStates.add(blockLine);
+    }
+    allBlocks.setBlockStructure(newBlockStates);
   }
 
 

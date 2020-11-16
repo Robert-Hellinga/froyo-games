@@ -27,11 +27,13 @@ public class GameScreen extends GridPane implements Styleable, ModelObserver {
   private Game game;
   private PieceGrid grid;
   private Locale locale;
+  private IGameController controller;
 
   public GameScreen(Locale locale, IGameController gameController,
       IFroyoController froyoController, Game game) {
     this.game = game;
     this.locale = locale;
+    this.controller = gameController;
     resources = new Resources(this.locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
     grid = new PieceGrid(gameController, game.getAllBlockStates());
 
@@ -62,5 +64,10 @@ public class GameScreen extends GridPane implements Styleable, ModelObserver {
   @Override
   public void update() {
     grid.update(game.getAllBlockStates());
+  }
+
+  @Override
+  public String toString() {
+    return "GameScreen";
   }
 }

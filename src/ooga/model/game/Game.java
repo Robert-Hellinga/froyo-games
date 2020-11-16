@@ -27,6 +27,7 @@ public abstract class Game {
   protected Player currentPlayer;
   protected List<ModelObserver> observers;
   protected Database database;
+  protected boolean turnsEnabled;
 
   public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     this.gameType = gameType;
@@ -35,6 +36,7 @@ public abstract class Game {
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
     observers = new ArrayList<>();
+    turnsEnabled = true;
   }
 
 
@@ -73,17 +75,32 @@ public abstract class Game {
   }
 
   public void playerTakeTurn() {
-    if(currentPlayer == allPlayers.get(0) && database != null) {
+
+    if(database != null) {
       database.updateGame();
       System.out.println("Updating game");
     }
-
-    int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
-    if (currentPlayerIndex == allPlayers.size() - 1) {
-      currentPlayer = allPlayers.get(0);
-    } else {
-      currentPlayer = allPlayers.get(currentPlayerIndex + 1);
+    else {
+      int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
+      if (currentPlayerIndex == allPlayers.size() - 1) {
+        currentPlayer = allPlayers.get(0);
+      } else {
+        currentPlayer = allPlayers.get(currentPlayerIndex + 1);
+      }
     }
+    System.out.println(currentPlayer.getName());
+  }
+
+  public void enableTurns() {
+    turnsEnabled = true;
+  }
+
+  public void disableTurns() {
+    turnsEnabled = false;
+  }
+
+  public boolean getTurnsEnabled() {
+    return turnsEnabled;
   }
 
   public Player getCurrentPlayer(){
@@ -97,6 +114,11 @@ public abstract class Game {
   public abstract BlockGrid getBoard();
 
   public abstract void play(Coordinate passInCoordinate);
+
+  public void setAllBlockStates(String stateString) {
+    getBoard().setAllBlockStates(stateString);
+//    notifyObservers();
+  }
 
   public List<List<Integer>> getAllBlockStates() {
     BlockStructure blocks = getBoard().getAllBlocks();
@@ -133,7 +155,8 @@ public abstract class Game {
     observers.remove(observer);
   }
 
-  protected void notifyObservers() {
+  public void notifyObservers() {
+
     for (ModelObserver observer : observers){
       observer.update();
     }
