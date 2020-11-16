@@ -1,11 +1,15 @@
 package ooga.model.game;
 
+import java.util.ArrayList;
+import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.CheckersBlockGrid;
 import ooga.model.player.Player;
 
 public class CheckersGame extends Game {
+
+
 
   private CheckersBlockGrid checkersBoard;
 
@@ -18,8 +22,13 @@ public class CheckersGame extends Game {
   public void play(Coordinate passInCoordinate) {
     checkersBoard.play(passInCoordinate, getCurrentPlayerIndex());
     if (checkersBoard.isFinishARound()){
-      playerTakeTurn();
-      checkersBoard.resetFinishAround();
+      if (checkersBoard.isWinningMove(getCurrentPlayerIndex())){
+        wonGame = true;
+      }
+      else{
+        playerTakeTurn();
+        checkersBoard.resetFinishAround();
+      }
     }
     notifyObservers();
   }
@@ -27,5 +36,13 @@ public class CheckersGame extends Game {
   @Override
   public BlockGrid getBoard(){
     return checkersBoard;
+  }
+
+  @Override
+  public Player getWinningPlayer() {
+    if (wonGame){
+      return currentPlayer;
+    }
+    return null;
   }
 }

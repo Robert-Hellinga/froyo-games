@@ -1,9 +1,13 @@
 package ooga.model.checkerboard.blockgrid;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.OthelloBlock;
+import ooga.model.game.Game;
 
 public class OthelloBlockGrid extends BlockGrid {
 
@@ -14,15 +18,21 @@ public class OthelloBlockGrid extends BlockGrid {
 
   @Override
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
+    for (Coordinate coordinate : getAllPotentialMoves(currentPlayerIndex)) {
+      allBlocks.getBlock(coordinate).getBlockState().makePotentialMove();
+    }
+  }
+
+  public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
+    List<Coordinate> allPotentialMoves = new ArrayList<>();
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
       for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
         Coordinate coordinate = new Coordinate(i, j);
-        for (Coordinate potentialMove : allBlocks.getBlock(coordinate)
-            .getAvailablePosition(currentPlayerIndex, allBlocks)) {
-          allBlocks.getBlock(potentialMove).getBlockState().makePotentialMove();
-        }
+        allPotentialMoves.addAll(allBlocks.getBlock(coordinate)
+            .getAvailablePosition(currentPlayerIndex, allBlocks));
       }
     }
+    return allPotentialMoves;
   }
 
   @Override
@@ -103,5 +113,38 @@ public class OthelloBlockGrid extends BlockGrid {
       interCoordinate = new Coordinate(interCoordinate.xCoordinate() + xIncrement,
           interCoordinate.yCoordinate() + yIncrement);
     }
+  }
+
+
+  @Override
+  public boolean isWinningMove(int playerID) {
+    boolean haveEmptyBlock = false;
+    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++) {
+      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
+        Coordinate coordinate = new Coordinate(j, i);
+        if (allBlocks.getBlock(coordinate).getIsEmpty()) {
+          haveEmptyBlock = true;
+        }
+      }
+    }
+    if (!haveEmptyBlock){
+      return true;
+    }
+    return false;
+  }
+
+
+
+    public int getWinningPlayerIndex() {
+    List<Integer> pieceCounter = new ArrayList<>(
+        Collections.nCopies(Game.PLAYER_INDEX_POLL.size(), 0));
+    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++) {
+      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
+        Coordinate coordinate = new Coordinate(j, i);
+        pieceCounter.set(allBlocks.getBlock(coordinate).getPlayerID() - 1,
+            pieceCounter.get(allBlocks.getBlock(coordinate).getPlayerID() - 1) + 1);
+      }
+    }
+    return pieceCounter.indexOf(Collections.max(pieceCounter));
   }
 }

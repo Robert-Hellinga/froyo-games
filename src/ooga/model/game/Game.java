@@ -15,17 +15,21 @@ import ooga.view.ModelObserver;
 
 public abstract class Game {
 
+  public static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
+
   protected String gameType;
   protected List<Player> allPlayers = new ArrayList<>();
   protected int numPlayers;
   protected Player currentPlayer;
   protected List<ModelObserver> observers;
+  protected boolean wonGame;
 
   public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     allPlayers.add(playerOne);
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
     observers = new ArrayList<>();
+    wonGame = false;
   }
 
 
@@ -33,24 +37,6 @@ public abstract class Game {
     FileReader fileReader = new FileReader(gameType, startPattern);
     return fileReader.makeBlockStructure();
   }
-
-
-//  public void aiPlay(){
-//    List<Coordinate> aiMoves = aiBrain.decideMove(getBoard(), getCurrentPlayerIndex());
-//    for (Coordinate coordinate : aiMoves){
-//      play(coordinate);
-//    }
-//  }
-
-//  private Player createSecondPlayer(PlayerMode playerMode) {
-//    if (playerMode.equals(PlayerMode.PLAY_WITH_AI)) {
-//      this.aiBrain = createAIBrain(gameType);
-//      return new Player("AI player", PlayerType.AI);
-//    }
-//    //TODO: need to implement the social feature: connect with another human player through social network
-//    return new Player("my friend", PlayerType.HUMAN);
-//  }
-
 
 
   public void playerTakeTurn() {
@@ -105,4 +91,10 @@ public abstract class Game {
   public List<Player> getAllPlayers(){
     return allPlayers;
   }
+
+  public boolean isPlayerWonGame(){
+    return wonGame;
+  }
+
+  public abstract Player getWinningPlayer();
 }

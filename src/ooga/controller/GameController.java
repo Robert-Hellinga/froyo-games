@@ -17,6 +17,7 @@ public class GameController implements IGameController {
   public static final double AI_DELAY = 0.05;
 
   private double delayCounter = AI_DELAY;
+  private boolean enableAIChecker = true;
 
   public enum PlayerMode {
     PLAY_WITH_AI,
@@ -39,16 +40,18 @@ public class GameController implements IGameController {
   }
 
   public void checkForAITurn(double elapsedTime) {
-    if (game.getCurrentPlayerIndex() == 2 && mode == PlayerMode.PLAY_WITH_AI){
-      if (delayCounter - elapsedTime < 0){
-        List<Coordinate> coords = game.getCurrentPlayer().calculateNextCoordinates();
-        for(Coordinate coord : coords){
-          game.getCurrentPlayer().makePlay(coord);
+    if (enableAIChecker){
+      if (game.getCurrentPlayerIndex() == 2 && mode == PlayerMode.PLAY_WITH_AI){
+        if (delayCounter - elapsedTime < 0){
+          List<Coordinate> coords = game.getCurrentPlayer().calculateNextCoordinates();
+          for(Coordinate coord : coords){
+            game.getCurrentPlayer().makePlay(coord);
+          }
+          delayCounter = AI_DELAY;
         }
-        delayCounter = AI_DELAY;
-      }
-      else{
-        delayCounter -= elapsedTime;
+        else{
+          delayCounter -= elapsedTime;
+        }
       }
     }
   }
@@ -87,7 +90,15 @@ public class GameController implements IGameController {
     animation.play();
   }
 
+  private void checkPlayerWonGame(){
+    if (game.isPlayerWonGame()){
+      System.out.println(game.getWinningPlayer().getName() + " has won the game!");
+      enableAIChecker = false;
+    }
+  }
+
   private void step(double elapsedTime) {
     checkForAITurn(elapsedTime);
+    checkPlayerWonGame();
   }
 }

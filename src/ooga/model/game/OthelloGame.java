@@ -20,9 +20,14 @@ public class OthelloGame extends Game{
   public void play(Coordinate passInCoordinate) {
     othelloBoard.play(passInCoordinate, getCurrentPlayerIndex());
     if (othelloBoard.isFinishARound()){
-      playerTakeTurn();
-      othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
-      othelloBoard.resetFinishAround();
+      if (othelloBoard.isWinningMove(getCurrentPlayerIndex())){
+        wonGame = true;
+      }
+      else{
+        playerTakeTurn();
+        othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
+        othelloBoard.resetFinishAround();
+      }
     }
     notifyObservers();
   }
@@ -30,5 +35,13 @@ public class OthelloGame extends Game{
   @Override
   public BlockGrid getBoard(){
     return othelloBoard;
+  }
+
+  @Override
+  public Player getWinningPlayer() {
+    if (wonGame){
+      return allPlayers.get(othelloBoard.getWinningPlayerIndex());
+    }
+    return null;
   }
 }
