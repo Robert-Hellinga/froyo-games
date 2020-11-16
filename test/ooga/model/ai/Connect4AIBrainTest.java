@@ -166,4 +166,99 @@ class Connect4AIBrainTest {
     // AI must take the 3th column, otherwise AI will lose
     assertEquals(2, aiMove.get(0).xCoordinate());
   }
+
+
+  @Test
+  void decidePositiveSlopeWinningMove() {
+    connect4Game.play(new Coordinate(3, 0));
+    connect4Game.play(new Coordinate(3, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(5, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(5, 0));
+    connect4Game.play(new Coordinate(0, 0));
+    connect4Game.play(new Coordinate(5, 0));
+    connect4Game.play(new Coordinate(5, 0));
+    List<List<Integer>> expectedBlockState = new ArrayList<>() {{
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 2, 0, 0));
+      add(List.of(0, 0, 0, 0, 2, 1, 0, 0));
+      add(List.of(0, 0, 0, 2, 1, 1, 0, 0));
+      add(List.of(2, 0, 0, 1, 1, 2, 0, 0));
+    }};
+    assertEquals(expectedBlockState, connect4Game.getAllBlockStates());
+
+    // Let AI take turn
+    Connect4AIBrain AIBrain = new Connect4AIBrain();
+    List<Coordinate> aiMove = AIBrain.decideMove(connect4Game.getBoard(), 2);
+    // AI must take the 3th column, in this way, AI must win, which makes sense
+    assertEquals(2, aiMove.get(0).xCoordinate());
+  }
+
+
+  @Test
+  void decideNegativeSlopeLosingMove() {
+    connect4Game.play(new Coordinate(3, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(3, 0));
+    connect4Game.play(new Coordinate(5, 0));
+    connect4Game.play(new Coordinate(5, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(3, 0));
+    connect4Game.play(new Coordinate(3, 0));
+    List<List<Integer>> expectedBlockState = new ArrayList<>() {{
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 1, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 2, 1, 0, 0, 0));
+      add(List.of(0, 0, 0, 1, 2, 1, 0, 0));
+      add(List.of(0, 0, 0, 1, 2, 2, 0, 0));
+    }};
+    assertEquals(expectedBlockState, connect4Game.getAllBlockStates());
+
+    // Let AI take turn
+    Connect4AIBrain AIBrain = new Connect4AIBrain();
+    List<Coordinate> aiMove = AIBrain.decideMove(connect4Game.getBoard(), 2);
+    // AI must take the 7th column, otherwise AI will lose
+    assertEquals(6, aiMove.get(0).xCoordinate());
+  }
+
+
+  @Test
+  void decideNegativeSlopeWinningMove() {
+    connect4Game.play(new Coordinate(5, 0));
+    connect4Game.play(new Coordinate(3, 0));
+    connect4Game.play(new Coordinate(3, 0));
+    connect4Game.play(new Coordinate(5, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(7, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(4, 0));
+    connect4Game.play(new Coordinate(3, 0));
+    connect4Game.play(new Coordinate(3, 0));
+    List<List<Integer>> expectedBlockState = new ArrayList<>() {{
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 2, 0, 0, 0, 0));
+      add(List.of(0, 0, 0, 1, 2, 0, 0, 0));
+      add(List.of(0, 0, 0, 1, 1, 2, 0, 0));
+      add(List.of(0, 0, 0, 2, 1, 1, 0, 2));
+    }};
+    assertEquals(expectedBlockState, connect4Game.getAllBlockStates());
+
+    // Let AI take turn
+    Connect4AIBrain AIBrain = new Connect4AIBrain();
+    List<Coordinate> aiMove = AIBrain.decideMove(connect4Game.getBoard(), 2);
+    // AI must take the 7th column, in this way, AI must win, which makes sense
+    assertEquals(6, aiMove.get(0).xCoordinate());
+  }
 }
