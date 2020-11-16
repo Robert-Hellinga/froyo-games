@@ -25,7 +25,8 @@ public class FroyoController implements IFroyoController{
   }
 
   @Override
-  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName) {
+  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName,
+      boolean online, String opponentName) {
     Player userPlayer = new HumanPlayer(playerName);
     Player secondPlayer = createSecondPlayer(onePlayer);
 
