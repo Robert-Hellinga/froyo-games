@@ -25,6 +25,7 @@ public abstract class Game {
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
     observers = new ArrayList<>();
+    this.gameType = gameType;
   }
 
 
@@ -104,4 +105,6 @@ public abstract class Game {
   public List<Player> getAllPlayers(){
     return allPlayers;
   }
+
+  public String getGameType(){ return gameType;}
 }

@@ -11,6 +11,7 @@ public class PieceGrid extends GridPane {
 
   private static final int GRID_SPACING = 4;
   private IGameController controller;
+  private String gameType = "";
 
   public PieceGrid(IGameController controller, List<List<Integer>> initialPieceLayout) {
     this.controller = controller;
@@ -31,5 +32,7 @@ public class PieceGrid extends GridPane {
       }
     }
   }
+
+  public void setGameType(String newGameType){ gameType = newGameType;}
 
 }
