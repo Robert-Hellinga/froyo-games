@@ -35,11 +35,12 @@ public class PieceGrid extends GridPane {
   }
 
   public void update(List<List<Integer>> newPieceStates) {
+//    System.out.println("k");
 //    System.out.println("trying to update...");
 //    getChildren().clear();
 
 //    System.out.println(getChildren());
-    System.out.println("updating grid");
+    System.out.print("updating grid... ");
     for (int i = 0; i < newPieceStates.size(); i++) {
       for (int j = 0; j < newPieceStates.get(0).size(); j++) {
 //        System.out.print(5 + " ");
@@ -53,7 +54,7 @@ public class PieceGrid extends GridPane {
 //        System.out.println(8 + "     ");
       }
     }
-    System.out.println();
+    System.out.println("updated");
   }
 
 }

@@ -74,6 +74,15 @@ public abstract class Game {
     currentPlayer = player;
   }
 
+  public Player getOppositePlayer() {
+    if(allPlayers.get(0).equals(currentPlayer)) {
+      return allPlayers.get(1);
+    }
+    else {
+      return allPlayers.get(0);
+    }
+  }
+
   public void playerTakeTurn() {
 
     if(database != null) {

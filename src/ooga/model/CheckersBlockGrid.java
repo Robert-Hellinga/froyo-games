@@ -24,16 +24,19 @@ public class CheckersBlockGrid extends BlockGrid {
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
+    System.out.print("A ");
     if (hasChosenBlock()) {
+      System.out.print("B ");
       if (allBlocks.getBlock(passInCoordinate).getPlayerID()
           == currentPlayerIndex) {
+        System.out.print("C ");
         unChoseAllBlock();
         unsetAllBlockPotential();
         getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
         setAvailablePosition(currentPlayerIndex, passInCoordinate);
       } else if (allBlocks.getBlock(passInCoordinate).getBlockState()
           .isPotentialMove()) {
-
+        System.out.print("D ");
         removeCheckedPiece(passInCoordinate, getChosenBlockCoordianate());
         moveBlock(getChosenBlockCoordianate(), passInCoordinate);
         makeBlockKing(passInCoordinate);
@@ -43,9 +46,11 @@ public class CheckersBlockGrid extends BlockGrid {
         finishARound = true;
       }
     } else {
+      System.out.print("E ");
       if (!allBlocks.getBlock(passInCoordinate).getIsEmpty()
           && allBlocks.getBlock(passInCoordinate).getPlayerID()
           == currentPlayerIndex) {
+        System.out.print("F ");
         allBlocks.getBlock(passInCoordinate).getBlockState().choose();
         setAvailablePosition(currentPlayerIndex, passInCoordinate);
       }

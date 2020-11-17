@@ -110,7 +110,8 @@ public class Database {
         game.setAllBlockStates((String) dataSnapshot.getValue());
         System.out.println(game.getAllBlockStatesAsString());
         game.enableTurns();
-        game.getCurrentPlayer().makePlay(new Coordinate(0, 0));
+//        game.notifyObservers();
+        game.getOppositePlayer().makePlay(new Coordinate(0, 0));
         gameRef.removeEventListener(this);
       }
 

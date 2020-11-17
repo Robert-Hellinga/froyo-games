@@ -22,15 +22,15 @@ public class CheckersGame extends Game {
         " isFinishAround: " + checkBoard.isFinishARound());
     if (turnsEnabled) {
 
-      System.out.print(1 + " ");
+//      System.out.print(1 + " ");
       checkBoard.play(passInCoordinate, getCurrentPlayerIndex());
-      System.out.print(2 + " ");
+//      System.out.print(2 + " ");
 
       if (checkBoard.isFinishARound()) {
         playerTakeTurn();
         checkBoard.resetFinishAround();
       }
-      System.out.print(3 + " ");
+//      System.out.print(3 + " ");
 
       notifyObservers();
       System.out.println(4 + " ");
