@@ -7,7 +7,7 @@ import ooga.model.player.Player;
 
 public class Connect4Game extends Game {
 
-  private Connect4BlockGrid connect4Board;
+  private final Connect4BlockGrid connect4Board;
 
   public Connect4Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     super(gameType, playerOne, playerTwo, startPattern);
@@ -18,8 +18,13 @@ public class Connect4Game extends Game {
   public void play(Coordinate passInCoordinate) {
     connect4Board.play(passInCoordinate, getCurrentPlayerIndex());
     if (connect4Board.isFinishARound()){
-      playerTakeTurn();
-      connect4Board.resetFinishAround();
+      if (connect4Board.isWinningMove(getCurrentPlayerIndex())){
+        wonGame = true;
+      }
+      else{
+        playerTakeTurn();
+        connect4Board.resetFinishAround();
+      }
     }
     notifyObservers();
   }
@@ -27,5 +32,18 @@ public class Connect4Game extends Game {
   @Override
   public BlockGrid getBoard() {
     return connect4Board;
+  }
+
+  @Override
+  public Player getWinningPlayer() {
+    if (wonGame){
+      return currentPlayer;
+    }
+    return null;
+  }
+
+  @Override
+  public boolean currentPlayerHavePotentialMoves() {
+    return false;
   }
 }
