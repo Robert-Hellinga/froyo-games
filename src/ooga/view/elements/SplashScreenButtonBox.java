@@ -23,7 +23,6 @@ public class SplashScreenButtonBox extends VBox {
       .of(0, "Othello", 1, "Checkers", 2, "Connect4");
   private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
 
-
   private static final String[] GAME_BUTTONS = {"Othello", "Checkers", "Connect4"};
   private static final String[] PLAYER_BUTTONS = {"OnePlayer", "TwoPlayer", "TwoPlayerOnline"};
 
@@ -56,12 +55,8 @@ public class SplashScreenButtonBox extends VBox {
     VBox result = new VBox();
     result.setSpacing(SMALL_SPACING);
     result.setAlignment(Pos.CENTER);
-    gameButtonGroup = new ToggleButtonGroup(
-        result,
-        resources,
-        14,
-        GAME_BUTTONS
-    );
+    gameButtonGroup = new ToggleButtonGroup(result, resources);
+    gameButtonGroup.addButtons(GAME_BUTTONS);
 //    connect4Btn.setId(CONNECT_4_BTN + BTN_STRING);
     return result;
   }
@@ -75,10 +70,10 @@ public class SplashScreenButtonBox extends VBox {
         resources,
         PLAYER_BTN_WIDTH,
         PLAYER_BTN_HEIGHT,
-        14,
-        PLAYER_BUTTONS
+        14
     );
 
+    playerButtonGroup.addButtons(PLAYER_BUTTONS);
     playerButtonGroup.setOnButtonPushed(2, event -> getOpponentName());
     playerButtonGroup.setButtonStyles(BUTTON_FACTORY.INFO_STYLE);
 //    twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
