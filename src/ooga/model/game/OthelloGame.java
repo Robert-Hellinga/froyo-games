@@ -1,7 +1,5 @@
 package ooga.model.game;
 
-import java.util.ArrayList;
-import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.OthelloBlockGrid;
@@ -26,12 +24,19 @@ public class OthelloGame extends Game {
           wonGame = true;
         } else {
           playerTakeTurn();
+          if (!currentPlayerHavePotentialMoves()){
+            haveNoPotentialMove = true;
+          }
           othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
           othelloBoard.resetFinishAround();
         }
       }
     }
     notifyObservers();
+  }
+
+  public boolean currentPlayerHavePotentialMoves(){
+    return !othelloBoard.getAllPotentialMoves(getCurrentPlayerIndex()).isEmpty();
   }
 
   @Override

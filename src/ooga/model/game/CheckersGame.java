@@ -9,8 +9,6 @@ import ooga.model.player.Player;
 
 public class CheckersGame extends Game {
 
-
-
   private CheckersBlockGrid checkersBoard;
 
   public CheckersGame(String gameType, Player playerOne, Player playerTwo, String startPattern){
@@ -44,5 +42,10 @@ public class CheckersGame extends Game {
       return currentPlayer;
     }
     return null;
+  }
+
+  @Override
+  public boolean currentPlayerHavePotentialMoves() {
+    return !checkersBoard.getAllPotentialMoves(getCurrentPlayerIndex()).isEmpty();
   }
 }

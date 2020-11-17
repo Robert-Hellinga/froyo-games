@@ -2,6 +2,7 @@ package ooga.model.checkerboard.blockgrid;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
@@ -122,5 +123,17 @@ public abstract class BlockGrid{
     } else {
       return playerIndexPoll.get(index + 1);
     }
+  }
+
+  public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
+    List<Coordinate> allPotentialMoves = new ArrayList<>();
+    for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+      for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
+        Coordinate coordinate = new Coordinate(i, j);
+        allPotentialMoves.addAll(allBlocks.getBlock(coordinate)
+            .getAvailablePosition(currentPlayerIndex, allBlocks));
+      }
+    }
+    return allPotentialMoves;
   }
 }

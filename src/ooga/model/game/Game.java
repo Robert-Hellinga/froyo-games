@@ -23,6 +23,7 @@ public abstract class Game {
   protected Player currentPlayer;
   protected List<ModelObserver> observers;
   protected boolean wonGame;
+  protected boolean haveNoPotentialMove;
 
   public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     allPlayers.add(playerOne);
@@ -30,6 +31,7 @@ public abstract class Game {
     currentPlayer = playerOne;
     observers = new ArrayList<>();
     wonGame = false;
+    haveNoPotentialMove = false;
   }
 
 
@@ -97,4 +99,18 @@ public abstract class Game {
   }
 
   public abstract Player getWinningPlayer();
+
+  public boolean isHaveNoPotentialMove() {
+    return haveNoPotentialMove;
+  }
+
+  public void resetHaveNotPotentialMove(){
+    haveNoPotentialMove = false;
+  }
+
+  public abstract boolean currentPlayerHavePotentialMoves();
+
+  public void endGame(){
+    wonGame = true;
+  }
 }

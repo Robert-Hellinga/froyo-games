@@ -10,11 +10,9 @@ import ooga.model.game.CheckersGame;
 public class CheckersBlockGrid extends BlockGrid {
 
 
-
   public CheckersBlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers){
     super(gameType, allBlockConfig, numPlayers);
   }
-
 
 
   @Override
@@ -26,6 +24,8 @@ public class CheckersBlockGrid extends BlockGrid {
       }
     }
   }
+
+
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){

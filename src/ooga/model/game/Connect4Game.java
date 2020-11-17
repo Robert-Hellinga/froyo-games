@@ -41,4 +41,9 @@ public class Connect4Game extends Game {
     }
     return null;
   }
+
+  @Override
+  public boolean currentPlayerHavePotentialMoves() {
+    return false;
+  }
 }
