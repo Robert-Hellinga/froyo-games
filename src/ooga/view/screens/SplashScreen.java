@@ -9,13 +9,16 @@ import ooga.fileHandler.Resources;
 import ooga.view.Styleable;
 import ooga.view.Util;
 import ooga.view.elements.SplashScreenButtonBox;
-import ooga.view.elements.SplashScreenTitleBox;
+import ooga.view.elements.ImageBox;
 
 public class SplashScreen extends GridPane implements Styleable {
 
   private static final String BACKGROUND_STYLE_CLASS = "background";
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String RESOURCE_FILE = "SplashScreen";
+  private static final String TITLE_IMG_PATH = "resources/img/title.png";
+  private static final int TITLE_IMG_WIDTH = 500; // Shrink to 500px
+
   private static final int SCREEN_WIDTH = 600;
   private static final int SCREEN_HEIGHT = 450;
 
@@ -32,7 +35,7 @@ public class SplashScreen extends GridPane implements Styleable {
 
     getColumnConstraints().add(Util.getColumnConstraints(Priority.NEVER, SCREEN_WIDTH));
 
-    add(new SplashScreenTitleBox(), 0, 0);
+    add(new ImageBox(TITLE_IMG_PATH, TITLE_IMG_WIDTH), 0, 0);
     getRowConstraints().add(Util.getRowConstraints(Priority.NEVER, 120));
     getStyleClass().add(BACKGROUND_STYLE_CLASS);
 

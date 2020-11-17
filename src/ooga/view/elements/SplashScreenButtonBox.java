@@ -42,6 +42,7 @@ public class SplashScreenButtonBox extends VBox {
   private ToggleButtonGroup gameButtonGroup, playerButtonGroup;
   private IFroyoController controller;
   private String opponentName;
+  private TextField playerName;
 
   public SplashScreenButtonBox(Resources resources, IFroyoController controller) {
     this.resources = resources;
@@ -61,9 +62,7 @@ public class SplashScreenButtonBox extends VBox {
         14,
         GAME_BUTTONS
     );
-
 //    connect4Btn.setId(CONNECT_4_BTN + BTN_STRING);
-
     return result;
   }
 
@@ -81,10 +80,8 @@ public class SplashScreenButtonBox extends VBox {
     );
 
     playerButtonGroup.setOnButtonPushed(2, event -> getOpponentName());
-
     playerButtonGroup.setButtonStyles(BUTTON_FACTORY.INFO_STYLE);
 //    twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
-
     return result;
   }
 
@@ -100,11 +97,11 @@ public class SplashScreenButtonBox extends VBox {
     result.setAlignment(Pos.CENTER);
     result.setSpacing(MEDIUM_SPACING);
 
-    TextField playerName = new TextField();
+    playerName = new TextField();
     playerName.setPrefColumnCount(8);
     playerName.setPromptText(resources.getString(PLAYER_NAME_FIELD));
     Button startButton = BUTTON_FACTORY.makeButton(resources.getString(START_BTN),
-        event -> startGame(playerName.getText()));
+        event -> startGame());
     startButton.setId(START_BTN + BTN_STRING);
 
     startButton.getStyleClass().add(BUTTON_FACTORY.SUCCESS_STYLE);
@@ -112,25 +109,23 @@ public class SplashScreenButtonBox extends VBox {
     return result;
   }
 
-  private void startGame(String username) {
+  private void startGame() {
     if (buttonsAreSelected()) {
-      if (username.isEmpty()) {
-        noNamePopUp();
-      } else {
-        String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());
-        boolean onePlayer = playerButtonGroup.getToggleIndexSelected() == 0;
-        boolean online = playerButtonGroup.getToggleIndexSelected() == 2;
-        controller.startGame(resources.getLocale(), gameType, onePlayer, username, online, opponentName);
-      }
+      String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());
+      boolean onePlayer = playerButtonGroup.getToggleIndexSelected() == 0;
+      boolean online = playerButtonGroup.getToggleIndexSelected() == 2;
+      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online,
+          opponentName);
+    }
+    else {
+      Alert alert = new Alert(AlertType.NONE, resources.getString(NO_NAME_MESSAGE), ButtonType.OK);
+      alert.showAndWait();
     }
   }
 
-  private void noNamePopUp() {
-    Alert alert = new Alert(AlertType.NONE, resources.getString(NO_NAME_MESSAGE), ButtonType.OK);
-    alert.showAndWait();
-  }
-
   private boolean buttonsAreSelected() {
-    return gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle();
+    return gameButtonGroup.hasSelectedToggle() &&
+        playerButtonGroup.hasSelectedToggle() &&
+        !playerName.getText().isEmpty();
   }
 }
