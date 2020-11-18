@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.exceptions.FileException;
-import ooga.fileHandler.Database;
+import ooga.controller.SocialController;
 import ooga.fileHandler.FileReader;
 import ooga.model.player.Player;
 import ooga.model.checkerboard.BlockConfigStructure;
@@ -25,12 +25,12 @@ public abstract class Game {
   protected List<ModelObserver> observers;
   protected boolean wonGame;
   protected boolean haveNoPotentialMove;
-  protected Database database;
+  protected SocialController socialController;
   protected boolean turnsEnabled;
 
   public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     this.gameType = gameType;
-    database = null;
+    socialController = null;
     allPlayers.add(playerOne);
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
@@ -46,13 +46,13 @@ public abstract class Game {
     return fileReader.makeBlockStructure();
   }
 
-  public void setDatabase(Database database) {
-    this.database = database;
+  public void setDatabase(SocialController socialController) {
+    this.socialController = socialController;
   }
 
   public void updateDatabase() {
-    if(database != null) {
-      database.updateGame(false);
+    if(socialController != null) {
+      socialController.updateGame(false);
     }
   }
 

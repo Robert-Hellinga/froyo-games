@@ -10,7 +10,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
-import ooga.fileHandler.Database;
 import ooga.model.game.Game;
 import ooga.model.player.AIPlayer;
 import ooga.model.player.HumanPlayer;
@@ -20,7 +19,7 @@ import ooga.view.screens.GameScreen;
 public class FroyoController implements IFroyoController{
 
   private Stage myStage;
-  private Database database;
+  private SocialController socialController;
 
   public FroyoController(Stage stage){
     myStage = stage;
@@ -42,9 +41,9 @@ public class FroyoController implements IFroyoController{
     setNewLayout(gameScreen);
 
     if(online) {
-      database = new Database(userPlayer, secondPlayer, gameController, game);
-      database.joinGame();
-      game.setDatabase(database);
+      socialController = new SocialController(userPlayer, secondPlayer, gameController, game);
+      socialController.joinGame();
+      game.setDatabase(socialController);
     }
   }
 

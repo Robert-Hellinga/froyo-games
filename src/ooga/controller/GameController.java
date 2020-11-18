@@ -1,7 +1,6 @@
 package ooga.controller;
 
 import java.util.List;
-import java.util.Optional;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
@@ -9,7 +8,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 import ooga.Coordinate;
-import ooga.fileHandler.Database;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
 

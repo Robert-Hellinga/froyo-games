@@ -1,4 +1,4 @@
-package ooga.fileHandler;
+package ooga.controller;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -29,11 +29,13 @@ import ooga.Coordinate;
 import ooga.controller.FroyoController;
 import ooga.controller.IGameController;
 import ooga.exceptions.FileException;
+import ooga.fileHandler.DatabaseGame;
+import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
 import ooga.view.screens.SplashScreen;
 
-public class Database {
+public class SocialController {
 
   private static final String KEY_PATH = "../../resources/social/database-key.txt";
   private static final String APP_URL = "https://froyogames-1df28.firebaseio.com/";
@@ -48,7 +50,7 @@ public class Database {
   private Game game;
   private IGameController gameController;
 
-  public Database(Player creatorPlayer, Player opponentPlayer, IGameController gameController, Game game) {
+  public SocialController(Player creatorPlayer, Player opponentPlayer, IGameController gameController, Game game) {
     this.creatorPlayer = creatorPlayer;
     this.opponentPlayer = opponentPlayer;
     this.gameController = gameController;
@@ -116,9 +118,7 @@ public class Database {
 
       @Override
       public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-        System.out.println("received turn");
         game.setAllBlockStates((String) dataSnapshot.getValue());
-        System.out.println("any moves after update?: " + game.currentPlayerHavePotentialMoves());
         if(!game.currentPlayerHavePotentialMoves()) {
           updateGame(true);
         }
@@ -146,7 +146,6 @@ public class Database {
 
   public void updateGame(boolean forceTurnSwitch) {
     String dataToUpload = game.getAllBlockStatesAsString();
-    System.out.println(forceTurnSwitch);
     if(forceTurnSwitch) {
       dataToUpload += "-1";
     }
