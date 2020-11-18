@@ -10,7 +10,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
-import ooga.view.elements.SplashScreenButtonBox;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
