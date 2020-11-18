@@ -12,6 +12,7 @@ public class ToggleButtonGroup extends ButtonGroup {
   private static final int DEFAULT_TOGGLE_BTN_WIDTH = 230;
   private static final int DEFAULT_TOGGLE_BTN_HEIGHT = 55;
   private static final int DEFAULT_TOGGLE_BTN_TEXT_SIZE = 14;
+  private static final String BTN_STRING = "Btn";
 
   private ToggleGroup toggleGroup;
 
