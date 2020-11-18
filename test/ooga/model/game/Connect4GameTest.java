@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.game;
 
 import static org.junit.jupiter.api.Assertions.*;
 

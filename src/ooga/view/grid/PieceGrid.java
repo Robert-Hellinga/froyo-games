@@ -1,15 +1,8 @@
 package ooga.view.grid;
-
-import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
 import ooga.Coordinate;
-import ooga.controller.GameController;
 import ooga.controller.IGameController;
-import org.apache.commons.collections.ArrayStack;
 
 public class PieceGrid extends GridPane {
 
