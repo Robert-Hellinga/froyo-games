@@ -5,7 +5,7 @@ import java.util.List;
 import ooga.Coordinate;
 import ooga.model.game.Game;
 
-public abstract class Player{
+public abstract class Player {
 
   private String name;
   private int ID;
@@ -20,7 +20,7 @@ public abstract class Player{
     this.name = name;
   }
 
-  public void setMyGame(Game game, String gameType){
+  public void setMyGame(Game game, String gameType) {
     this.myGame = game;
   }
 
@@ -32,18 +32,17 @@ public abstract class Player{
     this.ID = ID;
   }
 
-  public List<Coordinate> calculateNextCoordinates(){
-    return new ArrayList<Coordinate>();
+  public List<Coordinate> calculateNextCoordinates() {
+    return new ArrayList<>();
   }
 
-  public void makePlay(Coordinate coordinate){
+  public void makePlay(Coordinate coordinate) {
     myGame.play(coordinate);
   }
 
-  protected Game getMyGame(){
+  protected Game getMyGame() {
     return myGame;
   }
-
 
 
 }
