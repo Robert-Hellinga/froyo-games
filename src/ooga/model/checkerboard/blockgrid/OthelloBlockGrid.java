@@ -8,7 +8,6 @@ import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.OthelloBlock;
 import ooga.model.game.Game;
-import ooga.model.player.Player;
 
 public class OthelloBlockGrid extends BlockGrid {
 
@@ -53,7 +52,7 @@ public class OthelloBlockGrid extends BlockGrid {
               .getBlockStructureHeight()) {
             break;
           }
-          if (!allBlocks.getBlock(extendedNeighbor).getBlockState().isEmpty()) {
+          else if (!allBlocks.getBlock(extendedNeighbor).getBlockState().isEmpty()) {
             if (allBlocks.getBlock(extendedNeighbor).getBlockState().getPlayerID()
                 == currentPlayerIndex) {
               changePieceSeriesState(passInCoordinate, extendedNeighbor, currentPlayerIndex,

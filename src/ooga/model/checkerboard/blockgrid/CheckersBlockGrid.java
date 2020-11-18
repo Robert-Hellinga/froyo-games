@@ -1,9 +1,7 @@
 package ooga.model.checkerboard.blockgrid;
 
-import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
-import ooga.model.ai.CheckersAIBrain;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.game.CheckersGame;
 
@@ -117,12 +115,10 @@ public class CheckersBlockGrid extends BlockGrid {
       for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
         Coordinate coordinate = new Coordinate(j, i);
         if (allBlocks.getBlock(coordinate).getPlayerID() == playerTakeTurn(playerID,
-            CheckersGame.PLAYER_INDEX_POLL)) {
-          if (!allBlocks.getBlock(coordinate)
-              .getAvailablePosition(playerTakeTurn(playerID, CheckersGame.PLAYER_INDEX_POLL),
-                  allBlocks).isEmpty()) {
-            return false;
-          }
+            CheckersGame.PLAYER_INDEX_POLL) && !allBlocks.getBlock(coordinate)
+            .getAvailablePosition(playerTakeTurn(playerID, CheckersGame.PLAYER_INDEX_POLL),
+                allBlocks).isEmpty()) {
+          return false;
         }
       }
     }
