@@ -116,9 +116,17 @@ public class Database {
 
       @Override
       public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+        System.out.println("received turn");
         game.setAllBlockStates((String) dataSnapshot.getValue());
-        game.playerTakeTurn();
-        gameController.setClickingEnabled(true);
+        System.out.println("any moves after update?: " + game.currentPlayerHavePotentialMoves());
+        if(!game.currentPlayerHavePotentialMoves()) {
+          updateGame(true);
+        }
+        else {
+          game.playerTakeTurn();
+          gameController.setClickingEnabled(true);
+        }
+
         gameRef.removeEventListener(this);
       }
 
@@ -136,7 +144,13 @@ public class Database {
 
   }
 
-  public void updateGame() {
+  public void updateGame(boolean forceTurnSwitch) {
+    String dataToUpload = game.getAllBlockStatesAsString();
+    System.out.println(forceTurnSwitch);
+    if(forceTurnSwitch) {
+      dataToUpload += "-1";
+    }
+
     gameRef.child(BOARD_STATE_KEY).setValue(game.getAllBlockStatesAsString(),
         (databaseError, databaseReference) -> {
           if (databaseError != null) {

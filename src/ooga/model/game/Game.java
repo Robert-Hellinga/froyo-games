@@ -50,6 +50,15 @@ public abstract class Game {
     this.database = database;
   }
 
+  public void updateDatabase() {
+    if(database != null) {
+      database.updateGame(false);
+    }
+  }
+
+  public String getGameType() {
+    return gameType;
+  }
 
   public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
@@ -76,6 +85,7 @@ public abstract class Game {
     getBoard().setAllBlockStates(stateString);
   }
 
+  // TODO refactor this to happen within BlockStructure or BlockGrid
   public List<List<Integer>> getAllBlockStates() {
     BlockStructure blocks = getBoard().getAllBlocks();
     List<List<Integer>> blockState = new ArrayList<>();
@@ -90,6 +100,7 @@ public abstract class Game {
     return blockState;
   }
 
+  // TODO refactor this to happen within BlockStructure or BlockGrid
   public String getAllBlockStatesAsString() {
     BlockStructure blocks = getBoard().getAllBlocks();
     String result = "";

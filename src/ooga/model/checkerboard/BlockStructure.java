@@ -47,9 +47,9 @@ public class BlockStructure {
 
   public BlockConfigStructure getBlockConfigStructure(){
     List<List<Integer>> allBlockConfig = new ArrayList<>();
-    for (List<Block> bLockList: blockStructure){
+    for (List<Block> blockList : blockStructure){
       List<Integer> configList = new ArrayList<>();
-      for (Block block: bLockList){
+      for (Block block : blockList){
         if (block.getIsEmpty()){
           configList.add(0);
         }

@@ -23,10 +23,11 @@ public class OthelloGame extends Game {
         if (othelloBoard.isWinningMove(getCurrentPlayerIndex())) {
           wonGame = true;
         } else {
+          updateDatabase();
           playerTakeTurn();
-          if (!currentPlayerHavePotentialMoves()){
-            haveNoPotentialMove = true;
-          }
+//          if (!currentPlayerHavePotentialMoves()){
+//            haveNoPotentialMove = true;
+//          }
           othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
           othelloBoard.resetFinishAround();
         }
@@ -35,6 +36,7 @@ public class OthelloGame extends Game {
     notifyObservers();
   }
 
+  @Override
   public boolean currentPlayerHavePotentialMoves(){
     return !othelloBoard.getAllPotentialMoves(getCurrentPlayerIndex()).isEmpty();
   }

@@ -33,7 +33,9 @@ public abstract class BlockGrid{
       List<Block> blockLine = new ArrayList<>();
       for(int j = 0; j < row.length; j++) {
         Integer cellConfig = Integer.parseInt(row[j]);
-        blockLine.add(BlockGrid.createBlock(gameType, cellConfig, new Coordinate(j, i)));
+        if(cellConfig.intValue() != -1) {
+          blockLine.add(BlockGrid.createBlock(gameType, cellConfig, new Coordinate(j, i)));
+        }
       }
       newBlockStates.add(blockLine);
     }
