@@ -31,6 +31,7 @@ public class SplashScreenButtonBox extends VBox {
   private static final String PLAYER_NAME_FIELD = "Username";
   private static final String NO_NAME_MESSAGE = "NoNameMessage";
   private static final String BTN_STRING = "Btn"; // for id's
+  private static final String FIELD_STRING = "Field"; // for id's
 
   private static final int PLAYER_BTN_WIDTH = 140;
   private static final int PLAYER_BTN_HEIGHT = 50;
@@ -95,6 +96,7 @@ public class SplashScreenButtonBox extends VBox {
     result.setSpacing(MEDIUM_SPACING);
 
     TextField playerName = new TextField();
+    playerName.setId(PLAYER_NAME_FIELD + FIELD_STRING);
     playerName.setPrefColumnCount(8);
     playerName.setPromptText(resources.getString(PLAYER_NAME_FIELD));
     Button startButton = BUTTON_FACTORY.makeButton(resources.getString(START_BTN),

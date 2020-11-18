@@ -71,8 +71,7 @@ public class FroyoController implements IFroyoController{
       Object gameObject = cons.newInstance(paramObject);
       return (Game) gameObject;
     } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-      e.printStackTrace();
-      throw new ClassOrMethodNotFoundException("class or method is not found");
+      throw new ClassOrMethodNotFoundException("Class not found.");
     }
   }
 
