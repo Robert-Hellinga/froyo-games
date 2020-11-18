@@ -1,5 +1,6 @@
 package ooga.view.screens;
 
+import java.util.List;
 import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
@@ -9,6 +10,7 @@ import ooga.controller.IFroyoController;
 import ooga.controller.IGameController;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
+import ooga.model.player.Player;
 import ooga.view.ModelObserver;
 import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.PlayerTurnBox;
@@ -51,12 +53,20 @@ public class GameScreen extends GridPane implements ModelObserver {
     setVgap(SCREEN_V_SPACING);
     setHgap(SCREEN_H_SPACING);
 
-    add(new PlayerTurnBox(), 1, 0);
+    String playerOneName = getPlayerName(0);
+    String playerTwoName = getPlayerName(1);
+    add(new PlayerTurnBox(playerOneName), 1, 0);
     add(getControlButtonGroup(), 0, 1);
     add(grid, 1, 1);
-    add(new PlayerTurnBox(), 1, 2);
+    add(new PlayerTurnBox(playerTwoName), 1, 2);
 
     Util.applyStyleSheet(this);
+  }
+
+  private String getPlayerName(int index) {
+    List<Player> players = game.getAllPlayers();
+    Player player = players.get(index);
+    return player.getName();
   }
 
   private VBox getControlButtonGroup() {

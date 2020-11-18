@@ -12,10 +12,10 @@ public class PlayerTurnBox extends HBox implements ModelObserver {
   private static final String STYLE_CLASS = "turnbox";
   private static final int CIRCLE_RADIUS = 20;
 
-  public PlayerTurnBox() {
+  public PlayerTurnBox(String playerName) {
     getStyleClass().add(STYLE_CLASS);
 
-    Label text = new Label("Player");
+    Label text = new Label(playerName);
     text.setFont(new Font(20));
 
     getChildren().addAll(text, makePlayerCircle());
