@@ -2,6 +2,7 @@ package ooga.model;
 
 import java.util.List;
 import ooga.Coordinate;
+import ooga.model.game.CheckersGame;
 
 public class CheckersBlockGrid extends BlockGrid {
 
@@ -9,7 +10,9 @@ public class CheckersBlockGrid extends BlockGrid {
     super(gameType, allBlockConfig, numPlayers);
   }
 
-
+  public CheckersBlockGrid(BlockGrid checkBoard) {
+    super(checkBoard);
+  }
 
   @Override
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
@@ -20,6 +23,7 @@ public class CheckersBlockGrid extends BlockGrid {
       }
     }
   }
+
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
@@ -74,8 +78,8 @@ public class CheckersBlockGrid extends BlockGrid {
                 newPosition.yCoordinate() + yIndicator);
             if (allBlocks.getBlock(interCoordinate).getBlockState().isPotentialMove()){
               removeCheckedPiece(interCoordinate, originalPosition);
-              crossPiece(new Coordinate(newPosition.xCoordinate() + xIndicator/2,
-                  newPosition.yCoordinate() + yIndicator/2));
+              crossPiece(new Coordinate(newPosition.xCoordinate() + xIndicator / 2,
+                  newPosition.yCoordinate() + yIndicator / 2));
               breakLoop = true;
               break;
             }
@@ -88,12 +92,12 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
-  private void crossPiece(Coordinate pieceToRemoveCoordinate){
+  private void crossPiece(Coordinate pieceToRemoveCoordinate) {
     allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setEmpty(true);
     allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setPlayerID(0);
   }
 
-  public void makeBlockKing(Coordinate newCoordinate){
+  public void makeBlockKing(Coordinate newCoordinate) {
     if (newCoordinate.yCoordinate() == 0
         && allBlocks.getBlock(newCoordinate).getPlayerID() == 2){
       allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
@@ -104,16 +108,19 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
-  @Override
-  public BlockGrid clone() {
-    BlockGrid blockGrid = new CheckersBlockGrid(gameType, allBlocks.getBlockConfigStructure(), numPlayers);
-    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++){
-      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++){
-        blockGrid.getAllBlocks().getBlock(new Coordinate(j,i)).setBlockState(
-            allBlocks.getBlock(new Coordinate(j,i)).getBlockState().clone()
-        );
+
+  public boolean isWinningMove(int playerID) {
+    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++) {
+      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
+        Coordinate coordinate = new Coordinate(j, i);
+        if (allBlocks.getBlock(coordinate).getPlayerID() == playerTakeTurn(playerID,
+            CheckersGame.PLAYER_INDEX_POLL) && !allBlocks.getBlock(coordinate)
+            .getAvailablePosition(playerTakeTurn(playerID, CheckersGame.PLAYER_INDEX_POLL),
+                allBlocks).isEmpty()) {
+          return false;
+        }
       }
     }
-    return blockGrid;
+    return true;
   }
 }

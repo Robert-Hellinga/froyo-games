@@ -10,14 +10,14 @@ import ooga.controller.IGameController;
 public class PieceGrid extends GridPane {
 
   private static final int GRID_SPACING = 4;
-  private IGameController controller;
-  private String gameType = "";
+  private final IGameController controller;
 
   public PieceGrid(IGameController controller, List<List<Integer>> initialPieceLayout) {
     this.controller = controller;
     update(initialPieceLayout);
     setHgap(GRID_SPACING);
     setVgap(GRID_SPACING);
+    update(initialPieceLayout);
   }
 
   public void update(List<List<Integer>> newPieceStates) {
@@ -32,7 +32,5 @@ public class PieceGrid extends GridPane {
       }
     }
   }
-
-  public void setGameType(String newGameType){ gameType = newGameType;}
 
 }

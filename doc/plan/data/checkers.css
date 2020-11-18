@@ -1,22 +1,22 @@
 .even-square {
-    -fx-fill: red
+  -fx-fill: red
 }
 
 .odd-square {
-    -fx-fill: black
-    }
+  -fx-fill: black
+}
 
 .player-one-piece {
-    -fx-fill: red
+  -fx-fill: red
 }
 
 .player-two-piece {
-    -fx-fill: white
+  -fx-fill: white
 }
 
 .name {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #006464;
-    -fx-opacity: 0.6;
+  -fx-font-size: 11pt;
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-text-fill: #006464;
+  -fx-opacity: 0.6;
 }

@@ -5,6 +5,7 @@ import java.util.Locale;
 import ooga.exceptions.ResourceException;
 
 import java.util.ResourceBundle;
+import ooga.exceptions.ResourceException;
 import java.util.Set;
 
 /**
@@ -33,8 +34,9 @@ public class Resources {
   }
 
   /**
-   * If a resource has a (key,value) pair that returns a String, this method can
-   * be called to get the value using the corresponding key
+   * If a resource has a (key,value) pair that returns a String, this method can be called to get
+   * the value using the corresponding key
+   *
    * @param key The key used to get the value from the properties file
    * @return value associated with the given key
    */
@@ -46,8 +48,9 @@ public class Resources {
   }
 
   /**
-   * If a resource has a (key,value) pair that returns an object, this method can
-   * be called to get the value using the corresponding key
+   * If a resource has a (key,value) pair that returns an object, this method can be called to get
+   * the value using the corresponding key
+   *
    * @param key The key used to get the value from the properties file
    * @return value associated with the given key
    */

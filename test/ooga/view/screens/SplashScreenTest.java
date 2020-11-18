@@ -1,21 +1,22 @@
 package ooga.view.screens;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Locale;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
-import ooga.view.elements.SplashScreenButtonBox;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 class SplashScreenTest extends DukeApplicationTest {
+
   private IFroyoController controller;
   private SplashScreen splashScreen;
   private Stage stage;
@@ -25,14 +26,15 @@ class SplashScreenTest extends DukeApplicationTest {
   private ToggleButton connect4Btn;
   private ToggleButton onePlayerBtn;
   private ToggleButton twoPlayerBtn;
+  private ToggleButton twoPlayerOnlineBtn;
   private ToggleGroup gameToggle;
   private ToggleGroup playerToggle;
+  private TextField nameField;
   private Button startBtn;
 
 
-
   @Override
-  public void start(Stage stage){
+  public void start(Stage stage) {
     this.stage = stage;
     controller = new FroyoController(stage);
     splashScreen = new SplashScreen(Locale.ENGLISH, controller);
@@ -44,21 +46,25 @@ class SplashScreenTest extends DukeApplicationTest {
 
     onePlayerBtn = lookup("#OnePlayerBtn").queryAs(ToggleButton.class);
     twoPlayerBtn = lookup("#TwoPlayerBtn").queryAs(ToggleButton.class);
+    twoPlayerOnlineBtn = lookup("#TwoPlayer(Online)Btn").queryAs(ToggleButton.class);
     playerToggle = onePlayerBtn.getToggleGroup();
 
-    startBtn = lookup("#StartBtn").queryAs(Button.class);;
+    nameField = lookup("#UsernameField").queryAs(TextField.class);
+
+    startBtn = lookup("#StartGameBtn").queryAs(Button.class);
+
   }
 
   @Test
   public void testGameSelected() {
     assertEquals(gameToggle.getSelectedToggle(), null);
     clickOn(othelloBtn);
-    assertEquals(gameToggle.getSelectedToggle(),othelloBtn);
+    assertEquals(gameToggle.getSelectedToggle(), othelloBtn);
     clickOn(checkersBtn);
-    assertEquals(gameToggle.getSelectedToggle(),checkersBtn);
+    assertEquals(gameToggle.getSelectedToggle(), checkersBtn);
     assertFalse(othelloBtn.isSelected());
     clickOn(connect4Btn);
-    assertEquals(gameToggle.getSelectedToggle(),connect4Btn);
+    assertEquals(gameToggle.getSelectedToggle(), connect4Btn);
     assertFalse(othelloBtn.isSelected());
     assertFalse(checkersBtn.isSelected());
   }
@@ -70,8 +76,9 @@ class SplashScreenTest extends DukeApplicationTest {
     assertEquals(playerToggle.getSelectedToggle(), onePlayerBtn);
     clickOn(twoPlayerBtn);
     assertEquals(playerToggle.getSelectedToggle(), twoPlayerBtn);
+    clickOn(twoPlayerOnlineBtn);
+    assertEquals(playerToggle.getSelectedToggle(), twoPlayerOnlineBtn);
   }
-
 
 
   // tests for game not starting because no name is given
@@ -80,7 +87,9 @@ class SplashScreenTest extends DukeApplicationTest {
     clickOn(checkersBtn);
     clickOn(onePlayerBtn);
     clickOn(startBtn);
-    assertEquals(getDialogMessage(), "Please enter a name.");
+    assertEquals("Please enter a name and select buttons.", getDialogMessage());
   }
+
+
 }
 

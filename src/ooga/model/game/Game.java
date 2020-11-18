@@ -1,10 +1,16 @@
 package ooga.model.game;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
+import ooga.controller.SocialController;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
+import ooga.model.checkerboard.BlockConfigStructure;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.player.Player;
 import ooga.model.player.Player;
 import ooga.model.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
@@ -14,18 +20,30 @@ import ooga.view.ModelObserver;
 
 public abstract class Game {
 
+  public static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
+
   protected String gameType;
-  protected List<Player> allPlayers = new ArrayList<>();
+  protected List<Player> allPlayers;
   protected int numPlayers;
   protected Player currentPlayer;
   protected List<ModelObserver> observers;
+  protected boolean wonGame;
+  protected boolean haveNoPotentialMove;
+  protected SocialController socialController;
+  protected boolean turnsEnabled;
 
   public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
+    this.gameType = gameType;
+    socialController = null;
+    allPlayers = new ArrayList<>();
     allPlayers.add(playerOne);
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
     observers = new ArrayList<>();
     this.gameType = gameType;
+    wonGame = false;
+    haveNoPotentialMove = false;
+    turnsEnabled = true;
   }
 
 
@@ -34,24 +52,19 @@ public abstract class Game {
     return fileReader.readBlockLayout();
   }
 
+  public void setDatabase(SocialController socialController) {
+    this.socialController = socialController;
+  }
 
-//  public void aiPlay(){
-//    List<Coordinate> aiMoves = aiBrain.decideMove(getBoard(), getCurrentPlayerIndex());
-//    for (Coordinate coordinate : aiMoves){
-//      play(coordinate);
-//    }
-//  }
+  public void updateDatabase() {
+    if (socialController != null) {
+      socialController.updateGame(false);
+    }
+  }
 
-//  private Player createSecondPlayer(PlayerMode playerMode) {
-//    if (playerMode.equals(PlayerMode.PLAY_WITH_AI)) {
-//      this.aiBrain = createAIBrain(gameType);
-//      return new Player("AI player", PlayerType.AI);
-//    }
-//    //TODO: need to implement the social feature: connect with another human player through social network
-//    return new Player("my friend", PlayerType.HUMAN);
-//  }
-
-
+  public String getGameType() {
+    return gameType;
+  }
 
   public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
@@ -74,37 +87,55 @@ public abstract class Game {
 
   public abstract void play(Coordinate passInCoordinate);
 
-  public List<List<Integer>> getAllBlockStates() {
-    BlockStructure blocks = getBoard().getAllBlocks();
-    List<List<Integer>> blockState = new ArrayList<>();
-    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
-      List<Integer> blockStateLine = new ArrayList<>();
-      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
-        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
-        blockStateLine.add(currentBlock.getBlockState().getNumericState());
-      }
-      blockState.add(blockStateLine);
-    }
-    return blockState;
+  public void setAllBlockStates(String stateString) {
+    getBoard().setAllBlockStates(stateString);
   }
 
-  public void registerObserver(ModelObserver observer){
+  public List<List<Integer>> getAllBlockStates() {
+    return getBoard().getAllBlockStates();
+  }
+
+  public String getAllBlockStatesAsString() {
+    return getBoard().getAllBlockStatesAsString();
+  }
+
+  public void registerObserver(ModelObserver observer) {
     observers.add(observer);
   }
 
-  public void removeObserver(ModelObserver observer){
+  public void removeObserver(ModelObserver observer) {
     observers.remove(observer);
   }
 
-  protected void notifyObservers() {
-    for (ModelObserver observer : observers){
+  public void notifyObservers() {
+    for (ModelObserver observer : observers) {
       observer.update();
     }
   }
 
-  public List<Player> getAllPlayers(){
+  public List<Player> getAllPlayers() {
     return allPlayers;
   }
 
   public String getGameType(){ return gameType;}
+
+  public boolean isPlayerWonGame() {
+    return wonGame;
+  }
+
+  public abstract Player getWinningPlayer();
+
+  public boolean isHaveNoPotentialMove() {
+    return haveNoPotentialMove;
+  }
+
+  public void resetHaveNotPotentialMove() {
+    haveNoPotentialMove = false;
+  }
+
+  public abstract boolean currentPlayerHavePotentialMoves();
+
+  public void endGame() {
+    wonGame = true;
+  }
 }
