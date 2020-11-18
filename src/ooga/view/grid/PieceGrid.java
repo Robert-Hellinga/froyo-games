@@ -1,4 +1,5 @@
 package ooga.view.grid;
+
 import java.util.List;
 import javafx.scene.layout.GridPane;
 import ooga.Coordinate;

@@ -1,13 +1,10 @@
 package ooga.model.game;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
-import ooga.controller.GameController.PlayerMode;
-import ooga.model.game.Connect4Game;
-import ooga.model.game.Game;
 import ooga.model.player.HumanPlayer;
 import ooga.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;

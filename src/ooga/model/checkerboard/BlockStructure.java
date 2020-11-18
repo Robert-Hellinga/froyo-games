@@ -46,15 +46,14 @@ public class BlockStructure {
     return blockStructure.get(0).size();
   }
 
-  public BlockConfigStructure getBlockConfigStructure(){
+  public BlockConfigStructure getBlockConfigStructure() {
     List<List<Integer>> allBlockConfig = new ArrayList<>();
-    for (List<Block> blockList : blockStructure){
+    for (List<Block> blockList : blockStructure) {
       List<Integer> configList = new ArrayList<>();
-      for (Block block : blockList){
-        if (block.getIsEmpty()){
+      for (Block block : blockList) {
+        if (block.getIsEmpty()) {
           configList.add(0);
-        }
-        else{
+        } else {
           configList.add(block.getPlayerID());
         }
       }

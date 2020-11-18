@@ -5,8 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
-import ooga.controller.IFroyoController;
 import ooga.Util;
+import ooga.controller.IFroyoController;
 import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.LabeledDropdown;
 
@@ -42,14 +42,16 @@ public class LanguageScreen extends GridPane {
 
     ButtonGroup startButton = new ButtonGroup(result, START_BTN_WIDTH, START_BTN_HEIGHT);
     startButton.addButtons(START_BTN_TEXT);
-    startButton.setOnButtonPushed(event -> new SplashScreen(languageSelector.getValue(), controller));
+    startButton
+        .setOnButtonPushed(event -> new SplashScreen(languageSelector.getValue(), controller));
     startButton.setButtonStyles(ButtonGroup.SUCCESS_STYLE);
 
     return result;
   }
 
   private LabeledDropdown getLanguageDropdown() {
-    LabeledDropdown<Locale> languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT, AVAILABLE_LOCALES);
+    LabeledDropdown<Locale> languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT,
+        AVAILABLE_LOCALES);
     languageDropdown.setConverter(new StringConverter<>() {
       @Override
       public String toString(Locale locale) {

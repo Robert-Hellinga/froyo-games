@@ -1,10 +1,8 @@
 package ooga.view.grid;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -13,8 +11,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import ooga.Coordinate;
-import javafx.scene.image.Image;
-import ooga.Main;
 import ooga.exceptions.ResourceException;
 
 public class Piece {
@@ -28,8 +24,10 @@ public class Piece {
   private static final String KING_PIECE_IMAGE_RED = "resources/img/king_piece_red.png";
   private static final String RESOURCE_PACKAGE = "resources.ui.";
 
-  private final ResourceBundle fillColorBundle = ResourceBundle.getBundle(RESOURCE_PACKAGE + "PieceFillColor");
-  private final ResourceBundle strokeColorBundle = ResourceBundle.getBundle(RESOURCE_PACKAGE + "PieceStrokeColor");
+  private final ResourceBundle fillColorBundle = ResourceBundle
+      .getBundle(RESOURCE_PACKAGE + "PieceFillColor");
+  private final ResourceBundle strokeColorBundle = ResourceBundle
+      .getBundle(RESOURCE_PACKAGE + "PieceStrokeColor");
   private Circle pieceShape;
   private int state;
   private final Coordinate coordinate;
@@ -66,16 +64,15 @@ public class Piece {
     return coordinate;
   }
 
-  public void updateColor(){
+  public void updateColor() {
     pieceShape.setFill(getColor(state, fillColorBundle));
     pieceShape.setStroke(getColor(state, strokeColorBundle));
     pieceShape.setStrokeWidth(HIGHLIGHT_STROKE_WIDTH);
 
-    if(state == 6 || state == 8){
+    if (state == 6 || state == 8) {
       Image kingPieceImage = loadImage(KING_PIECE_IMAGE_BLUE);
       pieceShape.setFill(new ImagePattern(kingPieceImage));
-    }
-    else if (state == 7 || state == 9){
+    } else if (state == 7 || state == 9) {
       Image kingPieceImage = loadImage(KING_PIECE_IMAGE_RED);
       pieceShape.setFill(new ImagePattern(kingPieceImage));
     }
@@ -84,12 +81,12 @@ public class Piece {
   private Image loadImage(String imageFile) throws ResourceException {
     try {
       return new Image(imageFile, SIZE, SIZE, false, false);
-    }catch (IllegalArgumentException e){
+    } catch (IllegalArgumentException e) {
       throw new ResourceException("file is not found");
     }
   }
 
-  private Color getColor(Integer state, ResourceBundle resourceBundle){
+  private Color getColor(Integer state, ResourceBundle resourceBundle) {
     String rgb = resourceBundle.getString(state.toString());
     String[] rgbValue = rgb.split(",");
     return Color.rgb(

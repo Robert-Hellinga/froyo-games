@@ -10,9 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import ooga.Util;
 import ooga.controller.IFroyoController;
 import ooga.fileHandler.Resources;
-import ooga.Util;
 import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.ImageBox;
 import ooga.view.elements.ToggleButtonGroup;
@@ -132,15 +132,17 @@ public class SplashScreen extends VBox {
   }
 
   private void startGame() {
-    boolean readyToStart = gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle() && !playerName.getText().isEmpty();
+    boolean readyToStart =
+        gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle() && !playerName
+            .getText().isEmpty();
 
     if (readyToStart) {
       String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());
       boolean onePlayer = playerButtonGroup.getToggleIndexSelected() == 0;
       boolean online = playerButtonGroup.getToggleIndexSelected() == 2;
-      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online, opponentName);
-    }
-    else {
+      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online,
+          opponentName);
+    } else {
       Alert alert = new Alert(AlertType.NONE, resources.getString(NO_NAME_MESSAGE), ButtonType.OK);
       alert.showAndWait();
     }

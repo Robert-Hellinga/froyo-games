@@ -7,11 +7,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import ooga.exceptions.ResourceException;
 import ooga.fileHandler.Resources;
 
 public class ButtonGroup {
@@ -51,7 +48,7 @@ public class ButtonGroup {
   }
 
   public void addButtons(String... labels) {
-    for(String label : labels) {
+    for (String label : labels) {
       ButtonBase btn = new Button();
       addButton(btn, getText(label));
     }
@@ -63,7 +60,7 @@ public class ButtonGroup {
   }
 
   public void setButtonStyles(String styleClass) {
-    for(ButtonBase btn : buttons) {
+    for (ButtonBase btn : buttons) {
       btn.getStyleClass().add(styleClass);
     }
   }

@@ -1,6 +1,7 @@
 package ooga.model.ai;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,6 @@ import ooga.model.game.OthelloGame;
 import ooga.model.player.AIPlayer;
 import ooga.model.player.HumanPlayer;
 import ooga.model.player.Player;
-import org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder.LambdaInstrumentationStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,13 +1,12 @@
 package ooga.fileHandler;
 
+import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.opencsv.CSVReader;
 import ooga.exceptions.FileException;
 import ooga.model.checkerboard.BlockConfigStructure;
 
@@ -21,7 +20,7 @@ public class FileReader {
     this("configuration/" + gameType + "_" + patternType + ".csv");
   }
 
-  public FileReader(String filePathName){
+  public FileReader(String filePathName) {
     this.filePath = filePathName;
     error = new Resources(Resources.ERROR_MESSAGES_FILE);
 
@@ -34,14 +33,14 @@ public class FileReader {
    *
    * @return List of each row from the configuration file
    */
-  public BlockConfigStructure makeBlockStructure(){
+  public BlockConfigStructure makeBlockStructure() {
     List<String[]> grid = readData();
     String gameType = grid.get(0)[0];
     grid.remove(0);
     List<List<Integer>> allConfig = new ArrayList<>();
-    for (String[] configLine: grid){
+    for (String[] configLine : grid) {
       List<Integer> configList = new ArrayList<>();
-      for (String config: configLine){
+      for (String config : configLine) {
         configList.add(Integer.parseInt(config));
       }
       allConfig.add(configList);
@@ -64,7 +63,7 @@ public class FileReader {
     }
   }
 
-  public void setFilePath(String newPath){
+  public void setFilePath(String newPath) {
     filePath = newPath;
   }
 }

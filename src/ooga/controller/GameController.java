@@ -15,10 +15,8 @@ public class GameController implements IGameController {
 
   private static final double FRAMES_PER_SECOND = 0.2;
   private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-  private static final double AI_DELAY = 0.05;
   private static final String SKIP_ROUND_MESSAGE = " have no moves to make, will have to skip the round.";
 
-  private double delayCounter = AI_DELAY;
   private boolean enableAIChecker = true;
   private Timeline animation;
 
@@ -28,7 +26,6 @@ public class GameController implements IGameController {
   }
 
   private final Game game;
-  private List<Player> allPlayers;
   private final PlayerMode mode;
   private boolean clickingEnabled;
 
@@ -36,17 +33,16 @@ public class GameController implements IGameController {
     this.game = game;
     this.mode = playerMode;
     clickingEnabled = true;
-    allPlayers = game.getAllPlayers();
     setupAnimation();
   }
 
   public void checkForAITurn() {
-    if (enableAIChecker){
-      if (game.getCurrentPlayerIndex() == 2 && mode == PlayerMode.PLAY_WITH_AI){
-          List<Coordinate> coords = game.getCurrentPlayer().calculateNextCoordinates();
-          for(Coordinate coord : coords){
-            game.getCurrentPlayer().makePlay(coord);
-          }
+    if (enableAIChecker) {
+      if (game.getCurrentPlayerIndex() == 2 && mode == PlayerMode.PLAY_WITH_AI) {
+        List<Coordinate> coords = game.getCurrentPlayer().calculateNextCoordinates();
+        for (Coordinate coord : coords) {
+          game.getCurrentPlayer().makePlay(coord);
+        }
       }
     }
   }
@@ -58,7 +54,7 @@ public class GameController implements IGameController {
 
   @Override
   public void clickPiece(Coordinate coordinate) {
-    if(clickingEnabled) {
+    if (clickingEnabled) {
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
     }
@@ -70,27 +66,29 @@ public class GameController implements IGameController {
   }
 
   private void setupAnimation() {
-    KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
+    KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step());
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
   }
 
-  private void checkPlayerWonGame(){
-    if (game.isPlayerWonGame()){
+  private void checkPlayerWonGame() {
+    if (game.isPlayerWonGame()) {
       System.out.println(game.getWinningPlayer().getName() + " has won the game!");
       enableAIChecker = false;
     }
   }
 
-  private void checkIfPlayerHaveNoPotentialMove(){
-    if (game.isHaveNoPotentialMove()){
-      Alert alert = new Alert(AlertType.NONE, game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
+  private void checkIfPlayerHaveNoPotentialMove() {
+    if (game.isHaveNoPotentialMove()) {
+      Alert alert = new Alert(AlertType.NONE,
+          game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
       alert.show();
       game.playerTakeTurn();
-      if (!game.currentPlayerHavePotentialMoves()){
-        Alert alert2 = new Alert(AlertType.NONE, game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
+      if (!game.currentPlayerHavePotentialMoves()) {
+        Alert alert2 = new Alert(AlertType.NONE,
+            game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
         alert2.show();
         game.endGame();
       }
@@ -98,7 +96,7 @@ public class GameController implements IGameController {
     }
   }
 
-  private void step(double elapsedTime) {
+  private void step() {
     checkForAITurn();
     game.notifyObservers();
     checkPlayerWonGame();

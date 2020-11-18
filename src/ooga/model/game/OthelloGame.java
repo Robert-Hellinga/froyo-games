@@ -37,7 +37,7 @@ public class OthelloGame extends Game {
   }
 
   @Override
-  public boolean currentPlayerHavePotentialMoves(){
+  public boolean currentPlayerHavePotentialMoves() {
     return !othelloBoard.getAllPotentialMoves(getCurrentPlayerIndex()).isEmpty();
   }
 

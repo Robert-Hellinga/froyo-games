@@ -3,15 +3,12 @@ package ooga.model.game;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
-import ooga.exceptions.FileException;
 import ooga.controller.SocialController;
+import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
-import ooga.model.player.Player;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
-import ooga.model.checkerboard.BlockStructure;
-import ooga.model.checkerboard.block.Block;
-//import ooga.model.player.Player.PlayerType;
+import ooga.model.player.Player;
 import ooga.view.ModelObserver;
 
 public abstract class Game {
@@ -42,7 +39,8 @@ public abstract class Game {
   }
 
 
-  protected BlockConfigStructure getInitiationBlockConfig(String gameType, String startPattern) throws FileException {
+  protected BlockConfigStructure getInitiationBlockConfig(String gameType, String startPattern)
+      throws FileException {
     FileReader fileReader = new FileReader(gameType, startPattern);
     return fileReader.makeBlockStructure();
   }
@@ -52,7 +50,7 @@ public abstract class Game {
   }
 
   public void updateDatabase() {
-    if(socialController != null) {
+    if (socialController != null) {
       socialController.updateGame(false);
     }
   }
@@ -70,7 +68,7 @@ public abstract class Game {
     }
   }
 
-  public Player getCurrentPlayer(){
+  public Player getCurrentPlayer() {
     return currentPlayer;
   }
 
@@ -94,25 +92,25 @@ public abstract class Game {
     return getBoard().getAllBlockStatesAsString();
   }
 
-  public void registerObserver(ModelObserver observer){
+  public void registerObserver(ModelObserver observer) {
     observers.add(observer);
   }
 
-  public void removeObserver(ModelObserver observer){
+  public void removeObserver(ModelObserver observer) {
     observers.remove(observer);
   }
 
   public void notifyObservers() {
-    for (ModelObserver observer : observers){
+    for (ModelObserver observer : observers) {
       observer.update();
     }
   }
 
-  public List<Player> getAllPlayers(){
+  public List<Player> getAllPlayers() {
     return allPlayers;
   }
 
-  public boolean isPlayerWonGame(){
+  public boolean isPlayerWonGame() {
     return wonGame;
   }
 
@@ -122,13 +120,13 @@ public abstract class Game {
     return haveNoPotentialMove;
   }
 
-  public void resetHaveNotPotentialMove(){
+  public void resetHaveNotPotentialMove() {
     haveNoPotentialMove = false;
   }
 
   public abstract boolean currentPlayerHavePotentialMoves();
 
-  public void endGame(){
+  public void endGame() {
     wonGame = true;
   }
 }

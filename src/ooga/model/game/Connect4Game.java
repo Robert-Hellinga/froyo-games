@@ -11,17 +11,17 @@ public class Connect4Game extends Game {
 
   public Connect4Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     super(gameType, playerOne, playerTwo, startPattern);
-    connect4Board = new Connect4BlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
+    connect4Board = new Connect4BlockGrid(gameType,
+        getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 
   @Override
   public void play(Coordinate passInCoordinate) {
     connect4Board.play(passInCoordinate, getCurrentPlayerIndex());
-    if (connect4Board.isFinishARound()){
-      if (connect4Board.isWinningMove(getCurrentPlayerIndex())){
+    if (connect4Board.isFinishARound()) {
+      if (connect4Board.isWinningMove(getCurrentPlayerIndex())) {
         wonGame = true;
-      }
-      else{
+      } else {
         updateDatabase();
         playerTakeTurn();
         connect4Board.resetFinishAround();
@@ -37,7 +37,7 @@ public class Connect4Game extends Game {
 
   @Override
   public Player getWinningPlayer() {
-    if (wonGame){
+    if (wonGame) {
       return currentPlayer;
     }
     return null;

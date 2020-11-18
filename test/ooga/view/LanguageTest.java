@@ -1,9 +1,5 @@
 package ooga.view;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Locale;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;

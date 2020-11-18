@@ -10,30 +10,16 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.SyncTree.CompletionListener;
-import com.google.firebase.database.core.view.Event;
-import com.google.protobuf.Value;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javax.xml.crypto.Data;
-import ooga.Coordinate;
-import ooga.controller.FroyoController;
-import ooga.controller.IGameController;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.DatabaseGame;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
-import ooga.view.screens.SplashScreen;
 
 public class SocialController {
 
@@ -50,7 +36,8 @@ public class SocialController {
   private Game game;
   private IGameController gameController;
 
-  public SocialController(Player player, Player opponent, IGameController gameController, Game game) {
+  public SocialController(Player player, Player opponent, IGameController gameController,
+      Game game) {
     this.player = player;
     this.opponent = opponent;
     this.gameController = gameController;
@@ -93,11 +80,10 @@ public class SocialController {
   private void startGame(DataSnapshot snapshot) {
     // This logic asks "does the game exist, and is the existing game the same type?
     // If yes, join the game, otherwise, create a new game
-    if(snapshot.exists() && game.getGameType().equals(snapshot.child(GAME_TYPE_KEY).getValue())) {
+    if (snapshot.exists() && game.getGameType().equals(snapshot.child(GAME_TYPE_KEY).getValue())) {
       gameRef = ref.child(opponent.getName());
       waitForOpponentTurn();
-    }
-    else {
+    } else {
       Map<String, DatabaseGame> newGame = Map.of(
           player.getName(),
           new DatabaseGame(game.getAllBlockStatesAsString(), game.getGameType())
@@ -114,15 +100,15 @@ public class SocialController {
     gameRef.addChildEventListener(new ChildEventListener() {
 
       @Override
-      public void onChildAdded(DataSnapshot dataSnapshot, String s) {}
+      public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+      }
 
       @Override
       public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
         game.setAllBlockStates((String) dataSnapshot.getValue());
-        if(!game.currentPlayerHavePotentialMoves()) {
+        if (!game.currentPlayerHavePotentialMoves()) {
           updateGame(true);
-        }
-        else {
+        } else {
           game.playerTakeTurn();
           gameController.setClickingEnabled(true);
         }
@@ -131,10 +117,12 @@ public class SocialController {
       }
 
       @Override
-      public void onChildRemoved(DataSnapshot dataSnapshot) {}
+      public void onChildRemoved(DataSnapshot dataSnapshot) {
+      }
 
       @Override
-      public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+      public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+      }
 
       @Override
       public void onCancelled(DatabaseError databaseError) {
@@ -146,7 +134,7 @@ public class SocialController {
 
   public void updateGame(boolean forceTurnSwitch) {
     String dataToUpload = game.getAllBlockStatesAsString();
-    if(forceTurnSwitch) {
+    if (forceTurnSwitch) {
       dataToUpload += "-1";
     }
 

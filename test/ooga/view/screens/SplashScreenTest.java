@@ -1,7 +1,8 @@
 package ooga.view.screens;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Locale;
 import javafx.scene.control.Button;
@@ -11,11 +12,11 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 class SplashScreenTest extends DukeApplicationTest {
+
   private IFroyoController controller;
   private SplashScreen splashScreen;
   private Stage stage;
@@ -31,9 +32,8 @@ class SplashScreenTest extends DukeApplicationTest {
   private Button startBtn;
 
 
-
   @Override
-  public void start(Stage stage){
+  public void start(Stage stage) {
     this.stage = stage;
     controller = new FroyoController(stage);
     splashScreen = new SplashScreen(Locale.ENGLISH, controller);
@@ -47,20 +47,22 @@ class SplashScreenTest extends DukeApplicationTest {
     twoPlayerBtn = lookup("#TwoPlayerBtn").queryAs(ToggleButton.class);
     playerToggle = onePlayerBtn.getToggleGroup();
 
-    nameField = lookup("#UsernameField").queryAs(TextField.class);;
-    startBtn = lookup("#StartBtn").queryAs(Button.class);;
+    nameField = lookup("#UsernameField").queryAs(TextField.class);
+
+    startBtn = lookup("#StartBtn").queryAs(Button.class);
+
   }
 
   @Test
   public void testGameSelected() {
     assertEquals(gameToggle.getSelectedToggle(), null);
     clickOn(othelloBtn);
-    assertEquals(gameToggle.getSelectedToggle(),othelloBtn);
+    assertEquals(gameToggle.getSelectedToggle(), othelloBtn);
     clickOn(checkersBtn);
-    assertEquals(gameToggle.getSelectedToggle(),checkersBtn);
+    assertEquals(gameToggle.getSelectedToggle(), checkersBtn);
     assertFalse(othelloBtn.isSelected());
     clickOn(connect4Btn);
-    assertEquals(gameToggle.getSelectedToggle(),connect4Btn);
+    assertEquals(gameToggle.getSelectedToggle(), connect4Btn);
     assertFalse(othelloBtn.isSelected());
     assertFalse(checkersBtn.isSelected());
   }

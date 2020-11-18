@@ -4,12 +4,12 @@ import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import ooga.Util;
 import ooga.controller.IFroyoController;
 import ooga.controller.IGameController;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.view.ModelObserver;
-import ooga.Util;
 import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.PlayerTurnBox;
 import ooga.view.grid.PieceGrid;
@@ -73,7 +73,8 @@ public class GameScreen extends GridPane implements ModelObserver {
     );
 
     controlButtonGroup.addButtons(CONTROL_BTNS);
-    controlButtonGroup.setOnButtonPushed(0, event -> new SplashScreen(resources.getLocale(), froyoController));
+    controlButtonGroup
+        .setOnButtonPushed(0, event -> new SplashScreen(resources.getLocale(), froyoController));
     controlButtonGroup.setOnButtonPushed(1, event -> saveGame());
 
     return result;

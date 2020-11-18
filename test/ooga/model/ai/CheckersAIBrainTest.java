@@ -1,13 +1,14 @@
 package ooga.model.ai;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.model.game.CheckersGame;
 import ooga.model.game.Game;
-import ooga.model.game.OthelloGame;
 import ooga.model.player.AIPlayer;
 import ooga.model.player.HumanPlayer;
 import ooga.model.player.Player;

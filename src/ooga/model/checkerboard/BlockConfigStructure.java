@@ -1,13 +1,12 @@
 package ooga.model.checkerboard;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BlockConfigStructure {
 
   private List<List<Integer>> blockConfigStructure;
 
-  public BlockConfigStructure(List<List<Integer>> allConfig){
+  public BlockConfigStructure(List<List<Integer>> allConfig) {
     blockConfigStructure = allConfig;
   }
 

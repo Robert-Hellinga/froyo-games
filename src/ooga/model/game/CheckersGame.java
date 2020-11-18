@@ -1,7 +1,5 @@
 package ooga.model.game;
 
-import java.util.ArrayList;
-import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.CheckersBlockGrid;
@@ -11,19 +9,19 @@ public class CheckersGame extends Game {
 
   private CheckersBlockGrid checkersBoard;
 
-  public CheckersGame(String gameType, Player playerOne, Player playerTwo, String startPattern){
+  public CheckersGame(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     super(gameType, playerOne, playerTwo, startPattern);
-    checkersBoard = new CheckersBlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
+    checkersBoard = new CheckersBlockGrid(gameType,
+        getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 
   @Override
   public void play(Coordinate passInCoordinate) {
     checkersBoard.play(passInCoordinate, getCurrentPlayerIndex());
-    if (checkersBoard.isFinishARound()){
-      if (checkersBoard.isWinningMove(getCurrentPlayerIndex())){
+    if (checkersBoard.isFinishARound()) {
+      if (checkersBoard.isWinningMove(getCurrentPlayerIndex())) {
         wonGame = true;
-      }
-      else{
+      } else {
         updateDatabase();
         playerTakeTurn();
         checkersBoard.resetFinishAround();
@@ -33,13 +31,13 @@ public class CheckersGame extends Game {
   }
 
   @Override
-  public BlockGrid getBoard(){
+  public BlockGrid getBoard() {
     return checkersBoard;
   }
 
   @Override
   public Player getWinningPlayer() {
-    if (wonGame){
+    if (wonGame) {
       return currentPlayer;
     }
     return null;

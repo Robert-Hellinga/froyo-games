@@ -1,11 +1,9 @@
 package ooga.model.ai;
 
-import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.util.Pair;
 import ooga.Coordinate;
-import ooga.model.checkerboard.block.Block;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.OthelloBlockGrid;
 
