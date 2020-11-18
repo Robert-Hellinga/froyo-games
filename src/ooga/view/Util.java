@@ -17,18 +17,5 @@ public class Util {
     pane.getStylesheets().add(STYLE_SHEET);
   }
 
-  public static RowConstraints getRowConstraints(Priority Vgrow, int prefHeight) {
-    RowConstraints constraints = new RowConstraints();
-    constraints.setVgrow(Vgrow);
-    constraints.setPrefHeight(prefHeight);
-    return constraints;
-  }
-
-  public static ColumnConstraints getColumnConstraints(Priority Hgrow, int prefWidth) {
-    ColumnConstraints constraints = new ColumnConstraints();
-    constraints.setHgrow(Hgrow);
-    constraints.setPrefWidth(prefWidth);
-    return constraints;
-  }
-
+  
 }
