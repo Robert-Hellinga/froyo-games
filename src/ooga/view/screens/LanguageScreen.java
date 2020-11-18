@@ -12,13 +12,12 @@ import ooga.controller.IFroyoController;
 import ooga.fileHandler.Resources;
 import ooga.view.Styleable;
 import ooga.view.Util;
-import ooga.view.elements.ButtonFactory;
+import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.LabeledDropdown;
 import ooga.view.grid.PieceGrid;
 
 public class LanguageScreen extends GridPane {
 
-  private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
   private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String START_BTN_TEXT = "Start / Début / Start";
   private static final String DROPDOWN_LABEL_TEXT = "Choose Language / Choisissez la Langue / "
@@ -47,16 +46,12 @@ public class LanguageScreen extends GridPane {
     result.setSpacing(SCREEN_SPACING);
 
     LabeledDropdown<Locale> languageSelector = getLanguageDropdown();
+    result.getChildren().add(languageSelector);
 
-    Button startButton = BUTTON_FACTORY.makeButton(START_BTN_TEXT,
-        event -> new SplashScreen(languageSelector.getValue(), controller),
-        START_BTN_WIDTH,
-        START_BTN_HEIGHT
-    );
-
-    startButton.getStyleClass().add(BUTTON_FACTORY.SUCCESS_STYLE);
-
-    result.getChildren().addAll(languageSelector, startButton);
+    ButtonGroup startButton = new ButtonGroup(result, START_BTN_WIDTH, START_BTN_HEIGHT);
+    startButton.addButtons(START_BTN_TEXT);
+    startButton.setOnButtonPushed(event -> new SplashScreen(languageSelector.getValue(), controller));
+    startButton.setButtonStyles(ButtonGroup.SUCCESS_STYLE);
 
     return result;
   }

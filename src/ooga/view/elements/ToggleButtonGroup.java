@@ -38,11 +38,9 @@ public class ToggleButtonGroup extends ButtonGroup {
     for(String label : labels) {
       ToggleButton btn = new ToggleButton();
       btn.setToggleGroup(toggleGroup);
-      configureButton(btn, label);
-//      getButtons().add(btn);
+      addButton(btn, getText(label));
     }
     addButtonsToPane();
-//    pane.getChildren().addAll(buttons);
   }
 
   public int getToggleIndexSelected() {

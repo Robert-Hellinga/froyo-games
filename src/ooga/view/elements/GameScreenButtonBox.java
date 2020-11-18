@@ -11,13 +11,11 @@ import ooga.view.screens.SplashScreen;
 
 public class GameScreenButtonBox extends VBox {
 
-  private static final String HOME_BTN = "Home";
-  private static final String SAVE_BTN = "Save";
+  private static final String[] CONTROL_BTNS = {"Home", "Save"};
   private static final int CONTROL_BTN_WIDTH = 100;
   private static final int CONTROL_BTN_HEIGHT = 100;
   private static final int CONTROL_BTN_SPACING = 10;
   private static final int CONTROL_BTN_FONT_SIZE = 18;
-  private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
 
   private Resources resources;
   private IFroyoController controller;
@@ -34,14 +32,18 @@ public class GameScreenButtonBox extends VBox {
     result.setSpacing(CONTROL_BTN_SPACING);
     result.setAlignment(Pos.CENTER);
 
-    Button homeButton = BUTTON_FACTORY.makeButton(resources.getString(HOME_BTN),
-        event -> new SplashScreen(resources.getLocale(), controller), CONTROL_BTN_WIDTH,
-        CONTROL_BTN_HEIGHT, CONTROL_BTN_FONT_SIZE);
+    ButtonGroup controlButtonGroup = new ButtonGroup(
+        result,
+        resources,
+        CONTROL_BTN_WIDTH,
+        CONTROL_BTN_HEIGHT,
+        CONTROL_BTN_FONT_SIZE
+    );
 
-    Button saveButton = BUTTON_FACTORY.makeButton(resources.getString(SAVE_BTN),
-        event -> saveGame(), CONTROL_BTN_WIDTH, CONTROL_BTN_HEIGHT, CONTROL_BTN_FONT_SIZE);
+    controlButtonGroup.addButtons(CONTROL_BTNS);
+    controlButtonGroup.setOnButtonPushed(0, event -> new SplashScreen(resources.getLocale(), controller));
+    controlButtonGroup.setOnButtonPushed(1, event -> saveGame());
 
-    result.getChildren().addAll(homeButton, saveButton);
     return result;
   }
 

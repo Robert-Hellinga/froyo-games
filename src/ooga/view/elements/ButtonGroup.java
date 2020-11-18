@@ -11,6 +11,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import ooga.exceptions.ResourceException;
 import ooga.fileHandler.Resources;
 
 public class ButtonGroup {
@@ -28,8 +29,16 @@ public class ButtonGroup {
   private Resources resources;
   private int width, height, textSize;
 
+  public ButtonGroup(Pane pane, int width, int height) {
+    this(pane, null, width, height);
+  }
+
   public ButtonGroup(Pane pane, Resources resources) {
     this(pane, resources, DEFAULT_BTN_WIDTH, DEFAULT_BTN_HEIGHT, DEFAULT_TEXT_SIZE);
+  }
+
+  public ButtonGroup(Pane pane, Resources resources, int width, int height) {
+    this(pane, resources, width, height, DEFAULT_TEXT_SIZE);
   }
 
   public ButtonGroup(Pane pane, Resources resources, int width, int height, int textSize) {
@@ -44,13 +53,12 @@ public class ButtonGroup {
   public void addButtons(String... labels) {
     for(String label : labels) {
       ButtonBase btn = new Button();
-      configureButton(btn, resources.getString(label));
-      buttons.add(btn);
+      addButton(btn, getText(label));
     }
     addButtonsToPane();
   }
 
-  protected void addButtonsToPane() {
+  public void addButtonsToPane() {
     pane.getChildren().addAll(buttons);
   }
 
@@ -60,18 +68,26 @@ public class ButtonGroup {
     }
   }
 
+  public void setOnButtonPushed(EventHandler<ActionEvent> event) {
+    setOnButtonPushed(0, event);
+  }
+
   public void setOnButtonPushed(int buttonIndex, EventHandler<ActionEvent> event) {
     ButtonBase btn = buttons.get(buttonIndex);
     btn.setOnAction(event);
   }
 
-  protected void configureButton(ButtonBase button, String label) {
+  public void addButton(ButtonBase button, String label) {
     button.setAlignment(Pos.CENTER);
-    button.setText(resources.getString(label));
-    button.setId(resources.getString(label));
+    button.setText(label);
+    button.setId(label);
     button.setMinHeight(height);
     button.setPrefWidth(width);
     button.setFont(new Font(textSize));
     buttons.add(button);
+  }
+
+  public String getText(String label) {
+    return resources == null ? label : resources.getString(label);
   }
 }

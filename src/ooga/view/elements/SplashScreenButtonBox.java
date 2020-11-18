@@ -19,10 +19,11 @@ import ooga.fileHandler.Resources;
 
 public class SplashScreenButtonBox extends VBox {
 
-  private static final Map<Integer, String> gameClasses = Map
-      .of(0, "Othello", 1, "Checkers", 2, "Connect4");
-  private static final ButtonFactory BUTTON_FACTORY = new ButtonFactory();
-
+  private static final Map<Integer, String> gameClasses = Map.of(
+      0, "Othello",
+      1, "Checkers",
+      2, "Connect4"
+  );
   private static final String[] GAME_BUTTONS = {"Othello", "Checkers", "Connect4"};
   private static final String[] PLAYER_BUTTONS = {"OnePlayer", "TwoPlayer", "TwoPlayerOnline"};
 
@@ -58,6 +59,7 @@ public class SplashScreenButtonBox extends VBox {
     gameButtonGroup = new ToggleButtonGroup(result, resources);
     gameButtonGroup.addButtons(GAME_BUTTONS);
 //    connect4Btn.setId(CONNECT_4_BTN + BTN_STRING);
+
     return result;
   }
 
@@ -66,7 +68,8 @@ public class SplashScreenButtonBox extends VBox {
     result.setSpacing(LARGE_SPACING);
     result.setAlignment(Pos.CENTER);
 
-    playerButtonGroup = new ToggleButtonGroup(result,
+    playerButtonGroup = new ToggleButtonGroup(
+        result,
         resources,
         PLAYER_BTN_WIDTH,
         PLAYER_BTN_HEIGHT,
@@ -75,8 +78,9 @@ public class SplashScreenButtonBox extends VBox {
 
     playerButtonGroup.addButtons(PLAYER_BUTTONS);
     playerButtonGroup.setOnButtonPushed(2, event -> getOpponentName());
-    playerButtonGroup.setButtonStyles(BUTTON_FACTORY.INFO_STYLE);
+    playerButtonGroup.setButtonStyles(ButtonGroup.INFO_STYLE);
 //    twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
+
     return result;
   }
 
@@ -95,22 +99,23 @@ public class SplashScreenButtonBox extends VBox {
     playerName = new TextField();
     playerName.setPrefColumnCount(8);
     playerName.setPromptText(resources.getString(PLAYER_NAME_FIELD));
-    Button startButton = BUTTON_FACTORY.makeButton(resources.getString(START_BTN),
-        event -> startGame());
-    startButton.setId(START_BTN + BTN_STRING);
+    result.getChildren().add(playerName);
 
-    startButton.getStyleClass().add(BUTTON_FACTORY.SUCCESS_STYLE);
-    result.getChildren().addAll(playerName, startButton);
+    ButtonGroup startButton = new ButtonGroup(result, resources);
+    startButton.addButtons(START_BTN);
+    startButton.setOnButtonPushed(event -> startGame());
+    startButton.setButtonStyles(ButtonGroup.SUCCESS_STYLE);
+//    startButton.setId(START_BTN + BTN_STRING);
+
     return result;
   }
 
   private void startGame() {
-    if (buttonsAreSelected()) {
+    if (readyToStart()) {
       String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());
       boolean onePlayer = playerButtonGroup.getToggleIndexSelected() == 0;
       boolean online = playerButtonGroup.getToggleIndexSelected() == 2;
-      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online,
-          opponentName);
+      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online, opponentName);
     }
     else {
       Alert alert = new Alert(AlertType.NONE, resources.getString(NO_NAME_MESSAGE), ButtonType.OK);
@@ -118,9 +123,7 @@ public class SplashScreenButtonBox extends VBox {
     }
   }
 
-  private boolean buttonsAreSelected() {
-    return gameButtonGroup.hasSelectedToggle() &&
-        playerButtonGroup.hasSelectedToggle() &&
-        !playerName.getText().isEmpty();
+  private boolean readyToStart() {
+    return gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle() && !playerName.getText().isEmpty();
   }
 }
