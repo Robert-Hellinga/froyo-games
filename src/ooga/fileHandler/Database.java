@@ -6,11 +6,13 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.SyncTree.CompletionListener;
 import com.google.firebase.database.core.view.Event;
+import com.google.protobuf.Value;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.xml.crypto.Data;
 import ooga.Coordinate;
 import ooga.exceptions.FileException;
 import ooga.model.game.Game;
@@ -29,6 +32,9 @@ public class Database {
 
   private static final String KEY_PATH = "../../resources/social/database-key.txt";
   private static final String APP_URL = "https://froyogames-1df28.firebaseio.com/";
+
+  private static final String BOARD_STATE_KEY = "boardStates";
+  private static final String GAMES_REFERENCE = "/games";
 
   private Resources error;
   private DatabaseReference ref, gameRef;
@@ -52,7 +58,7 @@ public class Database {
           .setDatabaseUrl(APP_URL)
           .build();
       FirebaseApp.initializeApp(options);
-      ref = FirebaseDatabase.getInstance().getReference("/games");
+      ref = FirebaseDatabase.getInstance().getReference(GAMES_REFERENCE);
     } catch (FileNotFoundException e) {
       throw new FileException(String.format(error.getString("InvalidCredentialFile"), KEY_PATH), e);
     } catch (IOException e) {
@@ -60,34 +66,40 @@ public class Database {
     }
   }
 
-  private void startGame(boolean alreadyExists) {
-    if(alreadyExists) {
+  public void joinGame() {
+    ref.child(opponentPlayer.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot snapshot) {
+        startGame(snapshot);
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+        throw new DatabaseException(databaseError.getMessage());
+      }
+    });
+  }
+
+  private void startGame(DataSnapshot snapshot) {
+    if(snapshot.exists()) {
       gameRef = ref.child(opponentPlayer.getName());
+
+      // TODO check if game types match up
+
       System.out.println("Game already exists, joining...");
       game.setCurrentPlayer(opponentPlayer);
       createTurnListener();
     }
     else {
-      Map<String, DatabaseGame> newGame = new HashMap<>();
-      newGame.put(creatorPlayer.getName(), new DatabaseGame(game.getAllBlockStatesAsString(), game.getGameType()));
+      Map<String, DatabaseGame> newGame = Map.of(
+          creatorPlayer.getName(),
+          new DatabaseGame(game.getAllBlockStatesAsString(), game.getGameType())
+      );
+
       ref.setValueAsync(newGame);
       gameRef = ref.child(creatorPlayer.getName());
       System.out.println("Created new game");
     }
-  }
-
-  public void joinGame() {
-    ref.child(opponentPlayer.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
-      @Override
-      public void onDataChange(DataSnapshot snapshot) {
-          startGame(snapshot.exists());
-      }
-
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
-
-      }
-    });
   }
 
 
@@ -111,27 +123,25 @@ public class Database {
       public void onChildRemoved(DataSnapshot dataSnapshot) {}
 
       @Override
-      public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+      public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
 
       @Override
-      public void onCancelled(DatabaseError databaseError) {}
+      public void onCancelled(DatabaseError databaseError) {
+        throw new DatabaseException(databaseError.getMessage());
+      }
     });
 
   }
 
-
   public void updateGame() {
-
-    gameRef.child("boardState").setValue(game.getAllBlockStatesAsString(), new DatabaseReference.CompletionListener() {
-      @Override
-      public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-        if (databaseError != null) {
-          System.out.println("Data could not be saved " + databaseError.getMessage());
-        } else {
-          System.out.println("Data saved successfully.");
-          createTurnListener();
+    gameRef.child(BOARD_STATE_KEY).setValue(game.getAllBlockStatesAsString(),
+        (databaseError, databaseReference) -> {
+          if (databaseError != null) {
+            throw new DatabaseException(databaseError.getMessage());
+          } else {
+            createTurnListener();
+          }
         }
-      }
-    });
+    );
   }
 }
