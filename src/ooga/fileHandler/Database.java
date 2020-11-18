@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.crypto.Data;
 import ooga.Coordinate;
+import ooga.controller.IGameController;
 import ooga.exceptions.FileException;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
@@ -33,17 +34,19 @@ public class Database {
   private static final String KEY_PATH = "../../resources/social/database-key.txt";
   private static final String APP_URL = "https://froyogames-1df28.firebaseio.com/";
 
-  private static final String BOARD_STATE_KEY = "boardStates";
+  private static final String BOARD_STATE_KEY = "boardState";
   private static final String GAMES_REFERENCE = "/games";
 
   private Resources error;
   private DatabaseReference ref, gameRef;
   private Player creatorPlayer, opponentPlayer;
   private Game game;
+  private IGameController gameController;
 
-  public Database(Player creatorPlayer, Player opponentPlayer, Game game) {
+  public Database(Player creatorPlayer, Player opponentPlayer, IGameController gameController, Game game) {
     this.creatorPlayer = creatorPlayer;
     this.opponentPlayer = opponentPlayer;
+    this.gameController = gameController;
     this.game = game;
     error = new Resources(Resources.ERROR_MESSAGES_FILE);
     initializeDB();
@@ -85,10 +88,8 @@ public class Database {
       gameRef = ref.child(opponentPlayer.getName());
 
       // TODO check if game types match up
-
       System.out.println("Game already exists, joining...");
-      game.setCurrentPlayer(opponentPlayer);
-      createTurnListener();
+      waitForOpponentTurn();
     }
     else {
       Map<String, DatabaseGame> newGame = Map.of(
@@ -103,8 +104,8 @@ public class Database {
   }
 
 
-  private void createTurnListener() {
-    game.disableTurns();
+  private void waitForOpponentTurn() {
+    gameController.setClickingEnabled(false);
     gameRef.addChildEventListener(new ChildEventListener() {
 
       @Override
@@ -113,9 +114,8 @@ public class Database {
       @Override
       public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
         game.setAllBlockStates((String) dataSnapshot.getValue());
-        game.enableTurns();
-        // TODO see if there is way to remove following line
-        game.getOppositePlayer().makePlay(new Coordinate(0, 0));
+        game.playerTakeTurn();
+        gameController.setClickingEnabled(true);
         gameRef.removeEventListener(this);
       }
 
@@ -139,7 +139,7 @@ public class Database {
           if (databaseError != null) {
             throw new DatabaseException(databaseError.getMessage());
           } else {
-            createTurnListener();
+            waitForOpponentTurn();
           }
         }
     );

@@ -70,43 +70,19 @@ public abstract class Game {
     return gameType;
   }
 
-  public void setCurrentPlayer(Player player) {
-    currentPlayer = player;
-  }
-
-  public Player getOppositePlayer() {
-    if(allPlayers.get(0).equals(currentPlayer)) {
-      return allPlayers.get(1);
-    }
-    else {
-      return allPlayers.get(0);
+  public void updateDatabase() {
+    if(database != null) {
+      database.updateGame();
     }
   }
 
   public void playerTakeTurn() {
-    if(database != null) { // only cycle turns if game is local
-      database.updateGame();
+    int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
+    if (currentPlayerIndex == allPlayers.size() - 1) {
+      currentPlayer = allPlayers.get(0);
+    } else {
+      currentPlayer = allPlayers.get(currentPlayerIndex + 1);
     }
-    else {
-      int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
-      if (currentPlayerIndex == allPlayers.size() - 1) {
-        currentPlayer = allPlayers.get(0);
-      } else {
-        currentPlayer = allPlayers.get(currentPlayerIndex + 1);
-      }
-    }
-  }
-
-  public void enableTurns() {
-    turnsEnabled = true;
-  }
-
-  public void disableTurns() {
-    turnsEnabled = false;
-  }
-
-  public boolean getTurnsEnabled() {
-    return turnsEnabled;
   }
 
   public Player getCurrentPlayer(){

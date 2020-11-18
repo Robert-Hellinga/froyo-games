@@ -30,10 +30,12 @@ public class GameController implements IGameController {
   private Coordinate pieceChosen;
   private List<Player> allPlayers;
   private PlayerMode mode;
+  private boolean clickingEnabled;
 
   public GameController(Game game, PlayerMode playerMode) {
     this.game = game;
     this.mode = playerMode;
+    clickingEnabled = true;
     allPlayers = game.getAllPlayers();
     setupAnimation();
   }
@@ -65,8 +67,15 @@ public class GameController implements IGameController {
 
   @Override
   public void clickPiece(Coordinate coordinate) {
-    Player currentPlayer = game.getCurrentPlayer();
-    currentPlayer.makePlay(coordinate);
+    if(clickingEnabled) {
+      Player currentPlayer = game.getCurrentPlayer();
+      currentPlayer.makePlay(coordinate);
+    }
+  }
+
+  @Override
+  public void setClickingEnabled(boolean enabled) {
+    clickingEnabled = enabled;
   }
 
   @Override

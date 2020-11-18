@@ -42,7 +42,7 @@ public class FroyoController implements IFroyoController{
     setNewLayout(gameScreen);
 
     if(online) {
-      database = new Database(userPlayer, secondPlayer, game);
+      database = new Database(userPlayer, secondPlayer, gameController, game);
       database.joinGame();
       game.setDatabase(database);
     }
