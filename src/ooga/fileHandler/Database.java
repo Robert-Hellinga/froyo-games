@@ -22,12 +22,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javax.xml.crypto.Data;
 import ooga.Coordinate;
+import ooga.controller.FroyoController;
 import ooga.controller.IGameController;
 import ooga.exceptions.FileException;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
+import ooga.view.screens.SplashScreen;
 
 public class Database {
 
@@ -35,6 +39,7 @@ public class Database {
   private static final String APP_URL = "https://froyogames-1df28.firebaseio.com/";
 
   private static final String BOARD_STATE_KEY = "boardState";
+  private static final String GAME_TYPE_KEY = "gameType";
   private static final String GAMES_REFERENCE = "/games";
 
   private Resources error;
@@ -84,11 +89,10 @@ public class Database {
   }
 
   private void startGame(DataSnapshot snapshot) {
-    if(snapshot.exists()) {
+    // This logic asks "does the game exist, and is the existing game the same type?
+    // If yes, join the game, otherwise, create a new game
+    if(snapshot.exists() && game.getGameType().equals(snapshot.child(GAME_TYPE_KEY).getValue())) {
       gameRef = ref.child(opponentPlayer.getName());
-
-      // TODO check if game types match up
-      System.out.println("Game already exists, joining...");
       waitForOpponentTurn();
     }
     else {
@@ -99,7 +103,6 @@ public class Database {
 
       ref.setValueAsync(newGame);
       gameRef = ref.child(creatorPlayer.getName());
-      System.out.println("Created new game");
     }
   }
 
