@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import ooga.controller.IFroyoController;
 import ooga.fileHandler.Resources;
-import ooga.view.Styleable;
 import ooga.view.Util;
 import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.LabeledDropdown;
@@ -18,7 +17,6 @@ import ooga.view.grid.PieceGrid;
 
 public class LanguageScreen extends GridPane {
 
-  private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String START_BTN_TEXT = "Start / Début / Start";
   private static final String DROPDOWN_LABEL_TEXT = "Choose Language / Choisissez la Langue / "
       + "Sprache Wählen"; // Not in a resource bundle; language hasn't been selected yet
@@ -30,14 +28,13 @@ public class LanguageScreen extends GridPane {
   private static final Locale[] AVAILABLE_LOCALES = {Locale.ENGLISH, Locale.FRENCH, Locale.GERMAN};
 
   public LanguageScreen(IFroyoController controller) {
-
     setAlignment(Pos.CENTER);
-    Util.setPaneStylesheet(this, DEFAULT_STYLE_SHEET);
     setWidth(SCREEN_WIDTH);
     setHeight(SCREEN_HEIGHT);
 
     add(getStartButtonGroup(controller), 0, 0);
     controller.setNewLayout(this);
+    Util.applyStyleSheet(this);
   }
 
   private VBox getStartButtonGroup(IFroyoController controller) {

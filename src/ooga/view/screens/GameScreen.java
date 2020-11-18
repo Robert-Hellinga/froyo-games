@@ -8,15 +8,13 @@ import ooga.controller.IGameController;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.view.ModelObserver;
-import ooga.view.Styleable;
 import ooga.view.Util;
 import ooga.view.elements.GameScreenButtonBox;
 import ooga.view.elements.PlayerTurnBox;
 import ooga.view.grid.PieceGrid;
 
-public class GameScreen extends GridPane implements Styleable, ModelObserver {
+public class GameScreen extends GridPane implements ModelObserver {
 
-  private static final String DEFAULT_STYLE_SHEET = "resources/style/default.css";
   private static final String RESOURCE_FILE = "GameScreen";
   private static final int SCREEN_WIDTH = 600;
   private static final int SCREEN_HEIGHT = 600;
@@ -36,7 +34,6 @@ public class GameScreen extends GridPane implements Styleable, ModelObserver {
     grid = new PieceGrid(gameController, game.getAllBlockStates());
 
     setAlignment(Pos.CENTER);
-    setStyleSheet(DEFAULT_STYLE_SHEET);
     setWidth(SCREEN_WIDTH);
     setHeight(SCREEN_HEIGHT);
     setVgap(SCREEN_V_SPACING);
@@ -46,17 +43,8 @@ public class GameScreen extends GridPane implements Styleable, ModelObserver {
     add(new GameScreenButtonBox(resources, froyoController), 0, 1);
     add(grid, 1, 1);
     add(new PlayerTurnBox(), 1, 2);
-  }
 
-  @Override
-  public void setStyleSheet(String stylesheet) {
-    getStylesheets().clear();
-    Util.setPaneStylesheet(this, stylesheet);
-  }
-
-  @Override
-  public String getStyleSheet() {
-    return getStylesheets().get(0);
+    Util.applyStyleSheet(this);
   }
 
   @Override

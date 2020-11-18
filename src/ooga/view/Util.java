@@ -11,8 +11,10 @@ import javafx.stage.Stage;
 
 public class Util {
 
-  public static void setPaneStylesheet(Pane pane, String stylesheet) {
-    pane.getStylesheets().add(stylesheet);
+  private static final String STYLE_SHEET = "resources/style/default.css";
+
+  public static void applyStyleSheet(Pane pane) {
+    pane.getStylesheets().add(STYLE_SHEET);
   }
 
   public static RowConstraints getRowConstraints(Priority Vgrow, int prefHeight) {
