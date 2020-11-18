@@ -71,18 +71,18 @@ class CheckersGameTest{
   @Test
   public void testIfKingPieceCanMoveBackward(){
     checkersGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
-    Coordinate pieceToChoose = new Coordinate(0,0);
-    Coordinate pieceToKing = new Coordinate(2,2);
-    Coordinate pieceKingMoveTo = new Coordinate(1,1);
+    Coordinate pieceToChoose = new Coordinate(2,0);
+    Coordinate pieceToKing = new Coordinate(3,1);
+    Coordinate pieceKingMoveTo = new Coordinate(2,2);
     checkersGame.play(pieceToChoose);
     checkersGame.play(pieceToKing);
     checkersGame.playerTakeTurn();
     checkersGame.play(pieceToKing);
     checkersGame.play(pieceKingMoveTo);
     List<List<Integer>> expectedBlockState = new ArrayList<>(){{
-      add(List.of(0,0,1,0));
-      add(List.of(0,6,0,0));
-      add(List.of(0,0,0,0));
+      add(List.of(1,0,0,0));
+      add(List.of(0,2,0,0));
+      add(List.of(0,0,6,0));
     }};
     assertEquals(expectedBlockState, checkersGame.getAllBlockStates());
   }
