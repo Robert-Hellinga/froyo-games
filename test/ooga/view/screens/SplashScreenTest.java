@@ -26,6 +26,7 @@ class SplashScreenTest extends DukeApplicationTest {
   private ToggleButton connect4Btn;
   private ToggleButton onePlayerBtn;
   private ToggleButton twoPlayerBtn;
+  private ToggleButton twoPlayerOnlineBtn;
   private ToggleGroup gameToggle;
   private ToggleGroup playerToggle;
   private TextField nameField;
@@ -45,11 +46,12 @@ class SplashScreenTest extends DukeApplicationTest {
 
     onePlayerBtn = lookup("#OnePlayerBtn").queryAs(ToggleButton.class);
     twoPlayerBtn = lookup("#TwoPlayerBtn").queryAs(ToggleButton.class);
+    twoPlayerOnlineBtn = lookup("#TwoPlayer(Online)Btn").queryAs(ToggleButton.class);
     playerToggle = onePlayerBtn.getToggleGroup();
 
     nameField = lookup("#UsernameField").queryAs(TextField.class);
 
-    startBtn = lookup("#StartBtn").queryAs(Button.class);
+    startBtn = lookup("#StartGameBtn").queryAs(Button.class);
 
   }
 
@@ -74,6 +76,8 @@ class SplashScreenTest extends DukeApplicationTest {
     assertEquals(playerToggle.getSelectedToggle(), onePlayerBtn);
     clickOn(twoPlayerBtn);
     assertEquals(playerToggle.getSelectedToggle(), twoPlayerBtn);
+    clickOn(twoPlayerOnlineBtn);
+    assertEquals(playerToggle.getSelectedToggle(), twoPlayerOnlineBtn);
   }
 
 
@@ -83,16 +87,9 @@ class SplashScreenTest extends DukeApplicationTest {
     clickOn(checkersBtn);
     clickOn(onePlayerBtn);
     clickOn(startBtn);
-    assertEquals(getDialogMessage(), "Please enter a name.");
+    assertEquals("Please enter a name and select buttons.", getDialogMessage());
   }
 
-//  @Test
-//  public void testStartingCheckersOnePlayer(){
-//    clickOn(checkersBtn);
-//    clickOn(onePlayerBtn);
-//    clickOn(nameField).write("John");
-//    clickOn(startBtn);
-//    // assert something here
-//  }
+
 }
 

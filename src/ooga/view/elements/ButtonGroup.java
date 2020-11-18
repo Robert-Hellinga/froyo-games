@@ -16,6 +16,11 @@ public class ButtonGroup {
   public static final String SUCCESS_STYLE = "success";
   public static final String INFO_STYLE = "info";
   public static final String DANGER_STYLE = "danger";
+  // The following are for setting id's
+  private static final String BTN_STRING = "Btn";
+  private static final String SPACE_STRING = "\\s+";
+  private static final String EMPTY_STRING = "";
+
 
   private static final int DEFAULT_BTN_WIDTH = 130;
   private static final int DEFAULT_BTN_HEIGHT = 20;
@@ -77,7 +82,7 @@ public class ButtonGroup {
   public void addButton(ButtonBase button, String label) {
     button.setAlignment(Pos.CENTER);
     button.setText(label);
-    button.setId(label);
+    button.setId(label.replaceAll(SPACE_STRING, EMPTY_STRING) + BTN_STRING);
     button.setMinHeight(height);
     button.setPrefWidth(width);
     button.setFont(new Font(textSize));

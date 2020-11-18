@@ -25,7 +25,7 @@ public class SplashScreen extends VBox {
   private static final String START_BTN = "Start";
   private static final String PLAYER_NAME_FIELD = "Username";
   private static final String NO_NAME_MESSAGE = "NoNameMessage";
-  private static final String BTN_STRING = "Btn"; // for id's
+  private static final String FIELD_STRING = "Field";
 
   private static final String[] GAME_BUTTONS = {"Othello", "Checkers", "Connect4"};
   private static final String[] PLAYER_BUTTONS = {"OnePlayer", "TwoPlayer", "TwoPlayerOnline"};
@@ -79,7 +79,7 @@ public class SplashScreen extends VBox {
     result.setAlignment(Pos.CENTER);
     gameButtonGroup = new ToggleButtonGroup(result, resources);
     gameButtonGroup.addButtons(GAME_BUTTONS);
-//    connect4Btn.setId(CONNECT_4_BTN + BTN_STRING);
+
 
     return result;
   }
@@ -100,7 +100,6 @@ public class SplashScreen extends VBox {
     playerButtonGroup.addButtons(PLAYER_BUTTONS);
     playerButtonGroup.setOnButtonPushed(2, event -> getOpponentName());
     playerButtonGroup.setButtonStyles(ButtonGroup.INFO_STYLE);
-//    twoPlayerBtn.setId(TWO_PLAYER_BTN + BTN_STRING);
 
     return result;
   }
@@ -120,13 +119,13 @@ public class SplashScreen extends VBox {
     playerName = new TextField();
     playerName.setPrefColumnCount(8);
     playerName.setPromptText(resources.getString(PLAYER_NAME_FIELD));
+    playerName.setId(PLAYER_NAME_FIELD + FIELD_STRING);
     result.getChildren().add(playerName);
 
     ButtonGroup startButton = new ButtonGroup(result, resources);
     startButton.addButtons(START_BTN);
     startButton.setOnButtonPushed(event -> startGame());
     startButton.setButtonStyles(ButtonGroup.SUCCESS_STYLE);
-//    startButton.setId(START_BTN + BTN_STRING);
 
     return result;
   }
