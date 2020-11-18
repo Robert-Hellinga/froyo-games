@@ -9,7 +9,7 @@ import ooga.controller.IGameController;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.view.ModelObserver;
-import ooga.view.Util;
+import ooga.Util;
 import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.PlayerTurnBox;
 import ooga.view.grid.PieceGrid;

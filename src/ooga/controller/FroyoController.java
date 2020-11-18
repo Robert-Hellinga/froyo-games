@@ -2,12 +2,14 @@ package ooga.controller;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Locale;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import ooga.Util;
 import ooga.controller.GameController.PlayerMode;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.game.Game;
@@ -68,15 +70,10 @@ public class FroyoController implements IFroyoController{
   }
 
   public static Game createGame(String gameType, Player playerOne, Player playerTwo, String startPattern){
-    try {
-      Class<?> game = Class.forName("ooga.model.game." + gameType + "Game");
-      Class<?>[] param = {String.class, Player.class, Player.class, String.class};
-      Constructor<?> cons = game.getConstructor(param);
-      Object[] paramObject = {gameType, playerOne, playerTwo, startPattern};
-      Object gameObject = cons.newInstance(paramObject);
-      return (Game) gameObject;
-    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-      throw new ClassOrMethodNotFoundException("Class not found.");
-    }
+    return Util.reflect(
+        "ooga.model.game." + gameType + "Game",
+        List.of(String.class, Player.class, Player.class, String.class),
+        List.of(gameType, playerOne, playerTwo, startPattern)
+    );
   }
 }

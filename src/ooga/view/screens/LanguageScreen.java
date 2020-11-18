@@ -1,19 +1,14 @@
 package ooga.view.screens;
 
-import java.awt.Label;
 import java.util.Locale;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import ooga.controller.IFroyoController;
-import ooga.fileHandler.Resources;
-import ooga.view.Util;
+import ooga.Util;
 import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.LabeledDropdown;
-import ooga.view.grid.PieceGrid;
 
 public class LanguageScreen extends GridPane {
 
