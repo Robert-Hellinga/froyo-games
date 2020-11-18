@@ -18,23 +18,13 @@ public class CheckersGame extends Game {
 
   @Override
   public void play(Coordinate passInCoordinate) {
-    System.out.println("Playing... " + passInCoordinate + " turnsEnabled: " + turnsEnabled +
-        " isFinishAround: " + checkBoard.isFinishARound());
     if (turnsEnabled) {
-
-//      System.out.print(1 + " ");
       checkBoard.play(passInCoordinate, getCurrentPlayerIndex());
-//      System.out.print(2 + " ");
-
       if (checkBoard.isFinishARound()) {
         playerTakeTurn();
         checkBoard.resetFinishAround();
       }
-//      System.out.print(3 + " ");
-
       notifyObservers();
-      System.out.println(4 + " ");
-
     }
   }
 

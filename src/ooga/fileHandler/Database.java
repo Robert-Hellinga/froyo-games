@@ -45,8 +45,8 @@ public class Database {
   }
 
   private void initializeDB() {
-//    System.out.println(getClass().getResource("../resources/social/froyogames-1df28-8e29e2f7996b"
-//        + ".json").getFile().toString());
+
+    System.out.println(getClass().getResource("resources/social/froyogames-1df28-8e29e2f7996b.json").getFile());
     try {
       File file = new File(KEY_PATH);
       FileInputStream serviceAccount = new FileInputStream(file);
@@ -105,12 +105,9 @@ public class Database {
 
       @Override
       public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-        System.out.println(game.getAllBlockStatesAsString());
-        System.out.println("Opponent Moved!");
         game.setAllBlockStates((String) dataSnapshot.getValue());
-        System.out.println(game.getAllBlockStatesAsString());
         game.enableTurns();
-//        game.notifyObservers();
+        // TODO see if there is way to remove following line
         game.getOppositePlayer().makePlay(new Coordinate(0, 0));
         gameRef.removeEventListener(this);
       }
@@ -129,10 +126,6 @@ public class Database {
 
 
   public void updateGame() {
-//      Map<String, Object> update = new HashMap<>();
-//      update.put("boardState", game.getAllBlockStatesAsString());
-//      gameRef.updateChildrenAsync(update);
-//      createTurnListener();
 
     gameRef.child("boardState").setValue(game.getAllBlockStatesAsString(), new DatabaseReference.CompletionListener() {
       @Override
@@ -145,7 +138,5 @@ public class Database {
         }
       }
     });
-
-
   }
 }

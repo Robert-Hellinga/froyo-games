@@ -84,10 +84,8 @@ public abstract class Game {
   }
 
   public void playerTakeTurn() {
-
-    if(database != null) {
+    if(database != null) { // only cycle turns if game is local
       database.updateGame();
-      System.out.println("Updating game");
     }
     else {
       int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
@@ -97,7 +95,6 @@ public abstract class Game {
         currentPlayer = allPlayers.get(currentPlayerIndex + 1);
       }
     }
-    System.out.println(currentPlayer.getName());
   }
 
   public void enableTurns() {
@@ -126,7 +123,6 @@ public abstract class Game {
 
   public void setAllBlockStates(String stateString) {
     getBoard().setAllBlockStates(stateString);
-//    notifyObservers();
   }
 
   public List<List<Integer>> getAllBlockStates() {
@@ -165,7 +161,6 @@ public abstract class Game {
   }
 
   public void notifyObservers() {
-
     for (ModelObserver observer : observers){
       observer.update();
     }

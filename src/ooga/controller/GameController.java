@@ -13,7 +13,7 @@ import ooga.view.grid.PieceGrid;
 
 public class GameController implements IGameController {
 
-  public static final int FRAMES_PER_SECOND = 2;
+  public static final double FRAMES_PER_SECOND = 0.2;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final double AI_DELAY = 0.05;
 

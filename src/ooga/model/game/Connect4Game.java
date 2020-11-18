@@ -18,8 +18,7 @@ public class Connect4Game extends Game {
 
   @Override
   public void play(Coordinate passInCoordinate) {
-    System.out.println("Playing... " + passInCoordinate + " turnsEnabled: " + turnsEnabled);
-    if(turnsEnabled) {
+    if(turnsEnabled) { // TODO move turnsEnabled into clickpiece?
       connect4Board.play(passInCoordinate, getCurrentPlayerIndex());
       if (connect4Board.isFinishARound()){
         playerTakeTurn();
