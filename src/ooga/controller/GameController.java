@@ -13,10 +13,10 @@ import ooga.model.player.Player;
 
 public class GameController implements IGameController {
 
-  public static final double FRAMES_PER_SECOND = 0.2;
-  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-  public static final double AI_DELAY = 0.05;
-  public static final String SKIP_ROUND_MESSAGE = " have no moves to make, will have to skip the round.";
+  private static final double FRAMES_PER_SECOND = 0.2;
+  private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  private static final double AI_DELAY = 0.05;
+  private static final String SKIP_ROUND_MESSAGE = " have no moves to make, will have to skip the round.";
 
   private double delayCounter = AI_DELAY;
   private boolean enableAIChecker = true;
@@ -40,23 +40,13 @@ public class GameController implements IGameController {
     setupAnimation();
   }
 
-  public void setGameType(String gameType) {
-
-  }
-
-  public void checkForAITurn(double elapsedTime) {
+  public void checkForAITurn() {
     if (enableAIChecker){
       if (game.getCurrentPlayerIndex() == 2 && mode == PlayerMode.PLAY_WITH_AI){
-        if (delayCounter - elapsedTime < 0){
           List<Coordinate> coords = game.getCurrentPlayer().calculateNextCoordinates();
           for(Coordinate coord : coords){
             game.getCurrentPlayer().makePlay(coord);
           }
-          delayCounter = AI_DELAY;
-        }
-        else{
-          delayCounter -= elapsedTime;
-        }
       }
     }
   }
@@ -77,21 +67,6 @@ public class GameController implements IGameController {
   @Override
   public void setClickingEnabled(boolean enabled) {
     clickingEnabled = enabled;
-  }
-
-  @Override
-  public void saveGame() {
-
-  }
-
-  @Override
-  public void restartGame() {
-
-  }
-
-  @Override
-  public void quitGame() {
-
   }
 
   private void setupAnimation() {
@@ -124,7 +99,7 @@ public class GameController implements IGameController {
   }
 
   private void step(double elapsedTime) {
-    checkForAITurn(elapsedTime);
+    checkForAITurn();
     game.notifyObservers();
     checkPlayerWonGame();
     checkIfPlayerHaveNoPotentialMove();

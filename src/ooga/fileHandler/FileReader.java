@@ -1,5 +1,7 @@
 package ooga.fileHandler;
 
+import com.opencsv.exceptions.CsvException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -57,8 +59,7 @@ public class FileReader {
           new InputStreamReader(streamData));
       return csvReader.readAll();
 
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (IOException | FileException | CsvException e) {
       throw new FileException(String.format(error.getString("CannotReadFile"), filePath), e);
     }
   }

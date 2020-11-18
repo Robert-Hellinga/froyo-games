@@ -11,7 +11,6 @@ import ooga.model.game.Game;
 import ooga.view.ModelObserver;
 import ooga.view.Util;
 import ooga.view.elements.ButtonGroup;
-import ooga.view.elements.GameScreenButtonBox;
 import ooga.view.elements.PlayerTurnBox;
 import ooga.view.grid.PieceGrid;
 

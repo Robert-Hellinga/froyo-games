@@ -18,6 +18,8 @@ import ooga.view.screens.GameScreen;
 
 public class FroyoController implements IFroyoController{
 
+  private static final String DEFAULT_OPPONENT_NAME = "Player 2";
+
   private Stage myStage;
   private SocialController socialController;
 
@@ -50,13 +52,8 @@ public class FroyoController implements IFroyoController{
 
 
   private Player createSecondPlayer(boolean onePlayer, String name) {
-    name = name == null ? "Player 2" : name;
-    if(onePlayer){
-      return new AIPlayer();
-    }
-    else{
-      return new HumanPlayer(name);
-    }
+    name = name == null ? DEFAULT_OPPONENT_NAME : name;
+    return onePlayer ? new AIPlayer() : new HumanPlayer(name);
   }
 
   @Override
@@ -82,6 +79,4 @@ public class FroyoController implements IFroyoController{
       throw new ClassOrMethodNotFoundException("Class not found.");
     }
   }
-
-
 }
