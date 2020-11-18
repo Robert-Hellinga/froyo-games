@@ -12,7 +12,7 @@ public class CheckersBlock extends Block {
   protected boolean isKing;
   public CheckersBlock(Integer blockConfig, Coordinate coordinate) {
 
-    super(blockConfig, coordinate)
+    super(blockConfig, coordinate);
     this.isChosen = false;
     this.isPotentialMove = false;
     this.isKing = false;;

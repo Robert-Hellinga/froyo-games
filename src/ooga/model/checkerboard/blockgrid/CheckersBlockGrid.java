@@ -1,7 +1,8 @@
-package ooga.model;
+package ooga.model.checkerboard.blockgrid;
 
 import java.util.List;
 import ooga.Coordinate;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.game.CheckersGame;
 
 public class CheckersBlockGrid extends BlockGrid {

@@ -5,7 +5,6 @@ import java.util.List;
 import ooga.Coordinate;
 import ooga.Util;
 import ooga.exceptions.ClassOrMethodNotFoundException;
-import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 import ooga.model.checkerboard.block.BlockState;
@@ -31,7 +30,7 @@ public abstract class BlockGrid {
     }
   }
 
-  public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
+  public BlockGrid(String gameType, List<List<Integer>> allBlockConfig, int numPlayers) {
     this.gameType = gameType;
     this.allBlocks = new BlockStructure(this.gameType, allBlockConfig);
     this.numPlayers = numPlayers;

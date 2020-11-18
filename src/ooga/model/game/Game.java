@@ -8,11 +8,9 @@ import ooga.Coordinate;
 import ooga.controller.SocialController;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
-import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.player.Player;
 import ooga.model.player.Player;
-import ooga.model.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 //import ooga.model.player.Player.PlayerType;
@@ -60,10 +58,6 @@ public abstract class Game {
     if (socialController != null) {
       socialController.updateGame(false);
     }
-  }
-
-  public String getGameType() {
-    return gameType;
   }
 
   public void playerTakeTurn() {

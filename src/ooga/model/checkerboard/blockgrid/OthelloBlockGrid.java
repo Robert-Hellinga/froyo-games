@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import ooga.Coordinate;
-import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.OthelloBlock;
 import ooga.model.game.Game;
 
 public class OthelloBlockGrid extends BlockGrid {
 
-  public OthelloBlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
+  public OthelloBlockGrid(String gameType, List<List<Integer>> allBlockConfig, int numPlayers) {
     super(gameType, allBlockConfig, numPlayers);
     setAvailablePosition(1, Coordinate.INVALID_COORDINATE);
   }
