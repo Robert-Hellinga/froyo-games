@@ -46,13 +46,13 @@ public class SocialController {
 
   private Resources error;
   private DatabaseReference ref, gameRef;
-  private Player creatorPlayer, opponentPlayer;
+  private Player player, opponent;
   private Game game;
   private IGameController gameController;
 
-  public SocialController(Player creatorPlayer, Player opponentPlayer, IGameController gameController, Game game) {
-    this.creatorPlayer = creatorPlayer;
-    this.opponentPlayer = opponentPlayer;
+  public SocialController(Player player, Player opponent, IGameController gameController, Game game) {
+    this.player = player;
+    this.opponent = opponent;
     this.gameController = gameController;
     this.game = game;
     error = new Resources(Resources.ERROR_MESSAGES_FILE);
@@ -77,7 +77,7 @@ public class SocialController {
   }
 
   public void joinGame() {
-    ref.child(opponentPlayer.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+    ref.child(opponent.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
         startGame(snapshot);
@@ -94,17 +94,17 @@ public class SocialController {
     // This logic asks "does the game exist, and is the existing game the same type?
     // If yes, join the game, otherwise, create a new game
     if(snapshot.exists() && game.getGameType().equals(snapshot.child(GAME_TYPE_KEY).getValue())) {
-      gameRef = ref.child(opponentPlayer.getName());
+      gameRef = ref.child(opponent.getName());
       waitForOpponentTurn();
     }
     else {
       Map<String, DatabaseGame> newGame = Map.of(
-          creatorPlayer.getName(),
+          player.getName(),
           new DatabaseGame(game.getAllBlockStatesAsString(), game.getGameType())
       );
 
       ref.setValueAsync(newGame);
-      gameRef = ref.child(creatorPlayer.getName());
+      gameRef = ref.child(player.getName());
     }
   }
 
