@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.util.Pair;
 import ooga.Coordinate;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.checkerboard.blockgrid.Connect4BlockGrid;
 
 public class Connect4AIBrain implements AIBrain {
 
@@ -46,7 +47,7 @@ public class Connect4AIBrain implements AIBrain {
       }
     }
 
-    BlockGrid newConnect4Board = connect4Grid.clone();
+    BlockGrid newConnect4Board = new Connect4BlockGrid(connect4Grid);
     List<Coordinate> potentialMoves = newConnect4Board.getAllBlocks().getBlock(new Coordinate(0, 0))
         .getAvailablePosition(0, newConnect4Board.getAllBlocks());
 
@@ -55,7 +56,7 @@ public class Connect4AIBrain implements AIBrain {
       float value = Float.NEGATIVE_INFINITY;
       for (Coordinate coor : potentialMoves) {
         int next_open_row = get_next_open_row(newConnect4Board, coor.xCoordinate());
-        BlockGrid newnewConnect4Board = newConnect4Board.clone();
+        BlockGrid newnewConnect4Board = new Connect4BlockGrid(newConnect4Board);
         newnewConnect4Board
             .play(new Coordinate(coor.xCoordinate(), next_open_row), currentPlayerIndex);
         Float new_score = miniMax(newnewConnect4Board, depth - 1, alpha, beta, false,
@@ -75,7 +76,7 @@ public class Connect4AIBrain implements AIBrain {
       float value = Float.POSITIVE_INFINITY;
       for (Coordinate coor : potentialMoves) {
         int next_open_row = get_next_open_row(newConnect4Board, coor.xCoordinate());
-        BlockGrid newnewConnect4Board = newConnect4Board.clone();
+        BlockGrid newnewConnect4Board = new Connect4BlockGrid(newConnect4Board);
         newnewConnect4Board
             .play(new Coordinate(coor.xCoordinate(), next_open_row), currentPlayerIndex);
         Float new_score = miniMax(newnewConnect4Board, depth - 1, alpha, beta, true,
@@ -93,70 +94,6 @@ public class Connect4AIBrain implements AIBrain {
     }
   }
 
-
-//  private boolean isWinning_Move(BlockGrid connect4Grid, int playerID) {
-//    // Check horizontal loacations for win
-//    for (int col = 0; col < connect4Grid.getAllBlocks().getBlockStructureWidth() - 3; col++) {
-//      for (int row = connect4Grid.getAllBlocks().getBlockStructureHeight() - 1;
-//          row >= 0; row--) {
-//        if (connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row)).getPlayerID() == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 1, row)).getPlayerID()
-//            == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 2, row)).getPlayerID()
-//            == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 3, row)).getPlayerID()
-//            == playerID) {
-//          return true;
-//        }
-//      }
-//    }
-//
-//    // Check vertical locations for win
-//    for (int col = 0; col < connect4Grid.getAllBlocks().getBlockStructureWidth(); col++) {
-//      for (int row = connect4Grid.getAllBlocks().getBlockStructureHeight() - 1; row >= 3; row--) {
-//        if (connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row)).getPlayerID() == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row - 1)).getPlayerID()
-//            == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row - 2)).getPlayerID()
-//            == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row - 3)).getPlayerID()
-//            == playerID) {
-//          return true;
-//        }
-//      }
-//    }
-//
-//    // Check positively sloped diagonals
-//    for (int col = 0; col < connect4Grid.getAllBlocks().getBlockStructureWidth() - 3; col++) {
-//      for (int row = connect4Grid.getAllBlocks().getBlockStructureHeight() - 1; row >= 3; row--) {
-//        if (connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row)).getPlayerID() == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 1, row - 1)).getPlayerID()
-//            == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 2, row - 2)).getPlayerID()
-//            == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 3, row - 3)).getPlayerID()
-//            == playerID) {
-//          return true;
-//        }
-//      }
-//    }
-//
-//    // Check negatively sloped diagonals
-//    for (int col = 0; col < connect4Grid.getAllBlocks().getBlockStructureWidth() - 3; col++) {
-//      for (int row = 0; row < connect4Grid.getAllBlocks().getBlockStructureHeight() - 3; row++) {
-//        if (connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row)).getPlayerID() == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 1, row + 1)).getPlayerID()
-//            == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 2, row + 2)).getPlayerID()
-//            == playerID
-//            && connect4Grid.getAllBlocks().getBlock(new Coordinate(col + 3, row + 3)).getPlayerID()
-//            == playerID) {
-//          return true;
-//        }
-//      }
-//    }
-//    return false;
-//  }
 
   private int get_next_open_row(BlockGrid connect4Grid, int col) {
     for (int row = connect4Grid.getAllBlocks().getBlockStructureHeight() - 1; row >= 0; row--) {

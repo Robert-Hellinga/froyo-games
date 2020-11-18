@@ -8,6 +8,17 @@ public class BlockState {
   protected boolean isChosen;
   protected boolean isPotentialMove;
 
+  public BlockState(BlockState originalState) {
+    this.PlayerID = originalState.PlayerID;
+    this.isEmpty = originalState.isEmpty;
+    this.isKing = originalState.isKing;
+    this.isChosen = originalState.isChosen;
+    this.isPotentialMove = originalState.isPotentialMove;
+  }
+
+  public BlockState() {
+
+  }
 
   public void choose() {
     isChosen = true;
@@ -21,7 +32,7 @@ public class BlockState {
     isPotentialMove = true;
   }
 
-  public void unmakePotentialMove(){
+  public void unmakePotentialMove() {
     isPotentialMove = false;
   }
 
@@ -41,7 +52,7 @@ public class BlockState {
     return isEmpty;
   }
 
-  public void makeKing(){
+  public void makeKing() {
     isKing = true;
   }
 
@@ -70,42 +81,22 @@ public class BlockState {
   }
 
   public int getNumericState() {
-    if (isEmpty() && !isPotentialMove()){
+    if (isEmpty() && !isPotentialMove()) {
       return 0;
-    }
-    else if (isPotentialMove()){
+    } else if (isPotentialMove()) {
       return 5;
-    }
-    else if (isKing()){
+    } else if (isKing()) {
       if (!isChosen()) {
         return getPlayerID() + 5;
-      }
-      else{
+      } else {
         return getPlayerID() + 7;
       }
-    }
-    else {
+    } else {
       if (!isChosen()) {
         return getPlayerID();
-      }
-      else{
+      } else {
         return getPlayerID() + 2;
       }
     }
-  }
-
-  @Override
-  public BlockState clone() {
-    BlockState blockState = new BlockState();
-    try {
-      return (BlockState) super.clone();
-    } catch (CloneNotSupportedException e) {
-      blockState.PlayerID = this.PlayerID;
-      blockState.isEmpty = this.isEmpty;
-      blockState.isKing = this.isKing;
-      blockState.isChosen = this.isChosen;
-      blockState.isPotentialMove = this.isPotentialMove;
-    }
-    return blockState;
   }
 }

@@ -9,6 +9,10 @@ public class Connect4BlockGrid extends BlockGrid {
     super(gameType, allBlockConfig, numPlayers);
   }
 
+  public Connect4BlockGrid(BlockGrid connect4Grid) {
+    super(connect4Grid);
+  }
+
   @Override
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
@@ -23,7 +27,7 @@ public class Connect4BlockGrid extends BlockGrid {
   }
 
   @Override
-  public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
+  public void play(Coordinate passInCoordinate, Integer currentPlayerIndex) {
     int xCoordinate = passInCoordinate.xCoordinate();
     for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
       Coordinate coordinate = new Coordinate(xCoordinate, j);
@@ -34,19 +38,6 @@ public class Connect4BlockGrid extends BlockGrid {
       }
     }
     unsetAllBlockPotential();
-  }
-
-  @Override
-  public BlockGrid clone(){
-    BlockGrid blockGrid = new Connect4BlockGrid(gameType, allBlocks.getBlockConfigStructure(), numPlayers);
-    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++){
-      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++){
-        blockGrid.getAllBlocks().getBlock(new Coordinate(j,i)).setBlockState(
-            allBlocks.getBlock(new Coordinate(j,i)).getBlockState().clone()
-        );
-      }
-    }
-    return blockGrid;
   }
 
   public boolean isWinningMove(int playerID) {
