@@ -22,6 +22,7 @@ public class Connect4Game extends Game {
         wonGame = true;
       }
       else{
+        updateDatabase();
         playerTakeTurn();
         connect4Board.resetFinishAround();
       }
@@ -40,5 +41,10 @@ public class Connect4Game extends Game {
       return currentPlayer;
     }
     return null;
+  }
+
+  @Override
+  public boolean currentPlayerHavePotentialMoves() {
+    return false;
   }
 }

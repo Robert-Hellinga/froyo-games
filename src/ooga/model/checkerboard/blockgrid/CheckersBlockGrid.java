@@ -10,11 +10,9 @@ import ooga.model.game.CheckersGame;
 public class CheckersBlockGrid extends BlockGrid {
 
 
-
   public CheckersBlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers){
     super(gameType, allBlockConfig, numPlayers);
   }
-
 
 
   @Override
@@ -27,6 +25,8 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
+
+
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
     if (hasChosenBlock()) {
@@ -38,7 +38,6 @@ public class CheckersBlockGrid extends BlockGrid {
         setAvailablePosition(currentPlayerIndex, passInCoordinate);
       } else if (allBlocks.getBlock(passInCoordinate).getBlockState()
           .isPotentialMove()) {
-
         removeCheckedPiece(passInCoordinate, getChosenBlockCoordianate());
         moveBlock(getChosenBlockCoordianate(), passInCoordinate);
         makeBlockKing(passInCoordinate);

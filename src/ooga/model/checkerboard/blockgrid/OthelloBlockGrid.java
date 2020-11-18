@@ -8,6 +8,7 @@ import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.OthelloBlock;
 import ooga.model.game.Game;
+import ooga.model.player.Player;
 
 public class OthelloBlockGrid extends BlockGrid {
 
@@ -23,17 +24,17 @@ public class OthelloBlockGrid extends BlockGrid {
     }
   }
 
-  public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
-    List<Coordinate> allPotentialMoves = new ArrayList<>();
-    for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-      for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
-        Coordinate coordinate = new Coordinate(i, j);
-        allPotentialMoves.addAll(allBlocks.getBlock(coordinate)
-            .getAvailablePosition(currentPlayerIndex, allBlocks));
-      }
-    }
-    return allPotentialMoves;
-  }
+//  public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
+//    List<Coordinate> allPotentialMoves = new ArrayList<>();
+//    for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+//      for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
+//        Coordinate coordinate = new Coordinate(i, j);
+//        allPotentialMoves.addAll(allBlocks.getBlock(coordinate)
+//            .getAvailablePosition(currentPlayerIndex, allBlocks));
+//      }
+//    }
+//    return allPotentialMoves;
+//  }
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex) {
@@ -141,8 +142,11 @@ public class OthelloBlockGrid extends BlockGrid {
     for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++) {
       for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
         Coordinate coordinate = new Coordinate(j, i);
-        pieceCounter.set(allBlocks.getBlock(coordinate).getPlayerID() - 1,
-            pieceCounter.get(allBlocks.getBlock(coordinate).getPlayerID() - 1) + 1);
+        if (!allBlocks.getBlock(coordinate).getIsEmpty()){
+          int playerIndex = allBlocks.getBlock(coordinate).getPlayerID() - 1;
+          pieceCounter.set(playerIndex, pieceCounter.get(playerIndex) + 1);
+        }
+
       }
     }
     return pieceCounter.indexOf(Collections.max(pieceCounter));

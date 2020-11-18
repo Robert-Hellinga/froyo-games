@@ -34,12 +34,14 @@ public class GameScreen extends GridPane implements ModelObserver {
   private Game game;
   private PieceGrid grid;
   private Locale locale;
+  private IGameController gameController;
   private IFroyoController froyoController;
 
   public GameScreen(Locale locale, IGameController gameController,
       IFroyoController froyoController, Game game) {
     this.game = game;
     this.locale = locale;
+    this.gameController = gameController;
     this.froyoController = froyoController;
     resources = new Resources(this.locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
     grid = new PieceGrid(gameController, game.getAllBlockStates());

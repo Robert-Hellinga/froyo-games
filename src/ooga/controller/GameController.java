@@ -3,21 +3,24 @@ package ooga.controller;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 import ooga.Coordinate;
 import ooga.model.game.Game;
-//import ooga.model.player.Player.PlayerType;
 import ooga.model.player.Player;
-import ooga.view.grid.PieceGrid;
 
 public class GameController implements IGameController {
 
-  public static final int FRAMES_PER_SECOND = 60;
+  public static final double FRAMES_PER_SECOND = 0.2;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final double AI_DELAY = 0.05;
+  public static final String SKIP_ROUND_MESSAGE = " have no moves to make, will have to skip the round.";
 
   private double delayCounter = AI_DELAY;
   private boolean enableAIChecker = true;
+  private Timeline animation;
 
   public enum PlayerMode {
     PLAY_WITH_AI,
@@ -27,10 +30,12 @@ public class GameController implements IGameController {
   private final Game game;
   private List<Player> allPlayers;
   private final PlayerMode mode;
+  private boolean clickingEnabled;
 
   public GameController(Game game, PlayerMode playerMode) {
     this.game = game;
     this.mode = playerMode;
+    clickingEnabled = true;
     allPlayers = game.getAllPlayers();
     setupAnimation();
   }
@@ -63,8 +68,15 @@ public class GameController implements IGameController {
 
   @Override
   public void clickPiece(Coordinate coordinate) {
+    if(clickingEnabled) {
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
+    }
+  }
+
+  @Override
+  public void setClickingEnabled(boolean enabled) {
+    clickingEnabled = enabled;
   }
 
   @Override
@@ -84,7 +96,7 @@ public class GameController implements IGameController {
 
   private void setupAnimation() {
     KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
-    Timeline animation = new Timeline();
+    animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
@@ -97,8 +109,24 @@ public class GameController implements IGameController {
     }
   }
 
+  private void checkIfPlayerHaveNoPotentialMove(){
+    if (game.isHaveNoPotentialMove()){
+      Alert alert = new Alert(AlertType.NONE, game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
+      alert.show();
+      game.playerTakeTurn();
+      if (!game.currentPlayerHavePotentialMoves()){
+        Alert alert2 = new Alert(AlertType.NONE, game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
+        alert2.show();
+        game.endGame();
+      }
+      game.resetHaveNotPotentialMove();
+    }
+  }
+
   private void step(double elapsedTime) {
     checkForAITurn(elapsedTime);
+    game.notifyObservers();
     checkPlayerWonGame();
+    checkIfPlayerHaveNoPotentialMove();
   }
 }

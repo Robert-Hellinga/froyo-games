@@ -19,16 +19,16 @@ import ooga.view.screens.GameScreen;
 public class FroyoController implements IFroyoController{
 
   private Stage myStage;
+  private SocialController socialController;
 
   public FroyoController(Stage stage){
     myStage = stage;
   }
 
   @Override
-  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName,
-      boolean online, String opponentName) {
+  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName, boolean online, String opponentName) {
     Player userPlayer = new HumanPlayer(playerName);
-    Player secondPlayer = createSecondPlayer(onePlayer);
+    Player secondPlayer = createSecondPlayer(onePlayer, opponentName);
 
     Game game = createGame(gameType, userPlayer, secondPlayer, "default");
     userPlayer.setMyGame(game, gameType);
@@ -39,16 +39,23 @@ public class FroyoController implements IFroyoController{
     GameScreen gameScreen = new GameScreen(locale, gameController, this, game);
     game.registerObserver(gameScreen);
     setNewLayout(gameScreen);
+
+    if(online) {
+      socialController = new SocialController(userPlayer, secondPlayer, gameController, game);
+      socialController.joinGame();
+      game.setDatabase(socialController);
+    }
   }
 
 
 
-  private Player createSecondPlayer(boolean onePlayer) {
+  private Player createSecondPlayer(boolean onePlayer, String name) {
+    name = name == null ? "Player 2" : name;
     if(onePlayer){
       return new AIPlayer();
     }
     else{
-      return new HumanPlayer("Player 2");
+      return new HumanPlayer(name);
     }
   }
 
@@ -72,8 +79,7 @@ public class FroyoController implements IFroyoController{
       Object gameObject = cons.newInstance(paramObject);
       return (Game) gameObject;
     } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-      e.printStackTrace();
-      throw new ClassOrMethodNotFoundException("class or method is not found");
+      throw new ClassOrMethodNotFoundException("Class not found.");
     }
   }
 

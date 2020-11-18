@@ -2,6 +2,8 @@ package ooga.model.checkerboard.blockgrid;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.exceptions.ClassOrMethodNotFoundException;
@@ -20,6 +22,24 @@ public abstract class BlockGrid{
     this.gameType = gameType;
     this.allBlocks = new BlockStructure(this.gameType, allBlockConfig);
     this.numPlayers = numPlayers;
+  }
+
+  public void setAllBlockStates(String stateString) {
+    List<List<Block>> newBlockStates = new ArrayList<>();
+    String[] rows = stateString.split("~");
+
+    for(int i = 0; i < rows.length; i++) {
+      String[] row = rows[i].split(",");
+      List<Block> blockLine = new ArrayList<>();
+      for(int j = 0; j < row.length; j++) {
+        Integer cellConfig = Integer.parseInt(row[j]);
+        if(cellConfig.intValue() != -1) {
+          blockLine.add(BlockGrid.createBlock(gameType, cellConfig, new Coordinate(j, i)));
+        }
+      }
+      newBlockStates.add(blockLine);
+    }
+    allBlocks.setBlockStructure(newBlockStates);
   }
 
 
@@ -122,5 +142,17 @@ public abstract class BlockGrid{
     } else {
       return playerIndexPoll.get(index + 1);
     }
+  }
+
+  public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
+    List<Coordinate> allPotentialMoves = new ArrayList<>();
+    for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+      for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
+        Coordinate coordinate = new Coordinate(i, j);
+        allPotentialMoves.addAll(allBlocks.getBlock(coordinate)
+            .getAvailablePosition(currentPlayerIndex, allBlocks));
+      }
+    }
+    return allPotentialMoves;
   }
 }
