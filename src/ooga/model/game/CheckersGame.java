@@ -1,34 +1,52 @@
 package ooga.model.game;
 
+import java.util.ArrayList;
+import java.util.List;
 import ooga.Coordinate;
-import ooga.controller.GameController.PlayerMode;
-import ooga.fileHandler.Database;
-import ooga.model.BlockGrid;
-import ooga.model.CheckersBlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.checkerboard.blockgrid.CheckersBlockGrid;
 import ooga.model.player.Player;
 
 public class CheckersGame extends Game {
 
-  private CheckersBlockGrid checkBoard;
+  private CheckersBlockGrid checkersBoard;
 
   public CheckersGame(String gameType, Player playerOne, Player playerTwo, String startPattern){
     super(gameType, playerOne, playerTwo, startPattern);
-    checkBoard = new CheckersBlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
+    checkersBoard = new CheckersBlockGrid(gameType, getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 
   @Override
   public void play(Coordinate passInCoordinate) {
-    checkBoard.play(passInCoordinate, getCurrentPlayerIndex());
-    if (checkBoard.isFinishARound()) {
-      updateDatabase();
-      playerTakeTurn();
-      checkBoard.resetFinishAround();
+    checkersBoard.play(passInCoordinate, getCurrentPlayerIndex());
+    if (checkersBoard.isFinishARound()){
+      if (checkersBoard.isWinningMove(getCurrentPlayerIndex())){
+        wonGame = true;
+      }
+      else{
+        updateDatabase();
+        playerTakeTurn();
+        checkersBoard.resetFinishAround();
+      }
     }
     notifyObservers();
   }
 
   @Override
   public BlockGrid getBoard(){
-    return checkBoard;
+    return checkersBoard;
+  }
+
+  @Override
+  public Player getWinningPlayer() {
+    if (wonGame){
+      return currentPlayer;
+    }
+    return null;
+  }
+
+  @Override
+  public boolean currentPlayerHavePotentialMoves() {
+    return !checkersBoard.getAllPotentialMoves(getCurrentPlayerIndex()).isEmpty();
   }
 }

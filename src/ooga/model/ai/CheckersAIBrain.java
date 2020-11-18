@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Vector;
 import ooga.Coordinate;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.BlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.checkerboard.blockgrid.CheckersBlockGrid;
+import ooga.model.game.CheckersGame;
 
 public class CheckersAIBrain implements AIBrain {
 
   public static final int SEARCH_LAYER = 2;
-  public static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
+
 
 
   @Override
@@ -47,7 +49,7 @@ public class CheckersAIBrain implements AIBrain {
               if (evaluateMove(
                   applyMove(newGrid, currentPlayerIndex,
                       miniMax(searchLayer - 1, applyMove(newGrid, currentPlayerIndex, moves),
-                          playerTakeTurn(currentPlayerIndex), false)
+                          CheckersBlockGrid.playerTakeTurn(currentPlayerIndex, CheckersGame.PLAYER_INDEX_POLL), false)
                   ),
                   currentPlayerIndex) > value) {
                 bestMove = new Vector<>(List.of(chosenCoordinate, potentialCoordinate));
@@ -76,7 +78,7 @@ public class CheckersAIBrain implements AIBrain {
               if (evaluateMove(
                   applyMove(newGrid, currentPlayerIndex,
                       miniMax(searchLayer - 1, applyMove(newGrid, currentPlayerIndex, moves),
-                          playerTakeTurn(currentPlayerIndex), true)
+                          CheckersBlockGrid.playerTakeTurn(currentPlayerIndex, CheckersGame.PLAYER_INDEX_POLL), true)
                   ),
                   currentPlayerIndex) < value) {
                 bestMove = new Vector<>(List.of(chosenCoordinate, potentialCoordinate));
@@ -104,22 +106,13 @@ public class CheckersAIBrain implements AIBrain {
       for (Block block : blockList) {
         if (block.getPlayerID() == currentPlayerIndex) {
           score += 1;
-        } else if (block.getPlayerID() != currentPlayerIndex && PLAYER_INDEX_POLL
+        } else if (block.getPlayerID() != currentPlayerIndex && CheckersGame.PLAYER_INDEX_POLL
             .contains(block.getPlayerID())) {
           score -= 1;
         }
       }
     }
     return score;
-  }
-
-  private int playerTakeTurn(Integer currentPlayerIndex) {
-    int index = PLAYER_INDEX_POLL.indexOf(currentPlayerIndex);
-    if (index == PLAYER_INDEX_POLL.size() - 1) {
-      return PLAYER_INDEX_POLL.get(0);
-    } else {
-      return PLAYER_INDEX_POLL.get(index + 1);
-    }
   }
 
 }

@@ -1,19 +1,14 @@
 package ooga.model.game;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
-import ooga.controller.GameController.PlayerMode;
-import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.Database;
 import ooga.fileHandler.FileReader;
 import ooga.model.player.Player;
-import ooga.model.ai.AIBrain;
 import ooga.model.checkerboard.BlockConfigStructure;
-import ooga.model.BlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 //import ooga.model.player.Player.PlayerType;
@@ -21,11 +16,15 @@ import ooga.view.ModelObserver;
 
 public abstract class Game {
 
+  public static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
+
   protected String gameType;
   protected List<Player> allPlayers = new ArrayList<>();
   protected int numPlayers;
   protected Player currentPlayer;
   protected List<ModelObserver> observers;
+  protected boolean wonGame;
+  protected boolean haveNoPotentialMove;
   protected Database database;
   protected boolean turnsEnabled;
 
@@ -36,6 +35,8 @@ public abstract class Game {
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
     observers = new ArrayList<>();
+    wonGame = false;
+    haveNoPotentialMove = false;
     turnsEnabled = true;
   }
 
@@ -49,32 +50,6 @@ public abstract class Game {
     this.database = database;
   }
 
-
-//  public void aiPlay(){
-//    List<Coordinate> aiMoves = aiBrain.decideMove(getBoard(), getCurrentPlayerIndex());
-//    for (Coordinate coordinate : aiMoves){
-//      play(coordinate);
-//    }
-//  }
-
-//  private Player createSecondPlayer(PlayerMode playerMode) {
-//    if (playerMode.equals(PlayerMode.PLAY_WITH_AI)) {
-//      this.aiBrain = createAIBrain(gameType);
-//      return new Player("AI player", PlayerType.AI);
-//    }
-//    //TODO: need to implement the social feature: connect with another human player through social network
-//    return new Player("my friend", PlayerType.HUMAN);
-//  }
-
-  public String getGameType() {
-    return gameType;
-  }
-
-  public void updateDatabase() {
-    if(database != null) {
-      database.updateGame();
-    }
-  }
 
   public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
@@ -144,5 +119,25 @@ public abstract class Game {
 
   public List<Player> getAllPlayers(){
     return allPlayers;
+  }
+
+  public boolean isPlayerWonGame(){
+    return wonGame;
+  }
+
+  public abstract Player getWinningPlayer();
+
+  public boolean isHaveNoPotentialMove() {
+    return haveNoPotentialMove;
+  }
+
+  public void resetHaveNotPotentialMove(){
+    haveNoPotentialMove = false;
+  }
+
+  public abstract boolean currentPlayerHavePotentialMoves();
+
+  public void endGame(){
+    wonGame = true;
   }
 }

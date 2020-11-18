@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.checkerboard.blockgrid;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,12 +16,10 @@ public abstract class BlockGrid{
   protected final int numPlayers;
   protected final BlockStructure allBlocks;
   protected String gameType;
-  protected BlockConfigStructure allBlockConfig;
   protected boolean finishARound = false;
 
   public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
     this.gameType = gameType;
-    this.allBlockConfig = allBlockConfig;
     this.allBlocks = new BlockStructure(this.gameType, allBlockConfig);
     this.numPlayers = numPlayers;
   }
@@ -132,4 +130,27 @@ public abstract class BlockGrid{
   public abstract BlockGrid clone();
 
   public abstract void play(Coordinate passInCoordinate, Integer currentPlayerIndex);
+
+  public abstract boolean isWinningMove(int playerID);
+
+  public static int playerTakeTurn(Integer currentPlayerIndex, List<Integer> playerIndexPoll) {
+    int index = playerIndexPoll.indexOf(currentPlayerIndex);
+    if (index == playerIndexPoll.size() - 1) {
+      return playerIndexPoll.get(0);
+    } else {
+      return playerIndexPoll.get(index + 1);
+    }
+  }
+
+  public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
+    List<Coordinate> allPotentialMoves = new ArrayList<>();
+    for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+      for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
+        Coordinate coordinate = new Coordinate(i, j);
+        allPotentialMoves.addAll(allBlocks.getBlock(coordinate)
+            .getAvailablePosition(currentPlayerIndex, allBlocks));
+      }
+    }
+    return allPotentialMoves;
+  }
 }
