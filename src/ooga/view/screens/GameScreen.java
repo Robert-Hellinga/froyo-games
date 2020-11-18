@@ -5,6 +5,7 @@ import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import ooga.Util;
 import ooga.controller.IFroyoController;
 import ooga.controller.IGameController;
@@ -30,6 +31,8 @@ public class GameScreen extends GridPane implements ModelObserver {
   private static final int SCREEN_HEIGHT = 600;
   private static final int SCREEN_H_SPACING = 20;
   private static final int SCREEN_V_SPACING = 30;
+  private static final int PLAYER_ONE_COLOR_KEY = 1;
+  private static final int PLAYER_TWO_COLOR_KEY = 4;
 
   private Resources resources;
   private Game game;
@@ -53,15 +56,15 @@ public class GameScreen extends GridPane implements ModelObserver {
     setVgap(SCREEN_V_SPACING);
     setHgap(SCREEN_H_SPACING);
 
-    String playerOneName = getPlayerName(0);
-    String playerTwoName = getPlayerName(1);
-    add(new PlayerTurnBox(playerOneName), 1, 0);
+    add(new PlayerTurnBox(getPlayerName(0), PLAYER_ONE_COLOR_KEY), 1, 0);
     add(getControlButtonGroup(), 0, 1);
     add(grid, 1, 1);
-    add(new PlayerTurnBox(playerTwoName), 1, 2);
+    add(new PlayerTurnBox(getPlayerName(1), PLAYER_TWO_COLOR_KEY), 1, 2);
 
     Util.applyStyleSheet(this);
   }
+
+
 
   private String getPlayerName(int index) {
     List<Player> players = game.getAllPlayers();
