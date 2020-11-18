@@ -13,7 +13,6 @@ public class CheckersAIBrain implements AIBrain {
 
   public static final int SEARCH_LAYER = 2;
 
-
   @Override
   public List<Coordinate> decideMove(BlockGrid checkBoard, Integer currentPlayerIndex) {
     Vector<Coordinate> bestMove = miniMax(SEARCH_LAYER, checkBoard, currentPlayerIndex, true);

@@ -11,6 +11,7 @@ import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
+import ooga.model.checkerboard.block.BlockState;
 
 public abstract class BlockGrid {
 
@@ -27,7 +28,7 @@ public abstract class BlockGrid {
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
       for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
         this.getAllBlocks().getBlock(new Coordinate(i, j)).setBlockState(
-            originalGrid.allBlocks.getBlock(new Coordinate(i, j)).getBlockState().clone());
+            new BlockState(originalGrid.allBlocks.getBlock(new Coordinate(i, j)).getBlockState()));
       }
     }
   }
@@ -71,7 +72,6 @@ public abstract class BlockGrid {
   }
 
   public void setChosenBlock(Coordinate chosenBlock) {
-//    this.chosenBlock = chosenBlock;
     allBlocks.getBlock(chosenBlock).getBlockState().choose();
   }
 
@@ -122,11 +122,10 @@ public abstract class BlockGrid {
 
   public void moveBlock(Coordinate originalCoordiante, Coordinate newCoordinate) {
     allBlocks.getBlock(newCoordinate).setBlockState(
-        allBlocks.getBlock(originalCoordiante).getBlockState().clone()
+        new BlockState(allBlocks.getBlock(originalCoordiante).getBlockState())
     );
     allBlocks.getBlock(newCoordinate).getBlockState().setChosen(false);
     allBlocks.getBlock(originalCoordiante).initiateBlockState(0);
-//    allBlocks.getBlock(originalCoordiante).setEmpty(true);
   }
 
   public boolean isFinishARound() {
