@@ -54,6 +54,31 @@ public abstract class BlockGrid {
     allBlocks.setBlockStructure(newBlockStates);
   }
 
+  public List<List<Integer>> getAllBlockStates() {
+    List<List<Integer>> blockState = new ArrayList<>();
+    for(int i = 0; i < allBlocks.getBlockStructureHeight(); i++){
+      List<Integer> blockStateLine = new ArrayList<>();
+      for(int j = 0; j < allBlocks.getBlockStructureWidth(); j++){
+        Block currentBlock = allBlocks.getBlock(new Coordinate(j,i));
+        blockStateLine.add(currentBlock.getBlockState().getNumericState());
+      }
+      blockState.add(blockStateLine);
+    }
+    return blockState;
+  }
+
+  public String getAllBlockStatesAsString() {
+    BlockStructure blocks = getAllBlocks();
+    String result = "";
+    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
+      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
+        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
+        result += currentBlock.getBlockState().getNumericState() + ",";
+      }
+      result += "~";
+    }
+    return result;
+  }
 
   public static Block createBlock(String gameType, int blockConfig, Coordinate coordinate)
       throws ClassOrMethodNotFoundException {

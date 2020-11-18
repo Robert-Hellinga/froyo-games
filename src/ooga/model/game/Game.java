@@ -85,33 +85,12 @@ public abstract class Game {
     getBoard().setAllBlockStates(stateString);
   }
 
-  // TODO refactor this to happen within BlockStructure or BlockGrid
   public List<List<Integer>> getAllBlockStates() {
-    BlockStructure blocks = getBoard().getAllBlocks();
-    List<List<Integer>> blockState = new ArrayList<>();
-    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
-      List<Integer> blockStateLine = new ArrayList<>();
-      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
-        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
-        blockStateLine.add(currentBlock.getBlockState().getNumericState());
-      }
-      blockState.add(blockStateLine);
-    }
-    return blockState;
+    return getBoard().getAllBlockStates();
   }
 
-  // TODO refactor this to happen within BlockStructure or BlockGrid
   public String getAllBlockStatesAsString() {
-    BlockStructure blocks = getBoard().getAllBlocks();
-    String result = "";
-    for(int i = 0; i < blocks.getBlockStructureHeight(); i++){
-      for(int j = 0; j < blocks.getBlockStructureWidth(); j++){
-        Block currentBlock = blocks.getBlock(new Coordinate(j,i));
-        result += currentBlock.getBlockState().getNumericState() + ",";
-      }
-      result += "~";
-    }
-    return result;
+    return getBoard().getAllBlockStatesAsString();
   }
 
   public void registerObserver(ModelObserver observer){
