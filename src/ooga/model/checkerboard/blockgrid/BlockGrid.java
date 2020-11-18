@@ -15,9 +15,10 @@ public abstract class BlockGrid {
   protected final int numPlayers;
   protected final BlockStructure allBlocks;
   protected String gameType;
-  protected boolean finishARound = false;
+  protected boolean finishARound;
 
   public BlockGrid(BlockGrid originalGrid) {
+    finishARound = false;
     this.gameType = originalGrid.gameType;
     this.allBlocks = new BlockStructure(this.gameType,
         originalGrid.allBlocks.getBlockConfigStructure());

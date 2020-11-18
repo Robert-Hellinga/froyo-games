@@ -12,7 +12,7 @@ import ooga.model.game.Game;
 public class AIPlayer extends Player {
   private static final String AI_NAME = "Computer";
 
-  AIBrain myBrain;
+  private AIBrain myBrain;
 
   public AIPlayer(){
     setName(AI_NAME);

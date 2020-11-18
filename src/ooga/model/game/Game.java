@@ -19,7 +19,7 @@ public abstract class Game {
   public static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
 
   protected String gameType;
-  protected List<Player> allPlayers = new ArrayList<>();
+  protected List<Player> allPlayers;
   protected int numPlayers;
   protected Player currentPlayer;
   protected List<ModelObserver> observers;
@@ -31,6 +31,7 @@ public abstract class Game {
   public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     this.gameType = gameType;
     socialController = null;
+    allPlayers = new ArrayList<>();
     allPlayers.add(playerOne);
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;

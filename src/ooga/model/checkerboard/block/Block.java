@@ -6,10 +6,11 @@ import ooga.model.checkerboard.BlockStructure;
 
 public abstract class Block {
 
-  protected BlockState blockState = new BlockState();
+  protected BlockState blockState;
   protected Coordinate coordinate;
 
   public Block(Integer blockConfig, Coordinate coordinate) {
+    blockState = new BlockState();
     initiateBlockState(blockConfig);
     this.coordinate = coordinate;
   }

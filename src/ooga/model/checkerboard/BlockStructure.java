@@ -8,9 +8,10 @@ import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class BlockStructure {
 
-  private List<List<Block>> blockStructure = new ArrayList<>();
+  private List<List<Block>> blockStructure;
 
   public BlockStructure(String gameType, BlockConfigStructure allBlockConfig) {
+    blockStructure = new ArrayList<>();
     initiateBlockStructure(allBlockConfig, gameType);
   }
 
