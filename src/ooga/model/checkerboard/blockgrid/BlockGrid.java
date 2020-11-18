@@ -12,12 +12,25 @@ import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 
-public abstract class BlockGrid{
+public abstract class BlockGrid {
 
   protected final int numPlayers;
   protected final BlockStructure allBlocks;
   protected String gameType;
   protected boolean finishARound = false;
+
+  public BlockGrid(BlockGrid originalGrid) {
+    this.gameType = originalGrid.gameType;
+    this.allBlocks = new BlockStructure(this.gameType,
+        originalGrid.allBlocks.getBlockConfigStructure());
+    this.numPlayers = originalGrid.numPlayers;
+    for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+      for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
+        this.getAllBlocks().getBlock(new Coordinate(i, j)).setBlockState(
+            originalGrid.allBlocks.getBlock(new Coordinate(i, j)).getBlockState().clone());
+      }
+    }
+  }
 
   public BlockGrid(String gameType, BlockConfigStructure allBlockConfig, int numPlayers) {
     this.gameType = gameType;
@@ -29,12 +42,12 @@ public abstract class BlockGrid{
     List<List<Block>> newBlockStates = new ArrayList<>();
     String[] rows = stateString.split("~");
 
-    for(int i = 0; i < rows.length; i++) {
+    for (int i = 0; i < rows.length; i++) {
       String[] row = rows[i].split(",");
       List<Block> blockLine = new ArrayList<>();
-      for(int j = 0; j < row.length; j++) {
+      for (int j = 0; j < row.length; j++) {
         int cellConfig = Integer.parseInt(row[j]);
-        if(cellConfig != -1) {
+        if (cellConfig != -1) {
           blockLine.add(BlockGrid.createBlock(gameType, cellConfig, new Coordinate(j, i)));
         }
       }
@@ -76,7 +89,7 @@ public abstract class BlockGrid{
     return false;
   }
 
-  public Coordinate getChosenBlockCoordianate(){
+  public Coordinate getChosenBlockCoordianate() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
         if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
@@ -97,7 +110,7 @@ public abstract class BlockGrid{
     }
   }
 
-  public void unsetAllBlockPotential(){
+  public void unsetAllBlockPotential() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
         if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isPotentialMove()) {
@@ -107,7 +120,7 @@ public abstract class BlockGrid{
     }
   }
 
-  public void moveBlock(Coordinate originalCoordiante, Coordinate newCoordinate){
+  public void moveBlock(Coordinate originalCoordiante, Coordinate newCoordinate) {
     allBlocks.getBlock(newCoordinate).setBlockState(
         allBlocks.getBlock(originalCoordiante).getBlockState().clone()
     );
@@ -120,11 +133,9 @@ public abstract class BlockGrid{
     return finishARound;
   }
 
-  public void resetFinishAround(){
+  public void resetFinishAround() {
     this.finishARound = false;
   }
-
-  public abstract BlockGrid clone();
 
   public abstract void play(Coordinate passInCoordinate, Integer currentPlayerIndex);
 

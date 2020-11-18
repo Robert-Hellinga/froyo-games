@@ -7,6 +7,7 @@ import javafx.util.Pair;
 import ooga.Coordinate;
 import ooga.model.checkerboard.block.Block;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
+import ooga.model.checkerboard.blockgrid.OthelloBlockGrid;
 
 public class OthelloAIBrain implements AIBrain {
 
@@ -48,7 +49,7 @@ public class OthelloAIBrain implements AIBrain {
       }
     }
 
-    BlockGrid newOthelloGrid = othelloGrid.clone();
+    BlockGrid newOthelloGrid = new OthelloBlockGrid(othelloGrid);
     List<Coordinate> potentialMoves = getPotentialMoves(newOthelloGrid, currentPlayerIndex);
 
     if (maximizingPlayer) {
@@ -56,7 +57,7 @@ public class OthelloAIBrain implements AIBrain {
       Coordinate coordinate_move = new Coordinate(0, 0);
       float value = Float.NEGATIVE_INFINITY;
       for (Coordinate coor : potentialMoves) {
-        BlockGrid newnewOthelloGrid = newOthelloGrid.clone();
+        BlockGrid newnewOthelloGrid = new OthelloBlockGrid(newOthelloGrid);
         newnewOthelloGrid
             .play(new Coordinate(coor.xCoordinate(), coor.yCoordinate()), currentPlayerIndex);
 
@@ -77,7 +78,7 @@ public class OthelloAIBrain implements AIBrain {
       Coordinate coordinate_move = new Coordinate(0, 0);
       float value = Float.POSITIVE_INFINITY;
       for (Coordinate coor : potentialMoves) {
-        BlockGrid newnewOthelloGrid = newOthelloGrid.clone();
+        BlockGrid newnewOthelloGrid = new OthelloBlockGrid(newOthelloGrid);
         newnewOthelloGrid
             .play(new Coordinate(coor.xCoordinate(), coor.yCoordinate()), currentPlayerIndex);
         Float new_score = miniMax(newnewOthelloGrid, depth - 1, alpha, beta, true,

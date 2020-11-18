@@ -14,7 +14,6 @@ public class CheckersAIBrain implements AIBrain {
   public static final int SEARCH_LAYER = 2;
 
 
-
   @Override
   public List<Coordinate> decideMove(BlockGrid checkBoard, Integer currentPlayerIndex) {
     Vector<Coordinate> bestMove = miniMax(SEARCH_LAYER, checkBoard, currentPlayerIndex, true);
@@ -27,7 +26,7 @@ public class CheckersAIBrain implements AIBrain {
       return new Vector<>();
     }
 
-    BlockGrid newCheckBoard = checkBoard.clone();
+    BlockGrid newCheckBoard = new CheckersBlockGrid(checkBoard);
 
     Vector<Coordinate> bestMove = new Vector<>();
     if (maxPlayer) {
@@ -42,14 +41,16 @@ public class CheckersAIBrain implements AIBrain {
                 .getBlock(new Coordinate(j, i)).getAvailablePosition(currentPlayerIndex,
                     newCheckBoard.getAllBlocks());
             for (Coordinate potentialCoordinate : potentialMoves) {
-              BlockGrid newGrid = newCheckBoard.clone();
+              BlockGrid newGrid = new CheckersBlockGrid(newCheckBoard);
               Vector<Coordinate> moves = new Vector<>(
                   List.of(chosenCoordinate, potentialCoordinate));
 
               if (evaluateMove(
                   applyMove(newGrid, currentPlayerIndex,
                       miniMax(searchLayer - 1, applyMove(newGrid, currentPlayerIndex, moves),
-                          CheckersBlockGrid.playerTakeTurn(currentPlayerIndex, CheckersGame.PLAYER_INDEX_POLL), false)
+                          CheckersBlockGrid
+                              .playerTakeTurn(currentPlayerIndex, CheckersGame.PLAYER_INDEX_POLL),
+                          false)
                   ),
                   currentPlayerIndex) > value) {
                 bestMove = new Vector<>(List.of(chosenCoordinate, potentialCoordinate));
@@ -58,8 +59,7 @@ public class CheckersAIBrain implements AIBrain {
           }
         }
       }
-    }
-    else{
+    } else {
       float value = Float.POSITIVE_INFINITY;
       for (int i = 0; i < newCheckBoard.getAllBlocks().getBlockStructureHeight(); i++) {
         for (int j = 0; j < newCheckBoard.getAllBlocks().getBlockStructureWidth(); j++) {
@@ -71,14 +71,16 @@ public class CheckersAIBrain implements AIBrain {
                 .getBlock(new Coordinate(j, i)).getAvailablePosition(currentPlayerIndex,
                     newCheckBoard.getAllBlocks());
             for (Coordinate potentialCoordinate : potentialMoves) {
-              BlockGrid newGrid = newCheckBoard.clone();
+              BlockGrid newGrid = new CheckersBlockGrid(newCheckBoard);
               Vector<Coordinate> moves = new Vector<>(
                   List.of(chosenCoordinate, potentialCoordinate));
 
               if (evaluateMove(
                   applyMove(newGrid, currentPlayerIndex,
                       miniMax(searchLayer - 1, applyMove(newGrid, currentPlayerIndex, moves),
-                          CheckersBlockGrid.playerTakeTurn(currentPlayerIndex, CheckersGame.PLAYER_INDEX_POLL), true)
+                          CheckersBlockGrid
+                              .playerTakeTurn(currentPlayerIndex, CheckersGame.PLAYER_INDEX_POLL),
+                          true)
                   ),
                   currentPlayerIndex) < value) {
                 bestMove = new Vector<>(List.of(chosenCoordinate, potentialCoordinate));

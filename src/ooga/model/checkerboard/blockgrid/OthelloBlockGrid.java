@@ -17,6 +17,10 @@ public class OthelloBlockGrid extends BlockGrid {
     setAvailablePosition(1, Coordinate.INVALID_COORDINATE);
   }
 
+  public OthelloBlockGrid(BlockGrid othelloGrid) {
+    super(othelloGrid);
+  }
+
   @Override
   public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
     for (Coordinate coordinate : getAllPotentialMoves(currentPlayerIndex)) {
@@ -24,17 +28,6 @@ public class OthelloBlockGrid extends BlockGrid {
     }
   }
 
-//  public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
-//    List<Coordinate> allPotentialMoves = new ArrayList<>();
-//    for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-//      for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
-//        Coordinate coordinate = new Coordinate(i, j);
-//        allPotentialMoves.addAll(allBlocks.getBlock(coordinate)
-//            .getAvailablePosition(currentPlayerIndex, allBlocks));
-//      }
-//    }
-//    return allPotentialMoves;
-//  }
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex) {
@@ -43,20 +36,6 @@ public class OthelloBlockGrid extends BlockGrid {
       flipPiece(passInCoordinate, currentPlayerIndex);
     }
     unsetAllBlockPotential();
-  }
-
-  @Override
-  public BlockGrid clone() {
-    BlockGrid blockGrid = new OthelloBlockGrid(gameType, allBlocks.getBlockConfigStructure(),
-        numPlayers);
-    for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++) {
-      for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
-        blockGrid.getAllBlocks().getBlock(new Coordinate(j, i)).setBlockState(
-            allBlocks.getBlock(new Coordinate(j, i)).getBlockState().clone()
-        );
-      }
-    }
-    return blockGrid;
   }
 
   private void flipPiece(Coordinate passInCoordinate, int currentPlayerIndex) {
@@ -128,21 +107,17 @@ public class OthelloBlockGrid extends BlockGrid {
         }
       }
     }
-    if (!haveEmptyBlock){
-      return true;
-    }
-    return false;
+    return !haveEmptyBlock;
   }
 
 
-
-    public int getWinningPlayerIndex() {
+  public int getWinningPlayerIndex() {
     List<Integer> pieceCounter = new ArrayList<>(
         Collections.nCopies(Game.PLAYER_INDEX_POLL.size(), 0));
     for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++) {
       for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
         Coordinate coordinate = new Coordinate(j, i);
-        if (!allBlocks.getBlock(coordinate).getIsEmpty()){
+        if (!allBlocks.getBlock(coordinate).getIsEmpty()) {
           int playerIndex = allBlocks.getBlock(coordinate).getPlayerID() - 1;
           pieceCounter.set(playerIndex, pieceCounter.get(playerIndex) + 1);
         }
