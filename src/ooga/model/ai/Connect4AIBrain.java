@@ -29,8 +29,7 @@ public class Connect4AIBrain implements AIBrain {
   }
 
   private Pair<Coordinate, Float> miniMax(BlockGrid connect4Grid, int depth, float alpha,
-      float beta,
-      boolean maximizingPlayer, int currentPlayerIndex) {
+      float beta, boolean maximizingPlayer, int currentPlayerIndex) {
 
     boolean isTerminal = isTerminalNode(connect4Grid);
     if (depth == 0 || isTerminal) {
@@ -51,49 +50,46 @@ public class Connect4AIBrain implements AIBrain {
     List<Coordinate> potentialMoves = newConnect4Board.getAllBlocks().getBlock(new Coordinate(0, 0))
         .getAvailablePosition(0, newConnect4Board.getAllBlocks());
 
-    if (maximizingPlayer) {
-      Coordinate coordinate_move = new Coordinate(0, 0);
-      float value = Float.NEGATIVE_INFINITY;
-      for (Coordinate coor : potentialMoves) {
-        int next_open_row = get_next_open_row(newConnect4Board, coor.xCoordinate());
-        BlockGrid newnewConnect4Board = new Connect4BlockGrid(newConnect4Board);
-        newnewConnect4Board
-            .play(new Coordinate(coor.xCoordinate(), next_open_row), currentPlayerIndex);
-        Float new_score = miniMax(newnewConnect4Board, depth - 1, alpha, beta, false,
-            playerTakeTurn(currentPlayerIndex)).getValue();
-        if (new_score > value) {
-          value = new_score;
-          coordinate_move = new Coordinate(coor.xCoordinate(), coor.yCoordinate());
-        }
-        alpha = Math.max(alpha, value);
-        if (alpha >= beta) {
-          break;
-        }
-      }
-      return new Pair<Coordinate, Float>(coordinate_move, value);
-    } else {
-      Coordinate coordinate_move = new Coordinate(0, 0);
-      float value = Float.POSITIVE_INFINITY;
-      for (Coordinate coor : potentialMoves) {
-        int next_open_row = get_next_open_row(newConnect4Board, coor.xCoordinate());
-        BlockGrid newnewConnect4Board = new Connect4BlockGrid(newConnect4Board);
-        newnewConnect4Board
-            .play(new Coordinate(coor.xCoordinate(), next_open_row), currentPlayerIndex);
-        Float new_score = miniMax(newnewConnect4Board, depth - 1, alpha, beta, true,
-            playerTakeTurn(currentPlayerIndex)).getValue();
-        if (new_score < value) {
-          value = new_score;
-          coordinate_move = new Coordinate(coor.xCoordinate(), coor.yCoordinate());
-        }
-        beta = Math.min(beta, value);
-        if (alpha >= beta) {
-          break;
-        }
-      }
-      return new Pair<Coordinate, Float>(coordinate_move, value);
-    }
+    return getGoodMove(potentialMoves, newConnect4Board, currentPlayerIndex, depth, alpha, beta,
+        maximizingPlayer);
   }
 
+  private Pair<Coordinate, Float> getGoodMove(List<Coordinate> potentialMoves,
+      BlockGrid newConnect4Board, int currentPlayerIndex, int depth, float alpha, float beta,
+      boolean maximizingPlayer) {
+    Coordinate coordinate_move = new Coordinate(0, 0);
+
+    float value;
+
+    if (maximizingPlayer) {
+      value = Float.NEGATIVE_INFINITY;
+    } else {
+      value = Float.POSITIVE_INFINITY;
+    }
+
+    for (Coordinate coor : potentialMoves) {
+      int next_open_row = get_next_open_row(newConnect4Board, coor.xCoordinate());
+      BlockGrid newnewConnect4Board = new Connect4BlockGrid(newConnect4Board);
+      newnewConnect4Board
+          .play(new Coordinate(coor.xCoordinate(), next_open_row), currentPlayerIndex);
+      Float new_score = miniMax(newnewConnect4Board, depth - 1, alpha, beta, !maximizingPlayer,
+          playerTakeTurn(currentPlayerIndex)).getValue();
+
+      if ((maximizingPlayer && (new_score > value)) || (!maximizingPlayer && (new_score < value))) {
+        value = new_score;
+        coordinate_move = new Coordinate(coor.xCoordinate(), coor.yCoordinate());
+      }
+      if (maximizingPlayer) {
+        alpha = Math.max(alpha, value);
+      } else {
+        beta = Math.min(beta, value);
+      }
+      if (alpha >= beta) {
+        break;
+      }
+    }
+    return new Pair<Coordinate, Float>(coordinate_move, value);
+  }
 
   private int get_next_open_row(BlockGrid connect4Grid, int col) {
     for (int row = connect4Grid.getAllBlocks().getBlockStructureHeight() - 1; row >= 0; row--) {
@@ -125,6 +121,22 @@ public class Connect4AIBrain implements AIBrain {
     float score = 0;
 
     // Center column score
+    score += centerCount(connect4grid, playerID) * 3;
+
+    // Horizontal Score
+    score += horizontalScore(connect4grid, playerID);
+
+    // Vertical Score
+    score += verticalScore(connect4grid, playerID);
+
+    // Diagonal Score
+    score += diagonalScore(connect4grid, playerID);
+
+    return score;
+  }
+
+  private int centerCount(BlockGrid connect4grid, int playerID) {
+    // Center column score
     int col = connect4grid.getAllBlocks().getBlockStructureWidth() / 2;
     int centerCount = 0;
     for (int row = 0; row < connect4grid.getAllBlocks().getBlockStructureHeight(); row++) {
@@ -133,9 +145,11 @@ public class Connect4AIBrain implements AIBrain {
         centerCount++;
       }
     }
-    score += centerCount * 3;
+    return centerCount;
+  }
 
-    // Horizontal Score
+  private int horizontalScore(BlockGrid connect4grid, int playerID) {
+    int score = 0;
     for (int r = connect4grid.getAllBlocks().getBlockStructureHeight() - 1; r >= 0; r--) {
       for (int c = 0; c < connect4grid.getAllBlocks().getBlockStructureWidth() - 3; c++) {
         ArrayList<Integer> window = new ArrayList<>();
@@ -150,8 +164,11 @@ public class Connect4AIBrain implements AIBrain {
         score += evaluateWindow(window, playerID);
       }
     }
+    return score;
+  }
 
-    // Vertical Score
+  private int verticalScore(BlockGrid connect4grid, int playerID) {
+    int score = 0;
     for (int c = 0; c < connect4grid.getAllBlocks().getBlockStructureWidth(); c++) {
       for (int r = connect4grid.getAllBlocks().getBlockStructureHeight() - 1; r >= 3; r--) {
         ArrayList<Integer> window = new ArrayList<>();
@@ -166,8 +183,11 @@ public class Connect4AIBrain implements AIBrain {
         score += evaluateWindow(window, playerID);
       }
     }
+    return score;
+  }
 
-    // Diagonal Score
+  private int diagonalScore(BlockGrid connect4grid, int playerID) {
+    int score = 0;
     for (int r = connect4grid.getAllBlocks().getBlockStructureHeight() - 1; r >= 3; r--) {
       for (int c = 0; c < connect4grid.getAllBlocks().getBlockStructureWidth() - 3; c++) {
 
