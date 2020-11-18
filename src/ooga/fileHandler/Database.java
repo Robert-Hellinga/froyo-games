@@ -27,13 +27,12 @@ import ooga.model.player.Player;
 
 public class Database {
 
-  private static final String KEY_PATH = "/Users/nate/Documents/Duke/CS307/final_team11/src/resources/social/froyogames-1df28-8e29e2f7996b.json";
+  private static final String KEY_PATH = "../../resources/social/database-key.txt";
   private static final String APP_URL = "https://froyogames-1df28.firebaseio.com/";
 
   private Resources error;
   private DatabaseReference ref, gameRef;
   private Player creatorPlayer, opponentPlayer;
-  private String gameName;
   private Game game;
 
   public Database(Player creatorPlayer, Player opponentPlayer, Game game) {
@@ -45,11 +44,9 @@ public class Database {
   }
 
   private void initializeDB() {
-
-    System.out.println(getClass().getResource("resources/social/froyogames-1df28-8e29e2f7996b.json").getFile());
     try {
-      File file = new File(KEY_PATH);
-      FileInputStream serviceAccount = new FileInputStream(file);
+      File keyFile = new File(getClass().getResource(KEY_PATH).getPath());
+      FileInputStream serviceAccount = new FileInputStream(keyFile);
       FirebaseOptions options = FirebaseOptions.builder()
           .setCredentials(GoogleCredentials.fromStream(serviceAccount))
           .setDatabaseUrl(APP_URL)
@@ -63,13 +60,12 @@ public class Database {
     }
   }
 
-  private void createGame(boolean alreadyExists, Iterable<DataSnapshot> gameData) {
+  private void startGame(boolean alreadyExists) {
     if(alreadyExists) {
       gameRef = ref.child(opponentPlayer.getName());
       System.out.println("Game already exists, joining...");
       game.setCurrentPlayer(opponentPlayer);
       createTurnListener();
-      gameName = opponentPlayer.getName();
     }
     else {
       Map<String, DatabaseGame> newGame = new HashMap<>();
@@ -77,15 +73,14 @@ public class Database {
       ref.setValueAsync(newGame);
       gameRef = ref.child(creatorPlayer.getName());
       System.out.println("Created new game");
-      gameName = creatorPlayer.getName();
     }
   }
 
-  public void addNewGame() {
+  public void joinGame() {
     ref.child(opponentPlayer.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
-          createGame(snapshot.exists(), snapshot.getChildren());
+          startGame(snapshot.exists());
       }
 
       @Override

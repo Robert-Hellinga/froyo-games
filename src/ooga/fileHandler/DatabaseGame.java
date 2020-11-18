@@ -1,7 +1,5 @@
 package ooga.fileHandler;
 
-import java.util.List;
-
 public class DatabaseGame {
 
   // Game stores: current turn, and board state

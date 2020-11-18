@@ -27,8 +27,7 @@ public class FroyoController implements IFroyoController{
   }
 
   @Override
-  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName,
-      boolean online, String opponentName) {
+  public void startGame(Locale locale, String gameType, boolean onePlayer, String playerName, boolean online, String opponentName) {
     Player userPlayer = new HumanPlayer(playerName);
     Player secondPlayer = createSecondPlayer(onePlayer, opponentName);
 
@@ -44,7 +43,7 @@ public class FroyoController implements IFroyoController{
 
     if(online) {
       database = new Database(userPlayer, secondPlayer, game);
-      database.addNewGame();
+      database.joinGame();
       game.setDatabase(database);
     }
   }

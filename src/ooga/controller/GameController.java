@@ -65,8 +65,8 @@ public class GameController implements IGameController {
 
   @Override
   public void clickPiece(Coordinate coordinate) {
-      Player currentPlayer = game.getCurrentPlayer();
-      currentPlayer.makePlay(coordinate);
+    Player currentPlayer = game.getCurrentPlayer();
+    currentPlayer.makePlay(coordinate);
   }
 
   @Override
