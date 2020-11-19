@@ -21,10 +21,17 @@ public class ToggleButtonGroup extends ButtonGroup {
         DEFAULT_TOGGLE_BTN_TEXT_SIZE);
   }
 
+  public ToggleButtonGroup(Pane pane, Resources resources, int width, int height) {
+    this(pane, resources, width, height, DEFAULT_TOGGLE_BTN_TEXT_SIZE);
+  }
+
   public ToggleButtonGroup(Pane pane, Resources resources, int width, int height, int textSize) {
     super(pane, resources, width, height, textSize);
     toggleGroup = new ToggleGroup();
-
+    toggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
+      if (newVal == null)
+        oldVal.setSelected(true);
+    });
   }
 
   @Override
