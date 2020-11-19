@@ -84,18 +84,18 @@ public class GameController implements IGameController {
   }
 
   private void checkIfPlayerHaveNoPotentialMove() {
-    if (game.isHaveNoPotentialMove()) {
+    if (!game.currentPlayerHavePotentialMoves() && !game.isPlayerWonGame()) {
       Alert alert = new Alert(AlertType.NONE,
           game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
       alert.show();
       game.playerTakeTurn();
-      if (!game.currentPlayerHavePotentialMoves()) {
+      if (!game.currentPlayerHavePotentialMoves() && !game.isPlayerWonGame()) {
+        System.out.println("reach here");
         Alert alert2 = new Alert(AlertType.NONE,
             game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
         alert2.show();
         game.endGame();
       }
-      game.resetHaveNotPotentialMove();
       game.notifyObservers();
     }
   }

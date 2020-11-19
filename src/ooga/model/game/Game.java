@@ -21,7 +21,6 @@ public abstract class Game {
   protected Player currentPlayer;
   protected List<ModelObserver> observers;
   protected boolean wonGame;
-  protected boolean haveNoPotentialMove;
   protected SocialController socialController;
   protected boolean turnsEnabled;
 
@@ -34,7 +33,7 @@ public abstract class Game {
     currentPlayer = playerOne;
     observers = new ArrayList<>();
     wonGame = false;
-    haveNoPotentialMove = false;
+//    haveNoPotentialMove = false;
     turnsEnabled = true;
   }
 
@@ -116,13 +115,13 @@ public abstract class Game {
 
   public abstract Player getWinningPlayer();
 
-  public boolean isHaveNoPotentialMove() {
-    return haveNoPotentialMove;
-  }
+//  public boolean isHaveNoPotentialMove() {
+//    return haveNoPotentialMove;
+//  }
 
-  public void resetHaveNotPotentialMove() {
-    haveNoPotentialMove = false;
-  }
+//  public void resetHaveNotPotentialMove() {
+//    haveNoPotentialMove = false;
+//  }
 
   public abstract boolean currentPlayerHavePotentialMoves();
 
