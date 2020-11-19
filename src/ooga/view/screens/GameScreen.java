@@ -87,8 +87,8 @@ public class GameScreen extends GridPane implements ModelObserver {
 
     controlButtonGroup.addButtons(CONTROL_BTNS);
     controlButtonGroup
-        .setOnButtonPushed(0, event -> new SplashScreen(resources.getLocale(), froyoController));
-    controlButtonGroup.setOnButtonPushed(1, event -> saveGame());
+        .setOnButtonPushed(event -> new SplashScreen(resources.getLocale(), froyoController), 0);
+    controlButtonGroup.setOnButtonPushed(event -> saveGame(), 1);
 
     return result;
   }

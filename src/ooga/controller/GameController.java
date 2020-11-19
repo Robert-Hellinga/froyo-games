@@ -1,6 +1,7 @@
 package ooga.controller;
 
 import java.util.List;
+import java.util.Optional;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
@@ -76,9 +77,9 @@ public class GameController implements IGameController {
   private void checkPlayerWonGame() {
     if (game.isPlayerWonGame()) {
       animation.stop();
-      System.out.println(game.getWinningPlayer().getName() + " has won the game!");
       enableAIChecker = false;
       game.notifyObservers();
+      System.out.println(game.getWinningPlayer().getName() + " has won the game!");
     }
   }
 
