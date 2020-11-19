@@ -44,7 +44,7 @@ Features implemented:
  * Artificial Player (using variations of minmax algorithm)
  * Online Play (can play Checkers or Connect 4 against another player)
 
-### Notes/Assumptions
+### Notes/Assumption
 
 Assumptions or Simplifications:
  * When playing online, wait for opponent player to join before making the first move. Otherwise, turn cycle might be broken
