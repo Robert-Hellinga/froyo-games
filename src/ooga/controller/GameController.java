@@ -13,7 +13,7 @@ import ooga.model.player.Player;
 
 public class GameController implements IGameController {
 
-  private static final double FRAMES_PER_SECOND = 0.2;
+  private static final double FRAMES_PER_SECOND = 20;
   private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   private static final String SKIP_ROUND_MESSAGE = " have no moves to make, will have to skip the round.";
 
@@ -44,6 +44,7 @@ public class GameController implements IGameController {
           game.getCurrentPlayer().makePlay(coord);
         }
         setClickingEnabled(true);
+        game.notifyObservers();
       }
     }
   }
@@ -74,8 +75,10 @@ public class GameController implements IGameController {
 
   private void checkPlayerWonGame() {
     if (game.isPlayerWonGame()) {
+      animation.stop();
       System.out.println(game.getWinningPlayer().getName() + " has won the game!");
       enableAIChecker = false;
+      game.notifyObservers();
     }
   }
 
@@ -92,12 +95,12 @@ public class GameController implements IGameController {
         game.endGame();
       }
       game.resetHaveNotPotentialMove();
+      game.notifyObservers();
     }
   }
 
   private void step() {
     checkForAITurn();
-    game.notifyObservers();
     checkPlayerWonGame();
     checkIfPlayerHaveNoPotentialMove();
   }
