@@ -43,10 +43,13 @@ public class GameController implements IGameController {
         for (Coordinate coord : coords) {
           game.getCurrentPlayer().makePlay(coord);
         }
-        setClickingEnabled(true);
-        game.notifyObservers();
       }
     }
+  }
+
+  @Override
+  public void createGame() {
+
   }
 
   @Override
@@ -54,10 +57,6 @@ public class GameController implements IGameController {
     if (clickingEnabled) {
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
-      System.out.println(game.getCurrentPlayerIndex());
-      if (mode.equals(PlayerMode.PLAY_WITH_AI) && game.getCurrentPlayerIndex() == 2){
-        setClickingEnabled(false);
-      }
     }
   }
 
@@ -78,7 +77,6 @@ public class GameController implements IGameController {
     if (game.isPlayerWonGame()) {
       System.out.println(game.getWinningPlayer().getName() + " has won the game!");
       enableAIChecker = false;
-      game.notifyObservers();
     }
   }
 
@@ -95,12 +93,12 @@ public class GameController implements IGameController {
         game.endGame();
       }
       game.resetHaveNotPotentialMove();
-      game.notifyObservers();
     }
   }
 
   private void step() {
     checkForAITurn();
+    game.notifyObservers();
     checkPlayerWonGame();
     checkIfPlayerHaveNoPotentialMove();
   }
