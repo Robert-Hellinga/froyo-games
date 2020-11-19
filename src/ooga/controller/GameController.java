@@ -52,9 +52,7 @@ public class GameController implements IGameController {
 
   @Override
   public void clickPiece(Coordinate coordinate) {
-    System.out.println("Clicking on piece... " + coordinate + " clickenabled " + clickingEnabled);
     if (clickingEnabled) {
-
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
       if (mode.equals(PlayerMode.PLAY_WITH_AI) && game.getCurrentPlayerIndex() == 2) {
