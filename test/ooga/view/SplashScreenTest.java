@@ -3,6 +3,8 @@ package ooga.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Locale;
 import javafx.scene.control.Button;
@@ -52,14 +54,13 @@ class SplashScreenTest extends DukeApplicationTest {
     playerToggle = onePlayerBtn.getToggleGroup();
 
     nameField = lookup("#UsernameField").queryAs(TextField.class);
-//    opponentField = lookup("#EnterOpponentName").queryAs(TextField.class);
 
     startBtn = lookup("#StartGameBtn").queryAs(Button.class);
   }
 
   @Test
   public void testGameSelected() {
-    assertEquals(gameToggle.getSelectedToggle(), null);
+    assertNull(gameToggle.getSelectedToggle());
     clickOn(othelloBtn);
     assertEquals(gameToggle.getSelectedToggle(), othelloBtn);
     clickOn(checkersBtn);
@@ -73,7 +74,7 @@ class SplashScreenTest extends DukeApplicationTest {
 
   @Test
   public void testPlayerTypeSelected() {
-    assertEquals(playerToggle.getSelectedToggle(), null);
+    assertNull(playerToggle.getSelectedToggle());
     clickOn(onePlayerBtn);
     assertEquals(playerToggle.getSelectedToggle(), onePlayerBtn);
     clickOn(twoPlayerBtn);
@@ -108,6 +109,16 @@ class SplashScreenTest extends DukeApplicationTest {
     String expected = "Opponent";
     writeInputsToDialog(expected);
     assertEquals(splashScreen.getOpponentName(), expected);
+  }
+
+  @Test
+  public void testNoButtonsClickedInToggleButtonGroup() {
+    clickOn(othelloBtn);
+    clickOn(othelloBtn);
+    assertNotNull(gameToggle.getSelectedToggle());
+    clickOn(onePlayerBtn);
+    clickOn(onePlayerBtn);
+    assertNotNull(playerToggle.getSelectedToggle());
   }
 
 
