@@ -32,7 +32,7 @@ public class FroyoController implements IFroyoController {
     Player userPlayer = new HumanPlayer(playerName);
     Player secondPlayer = createSecondPlayer(onePlayer, opponentName);
 
-    Game game = createGame(gameType, userPlayer, secondPlayer, "default");
+    Game game = createGame(gameType, userPlayer, secondPlayer, "test");
     userPlayer.setMyGame(game, gameType);
     secondPlayer.setMyGame(game, gameType);
 

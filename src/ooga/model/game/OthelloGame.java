@@ -25,11 +25,6 @@ public class OthelloGame extends Game {
         } else {
           updateDatabase();
           playerTakeTurn();
-//          if (!currentPlayerHavePotentialMoves()){
-//            haveNoPotentialMove = true;
-//          }
-          othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
-          othelloBoard.resetFinishAround();
         }
       }
     }
@@ -52,5 +47,17 @@ public class OthelloGame extends Game {
       return allPlayers.get(othelloBoard.getWinningPlayerIndex());
     }
     return null;
+  }
+
+  @Override
+  public void playerTakeTurn(){
+    int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
+    if (currentPlayerIndex == allPlayers.size() - 1) {
+      currentPlayer = allPlayers.get(0);
+    } else {
+      currentPlayer = allPlayers.get(currentPlayerIndex + 1);
+    }
+    othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
+    othelloBoard.resetFinishAround();
   }
 }
