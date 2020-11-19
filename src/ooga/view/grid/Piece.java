@@ -66,13 +66,16 @@ public class Piece {
             .getBundle(RESOURCE_PACKAGE + gameType + "PieceFillColor");
     ResourceBundle strokeColorBundle = ResourceBundle
             .getBundle(RESOURCE_PACKAGE + gameType + "PieceStrokeColor");
-    pieceShape.setFill(getColor(state, fillColorBundle));
-    pieceShape.setStroke(getColor(state, strokeColorBundle));
+
     pieceShape.setStrokeWidth(HIGHLIGHT_STROKE_WIDTH);
 
     if (strokeColorBundle.getString(Integer.toString(state)).contains("img")) {
       Image kingPieceImage = loadImage(strokeColorBundle.getString(Integer.toString(state)));
       pieceShape.setFill(new ImagePattern(kingPieceImage));
+    }
+    else{
+      pieceShape.setFill(getColor(state, fillColorBundle));
+      pieceShape.setStroke(getColor(state, strokeColorBundle));
     }
   }
 
