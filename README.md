@@ -48,12 +48,14 @@ Features implemented:
 
 Assumptions or Simplifications:
  * When playing online, wait for opponent player to join before making the first move. Otherwise, turn cycle might be broken
+ * Win popup is only in English. 
 
 Interesting data files: 
 
 Known Bugs: 
  * Names do not display properly on top/bottom with online (both players see the same name on top and bottom)
- * Othello turn cycling does not work with online feature. 
+ * Othello does not work properly with online feature. 
+ * Save button does not work
  
 ### Impressions
 
