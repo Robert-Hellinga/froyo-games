@@ -93,11 +93,17 @@ public abstract class BlockGrid {
     return allBlocks;
   }
 
-  public void setChosenBlock(Coordinate chosenBlock) {
-    allBlocks.getBlock(chosenBlock).getBlockState().choose();
-  }
+  public abstract void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock);
 
-  public abstract void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock);
+  public void unsetAllBlockPotentials() {
+    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
+      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isPotentialMove()) {
+          allBlocks.getBlock(new Coordinate(i, j)).getBlockState().unmakePotentialMove();
+        }
+      }
+    }
+  }
 
 
   public boolean hasChosenBlock() {
@@ -111,50 +117,19 @@ public abstract class BlockGrid {
     return false;
   }
 
-  public Coordinate getChosenBlockCoordinate() {
-    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
-      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
-          return new Coordinate(i, j);
-        }
-      }
-    }
-    return Coordinate.INVALID_COORDINATE;
-  }
-
-  public void unChooseAllBlocks() {
-    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
-      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
-          allBlocks.getBlock(new Coordinate(i, j)).getBlockState().unchoose();
-        }
-      }
-    }
-  }
-
-  public void unsetAllBlockPotentials() {
-    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
-      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isPotentialMove()) {
-          allBlocks.getBlock(new Coordinate(i, j)).getBlockState().unmakePotentialMove();
-        }
-      }
-    }
-  }
-
-  public void moveBlock(Coordinate originalCoordiante, Coordinate newCoordinate) {
+  public void moveBlock(Coordinate originalCoordinate, Coordinate newCoordinate) {
     allBlocks.getBlock(newCoordinate).setBlockState(
-        new BlockState(allBlocks.getBlock(originalCoordiante).getBlockState())
+        new BlockState(allBlocks.getBlock(originalCoordinate).getBlockState())
     );
     allBlocks.getBlock(newCoordinate).getBlockState().setChosen(false);
-    allBlocks.getBlock(originalCoordiante).initiateBlockState(0);
+    allBlocks.getBlock(originalCoordinate).initiateBlockState(0);
   }
 
   public boolean isFinishARound() {
     return finishARound;
   }
 
-  public void resetFinishAround() {
+  public void resetFinishARound() {
     this.finishARound = false;
   }
 
@@ -164,11 +139,7 @@ public abstract class BlockGrid {
 
   public static int playerTakeTurn(Integer currentPlayerIndex, List<Integer> playerIndexPoll) {
     int index = playerIndexPoll.indexOf(currentPlayerIndex);
-    if (index == playerIndexPoll.size() - 1) {
-      return playerIndexPoll.get(0);
-    } else {
-      return playerIndexPoll.get(index + 1);
-    }
+    return playerIndexPoll.get((index + 1) % 2);
   }
 
   public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
@@ -177,7 +148,7 @@ public abstract class BlockGrid {
       for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
         Coordinate coordinate = new Coordinate(i, j);
         allPotentialMoves.addAll(allBlocks.getBlock(coordinate)
-            .getAvailablePosition(currentPlayerIndex, allBlocks));
+            .getAvailablePositions(currentPlayerIndex, allBlocks));
       }
     }
     return allPotentialMoves;

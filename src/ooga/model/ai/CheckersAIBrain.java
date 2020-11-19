@@ -37,7 +37,7 @@ public class CheckersAIBrain implements AIBrain {
               .getPlayerID()
               == currentPlayerIndex) {
             List<Coordinate> potentialMoves = newCheckBoard.getAllBlocks()
-                .getBlock(new Coordinate(j, i)).getAvailablePosition(currentPlayerIndex,
+                .getBlock(new Coordinate(j, i)).getAvailablePositions(currentPlayerIndex,
                     newCheckBoard.getAllBlocks());
             for (Coordinate potentialCoordinate : potentialMoves) {
               BlockGrid newGrid = new CheckersBlockGrid(newCheckBoard);
@@ -67,7 +67,7 @@ public class CheckersAIBrain implements AIBrain {
               .getPlayerID()
               == currentPlayerIndex) {
             List<Coordinate> potentialMoves = newCheckBoard.getAllBlocks()
-                .getBlock(new Coordinate(j, i)).getAvailablePosition(currentPlayerIndex,
+                .getBlock(new Coordinate(j, i)).getAvailablePositions(currentPlayerIndex,
                     newCheckBoard.getAllBlocks());
             for (Coordinate potentialCoordinate : potentialMoves) {
               BlockGrid newGrid = new CheckersBlockGrid(newCheckBoard);

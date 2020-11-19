@@ -1,6 +1,10 @@
 package ooga.model.checkerboard.block;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockStructure;
 
@@ -10,6 +14,8 @@ public abstract class Block {
   protected int state;
   protected boolean isEmpty;
   protected int playerID;
+  protected boolean isChosen;
+  protected boolean isPotentialMove;
 
   protected Coordinate coordinate;
 
@@ -19,16 +25,15 @@ public abstract class Block {
   }
 
   public void initiateBlockState(int blockConfig) {
+    this.state = blockConfig;
+    setPlayerID(blockConfig);
     this.isEmpty = blockConfig == 0;
-    this.playerID = blockConfig;
-    //TODO: Move to appropriate class
     this.blockState.isChosen = false;
     this.blockState.isPotentialMove = false;
-    this.blockState.isKing = false;
   }
 
-  public abstract List<Coordinate> getAvailablePosition(int currentPlayerIndex,
-      BlockStructure allBlocks);
+  public abstract List<Coordinate> getAvailablePositions(int currentPlayerIndex,
+                                                         BlockStructure allBlocks);
 
   public boolean getIsEmpty() {
     return isEmpty;
@@ -40,7 +45,7 @@ public abstract class Block {
 
   public void setPlayerID(int player) {
     isEmpty = false;
-    this.playerID = player;
+    this.playerID = (player % 2);
   }
 
   public void setEmpty(){
@@ -55,5 +60,9 @@ public abstract class Block {
 
   public void setBlockState(BlockState blockState) {
     this.blockState = blockState;
+  }
+
+  public void setPotentialMove(boolean potentialMove) {
+    isPotentialMove = potentialMove;
   }
 }

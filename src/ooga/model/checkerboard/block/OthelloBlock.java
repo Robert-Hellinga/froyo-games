@@ -12,7 +12,7 @@ public class OthelloBlock extends Block {
   }
 
   @Override
-  public List<Coordinate> getAvailablePosition(int currentPlayerIndex, BlockStructure allBlocks) {
+  public List<Coordinate> getAvailablePositions(int currentPlayerIndex, BlockStructure allBlocks) {
     List<Coordinate> availablePositions = new ArrayList<>();
     if (blockState.getPlayerID() == currentPlayerIndex) {
       for (Coordinate neighbors : getValidNeighbor(allBlocks, coordinate)) {
@@ -44,6 +44,11 @@ public class OthelloBlock extends Block {
       }
     }
     return availablePositions;
+  }
+
+  @Override
+  protected void buildAttributeMap() {
+
   }
 
   public static List<Coordinate> getValidNeighbor(BlockStructure allBlocks, Coordinate coordinate) {

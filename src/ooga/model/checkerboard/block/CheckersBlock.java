@@ -7,8 +7,7 @@ import ooga.model.checkerboard.BlockStructure;
 
 public class CheckersBlock extends Block {
 
-  protected boolean isChosen;
-  protected boolean isPotentialMove;
+
   protected boolean isKing;
   public CheckersBlock(Integer blockConfig, Coordinate coordinate) {
 
@@ -20,7 +19,7 @@ public class CheckersBlock extends Block {
 
 
   @Override
-  public List<Coordinate> getAvailablePosition(int currentPlayerIndex, BlockStructure allBlocks) {
+  public List<Coordinate> getAvailablePositions(int currentPlayerIndex, BlockStructure allBlocks) {
     List<Coordinate> allAvailablePosition = new ArrayList<>();
     if (currentPlayerIndex == 1) {
       allAvailablePosition.addAll(getPotentialNeighbourMove(currentPlayerIndex, allBlocks, true));
@@ -34,7 +33,7 @@ public class CheckersBlock extends Block {
       if (Math.abs(coordinate.xCoordinate() - this.coordinate.xCoordinate()) == 2
           && Math.abs(coordinate.yCoordinate() - this.coordinate.yCoordinate()) == 2) {
         List<Coordinate> additionalAvailablePosition = allBlocks.getBlock(coordinate)
-            .getAvailablePosition(currentPlayerIndex, allBlocks);
+            .getAvailablePositions(currentPlayerIndex, allBlocks);
         for (Coordinate additionalMove : additionalAvailablePosition) {
           if (Math.abs(additionalMove.xCoordinate() - coordinate.xCoordinate()) == 2
               && Math.abs(additionalMove.yCoordinate() - coordinate.yCoordinate()) == 2) {

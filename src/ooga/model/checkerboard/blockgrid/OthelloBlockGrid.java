@@ -12,7 +12,7 @@ public class OthelloBlockGrid extends BlockGrid {
 
   public OthelloBlockGrid(String gameType, List<List<Integer>> allBlockConfig, int numPlayers) {
     super(gameType, allBlockConfig, numPlayers);
-    setAvailablePosition(1, Coordinate.INVALID_COORDINATE);
+    setAvailablePositions(1, Coordinate.INVALID_COORDINATE);
   }
 
   public OthelloBlockGrid(BlockGrid othelloGrid) {
@@ -20,7 +20,7 @@ public class OthelloBlockGrid extends BlockGrid {
   }
 
   @Override
-  public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
+  public void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock) {
     for (Coordinate coordinate : getAllPotentialMoves(currentPlayerIndex)) {
       allBlocks.getBlock(coordinate).getBlockState().makePotentialMove();
     }

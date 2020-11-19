@@ -15,10 +15,10 @@ public class CheckersBlockGrid extends BlockGrid {
   }
 
   @Override
-  public void setAvailablePosition(int currentPlayerIndex, Coordinate chosenBlock) {
+  public void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock) {
     if (!chosenBlock.equals(Coordinate.INVALID_COORDINATE)) {
       for (Coordinate coordinate :
-          allBlocks.getBlock(chosenBlock).getAvailablePosition(currentPlayerIndex, allBlocks)){
+          allBlocks.getBlock(chosenBlock).getAvailablePositions(currentPlayerIndex, allBlocks)){
         allBlocks.getBlock(coordinate).getBlockState().makePotentialMove();
       }
     }
@@ -33,7 +33,7 @@ public class CheckersBlockGrid extends BlockGrid {
         unChooseAllBlocks();
         unsetAllBlockPotentials();
         getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
-        setAvailablePosition(currentPlayerIndex, passInCoordinate);
+        setAvailablePositions(currentPlayerIndex, passInCoordinate);
       } else if (allBlocks.getBlock(passInCoordinate).getBlockState()
           .isPotentialMove()) {
 
@@ -50,7 +50,7 @@ public class CheckersBlockGrid extends BlockGrid {
           && allBlocks.getBlock(passInCoordinate).getPlayerID()
           == currentPlayerIndex) {
         allBlocks.getBlock(passInCoordinate).getBlockState().choose();
-        setAvailablePosition(currentPlayerIndex, passInCoordinate);
+        setAvailablePositions(currentPlayerIndex, passInCoordinate);
       }
     }
   }
@@ -92,8 +92,29 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
+  public Coordinate getChosenBlockCoordinate() {
+    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
+      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
+          return new Coordinate(i, j);
+        }
+      }
+    }
+    return Coordinate.INVALID_COORDINATE;
+  }
+
+  public void unChooseAllBlocks() {
+    for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
+      for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
+        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
+          allBlocks.getBlock(new Coordinate(i, j)).getBlockState().unchoose();
+        }
+      }
+    }
+  }
+
   private void crossPiece(Coordinate pieceToRemoveCoordinate) {
-    allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setEmpty(true);
+    allBlocks.getBlock(pieceToRemoveCoordinate).setEmpty();
     allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setPlayerID(0);
   }
 
@@ -115,7 +136,7 @@ public class CheckersBlockGrid extends BlockGrid {
         Coordinate coordinate = new Coordinate(j, i);
         if (allBlocks.getBlock(coordinate).getPlayerID() == playerTakeTurn(playerID,
             CheckersGame.PLAYER_INDEX_POLL) && !allBlocks.getBlock(coordinate)
-            .getAvailablePosition(playerTakeTurn(playerID, CheckersGame.PLAYER_INDEX_POLL),
+            .getAvailablePositions(playerTakeTurn(playerID, CheckersGame.PLAYER_INDEX_POLL),
                 allBlocks).isEmpty()) {
           return false;
         }

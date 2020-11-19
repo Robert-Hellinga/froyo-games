@@ -44,9 +44,6 @@ public class BlockState {
     return PlayerID;
   }
 
-  public void setEmpty(boolean empty) {
-    isEmpty = empty;
-  }
 
   public boolean isEmpty() {
     return isEmpty;
@@ -54,10 +51,6 @@ public class BlockState {
 
   public void makeKing() {
     isKing = true;
-  }
-
-  public void setKing(boolean king) {
-    isKing = king;
   }
 
   public boolean isKing() {

@@ -28,8 +28,8 @@ public class OthelloGame extends Game {
 //          if (!currentPlayerHavePotentialMoves()){
 //            haveNoPotentialMove = true;
 //          }
-          othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
-          othelloBoard.resetFinishAround();
+          othelloBoard.setAvailablePositions(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
+          othelloBoard.resetFinishARound();
         }
       }
     }
