@@ -90,6 +90,16 @@ class SplashScreenTest extends DukeApplicationTest {
     assertEquals("Please enter a name and select buttons.", getDialogMessage());
   }
 
+  @Test
+  public void testEnteringUsername(){
+    clickOn(checkersBtn);
+    clickOn(onePlayerBtn);
+    String expected = "John";
+    clickOn(nameField).write(expected);
+    clickOn(startBtn);
+    assertEquals(nameField.getText(), expected);
+  }
+
 
 }
 
