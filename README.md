@@ -52,7 +52,7 @@ Assumptions or Simplifications:
 Interesting data files: 
 
 Known Bugs: 
- * Names do not display properly on top/bottom with online (both players see the same name on top and bottom)
+ * Names do not display properly on top/bottom with online (both players see their name on the top and the opponents on the bottom)
  * Othello turn cycling does not work with online feature. 
  
 ### Impressions
