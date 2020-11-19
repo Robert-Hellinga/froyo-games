@@ -65,9 +65,9 @@ public class LanguageTest extends DukeApplicationTest {
   @Test
   public void testSelectedLocaleIndex() {
     select(dropdown, "French");
-    assertEquals(labeledDropdown.getSelectedIndex(), 0);
-    select(dropdown, "English");
     assertEquals(labeledDropdown.getSelectedIndex(), 1);
+    select(dropdown, "English");
+    assertEquals(labeledDropdown.getSelectedIndex(), 0);
     select(dropdown, "German");
     assertEquals(labeledDropdown.getSelectedIndex(), 2);
   }
@@ -110,6 +110,7 @@ public class LanguageTest extends DukeApplicationTest {
     ToggleButton checkersBtn = lookup("#CheckersBtn").queryAs(ToggleButton.class);
     clickOn(checkersBtn);
     TextField nameField = lookup("#UsernameField").queryAs(TextField.class);
+    getDialogMessage();
     clickOn(nameField).write("John");
     Button startGameBtn = lookup("#DemarrerJeuBtn").queryAs(Button.class);
     clickOn(startGameBtn);
