@@ -7,7 +7,7 @@ import ooga.model.game.CheckersGame;
 
 public class CheckersBlockGrid extends BlockGrid {
 
-  public CheckersBlockGrid(String gameType, List<List<Integer>> allBlockConfig, int numPlayers){
+  public CheckersBlockGrid(String gameType, List<List<Integer>> allBlockConfig, int numPlayers) {
     super(gameType, allBlockConfig, numPlayers);
   }
 
@@ -19,7 +19,7 @@ public class CheckersBlockGrid extends BlockGrid {
   public void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock) {
     if (!chosenBlock.equals(Coordinate.INVALID_COORDINATE)) {
       for (Coordinate coordinate :
-          allBlocks.getBlock(chosenBlock).getAvailablePositions(currentPlayerIndex, allBlocks)){
+          allBlocks.getBlock(chosenBlock).getAvailablePositions(currentPlayerIndex, allBlocks)) {
         allBlocks.getBlock(coordinate).makePotentialMove();
       }
     }
@@ -27,7 +27,7 @@ public class CheckersBlockGrid extends BlockGrid {
 
 
   @Override
-  public void play(Coordinate passInCoordinate, Integer currentPlayerIndex){
+  public void play(Coordinate passInCoordinate, Integer currentPlayerIndex) {
     if (hasChosenBlock()) {
       if (allBlocks.getBlock(passInCoordinate).getPlayerID()
           == currentPlayerIndex) {
@@ -56,7 +56,6 @@ public class CheckersBlockGrid extends BlockGrid {
   }
 
 
-
   public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
     int xMovement = newPosition.xCoordinate() - originalPosition.xCoordinate();
     int yMovement = newPosition.yCoordinate() - originalPosition.yCoordinate();
@@ -67,16 +66,18 @@ public class CheckersBlockGrid extends BlockGrid {
       );
       crossPiece(pieceToRemoveCoordinate);
     }
-    if (Math.abs(xMovement) > 2 || Math.abs(yMovement) > 2){
-      for (int xIndicator: List.of(-2, 2)){
+    if (Math.abs(xMovement) > 2 || Math.abs(yMovement) > 2) {
+      for (int xIndicator : List.of(-2, 2)) {
         boolean breakLoop = false;
-        for (int yIndicator: List.of(-2, 2)){
-          if (newPosition.xCoordinate() + xIndicator > 0 && newPosition.xCoordinate() + xIndicator < allBlocks
-              .getBlockStructureWidth() - 1 && newPosition.yCoordinate() + yIndicator > 0 && newPosition.yCoordinate() + yIndicator < allBlocks
+        for (int yIndicator : List.of(-2, 2)) {
+          if (newPosition.xCoordinate() + xIndicator > 0
+              && newPosition.xCoordinate() + xIndicator < allBlocks
+              .getBlockStructureWidth() - 1 && newPosition.yCoordinate() + yIndicator > 0
+              && newPosition.yCoordinate() + yIndicator < allBlocks
               .getBlockStructureHeight() - 1) {
             Coordinate interCoordinate = new Coordinate(newPosition.xCoordinate() + xIndicator,
                 newPosition.yCoordinate() + yIndicator);
-            if (allBlocks.getBlock(interCoordinate).isPotentialMove()){
+            if (allBlocks.getBlock(interCoordinate).isPotentialMove()) {
               removeCheckedPiece(interCoordinate, originalPosition);
               crossPiece(new Coordinate(newPosition.xCoordinate() + xIndicator / 2,
                   newPosition.yCoordinate() + yIndicator / 2));
@@ -85,7 +86,7 @@ public class CheckersBlockGrid extends BlockGrid {
             }
           }
         }
-        if (breakLoop){
+        if (breakLoop) {
           break;
         }
       }
@@ -120,8 +121,8 @@ public class CheckersBlockGrid extends BlockGrid {
   public void makeBlockKing(Coordinate newCoordinate) {
     if ((newCoordinate.yCoordinate() == 0
         && allBlocks.getBlock(newCoordinate).getPlayerID() == 2) ||
-            newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight() - 1
-                    && allBlocks.getBlock(newCoordinate).getPlayerID() == 1){
+        newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight() - 1
+            && allBlocks.getBlock(newCoordinate).getPlayerID() == 1) {
       CheckersBlock newKing = new CheckersBlock(allBlocks.getBlock(newCoordinate));
       newKing.makeKing();
       allBlocks.setBlock(newKing);

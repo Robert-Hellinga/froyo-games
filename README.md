@@ -44,16 +44,27 @@ Features implemented:
  * Artificial Player (using variations of minmax algorithm)
  * Online Play (can play Checkers or Connect 4 against another player)
 
-### Notes/Assumptions
+### Notes/Assumption
 
 Assumptions or Simplifications:
  * When playing online, wait for opponent player to join before making the first move. Otherwise, turn cycle might be broken
+ * Win popup is only in English. 
+
+Required libraries:
+ * If there are any library related bugs, make sure to have these two Maven repositories added:
+    * com.google.firebase:firebase-admin:7.0.1
+    * org.slf4j:slf4j-simple:1.6.2
 
 Interesting data files: 
 
 Known Bugs: 
  * Names do not display properly on top/bottom with online (both players see the same name on top and bottom)
- * Othello turn cycling does not work with online feature. 
+ * Othello does not work properly with online feature. 
+ * Save button does not work
+ * Connect 4 clicking does not work (can't play pieces)
+    * Due to attempted refactor
+ * Othello clicking does not work (can't play pieces)
+    * Due to attempted refactor
  
 ### Impressions
 

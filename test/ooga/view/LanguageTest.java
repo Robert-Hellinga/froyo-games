@@ -1,16 +1,12 @@
 package ooga.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Locale;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
@@ -32,8 +28,10 @@ public class LanguageTest extends DukeApplicationTest {
     IFroyoController controller = new FroyoController(stage);
     languageScreen = new LanguageScreen(controller);
 
-    dropdown = lookup("#ChooseLanguage/ChoisissezlaLangue/SpracheWahlenDropdown").queryAs(ComboBox.class);
-    labeledDropdown = lookup("#ChooseLanguage/ChoisissezlaLangue/SpracheWahlenLabeledDropdown").queryAs(LabeledDropdown.class);
+    dropdown = lookup("#ChooseLanguage/ChoisissezlaLangue/SpracheWahlenDropdown")
+        .queryAs(ComboBox.class);
+    labeledDropdown = lookup("#ChooseLanguage/ChoisissezlaLangue/SpracheWahlenLabeledDropdown")
+        .queryAs(LabeledDropdown.class);
 
     layoutPane = lookup("#Layout").queryAs(GridPane.class);
 
@@ -65,9 +63,9 @@ public class LanguageTest extends DukeApplicationTest {
   @Test
   public void testSelectedLocaleIndex() {
     select(dropdown, "French");
-    assertEquals(labeledDropdown.getSelectedIndex(), 0);
-    select(dropdown, "English");
     assertEquals(labeledDropdown.getSelectedIndex(), 1);
+    select(dropdown, "English");
+    assertEquals(labeledDropdown.getSelectedIndex(), 0);
     select(dropdown, "German");
     assertEquals(labeledDropdown.getSelectedIndex(), 2);
   }
@@ -77,7 +75,8 @@ public class LanguageTest extends DukeApplicationTest {
     select(dropdown, "German");
     clickOn(startBtn);
 
-    ToggleButton twoPlayerOnlineBtnGerman = lookup("#ZweiSpieler(Online)Btn").queryAs(ToggleButton.class);
+    ToggleButton twoPlayerOnlineBtnGerman = lookup("#ZweiSpieler(Online)Btn")
+        .queryAs(ToggleButton.class);
     assertEquals(twoPlayerOnlineBtnGerman.getText(), "Zwei Spieler (Online)");
 
     Button startGameBtn = lookup("#SpielStartenBtn").queryAs(Button.class);
@@ -89,7 +88,8 @@ public class LanguageTest extends DukeApplicationTest {
     select(dropdown, "French");
     clickOn(startBtn);
 
-    ToggleButton twoPlayerOnlineBtnFrench = lookup("#DeuxJoueurs(Enligne)Btn").queryAs(ToggleButton.class);
+    ToggleButton twoPlayerOnlineBtnFrench = lookup("#DeuxJoueurs(Enligne)Btn")
+        .queryAs(ToggleButton.class);
 
     clickOn(twoPlayerOnlineBtnFrench);
     writeInputsToDialog(".");
@@ -98,7 +98,8 @@ public class LanguageTest extends DukeApplicationTest {
     clickOn(nameField).write(".");
     Button startGameBtn = lookup("#DemarrerJeuBtn").queryAs(Button.class);
     clickOn(startGameBtn);
-    assertEquals(getDialogMessage(), "\".\" ou \".\" contient l'un des elements suivants: '.', '#', '[', ']'. Veuillez fournir un nom d'utilisateur different");
+    assertEquals(getDialogMessage(),
+        "\".\" ou \".\" contient l'un des elements suivants: '.', '#', '[', ']'. Veuillez fournir un nom d'utilisateur different");
   }
 
   @Test
@@ -110,6 +111,7 @@ public class LanguageTest extends DukeApplicationTest {
     ToggleButton checkersBtn = lookup("#CheckersBtn").queryAs(ToggleButton.class);
     clickOn(checkersBtn);
     TextField nameField = lookup("#UsernameField").queryAs(TextField.class);
+    getDialogMessage();
     clickOn(nameField).write("John");
     Button startGameBtn = lookup("#DemarrerJeuBtn").queryAs(Button.class);
     clickOn(startGameBtn);

@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.List;
 import java.util.Locale;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -95,7 +93,7 @@ class SplashScreenTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testEnteringUsername(){
+  public void testEnteringUsername() {
     clickOn(checkersBtn);
     clickOn(onePlayerBtn);
     String expected = "John";
@@ -126,12 +124,13 @@ class SplashScreenTest extends DukeApplicationTest {
   public void testBadUsernames() {
 
     char[] badUsernames = {'.', '#', '[', ']'};
-    for(char c : badUsernames) {
+    for (char c : badUsernames) {
       clickOn(twoPlayerOnlineBtn);
-      writeInputsToDialog(""+c);
+      writeInputsToDialog("" + c);
       clickOn(nameField).write(c);
       clickOn(startBtn);
-      assertEquals(getDialogMessage(), "\""+c+"\" or \""+c+"\" contains one of '.', '#', '[', ']'. Please provide a different username.");
+      assertEquals(getDialogMessage(), "\"" + c + "\" or \"" + c
+          + "\" contains one of '.', '#', '[', ']'. Please provide a different username.");
     }
   }
 }

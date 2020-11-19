@@ -4,10 +4,8 @@ import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import ooga.view.ModelObserver;
 
 public class PlayerTurnBox extends HBox {
 
@@ -21,8 +19,8 @@ public class PlayerTurnBox extends HBox {
 
     Label text = new Label(playerName);
     text.setFont(new Font(20));
-     fillColorBundle = ResourceBundle
-            .getBundle("resources.ui." + gameType + "PieceFillColor");
+    fillColorBundle = ResourceBundle
+        .getBundle("resources.ui." + gameType + "PieceFillColor");
 
     getChildren().addAll(text, makePlayerCircle(colorKey));
   }

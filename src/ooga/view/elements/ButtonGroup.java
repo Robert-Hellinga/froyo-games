@@ -74,7 +74,7 @@ public class ButtonGroup {
   }
 
   public void setOnButtonsPushed(EventHandler<ActionEvent> event, int... buttonIndices) {
-    for(int i : buttonIndices) {
+    for (int i : buttonIndices) {
       setOnButtonPushed(event, i);
     }
   }

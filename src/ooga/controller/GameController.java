@@ -1,7 +1,6 @@
 package ooga.controller;
 
 import java.util.List;
-import java.util.Optional;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
@@ -17,6 +16,7 @@ public class GameController implements IGameController {
   private static final double FRAMES_PER_SECOND = 0.4;
   private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   private static final String SKIP_ROUND_MESSAGE = " have no moves to make, will have to skip the round.";
+  private static final String WON_ROUND_MESSAGE = " has won the round!";
 
   private boolean enableAIChecker = true;
   private Timeline animation;
@@ -55,7 +55,7 @@ public class GameController implements IGameController {
     if (clickingEnabled) {
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
-      if (mode.equals(PlayerMode.PLAY_WITH_AI) && game.getCurrentPlayerIndex() == 2){
+      if (mode.equals(PlayerMode.PLAY_WITH_AI) && game.getCurrentPlayerIndex() == 2) {
         setClickingEnabled(false);
       }
     }
@@ -84,7 +84,9 @@ public class GameController implements IGameController {
       animation.stop();
       enableAIChecker = false;
       game.notifyObservers();
-      System.out.println(game.getWinningPlayer().getName() + " has won the game!");
+      Alert alert = new Alert(AlertType.CONFIRMATION,
+          game.getCurrentPlayer().getName() + WON_ROUND_MESSAGE);
+      alert.show();
     }
   }
 
@@ -95,7 +97,6 @@ public class GameController implements IGameController {
       alert.show();
       game.playerTakeTurn();
       if (!game.currentPlayerHavePotentialMoves() && !game.isPlayerWonGame()) {
-        System.out.println("reach here");
         Alert alert2 = new Alert(AlertType.NONE,
             game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
         alert2.show();

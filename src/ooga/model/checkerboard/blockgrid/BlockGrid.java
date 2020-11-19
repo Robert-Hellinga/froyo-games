@@ -119,7 +119,7 @@ public abstract class BlockGrid {
 
   public void moveBlock(Coordinate originalCoordinate, Coordinate newCoordinate) {
     allBlocks.getBlock(newCoordinate).initiateBlockState
-            (allBlocks.getBlock(originalCoordinate).getState());
+        (allBlocks.getBlock(originalCoordinate).getState());
     allBlocks.getBlock(originalCoordinate).setEmpty();
   }
 
@@ -137,9 +137,11 @@ public abstract class BlockGrid {
 
   public static int playerTakeTurn(Integer currentPlayerIndex, List<Integer> playerIndexPoll) {
     int index = playerIndexPoll.indexOf(currentPlayerIndex);
-    if(index == 0){return 1;}
-    else if(index == 1){return 2;}
-    else{
+    if (index == 0) {
+      return 1;
+    } else if (index == 1) {
+      return 2;
+    } else {
       throw new FileException("Invalid player");
     }
   }
