@@ -8,9 +8,9 @@ import ooga.model.game.Game;
 public abstract class Player {
 
   private String name;
-  private int ID;
+  //private int ID;
   private Game myGame;
-  private Coordinate nextCoordinate;
+  //private Coordinate nextCoordinate;
 
   public String getName() {
     return name;
@@ -24,13 +24,13 @@ public abstract class Player {
     this.myGame = game;
   }
 
-  public int getID() {
-    return ID;
-  }
+//  public int getID() {
+//    return ID;
+//  }
 
-  public void setID(int ID) {
-    this.ID = ID;
-  }
+//  public void setID(int ID) {
+//    this.ID = ID;
+//  }
 
   public List<Coordinate> calculateNextCoordinates() {
     return new ArrayList<>();
