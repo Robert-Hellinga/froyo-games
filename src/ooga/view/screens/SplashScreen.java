@@ -60,6 +60,7 @@ public class SplashScreen extends VBox {
   public SplashScreen(Locale locale, IFroyoController controller) {
     resources = new Resources(locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
     this.controller = controller;
+    opponentName = new String();
 
     setAlignment(Pos.CENTER);
     setWidth(SCREEN_WIDTH);
