@@ -20,9 +20,9 @@ public class Piece {
   private static final Paint GRID_BACKGROUND_COLOR = Color.web("e6e6e6");
   private static final Paint GRID_BACKGROUND_STROKE_COLOR = Color.web("cccccc");
   private static final int GRID_BACKGROUND_STROKE_WIDTH = 2;
-  private static final String KING_PIECE_IMAGE_BLUE = "resources/img/king_piece_blue.png";
-  private static final String KING_PIECE_IMAGE_RED = "resources/img/king_piece_red.png";
-  private static final String RESOURCE_PACKAGE = "resources.ui.";
+  private static final String KING_PIECE_IMAGE_BLUE = "resources/ui/game_pieces/img/king_piece_blue.png";
+  private static final String KING_PIECE_IMAGE_RED = "resources/ui/game_pieces/img/king_piece_red.png";
+  private static final String RESOURCE_PACKAGE = "resources.ui.game_pieces.";
 
 
   private Circle pieceShape;

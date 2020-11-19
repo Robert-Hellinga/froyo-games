@@ -46,6 +46,19 @@ public class OthelloGameTest {
   }
 
   @Test
+  public void checkPlacedPiece() {
+    othelloGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
+    Coordinate playCoordinate = new Coordinate(2, 0);
+    othelloGame.play(playCoordinate);
+    List<List<Integer>> expectedBlockState = new ArrayList<>() {{
+      add(List.of(0, 3, 1, 3));
+      add(List.of(0, 1, 1, 0));
+      add(List.of(0, 2, 1, 3));
+      add(List.of(0, 0, 0, 0));
+    }};
+    assertEquals(expectedBlockState, othelloGame.getAllBlockStates());
+  }
+  @Test
   public void checkWinner(){
     othelloGame = FroyoController.createGame(gameType, playerOne, playerTwo, "full_test");
     othelloGame.endGame();

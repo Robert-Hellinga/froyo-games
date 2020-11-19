@@ -109,18 +109,17 @@ public class OthelloBlockGrid extends BlockGrid {
 
 
   public int getWinningPlayerIndex() {
-    List<Integer> pieceCounter = new ArrayList<>(
-        Collections.nCopies(Game.PLAYER_INDEX_POLL.size(), 0));
+    List<Integer> pieceCounter = new ArrayList<>();
     for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++) {
       for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
         Coordinate coordinate = new Coordinate(j, i);
         if (!allBlocks.getBlock(coordinate).getIsEmpty()) {
-          int playerIndex = allBlocks.getBlock(coordinate).getPlayerID() - 1;
-          pieceCounter.set(playerIndex, pieceCounter.get(playerIndex) + 1);
+          int playerIndex = allBlocks.getBlock(coordinate).getPlayerID();
+          pieceCounter.set(playerIndex-1, pieceCounter.get(playerIndex) + 1);
         }
 
       }
     }
-    return pieceCounter.indexOf(Collections.max(pieceCounter));
+    return pieceCounter.indexOf(Collections.max(pieceCounter)) + 1;
   }
 }
