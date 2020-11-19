@@ -50,6 +50,11 @@ Assumptions or Simplifications:
  * When playing online, wait for opponent player to join before making the first move. Otherwise, turn cycle might be broken
  * Win popup is only in English. 
 
+Required libraries:
+ * If there are any library related bugs, make sure to have these two Maven repositories added:
+    * com.google.firebase:firebase-admin:7.0.1
+    * org.slf4j:slf4j-simple:1.6.2
+
 Interesting data files: 
 
 Known Bugs: 
