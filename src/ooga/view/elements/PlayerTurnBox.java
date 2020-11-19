@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import ooga.view.ModelObserver;
 
-public class PlayerTurnBox extends HBox implements ModelObserver {
+public class PlayerTurnBox extends HBox {
 
   private static final String STYLE_CLASS = "turnbox";
   private static final int CIRCLE_RADIUS = 20;
@@ -43,8 +43,5 @@ public class PlayerTurnBox extends HBox implements ModelObserver {
     );
   }
 
-  @Override
-  public void update() {
 
-  }
 }
