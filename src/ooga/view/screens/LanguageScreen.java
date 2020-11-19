@@ -1,5 +1,6 @@
 package ooga.view.screens;
 
+import java.util.Arrays;
 import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
@@ -12,9 +13,9 @@ import ooga.view.elements.LabeledDropdown;
 
 public class LanguageScreen extends GridPane {
 
-  private static final String START_BTN_TEXT = "Start / Début / Start";
-  private static final String DROPDOWN_LABEL_TEXT = "Choose Language / Choisissez la Langue / "
-      + "Sprache Wählen"; // Not in a resource bundle; language hasn't been selected yet
+  private static final String START_BTN_TEXT = "Start / Debut / Start";
+  private static final String DROPDOWN_LABEL_TEXT = "Choose Language / Choisissez la Langue / Sprache Wahlen"; // Not in a resource bundle; language hasn't been selected yet
+  private static final String LAYOUT_ID = "Layout";
   private static final int SCREEN_WIDTH = 450;
   private static final int SCREEN_HEIGHT = 150;
   private static final int SCREEN_SPACING = 20;
@@ -26,6 +27,7 @@ public class LanguageScreen extends GridPane {
     setAlignment(Pos.CENTER);
     setWidth(SCREEN_WIDTH);
     setHeight(SCREEN_HEIGHT);
+    setId(LAYOUT_ID);
 
     add(getStartButtonGroup(controller), 0, 0);
     controller.setNewLayout(this);
@@ -43,26 +45,18 @@ public class LanguageScreen extends GridPane {
     ButtonGroup startButton = new ButtonGroup(result, START_BTN_WIDTH, START_BTN_HEIGHT);
     startButton.addButtons(START_BTN_TEXT);
     startButton
-        .setOnButtonPushed(event -> new SplashScreen((Locale) languageSelector.getValue(), controller));
+        .setOnButtonPushed(event -> new SplashScreen(AVAILABLE_LOCALES[languageSelector.getSelectedIndex()], controller));
     startButton.setButtonStyles(ButtonGroup.SUCCESS_STYLE);
 
     return result;
   }
 
   private LabeledDropdown getLanguageDropdown() {
-    LabeledDropdown languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT, AVAILABLE_LOCALES);
-    languageDropdown.setConverter(new StringConverter<>() {
-
-      @Override
-      public String toString(Object object) {
-        return ((Locale) object).getDisplayName();
-      }
-
-      @Override
-      public Locale fromString(String string) {
-        return new Locale(string);
-      }
-    });
+    String[] displayLanguages = new String[AVAILABLE_LOCALES.length];
+    for(int i = 0; i < AVAILABLE_LOCALES.length; i++) {
+      displayLanguages[i] = AVAILABLE_LOCALES[i].getDisplayName();
+    }
+    LabeledDropdown languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT, displayLanguages);
     return languageDropdown;
   }
 }
