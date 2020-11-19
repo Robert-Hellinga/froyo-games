@@ -20,6 +20,7 @@ import ooga.fileHandler.DatabaseGame;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
+import org.apache.commons.lang3.ObjectUtils.Null;
 
 public class SocialController {
 
@@ -29,6 +30,7 @@ public class SocialController {
   private static final String BOARD_STATE_KEY = "boardState";
   private static final String GAME_TYPE_KEY = "gameType";
   private static final String GAMES_REFERENCE = "/games";
+  private static final String GAME_NOT_CREATED_KEY = "GameNotCreated";
 
   private Resources error;
   private DatabaseReference ref, gameRef;
@@ -107,6 +109,7 @@ public class SocialController {
       public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
         game.setAllBlockStates((String) dataSnapshot.getValue());
         if (!game.currentPlayerHavePotentialMoves()) {
+          System.out.println("no potential moves");
           updateGame(true);
         } else {
           game.playerTakeTurn();
@@ -138,14 +141,19 @@ public class SocialController {
       dataToUpload += "-1";
     }
 
-    gameRef.child(BOARD_STATE_KEY).setValue(game.getAllBlockStatesAsString(),
-        (databaseError, databaseReference) -> {
-          if (databaseError != null) {
-            throw new DatabaseException(databaseError.getMessage());
-          } else {
-            waitForOpponentTurn();
+    try {
+      gameRef.child(BOARD_STATE_KEY).setValue(dataToUpload,
+          (databaseError, databaseReference) -> {
+            if (databaseError != null) {
+              throw new DatabaseException(databaseError.getMessage());
+            } else {
+              waitForOpponentTurn();
+            }
           }
-        }
-    );
+      );
+    }
+    catch (NullPointerException e) {
+      throw new DatabaseException(error.getString(GAME_NOT_CREATED_KEY));
+    }
   }
 }
