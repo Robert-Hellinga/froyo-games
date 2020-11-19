@@ -20,7 +20,7 @@ public class Connect4BlockGrid extends BlockGrid {
       for (int j = allBlocks.getBlockStructureHeight() - 1; j >= 0; j--) {
         Coordinate coordinate = new Coordinate(i, j);
         if (allBlocks.getBlock(coordinate).getIsEmpty()) {
-          allBlocks.getBlock(coordinate).getBlockState().makePotentialMove();
+          allBlocks.getBlock(coordinate).makePotentialMove();
           break;
         }
       }

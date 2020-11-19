@@ -8,6 +8,10 @@ import ooga.model.checkerboard.BlockStructure;
 public class CheckersBlock extends Block {
 
 
+  private final int SELECTED = 2;
+  private final int KING = 4;
+  private final int POTENTIAL_MOVE = 9;
+
   protected boolean isKing;
   public CheckersBlock(Integer blockConfig, Coordinate coordinate) {
 
@@ -15,6 +19,12 @@ public class CheckersBlock extends Block {
     this.isChosen = false;
     this.isPotentialMove = false;
     this.isKing = false;;
+  }
+
+  public CheckersBlock(Block newBlock){
+    super(newBlock.getState(), newBlock.getCoordinate());
+    this.isEmpty = newBlock.getIsEmpty();
+    this.playerID = newBlock.getPlayerID();
   }
 
 
@@ -51,13 +61,13 @@ public class CheckersBlock extends Block {
 
     List<Coordinate> availableMoves = new ArrayList<>();
     for (Coordinate coor : getNeighbourMove(allBlocks, isDownDirection)) {
-      if (allBlocks.getBlock(coor).blockState.isEmpty) {
+      if (allBlocks.getBlock(coor).isEmpty) {
         availableMoves.add(coor);
       }
     }
-    if (blockState.isKing) {
+    if (this.isKing) {
       for (Coordinate coor : getNeighbourMove(allBlocks, !isDownDirection)) {
-        if (allBlocks.getBlock(coor).blockState.isEmpty) {
+        if (allBlocks.getBlock(coor).isEmpty) {
           availableMoves.add(coor);
         }
       }
@@ -70,14 +80,14 @@ public class CheckersBlock extends Block {
     List<Coordinate> tmpNeighbourMoves = new ArrayList<>();
     List<Coordinate> availableMoves = new ArrayList<>();
     for (Coordinate coor : getNeighbourMove(allBlocks, isDownDirection)) {
-      if (!allBlocks.getBlock(coor).blockState.isEmpty
+      if (!allBlocks.getBlock(coor).isEmpty
           && allBlocks.getBlock(coor).getPlayerID() != currentPlayerIndex) {
         tmpNeighbourMoves.add(coor);
       }
     }
-    if (blockState.isKing) {
+    if (this.isKing) {
       for (Coordinate coor : getNeighbourMove(allBlocks, !isDownDirection)) {
-        if (!allBlocks.getBlock(coor).blockState.isEmpty
+        if (!allBlocks.getBlock(coor).isEmpty
             && allBlocks.getBlock(coor).getPlayerID() != currentPlayerIndex) {
           tmpNeighbourMoves.add(coor);
         }
@@ -87,7 +97,7 @@ public class CheckersBlock extends Block {
       Coordinate stepCoordinate = new Coordinate(coor.xCoordinate() * 2 - coordinate.xCoordinate(),
           coor.yCoordinate() * 2 - coordinate.yCoordinate());
       if (checkInGrid(stepCoordinate, allBlocks) && allBlocks
-          .getBlock(stepCoordinate).blockState.isEmpty) {
+          .getBlock(stepCoordinate).isEmpty) {
         availableMoves.add(stepCoordinate);
       }
     }
@@ -128,12 +138,18 @@ public class CheckersBlock extends Block {
     isKing = false;
   }
 
+  @Override
+  public void makePotentialMove(){
+    super.makePotentialMove();
+    state = POTENTIAL_MOVE;
+  }
+
   public boolean isKing() {
     return isKing;
   }
   public void makeKing() {
     isKing = true;
-    state = state + 6;
+    state = state + KING;
   }
 
 

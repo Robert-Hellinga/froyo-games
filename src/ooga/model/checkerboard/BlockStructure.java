@@ -38,6 +38,10 @@ public class BlockStructure {
     return blockStructure.get(blockCoordinate.yCoordinate()).get(blockCoordinate.xCoordinate());
   }
 
+  public void setBlock(Block block){
+    blockStructure.get(block.getCoordinate().xCoordinate()).add(block.getCoordinate().yCoordinate(), block);
+  }
+
   public int getBlockStructureHeight() {
     return blockStructure.size();
   }

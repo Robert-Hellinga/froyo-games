@@ -14,10 +14,10 @@ public class OthelloBlock extends Block {
   @Override
   public List<Coordinate> getAvailablePositions(int currentPlayerIndex, BlockStructure allBlocks) {
     List<Coordinate> availablePositions = new ArrayList<>();
-    if (blockState.getPlayerID() == currentPlayerIndex) {
+    if (this.getPlayerID() == currentPlayerIndex) {
       for (Coordinate neighbors : getValidNeighbor(allBlocks, coordinate)) {
-        if (!allBlocks.getBlock(neighbors).getBlockState().isEmpty
-            && allBlocks.getBlock(neighbors).getBlockState().getPlayerID() != currentPlayerIndex) {
+        if (!allBlocks.getBlock(neighbors).isEmpty
+            && allBlocks.getBlock(neighbors).getPlayerID() != currentPlayerIndex) {
           int xIncrement = neighbors.xCoordinate() - coordinate.xCoordinate();
           int yIncrement = neighbors.yCoordinate() - coordinate.yCoordinate();
           Coordinate extendedNeighbor = new Coordinate(neighbors.xCoordinate() + xIncrement,
@@ -29,10 +29,10 @@ public class OthelloBlock extends Block {
                 .getBlockStructureHeight()) {
               break;
             }
-            if (allBlocks.getBlock(extendedNeighbor).getBlockState().isEmpty) {
+            if (allBlocks.getBlock(extendedNeighbor).isEmpty) {
               availablePositions.add(extendedNeighbor);
               break;
-            } else if (allBlocks.getBlock(extendedNeighbor).getBlockState().getPlayerID()
+            } else if (allBlocks.getBlock(extendedNeighbor).getPlayerID()
                 == currentPlayerIndex) {
               break;
             }

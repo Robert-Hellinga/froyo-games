@@ -2,6 +2,7 @@ package ooga.model.checkerboard.blockgrid;
 
 import java.util.List;
 import ooga.Coordinate;
+import ooga.model.checkerboard.block.CheckersBlock;
 import ooga.model.game.CheckersGame;
 
 public class CheckersBlockGrid extends BlockGrid {
@@ -19,7 +20,7 @@ public class CheckersBlockGrid extends BlockGrid {
     if (!chosenBlock.equals(Coordinate.INVALID_COORDINATE)) {
       for (Coordinate coordinate :
           allBlocks.getBlock(chosenBlock).getAvailablePositions(currentPlayerIndex, allBlocks)){
-        allBlocks.getBlock(coordinate).getBlockState().makePotentialMove();
+        allBlocks.getBlock(coordinate).makePotentialMove();
       }
     }
   }
@@ -32,10 +33,9 @@ public class CheckersBlockGrid extends BlockGrid {
           == currentPlayerIndex) {
         unChooseAllBlocks();
         unsetAllBlockPotentials();
-        getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
+        getAllBlocks().getBlock(passInCoordinate).choose();
         setAvailablePositions(currentPlayerIndex, passInCoordinate);
-      } else if (allBlocks.getBlock(passInCoordinate).getBlockState()
-          .isPotentialMove()) {
+      } else if (allBlocks.getBlock(passInCoordinate).isPotentialMove()) {
 
         removeCheckedPiece(passInCoordinate, getChosenBlockCoordinate());
         moveBlock(getChosenBlockCoordinate(), passInCoordinate);
@@ -49,7 +49,7 @@ public class CheckersBlockGrid extends BlockGrid {
       if (!allBlocks.getBlock(passInCoordinate).getIsEmpty()
           && allBlocks.getBlock(passInCoordinate).getPlayerID()
           == currentPlayerIndex) {
-        allBlocks.getBlock(passInCoordinate).getBlockState().choose();
+        allBlocks.getBlock(passInCoordinate).choose();
         setAvailablePositions(currentPlayerIndex, passInCoordinate);
       }
     }
@@ -76,7 +76,7 @@ public class CheckersBlockGrid extends BlockGrid {
               .getBlockStructureHeight() - 1) {
             Coordinate interCoordinate = new Coordinate(newPosition.xCoordinate() + xIndicator,
                 newPosition.yCoordinate() + yIndicator);
-            if (allBlocks.getBlock(interCoordinate).getBlockState().isPotentialMove()){
+            if (allBlocks.getBlock(interCoordinate).isPotentialMove()){
               removeCheckedPiece(interCoordinate, originalPosition);
               crossPiece(new Coordinate(newPosition.xCoordinate() + xIndicator / 2,
                   newPosition.yCoordinate() + yIndicator / 2));
@@ -95,7 +95,7 @@ public class CheckersBlockGrid extends BlockGrid {
   public Coordinate getChosenBlockCoordinate() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
+        if (allBlocks.getBlock(new Coordinate(i, j)).isChosen()) {
           return new Coordinate(i, j);
         }
       }
@@ -106,8 +106,8 @@ public class CheckersBlockGrid extends BlockGrid {
   public void unChooseAllBlocks() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
-          allBlocks.getBlock(new Coordinate(i, j)).getBlockState().unchoose();
+        if (allBlocks.getBlock(new Coordinate(i, j)).isChosen()) {
+          allBlocks.getBlock(new Coordinate(i, j)).unchoose();
         }
       }
     }
@@ -115,17 +115,17 @@ public class CheckersBlockGrid extends BlockGrid {
 
   private void crossPiece(Coordinate pieceToRemoveCoordinate) {
     allBlocks.getBlock(pieceToRemoveCoordinate).setEmpty();
-    allBlocks.getBlock(pieceToRemoveCoordinate).getBlockState().setPlayerID(0);
+    allBlocks.getBlock(pieceToRemoveCoordinate).setPlayerID(0);
   }
 
   public void makeBlockKing(Coordinate newCoordinate) {
-    if (newCoordinate.yCoordinate() == 0
-        && allBlocks.getBlock(newCoordinate).getPlayerID() == 2){
-      allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
-    }
-    else if (newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight() - 1
-        && allBlocks.getBlock(newCoordinate).getPlayerID() == 1){
-      allBlocks.getBlock(newCoordinate).getBlockState().makeKing();
+    if ((newCoordinate.yCoordinate() == 0
+        && allBlocks.getBlock(newCoordinate).getPlayerID() == 2) ||
+            newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight() - 1
+                    && allBlocks.getBlock(newCoordinate).getPlayerID() == 1){
+      CheckersBlock newKing = new CheckersBlock(allBlocks.getBlock(newCoordinate));
+      newKing.makeKing();
+      allBlocks.setBlock(newKing);
     }
   }
 

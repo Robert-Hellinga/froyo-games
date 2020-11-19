@@ -10,7 +10,10 @@ import ooga.model.checkerboard.BlockStructure;
 
 public abstract class Block {
 
-  protected BlockState blockState = new BlockState();
+  private final int EMPTY = 0;
+  private final int PLAYER_1 = 1;
+  private final int PLAYER_2 = 2;
+
   protected int state;
   protected boolean isEmpty;
   protected int playerID;
@@ -24,12 +27,16 @@ public abstract class Block {
     this.coordinate = coordinate;
   }
 
+  public Block(Block newBlock){
+    this(newBlock.getState(), newBlock.getCoordinate());
+  }
+
   public void initiateBlockState(int blockConfig) {
     this.state = blockConfig;
-    setPlayerID(blockConfig);
+    this.playerID = (blockConfig % 2);
     this.isEmpty = blockConfig == 0;
-    this.blockState.isChosen = false;
-    this.blockState.isPotentialMove = false;
+    this.isChosen = false;
+    this.isPotentialMove = false;
   }
 
   public abstract List<Coordinate> getAvailablePositions(int currentPlayerIndex,
@@ -49,22 +56,16 @@ public abstract class Block {
   }
 
   public void setEmpty(){
-    this.playerID = 0;
+    this.playerID = EMPTY;
     this.isEmpty = true;
-    this.state = 0;
+    this.state = EMPTY;
   }
 
-  public BlockState getBlockState() {
-    return blockState;
+  public void makePotentialMove() {
+    isPotentialMove = true;
   }
 
-  public void setBlockState(BlockState blockState) {
-    this.blockState = blockState;
-  }
-
-  public void setPotentialMove(boolean potentialMove) {
-    isPotentialMove = potentialMove;
-  }
+  public void unmakePotentialMove() {isPotentialMove = false;}
 
   public boolean isPotentialMove() {
     return isPotentialMove;
@@ -78,9 +79,13 @@ public abstract class Block {
     isChosen = false;
   }
 
+  public int getState(){return state;}
+
   public boolean isChosen() {
     return isChosen;
   }
+
+  public Coordinate getCoordinate(){return coordinate;}
 
 
 }

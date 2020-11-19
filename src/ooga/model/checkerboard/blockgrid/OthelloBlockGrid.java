@@ -22,14 +22,14 @@ public class OthelloBlockGrid extends BlockGrid {
   @Override
   public void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock) {
     for (Coordinate coordinate : getAllPotentialMoves(currentPlayerIndex)) {
-      allBlocks.getBlock(coordinate).getBlockState().makePotentialMove();
+      allBlocks.getBlock(coordinate).makePotentialMove();
     }
   }
 
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex) {
-    if (allBlocks.getBlock(passInCoordinate).getBlockState().isPotentialMove()) {
+    if (allBlocks.getBlock(passInCoordinate).isPotentialMove()) {
       allBlocks.getBlock(passInCoordinate).setPlayerID(currentPlayerIndex);
       flipPiece(passInCoordinate, currentPlayerIndex);
     }
@@ -38,8 +38,8 @@ public class OthelloBlockGrid extends BlockGrid {
 
   private void flipPiece(Coordinate passInCoordinate, int currentPlayerIndex) {
     for (Coordinate neighbors : OthelloBlock.getValidNeighbor(allBlocks, passInCoordinate)) {
-      if (!allBlocks.getBlock(neighbors).getBlockState().isEmpty()
-          && allBlocks.getBlock(neighbors).getBlockState().getPlayerID() != currentPlayerIndex) {
+      if (!allBlocks.getBlock(neighbors).getIsEmpty()
+          && allBlocks.getBlock(neighbors).getPlayerID() != currentPlayerIndex) {
         int xIncrement = neighbors.xCoordinate() - passInCoordinate.xCoordinate();
         int yIncrement = neighbors.yCoordinate() - passInCoordinate.yCoordinate();
         Coordinate extendedNeighbor = new Coordinate(neighbors.xCoordinate() + xIncrement,
@@ -50,8 +50,8 @@ public class OthelloBlockGrid extends BlockGrid {
               .getBlockStructureWidth() || extendedNeighbor.yCoordinate() >= allBlocks
               .getBlockStructureHeight()) {
             break;
-          } else if (!allBlocks.getBlock(extendedNeighbor).getBlockState().isEmpty()) {
-            if (allBlocks.getBlock(extendedNeighbor).getBlockState().getPlayerID()
+          } else if (!allBlocks.getBlock(extendedNeighbor).getIsEmpty()) {
+            if (allBlocks.getBlock(extendedNeighbor).getPlayerID()
                 == currentPlayerIndex) {
               changePieceSeriesState(passInCoordinate, extendedNeighbor, currentPlayerIndex,
                   allBlocks);

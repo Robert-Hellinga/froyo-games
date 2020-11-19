@@ -17,7 +17,7 @@ public class OthelloGame extends Game {
 
   @Override
   public void play(Coordinate passInCoordinate) {
-    if (othelloBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().isPotentialMove()) {
+    if (othelloBoard.getAllBlocks().getBlock(passInCoordinate).isPotentialMove()) {
       othelloBoard.play(passInCoordinate, getCurrentPlayerIndex());
       if (othelloBoard.isFinishARound()) {
         if (othelloBoard.isWinningMove(getCurrentPlayerIndex())) {

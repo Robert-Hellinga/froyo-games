@@ -7,7 +7,6 @@ import ooga.Util;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.checkerboard.block.BlockState;
 
 public abstract class BlockGrid {
 
@@ -24,8 +23,8 @@ public abstract class BlockGrid {
     this.numPlayers = originalGrid.numPlayers;
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
       for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
-        this.getAllBlocks().getBlock(new Coordinate(i, j)).setBlockState(
-            new BlockState(originalGrid.allBlocks.getBlock(new Coordinate(i, j)).getBlockState()));
+        this.getAllBlocks().getBlock(new Coordinate(i, j)).initiateBlockState( //TODO: Double check if this breaks anything
+            originalGrid.allBlocks.getBlock(new Coordinate(i, j)).getState());
       }
     }
   }
@@ -60,7 +59,7 @@ public abstract class BlockGrid {
       List<Integer> blockStateLine = new ArrayList<>();
       for (int j = 0; j < allBlocks.getBlockStructureWidth(); j++) {
         Block currentBlock = allBlocks.getBlock(new Coordinate(j, i));
-        blockStateLine.add(currentBlock.getBlockState().getNumericState());
+        blockStateLine.add(currentBlock.getState());
       }
       blockState.add(blockStateLine);
     }
@@ -73,7 +72,7 @@ public abstract class BlockGrid {
     for (int i = 0; i < blocks.getBlockStructureHeight(); i++) {
       for (int j = 0; j < blocks.getBlockStructureWidth(); j++) {
         Block currentBlock = blocks.getBlock(new Coordinate(j, i));
-        result += currentBlock.getBlockState().getNumericState() + ",";
+        result += currentBlock.getState() + ",";
       }
       result += "~";
     }
@@ -98,8 +97,8 @@ public abstract class BlockGrid {
   public void unsetAllBlockPotentials() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isPotentialMove()) {
-          allBlocks.getBlock(new Coordinate(i, j)).getBlockState().unmakePotentialMove();
+        if (allBlocks.getBlock(new Coordinate(i, j)).isPotentialMove()) {
+          allBlocks.getBlock(new Coordinate(i, j)).unmakePotentialMove();
         }
       }
     }
@@ -109,7 +108,7 @@ public abstract class BlockGrid {
   public boolean hasChosenBlock() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
-        if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
+        if (allBlocks.getBlock(new Coordinate(i, j)).isChosen()) {
           return true;
         }
       }
@@ -118,10 +117,8 @@ public abstract class BlockGrid {
   }
 
   public void moveBlock(Coordinate originalCoordinate, Coordinate newCoordinate) {
-    allBlocks.getBlock(newCoordinate).setBlockState(
-        new BlockState(allBlocks.getBlock(originalCoordinate).getBlockState())
-    );
-    allBlocks.getBlock(newCoordinate).getBlockState().setChosen(false);
+    allBlocks.getBlock(newCoordinate).initiateBlockState
+            (allBlocks.getBlock(originalCoordinate).getState());
     allBlocks.getBlock(originalCoordinate).initiateBlockState(0);
   }
 
