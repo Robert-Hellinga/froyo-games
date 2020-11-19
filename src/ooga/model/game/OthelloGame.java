@@ -17,7 +17,7 @@ public class OthelloGame extends Game {
 
   @Override
   public void play(Coordinate passInCoordinate) {
-    if (othelloBoard.getAllBlocks().getBlock(passInCoordinate).isPotentialMove()) {
+    if (othelloBoard.getAllBlocks().getBlock(passInCoordinate).getBlockState().isPotentialMove()) {
       othelloBoard.play(passInCoordinate, getCurrentPlayerIndex());
       if (othelloBoard.isFinishARound()) {
         if (othelloBoard.isWinningMove(getCurrentPlayerIndex())) {
@@ -25,11 +25,6 @@ public class OthelloGame extends Game {
         } else {
           updateDatabase();
           playerTakeTurn();
-//          if (!currentPlayerHavePotentialMoves()){
-//            haveNoPotentialMove = true;
-//          }
-          othelloBoard.setAvailablePositions(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
-          othelloBoard.resetFinishARound();
         }
       }
     }
@@ -52,5 +47,17 @@ public class OthelloGame extends Game {
       return allPlayers.get(othelloBoard.getWinningPlayerIndex());
     }
     return null;
+  }
+
+  @Override
+  public void playerTakeTurn(){
+    int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
+    if (currentPlayerIndex == allPlayers.size() - 1) {
+      currentPlayer = allPlayers.get(0);
+    } else {
+      currentPlayer = allPlayers.get(currentPlayerIndex + 1);
+    }
+    othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
+    othelloBoard.resetFinishAround();
   }
 }

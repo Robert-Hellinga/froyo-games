@@ -1,7 +1,9 @@
 package ooga.view.screens;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,11 +26,14 @@ public class SplashScreen extends VBox {
   private static final String TITLE_IMG_PATH = "resources/img/title.png";
   private static final String START_BTN = "Start";
   private static final String PLAYER_NAME_FIELD = "Username";
+  private static final String OPPONENT_NAME = "OpponentNameMessage";
   private static final String NO_NAME_MESSAGE = "NoNameMessage";
   private static final String FIELD_STRING = "Field";
+  private static final String INVALID_USERNAME = "InvalidUsername";
 
   private static final String[] GAME_BUTTONS = {"Othello", "Checkers", "Connect4"};
   private static final String[] PLAYER_BUTTONS = {"OnePlayer", "TwoPlayer", "TwoPlayerOnline"};
+  private static final List<Character> INVALID_USERNAME_CHARACTERS = List.of('.', '#', '[', ']');
 
   private static final int TITLE_IMG_WIDTH = 500; // Shrink to 500px
   private static final int SCREEN_WIDTH = 600;
@@ -55,6 +60,7 @@ public class SplashScreen extends VBox {
   public SplashScreen(Locale locale, IFroyoController controller) {
     resources = new Resources(locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
     this.controller = controller;
+    opponentName = new String();
 
     setAlignment(Pos.CENTER);
     setWidth(SCREEN_WIDTH);
@@ -80,7 +86,6 @@ public class SplashScreen extends VBox {
     gameButtonGroup = new ToggleButtonGroup(result, resources);
     gameButtonGroup.addButtons(GAME_BUTTONS);
 
-
     return result;
   }
 
@@ -93,22 +98,35 @@ public class SplashScreen extends VBox {
         result,
         resources,
         PLAYER_BTN_WIDTH,
-        PLAYER_BTN_HEIGHT,
-        14
+        PLAYER_BTN_HEIGHT
     );
 
     playerButtonGroup.addButtons(PLAYER_BUTTONS);
-    playerButtonGroup.setOnButtonPushed(2, event -> getOpponentName());
+    playerButtonGroup.setOnButtonsPushed(event -> displayOpponentNameDialog(), 1, 2);
     playerButtonGroup.setButtonStyles(ButtonGroup.INFO_STYLE);
 
     return result;
   }
 
-  private void getOpponentName() {
-    TextInputDialog dialog = new TextInputDialog("Opponent Name");
-    dialog.setHeaderText("Enter Opponent Name");
+  private void displayOpponentNameDialog() {
+    TextInputDialog dialog = new TextInputDialog(resources.getString(OPPONENT_NAME));
+    dialog.setHeaderText(resources.getString(OPPONENT_NAME));
+    dialog.getEditor().setId(OPPONENT_NAME + FIELD_STRING);
     dialog.showAndWait();
     opponentName = dialog.getEditor().getText();
+  }
+
+  private boolean checkValidUsername(String username) {
+    for(char c : username.toCharArray()) {
+      if(INVALID_USERNAME_CHARACTERS.contains(c)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public String getOpponentName() {
+    return opponentName;
   }
 
   private HBox getStartButtonGroup() {
@@ -134,6 +152,14 @@ public class SplashScreen extends VBox {
     boolean readyToStart =
         gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle() && !playerName
             .getText().isEmpty();
+
+    if(!checkValidUsername(playerName.getText()) || !checkValidUsername(opponentName)) {
+      String errorMessage = String.format(resources.getString(INVALID_USERNAME), playerName.getText(), opponentName);
+      Alert alert = new Alert(AlertType.ERROR, errorMessage, ButtonType.OK);
+      alert.showAndWait();
+      playerName.clear();
+      return;
+    }
 
     if (readyToStart) {
       String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());

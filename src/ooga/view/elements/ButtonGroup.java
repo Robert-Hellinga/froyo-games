@@ -21,7 +21,6 @@ public class ButtonGroup {
   private static final String SPACE_STRING = "\\s+";
   private static final String EMPTY_STRING = "";
 
-
   private static final int DEFAULT_BTN_WIDTH = 130;
   private static final int DEFAULT_BTN_HEIGHT = 20;
   private static final int DEFAULT_TEXT_SIZE = 14;
@@ -71,10 +70,16 @@ public class ButtonGroup {
   }
 
   public void setOnButtonPushed(EventHandler<ActionEvent> event) {
-    setOnButtonPushed(0, event);
+    setOnButtonPushed(event, 0);
   }
 
-  public void setOnButtonPushed(int buttonIndex, EventHandler<ActionEvent> event) {
+  public void setOnButtonsPushed(EventHandler<ActionEvent> event, int... buttonIndices) {
+    for(int i : buttonIndices) {
+      setOnButtonPushed(event, i);
+    }
+  }
+
+  public void setOnButtonPushed(EventHandler<ActionEvent> event, int buttonIndex) {
     ButtonBase btn = buttons.get(buttonIndex);
     btn.setOnAction(event);
   }

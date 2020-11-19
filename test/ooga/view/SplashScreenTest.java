@@ -1,9 +1,13 @@
-package ooga.view.screens;
+package ooga.view;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
 import java.util.Locale;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,6 +16,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
+import ooga.view.screens.SplashScreen;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -52,12 +57,11 @@ class SplashScreenTest extends DukeApplicationTest {
     nameField = lookup("#UsernameField").queryAs(TextField.class);
 
     startBtn = lookup("#StartGameBtn").queryAs(Button.class);
-
   }
 
   @Test
   public void testGameSelected() {
-    assertEquals(gameToggle.getSelectedToggle(), null);
+    assertNull(gameToggle.getSelectedToggle());
     clickOn(othelloBtn);
     assertEquals(gameToggle.getSelectedToggle(), othelloBtn);
     clickOn(checkersBtn);
@@ -71,7 +75,7 @@ class SplashScreenTest extends DukeApplicationTest {
 
   @Test
   public void testPlayerTypeSelected() {
-    assertEquals(playerToggle.getSelectedToggle(), null);
+    assertNull(playerToggle.getSelectedToggle());
     clickOn(onePlayerBtn);
     assertEquals(playerToggle.getSelectedToggle(), onePlayerBtn);
     clickOn(twoPlayerBtn);
@@ -90,6 +94,45 @@ class SplashScreenTest extends DukeApplicationTest {
     assertEquals("Please enter a name and select buttons.", getDialogMessage());
   }
 
+  @Test
+  public void testEnteringUsername(){
+    clickOn(checkersBtn);
+    clickOn(onePlayerBtn);
+    String expected = "John";
+    clickOn(nameField).write(expected);
+    clickOn(startBtn);
+    assertEquals(nameField.getText(), expected);
+  }
 
+  @Test
+  public void testEnteringOpponentName() {
+    clickOn(twoPlayerOnlineBtn);
+    String expected = "Opponent";
+    writeInputsToDialog(expected);
+    assertEquals(splashScreen.getOpponentName(), expected);
+  }
+
+  @Test
+  public void testNoButtonsClickedInToggleButtonGroup() {
+    clickOn(othelloBtn);
+    clickOn(othelloBtn);
+    assertNotNull(gameToggle.getSelectedToggle());
+    clickOn(onePlayerBtn);
+    clickOn(onePlayerBtn);
+    assertNotNull(playerToggle.getSelectedToggle());
+  }
+
+  @Test
+  public void testBadUsernames() {
+
+    char[] badUsernames = {'.', '#', '[', ']'};
+    for(char c : badUsernames) {
+      clickOn(twoPlayerOnlineBtn);
+      writeInputsToDialog(""+c);
+      clickOn(nameField).write(c);
+      clickOn(startBtn);
+      assertEquals(getDialogMessage(), "\""+c+"\" or \""+c+"\" contains one of '.', '#', '[', ']'. Please provide a different username.");
+    }
+  }
 }
 
