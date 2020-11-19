@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.controller.FroyoController;
+import ooga.model.checkerboard.block.CheckersBlock;
 import ooga.model.player.HumanPlayer;
 import ooga.model.player.Player;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ class CheckersGameTest {
     Coordinate pieceToChoose = new Coordinate(0, 0);
     checkersGame.play(pieceToChoose);
     assertTrue(
-        checkersGame.getBoard().getAllBlocks().getBlock(pieceToChoose).getBlockState().isChosen());
+        checkersGame.getBoard().getAllBlocks().getBlock(pieceToChoose).isChosen());
   }
 
   @Test
@@ -66,8 +67,9 @@ class CheckersGameTest {
     Coordinate pieceToMoveTo = new Coordinate(2, 2);
     checkersGame.play(pieceToChoose);
     checkersGame.play(pieceToMoveTo);
+    CheckersBlock possibleKing = new CheckersBlock(checkersGame.getBoard().getAllBlocks().getBlock(pieceToMoveTo));
     assertTrue(
-        checkersGame.getBoard().getAllBlocks().getBlock(pieceToMoveTo).getBlockState().isKing());
+        possibleKing.isKing());
   }
 
   @Test

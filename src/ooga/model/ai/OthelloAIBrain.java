@@ -116,7 +116,7 @@ public class OthelloAIBrain implements AIBrain {
       for (int j = 0; j < othelloBoard.getAllBlocks().getBlockStructureHeight(); j++) {
         Coordinate coordinate = new Coordinate(i, j);
         potentialMove.addAll(othelloBoard.getAllBlocks().getBlock(coordinate)
-            .getAvailablePosition(currentPlayerIndex, othelloBoard.getAllBlocks()));
+            .getAvailablePositions(currentPlayerIndex, othelloBoard.getAllBlocks()));
       }
     }
     return potentialMove;

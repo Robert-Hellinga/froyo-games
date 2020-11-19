@@ -66,6 +66,11 @@ public class GameController implements IGameController {
     clickingEnabled = enabled;
   }
 
+  @Override
+  public String getGameType() {
+    return game.getGameType();
+  }
+
   private void setupAnimation() {
     KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step());
     animation = new Timeline();
