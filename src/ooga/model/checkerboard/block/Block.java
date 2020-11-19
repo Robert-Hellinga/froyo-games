@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import ooga.Coordinate;
+import ooga.exceptions.FileException;
 import ooga.model.checkerboard.BlockStructure;
 
 public abstract class Block {
@@ -33,7 +34,7 @@ public abstract class Block {
 
   public void initiateBlockState(int blockConfig) {
     this.state = blockConfig;
-    this.playerID = (blockConfig % 2);
+    setPlayerID(blockConfig);
     this.isEmpty = blockConfig == 0;
     this.isChosen = false;
     this.isPotentialMove = false;
@@ -52,20 +53,29 @@ public abstract class Block {
 
   public void setPlayerID(int player) {
     isEmpty = false;
-    this.playerID = (player % 2);
+    if(player == 0){playerID = 0;}
+    else if(player % 2 == 1){playerID = 1;}
+    else if(player % 2 == 0){playerID = 2;}
+    else{
+      throw new FileException("Invalid block state");
+    }
   }
 
   public void setEmpty(){
     this.playerID = EMPTY;
     this.isEmpty = true;
     this.state = EMPTY;
+    this.isPotentialMove = false;
+    this.isChosen = false;
   }
 
   public void makePotentialMove() {
     isPotentialMove = true;
   }
 
-  public void unmakePotentialMove() {isPotentialMove = false;}
+  public void unmakePotentialMove() {
+    isPotentialMove = false;
+    setEmpty();}
 
   public boolean isPotentialMove() {
     return isPotentialMove;

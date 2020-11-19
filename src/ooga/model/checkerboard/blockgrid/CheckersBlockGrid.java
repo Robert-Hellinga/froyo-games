@@ -115,7 +115,6 @@ public class CheckersBlockGrid extends BlockGrid {
 
   private void crossPiece(Coordinate pieceToRemoveCoordinate) {
     allBlocks.getBlock(pieceToRemoveCoordinate).setEmpty();
-    allBlocks.getBlock(pieceToRemoveCoordinate).setPlayerID(0);
   }
 
   public void makeBlockKing(Coordinate newCoordinate) {

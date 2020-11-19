@@ -5,6 +5,7 @@ import java.util.List;
 import ooga.Coordinate;
 import ooga.Util;
 import ooga.exceptions.ClassOrMethodNotFoundException;
+import ooga.exceptions.FileException;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
 
@@ -23,7 +24,7 @@ public abstract class BlockGrid {
     this.numPlayers = originalGrid.numPlayers;
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
       for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
-        this.getAllBlocks().getBlock(new Coordinate(i, j)).initiateBlockState( //TODO: Double check if this breaks anything
+        this.getAllBlocks().getBlock(new Coordinate(i, j)).initiateBlockState(
             originalGrid.allBlocks.getBlock(new Coordinate(i, j)).getState());
       }
     }
@@ -119,7 +120,7 @@ public abstract class BlockGrid {
   public void moveBlock(Coordinate originalCoordinate, Coordinate newCoordinate) {
     allBlocks.getBlock(newCoordinate).initiateBlockState
             (allBlocks.getBlock(originalCoordinate).getState());
-    allBlocks.getBlock(originalCoordinate).initiateBlockState(0);
+    allBlocks.getBlock(originalCoordinate).setEmpty();
   }
 
   public boolean isFinishARound() {
@@ -136,7 +137,11 @@ public abstract class BlockGrid {
 
   public static int playerTakeTurn(Integer currentPlayerIndex, List<Integer> playerIndexPoll) {
     int index = playerIndexPoll.indexOf(currentPlayerIndex);
-    return playerIndexPoll.get((index + 1) % 2);
+    if(index == 0){return 1;}
+    else if(index == 1){return 2;}
+    else{
+      throw new FileException("Invalid player");
+    }
   }
 
   public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
