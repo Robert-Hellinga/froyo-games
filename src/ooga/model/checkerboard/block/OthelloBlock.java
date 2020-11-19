@@ -7,6 +7,7 @@ import ooga.model.checkerboard.BlockStructure;
 
 public class OthelloBlock extends Block {
 
+  private final int POTENTIAL_MOVE = 3;
   public OthelloBlock(Integer blockConfig, Coordinate coordinate) {
     super(blockConfig, coordinate);
   }
@@ -74,5 +75,11 @@ public class OthelloBlock extends Block {
       }
     }
     return validNeighbors;
+  }
+
+  @Override
+  public void makePotentialMove(){
+    super.makePotentialMove();
+    state = POTENTIAL_MOVE;
   }
 }
