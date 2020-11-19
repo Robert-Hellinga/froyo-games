@@ -78,6 +78,12 @@ public class OthelloBlock extends Block {
   }
 
   @Override
+  public void setPlayerID(int player){
+    super.setPlayerID(player);
+    state = playerID;
+  }
+
+  @Override
   public void makePotentialMove(){
     super.makePotentialMove();
     state = POTENTIAL_MOVE;

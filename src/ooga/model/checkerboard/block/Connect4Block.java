@@ -26,4 +26,11 @@ public class Connect4Block extends Block {
     }
     return availablePositions;
   }
+
+  @Override
+  public void setPlayerID(int player){
+    super.setPlayerID(player);
+    state = playerID;
+  }
+
 }

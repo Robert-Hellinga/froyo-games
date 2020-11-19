@@ -54,7 +54,8 @@ public abstract class Block {
   public void setPlayerID(int player) {
     isEmpty = false;
     if(player == 0){playerID = 0;}
-    else if(player % 2 == 1){playerID = 1;}
+    else if(player % 2 == 1){
+      playerID = 1;}
     else if(player % 2 == 0){playerID = 2;}
     else{
       throw new FileException("Invalid block state");
