@@ -24,26 +24,23 @@ public class Piece {
   private static final String KING_PIECE_IMAGE_RED = "resources/img/king_piece_red.png";
   private static final String RESOURCE_PACKAGE = "resources.ui.";
 
-  private final ResourceBundle fillColorBundle = ResourceBundle
-      .getBundle(RESOURCE_PACKAGE + "PieceFillColor");
-  private final ResourceBundle strokeColorBundle = ResourceBundle
-      .getBundle(RESOURCE_PACKAGE + "PieceStrokeColor");
+
   private Circle pieceShape;
   private int state;
   private final Coordinate coordinate;
 
-  public Piece(int state, Coordinate coordinate, EventHandler<MouseEvent> value) {
+  public Piece(int state, Coordinate coordinate, EventHandler<MouseEvent> value, String gameType) {
     this.state = state;
     this.coordinate = coordinate;
-    initiatePieceShape(coordinate, value);
+    initiatePieceShape(coordinate, value, gameType);
   }
 
-  private void initiatePieceShape(Coordinate coordinate, EventHandler<MouseEvent> value) {
+  private void initiatePieceShape(Coordinate coordinate, EventHandler<MouseEvent> value, String gameType) {
     pieceShape = new Circle();
     pieceShape.setRadius(SIZE);
     pieceShape.setCenterY(SIZE + coordinate.yCoordinate() * 2 * SIZE);
     pieceShape.setCenterX(SIZE + coordinate.xCoordinate() * 2 * SIZE);
-    updateColor();
+    updateColor(gameType);
     pieceShape.setOnMouseClicked(value);
   }
 
@@ -64,16 +61,17 @@ public class Piece {
     return coordinate;
   }
 
-  public void updateColor() {
+  public void updateColor(String gameType) {
+    ResourceBundle fillColorBundle = ResourceBundle
+            .getBundle(RESOURCE_PACKAGE + gameType + "PieceFillColor");
+    ResourceBundle strokeColorBundle = ResourceBundle
+            .getBundle(RESOURCE_PACKAGE + gameType + "PieceStrokeColor");
     pieceShape.setFill(getColor(state, fillColorBundle));
     pieceShape.setStroke(getColor(state, strokeColorBundle));
     pieceShape.setStrokeWidth(HIGHLIGHT_STROKE_WIDTH);
 
-    if (state == 6 || state == 8) {
-      Image kingPieceImage = loadImage(KING_PIECE_IMAGE_BLUE);
-      pieceShape.setFill(new ImagePattern(kingPieceImage));
-    } else if (state == 7 || state == 9) {
-      Image kingPieceImage = loadImage(KING_PIECE_IMAGE_RED);
+    if (strokeColorBundle.getString(Integer.toString(state)).contains("img")) {
+      Image kingPieceImage = loadImage(strokeColorBundle.getString(Integer.toString(state)));
       pieceShape.setFill(new ImagePattern(kingPieceImage));
     }
   }

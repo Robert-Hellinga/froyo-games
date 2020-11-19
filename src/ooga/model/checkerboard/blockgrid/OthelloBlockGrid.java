@@ -33,7 +33,7 @@ public class OthelloBlockGrid extends BlockGrid {
       allBlocks.getBlock(passInCoordinate).setPlayerID(currentPlayerIndex);
       flipPiece(passInCoordinate, currentPlayerIndex);
     }
-    unsetAllBlockPotential();
+    unsetAllBlockPotentials();
   }
 
   private void flipPiece(Coordinate passInCoordinate, int currentPlayerIndex) {

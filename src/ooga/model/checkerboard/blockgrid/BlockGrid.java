@@ -111,7 +111,7 @@ public abstract class BlockGrid {
     return false;
   }
 
-  public Coordinate getChosenBlockCoordianate() {
+  public Coordinate getChosenBlockCoordinate() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
         if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
@@ -122,7 +122,7 @@ public abstract class BlockGrid {
     return Coordinate.INVALID_COORDINATE;
   }
 
-  public void unChoseAllBlock() {
+  public void unChooseAllBlocks() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
         if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isChosen()) {
@@ -132,7 +132,7 @@ public abstract class BlockGrid {
     }
   }
 
-  public void unsetAllBlockPotential() {
+  public void unsetAllBlockPotentials() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
         if (allBlocks.getBlock(new Coordinate(i, j)).getBlockState().isPotentialMove()) {

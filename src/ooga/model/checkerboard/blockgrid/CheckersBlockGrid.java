@@ -2,7 +2,6 @@ package ooga.model.checkerboard.blockgrid;
 
 import java.util.List;
 import ooga.Coordinate;
-import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.game.CheckersGame;
 
 public class CheckersBlockGrid extends BlockGrid {
@@ -31,18 +30,18 @@ public class CheckersBlockGrid extends BlockGrid {
     if (hasChosenBlock()) {
       if (allBlocks.getBlock(passInCoordinate).getPlayerID()
           == currentPlayerIndex) {
-        unChoseAllBlock();
-        unsetAllBlockPotential();
+        unChooseAllBlocks();
+        unsetAllBlockPotentials();
         getAllBlocks().getBlock(passInCoordinate).getBlockState().choose();
         setAvailablePosition(currentPlayerIndex, passInCoordinate);
       } else if (allBlocks.getBlock(passInCoordinate).getBlockState()
           .isPotentialMove()) {
 
-        removeCheckedPiece(passInCoordinate, getChosenBlockCoordianate());
-        moveBlock(getChosenBlockCoordianate(), passInCoordinate);
+        removeCheckedPiece(passInCoordinate, getChosenBlockCoordinate());
+        moveBlock(getChosenBlockCoordinate(), passInCoordinate);
         makeBlockKing(passInCoordinate);
-        unChoseAllBlock();
-        unsetAllBlockPotential();
+        unChooseAllBlocks();
+        unsetAllBlockPotentials();
         getAllBlocks().getBlock(passInCoordinate).setPlayerID(currentPlayerIndex);
         finishARound = true;
       }

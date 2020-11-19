@@ -38,7 +38,7 @@ public class Connect4BlockGrid extends BlockGrid {
         break;
       }
     }
-    unsetAllBlockPotential();
+    unsetAllBlockPotentials();
   }
 
   public boolean isWinningMove(int playerID) {

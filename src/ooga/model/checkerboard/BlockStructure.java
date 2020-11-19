@@ -16,7 +16,7 @@ public class BlockStructure {
   }
 
   private void initiateBlockStructure(List<List<Integer>> allBlockConfig, String gameType) {
-    for (int i = 0; i < allBlockConfig.get(i).size(); i++) {
+    for (int i = 0; i < allBlockConfig.get(0).size(); i++) {
       List<Block> blockLine = new ArrayList<>();
       for (int j = 0; j < allBlockConfig.size(); j++) {
         Integer cellConfig = allBlockConfig.get(i).get(j);
