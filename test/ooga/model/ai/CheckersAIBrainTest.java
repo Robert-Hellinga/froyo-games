@@ -51,8 +51,6 @@ class CheckersAIBrainTest {
 
     CheckersAIBrain AIBrain = new CheckersAIBrain();
     List<Coordinate> aiMove = AIBrain.decideMove(checkersGame.getBoard(), 2);
-    System.out.println(aiMove);
-
     checkersGame.play(aiMove.get(0));
     assertTrue(checkersGame.getBoard().getAllPotentialMoves(2).contains(aiMove.get(1)));
     checkersGame.play(aiMove.get(1));
@@ -99,8 +97,6 @@ class CheckersAIBrainTest {
 
     CheckersAIBrain AIBrain = new CheckersAIBrain();
     List<Coordinate> aiMove = AIBrain.decideMove(checkersGame.getBoard(), 2);
-    System.out.println(aiMove);
-
     checkersGame.play(aiMove.get(0));
     assertTrue(checkersGame.getBoard().getAllPotentialMoves(2).contains(aiMove.get(1)));
     checkersGame.play(aiMove.get(1));

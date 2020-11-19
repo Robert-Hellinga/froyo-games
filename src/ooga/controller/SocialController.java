@@ -109,7 +109,6 @@ public class SocialController {
       public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
         game.setAllBlockStates((String) dataSnapshot.getValue());
         if (!game.currentPlayerHavePotentialMoves()) {
-          System.out.println("no potential moves");
           updateGame(true);
         } else {
           game.playerTakeTurn();
