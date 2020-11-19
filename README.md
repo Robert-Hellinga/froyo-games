@@ -47,12 +47,13 @@ Features implemented:
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
- * When playing online, wait for other player to join before making the first move. Otherwise, turn cycle might be broken
+ * When playing online, wait for opponent player to join before making the first move. Otherwise, turn cycle might be broken
 
 Interesting data files: 
 
 Known Bugs: 
+ * Names do not display properly on top/bottom with online (both players see the same name on top and bottom)
  * Othello turn cycling does not work with online feature. 
-
+ 
 ### Impressions
 

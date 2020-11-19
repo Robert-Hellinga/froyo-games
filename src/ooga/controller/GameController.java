@@ -14,7 +14,7 @@ import ooga.model.player.Player;
 
 public class GameController implements IGameController {
 
-  private static final double FRAMES_PER_SECOND = 20;
+  private static final double FRAMES_PER_SECOND = 0.4;
   private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   private static final String SKIP_ROUND_MESSAGE = " have no moves to make, will have to skip the round.";
 
@@ -104,5 +104,6 @@ public class GameController implements IGameController {
     checkForAITurn();
     checkPlayerWonGame();
     checkIfPlayerHaveNoPotentialMove();
+    game.notifyObservers();
   }
 }
