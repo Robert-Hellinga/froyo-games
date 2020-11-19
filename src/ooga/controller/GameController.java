@@ -45,7 +45,6 @@ public class GameController implements IGameController {
           game.getCurrentPlayer().makePlay(coord);
         }
         setClickingEnabled(true);
-        game.notifyObservers();
       }
     }
   }
@@ -90,13 +89,12 @@ public class GameController implements IGameController {
       alert.show();
       game.playerTakeTurn();
       if (!game.currentPlayerHavePotentialMoves() && !game.isPlayerWonGame()) {
-        System.out.println("reach here");
         Alert alert2 = new Alert(AlertType.NONE,
             game.getCurrentPlayer().getName() + SKIP_ROUND_MESSAGE, ButtonType.OK);
         alert2.show();
         game.endGame();
       }
-      game.notifyObservers();
+
     }
   }
 
