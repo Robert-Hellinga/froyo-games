@@ -1,7 +1,6 @@
 package ooga.controller;
 
 import java.util.List;
-import java.util.Optional;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
@@ -58,7 +57,7 @@ public class GameController implements IGameController {
 
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
-      if (mode.equals(PlayerMode.PLAY_WITH_AI) && game.getCurrentPlayerIndex() == 2){
+      if (mode.equals(PlayerMode.PLAY_WITH_AI) && game.getCurrentPlayerIndex() == 2) {
         setClickingEnabled(false);
       }
     }

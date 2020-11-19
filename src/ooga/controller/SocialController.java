@@ -20,7 +20,6 @@ import ooga.fileHandler.DatabaseGame;
 import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
-import org.apache.commons.lang3.ObjectUtils.Null;
 
 public class SocialController {
 
@@ -150,8 +149,7 @@ public class SocialController {
             }
           }
       );
-    }
-    catch (NullPointerException e) {
+    } catch (NullPointerException e) {
       throw new DatabaseException(error.getString(GAME_NOT_CREATED_KEY));
     }
   }

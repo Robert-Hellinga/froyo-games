@@ -13,15 +13,17 @@ public class CheckersBlock extends Block {
   private final int POTENTIAL_MOVE = 9;
 
   protected boolean isKing;
+
   public CheckersBlock(Integer blockConfig, Coordinate coordinate) {
 
     super(blockConfig, coordinate);
     this.isChosen = false;
     this.isPotentialMove = false;
-    this.isKing = false;;
+    this.isKing = false;
+    ;
   }
 
-  public CheckersBlock(Block newBlock){
+  public CheckersBlock(Block newBlock) {
     super(newBlock.getState(), newBlock.getCoordinate());
     this.isEmpty = newBlock.getIsEmpty();
     this.playerID = newBlock.getPlayerID();
@@ -133,13 +135,13 @@ public class CheckersBlock extends Block {
   }
 
   @Override
-  public void setEmpty(){
+  public void setEmpty() {
     super.setEmpty();
     isKing = false;
   }
 
   @Override
-  public void makePotentialMove(){
+  public void makePotentialMove() {
     super.makePotentialMove();
     state = POTENTIAL_MOVE;
   }
@@ -147,11 +149,11 @@ public class CheckersBlock extends Block {
   public boolean isKing() {
     return isKing;
   }
+
   public void makeKing() {
     isKing = true;
     state = state + KING;
   }
-
 
 
 }

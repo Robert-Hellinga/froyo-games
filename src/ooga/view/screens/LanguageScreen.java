@@ -43,7 +43,9 @@ public class LanguageScreen extends GridPane {
     ButtonGroup startButton = new ButtonGroup(result, START_BTN_WIDTH, START_BTN_HEIGHT);
     startButton.addButtons(START_BTN_TEXT);
     startButton
-        .setOnButtonPushed(event -> new SplashScreen(AVAILABLE_LOCALES[languageSelector.getSelectedIndex()], controller));
+        .setOnButtonPushed(
+            event -> new SplashScreen(AVAILABLE_LOCALES[languageSelector.getSelectedIndex()],
+                controller));
     startButton.setButtonStyles(ButtonGroup.SUCCESS_STYLE);
 
     return result;
@@ -51,7 +53,7 @@ public class LanguageScreen extends GridPane {
 
   private LabeledDropdown getLanguageDropdown() {
     String[] displayLanguages = new String[AVAILABLE_LOCALES.length];
-    for(int i = 0; i < AVAILABLE_LOCALES.length; i++) {
+    for (int i = 0; i < AVAILABLE_LOCALES.length; i++) {
       displayLanguages[i] = AVAILABLE_LOCALES[i].getDisplayName();
     }
     return new LabeledDropdown(DROPDOWN_LABEL_TEXT, displayLanguages);

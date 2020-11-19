@@ -1,8 +1,7 @@
 package ooga.model.checkerboard.blockgrid;
 
-import ooga.Coordinate;
-
 import java.util.List;
+import ooga.Coordinate;
 
 public class Connect4BlockGrid extends BlockGrid {
 

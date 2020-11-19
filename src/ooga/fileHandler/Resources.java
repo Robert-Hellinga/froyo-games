@@ -1,12 +1,9 @@
 package ooga.fileHandler;
 
-import java.util.List;
 import java.util.Locale;
-import ooga.exceptions.ResourceException;
-
 import java.util.ResourceBundle;
-import ooga.exceptions.ResourceException;
 import java.util.Set;
+import ooga.exceptions.ResourceException;
 
 /**
  * Wrapper for ResourceBundle to make it easier to use throughout the program
@@ -65,5 +62,7 @@ public class Resources {
     return resources.getLocale();
   }
 
-  public Set getKeySet(){ return resources.keySet();}
+  public Set getKeySet() {
+    return resources.keySet();
+  }
 }

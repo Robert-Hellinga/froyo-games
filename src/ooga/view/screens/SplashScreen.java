@@ -117,8 +117,8 @@ public class SplashScreen extends VBox {
   }
 
   private boolean checkValidUsername(String username) {
-    for(char c : username.toCharArray()) {
-      if(INVALID_USERNAME_CHARACTERS.contains(c)) {
+    for (char c : username.toCharArray()) {
+      if (INVALID_USERNAME_CHARACTERS.contains(c)) {
         return false;
       }
     }
@@ -149,8 +149,9 @@ public class SplashScreen extends VBox {
   }
 
   private boolean checkUsernamesValid() {
-    if(!checkValidUsername(playerName.getText()) || !checkValidUsername(opponentName)) {
-      String errorMessage = String.format(resources.getString(INVALID_USERNAME), playerName.getText(), opponentName);
+    if (!checkValidUsername(playerName.getText()) || !checkValidUsername(opponentName)) {
+      String errorMessage = String
+          .format(resources.getString(INVALID_USERNAME), playerName.getText(), opponentName);
       Alert alert = new Alert(AlertType.ERROR, errorMessage, ButtonType.OK);
       alert.showAndWait();
       playerName.clear();
@@ -161,7 +162,9 @@ public class SplashScreen extends VBox {
 
   private void startGame() {
 
-    if(!checkUsernamesValid()) return;
+    if (!checkUsernamesValid()) {
+      return;
+    }
 
     boolean readyToStart =
         gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle() && !playerName
@@ -171,7 +174,8 @@ public class SplashScreen extends VBox {
       String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());
       boolean onePlayer = playerButtonGroup.getToggleIndexSelected() == 0;
       boolean online = playerButtonGroup.getToggleIndexSelected() == 2;
-      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online, opponentName);
+      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online,
+          opponentName);
     } else {
       Alert alert = new Alert(AlertType.NONE, resources.getString(NO_NAME_MESSAGE), ButtonType.OK);
       alert.showAndWait();

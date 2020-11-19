@@ -47,7 +47,7 @@ public class OthelloGame extends Game {
   }
 
   @Override
-  public void playerTakeTurn(){
+  public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
     if (currentPlayerIndex == allPlayers.size() - 1) {
       currentPlayer = allPlayers.get(0);

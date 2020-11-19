@@ -5,7 +5,6 @@ import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import ooga.Util;
 import ooga.controller.IFroyoController;
 import ooga.controller.IGameController;
@@ -61,7 +60,6 @@ public class GameScreen extends GridPane implements ModelObserver {
 
     Util.applyStyleSheet(this);
   }
-
 
 
   private String getPlayerName(int index) {

@@ -28,8 +28,9 @@ public class ToggleButtonGroup extends ButtonGroup {
     super(pane, resources, width, height, textSize);
     toggleGroup = new ToggleGroup();
     toggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
-      if (newVal == null)
+      if (newVal == null) {
         oldVal.setSelected(true);
+      }
     });
   }
 
