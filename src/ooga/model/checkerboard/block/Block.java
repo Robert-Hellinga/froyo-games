@@ -65,4 +65,22 @@ public abstract class Block {
   public void setPotentialMove(boolean potentialMove) {
     isPotentialMove = potentialMove;
   }
+
+  public boolean isPotentialMove() {
+    return isPotentialMove;
+  }
+
+  public void choose() {
+    isChosen = true;
+  }
+
+  public void unchoose(){
+    isChosen = false;
+  }
+
+  public boolean isChosen() {
+    return isChosen;
+  }
+
+
 }

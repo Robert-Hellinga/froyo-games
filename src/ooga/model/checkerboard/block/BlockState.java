@@ -20,38 +20,7 @@ public class BlockState {
 
   }
 
-  public void choose() {
-    isChosen = true;
-  }
 
-  public void unchoose() {
-    isChosen = false;
-  }
-
-  public void makePotentialMove() {
-    isPotentialMove = true;
-  }
-
-  public void unmakePotentialMove() {
-    isPotentialMove = false;
-  }
-
-  public void setPlayerID(int playerID) {
-    PlayerID = playerID;
-  }
-
-  public int getPlayerID() {
-    return PlayerID;
-  }
-
-
-  public boolean isEmpty() {
-    return isEmpty;
-  }
-
-  public void makeKing() {
-    isKing = true;
-  }
 
   public boolean isKing() {
     return isKing;

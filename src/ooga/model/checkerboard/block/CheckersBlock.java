@@ -122,4 +122,20 @@ public class CheckersBlock extends Block {
         && coor.yCoordinate() >= 0 && coor.yCoordinate() < allBlocks.getBlockStructureHeight();
   }
 
+  @Override
+  public void setEmpty(){
+    super.setEmpty();
+    isKing = false;
+  }
+
+  public boolean isKing() {
+    return isKing;
+  }
+  public void makeKing() {
+    isKing = true;
+    state = state + 6;
+  }
+
+
+
 }

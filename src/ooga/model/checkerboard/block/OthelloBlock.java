@@ -46,10 +46,6 @@ public class OthelloBlock extends Block {
     return availablePositions;
   }
 
-  @Override
-  protected void buildAttributeMap() {
-
-  }
 
   public static List<Coordinate> getValidNeighbor(BlockStructure allBlocks, Coordinate coordinate) {
     List<Coordinate> validNeighbors = new ArrayList<>();
