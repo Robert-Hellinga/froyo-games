@@ -24,7 +24,7 @@ public class Connect4Game extends Game {
       } else {
         updateDatabase();
         playerTakeTurn();
-        connect4Board.resetFinishAround();
+        connect4Board.resetFinishARound();
       }
     }
     notifyObservers();

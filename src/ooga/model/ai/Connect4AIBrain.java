@@ -48,7 +48,7 @@ public class Connect4AIBrain implements AIBrain {
 
     BlockGrid newConnect4Board = new Connect4BlockGrid(connect4Grid);
     List<Coordinate> potentialMoves = newConnect4Board.getAllBlocks().getBlock(new Coordinate(0, 0))
-        .getAvailablePosition(0, newConnect4Board.getAllBlocks());
+        .getAvailablePositions(0, newConnect4Board.getAllBlocks());
 
     return getGoodMove(potentialMoves, newConnect4Board, currentPlayerIndex, depth, alpha, beta,
         maximizingPlayer);
@@ -113,7 +113,7 @@ public class Connect4AIBrain implements AIBrain {
   private boolean isTerminalNode(BlockGrid connect4grid) {
     return connect4grid.isWinningMove(PLAYER_INDEX_POLL.get(0)) || connect4grid.isWinningMove(
         PLAYER_INDEX_POLL.get(1)) || connect4grid.getAllBlocks().getBlock(new Coordinate(0, 0))
-        .getAvailablePosition(0, connect4grid.getAllBlocks()).size() == 0;
+        .getAvailablePositions(0, connect4grid.getAllBlocks()).size() == 0;
   }
 
 

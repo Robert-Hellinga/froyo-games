@@ -1,14 +1,19 @@
 package ooga.model.game;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.controller.SocialController;
 import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
-import ooga.model.checkerboard.BlockConfigStructure;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.player.Player;
+import ooga.model.player.Player;
+import ooga.model.checkerboard.BlockStructure;
+import ooga.model.checkerboard.block.Block;
+//import ooga.model.player.Player.PlayerType;
 import ooga.view.ModelObserver;
 
 public abstract class Game {
@@ -32,16 +37,16 @@ public abstract class Game {
     allPlayers.add(playerTwo);
     currentPlayer = playerOne;
     observers = new ArrayList<>();
+    this.gameType = gameType;
     wonGame = false;
 //    haveNoPotentialMove = false;
     turnsEnabled = true;
   }
 
 
-  protected BlockConfigStructure getInitiationBlockConfig(String gameType, String startPattern)
-      throws FileException {
+  protected List<List<Integer>> getInitiationBlockConfig(String gameType, String startPattern) throws FileException {
     FileReader fileReader = new FileReader(gameType, startPattern);
-    return fileReader.makeBlockStructure();
+    return fileReader.readBlockLayout();
   }
 
   public void setDatabase(SocialController socialController) {
@@ -54,10 +59,6 @@ public abstract class Game {
     }
   }
 
-  public String getGameType() {
-    return gameType;
-  }
-
   public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
     if (currentPlayerIndex == allPlayers.size() - 1) {
@@ -67,7 +68,7 @@ public abstract class Game {
     }
   }
 
-  public Player getCurrentPlayer() {
+  public Player getCurrentPlayer(){
     return currentPlayer;
   }
 
@@ -108,6 +109,8 @@ public abstract class Game {
   public List<Player> getAllPlayers() {
     return allPlayers;
   }
+
+  public String getGameType(){ return gameType;}
 
   public boolean isPlayerWonGame() {
     return wonGame;
