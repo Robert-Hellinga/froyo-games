@@ -13,15 +13,16 @@ public class PlayerTurnBox extends HBox {
 
   private static final String STYLE_CLASS = "turnbox";
   private static final int CIRCLE_RADIUS = 20;
-  private final ResourceBundle fillColorBundle = ResourceBundle
-      .getBundle("resources.ui.PieceFillColor");
+  private final ResourceBundle fillColorBundle;
 
 
-  public PlayerTurnBox(String playerName, int colorKey) {
+  public PlayerTurnBox(String playerName, int colorKey, String gameType) {
     getStyleClass().add(STYLE_CLASS);
 
     Label text = new Label(playerName);
     text.setFont(new Font(20));
+     fillColorBundle = ResourceBundle
+            .getBundle("resources.ui." + gameType + "PieceFillColor");
 
     getChildren().addAll(text, makePlayerCircle(colorKey));
   }

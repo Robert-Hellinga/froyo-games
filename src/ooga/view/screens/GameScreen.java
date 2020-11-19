@@ -32,7 +32,7 @@ public class GameScreen extends GridPane implements ModelObserver {
   private static final int SCREEN_H_SPACING = 20;
   private static final int SCREEN_V_SPACING = 30;
   private static final int PLAYER_ONE_COLOR_KEY = 1;
-  private static final int PLAYER_TWO_COLOR_KEY = 4;
+  private static final int PLAYER_TWO_COLOR_KEY = 2;
 
   private Resources resources;
   private Game game;
@@ -56,10 +56,10 @@ public class GameScreen extends GridPane implements ModelObserver {
     setVgap(SCREEN_V_SPACING);
     setHgap(SCREEN_H_SPACING);
 
-    add(new PlayerTurnBox(getPlayerName(0), PLAYER_ONE_COLOR_KEY), 1, 0);
+    add(new PlayerTurnBox(getPlayerName(0), PLAYER_ONE_COLOR_KEY, game.getGameType()), 1, 0);
     add(getControlButtonGroup(), 0, 1);
     add(grid, 1, 1);
-    add(new PlayerTurnBox(getPlayerName(1), PLAYER_TWO_COLOR_KEY), 1, 2);
+    add(new PlayerTurnBox(getPlayerName(1), PLAYER_TWO_COLOR_KEY, game.getGameType()), 1, 2);
 
     Util.applyStyleSheet(this);
   }
