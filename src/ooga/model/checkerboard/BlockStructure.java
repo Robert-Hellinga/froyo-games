@@ -39,7 +39,7 @@ public class BlockStructure {
   }
 
   public void setBlock(Block block){
-    blockStructure.get(block.getCoordinate().yCoordinate()).add(block.getCoordinate().xCoordinate(), block);
+    blockStructure.get(block.getCoordinate().yCoordinate()).set(block.getCoordinate().xCoordinate(), block);
   }
 
   public int getBlockStructureHeight() {
