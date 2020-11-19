@@ -13,7 +13,6 @@ import ooga.model.player.Player;
 import ooga.model.player.Player;
 import ooga.model.checkerboard.BlockStructure;
 import ooga.model.checkerboard.block.Block;
-//import ooga.model.player.Player.PlayerType;
 import ooga.view.ModelObserver;
 
 public abstract class Game {
@@ -39,7 +38,6 @@ public abstract class Game {
     observers = new ArrayList<>();
     this.gameType = gameType;
     wonGame = false;
-//    haveNoPotentialMove = false;
     turnsEnabled = true;
   }
 
@@ -117,14 +115,6 @@ public abstract class Game {
   }
 
   public abstract Player getWinningPlayer();
-
-//  public boolean isHaveNoPotentialMove() {
-//    return haveNoPotentialMove;
-//  }
-
-//  public void resetHaveNotPotentialMove() {
-//    haveNoPotentialMove = false;
-//  }
 
   public abstract boolean currentPlayerHavePotentialMoves();
 
