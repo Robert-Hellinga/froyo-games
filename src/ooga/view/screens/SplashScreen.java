@@ -102,7 +102,7 @@ public class SplashScreen extends VBox {
     );
 
     playerButtonGroup.addButtons(PLAYER_BUTTONS);
-    playerButtonGroup.setOnButtonPushed(2, event -> displayOpponentNameDialog());
+    playerButtonGroup.setOnButtonsPushed(event -> displayOpponentNameDialog(), 1, 2);
     playerButtonGroup.setButtonStyles(ButtonGroup.INFO_STYLE);
 
     return result;
