@@ -21,7 +21,6 @@ public class ButtonGroup {
   private static final String SPACE_STRING = "\\s+";
   private static final String EMPTY_STRING = "";
 
-
   private static final int DEFAULT_BTN_WIDTH = 130;
   private static final int DEFAULT_BTN_HEIGHT = 20;
   private static final int DEFAULT_TEXT_SIZE = 14;

@@ -7,7 +7,7 @@ import ooga.view.screens.LanguageScreen;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-public class LanguageTest extends DukeApplicationTest {
+public class LanguageScreenTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {

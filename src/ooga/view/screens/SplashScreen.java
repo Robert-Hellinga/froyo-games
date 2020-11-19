@@ -24,6 +24,7 @@ public class SplashScreen extends VBox {
   private static final String TITLE_IMG_PATH = "resources/img/title.png";
   private static final String START_BTN = "Start";
   private static final String PLAYER_NAME_FIELD = "Username";
+  private static final String OPPONENT_NAME = "OpponentNameMessage";
   private static final String NO_NAME_MESSAGE = "NoNameMessage";
   private static final String FIELD_STRING = "Field";
 
@@ -80,7 +81,6 @@ public class SplashScreen extends VBox {
     gameButtonGroup = new ToggleButtonGroup(result, resources);
     gameButtonGroup.addButtons(GAME_BUTTONS);
 
-
     return result;
   }
 
@@ -93,22 +93,26 @@ public class SplashScreen extends VBox {
         result,
         resources,
         PLAYER_BTN_WIDTH,
-        PLAYER_BTN_HEIGHT,
-        14
+        PLAYER_BTN_HEIGHT
     );
 
     playerButtonGroup.addButtons(PLAYER_BUTTONS);
-    playerButtonGroup.setOnButtonPushed(2, event -> getOpponentName());
+    playerButtonGroup.setOnButtonPushed(2, event -> displayOpponentNameDialog());
     playerButtonGroup.setButtonStyles(ButtonGroup.INFO_STYLE);
 
     return result;
   }
 
-  private void getOpponentName() {
-    TextInputDialog dialog = new TextInputDialog("Opponent Name");
-    dialog.setHeaderText("Enter Opponent Name");
+  private void displayOpponentNameDialog() {
+    TextInputDialog dialog = new TextInputDialog(resources.getString(OPPONENT_NAME));
+    dialog.setHeaderText(resources.getString(OPPONENT_NAME));
+    dialog.getEditor().setId(OPPONENT_NAME + FIELD_STRING);
     dialog.showAndWait();
     opponentName = dialog.getEditor().getText();
+  }
+
+  public String getOpponentName() {
+    return opponentName;
   }
 
   private HBox getStartButtonGroup() {

@@ -1,4 +1,4 @@
-package ooga.view.screens;
+package ooga.view;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +12,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
+import ooga.view.screens.SplashScreen;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -30,6 +31,7 @@ class SplashScreenTest extends DukeApplicationTest {
   private ToggleGroup gameToggle;
   private ToggleGroup playerToggle;
   private TextField nameField;
+  private TextField opponentField;
   private Button startBtn;
 
 
@@ -50,9 +52,9 @@ class SplashScreenTest extends DukeApplicationTest {
     playerToggle = onePlayerBtn.getToggleGroup();
 
     nameField = lookup("#UsernameField").queryAs(TextField.class);
+//    opponentField = lookup("#EnterOpponentName").queryAs(TextField.class);
 
     startBtn = lookup("#StartGameBtn").queryAs(Button.class);
-
   }
 
   @Test
@@ -98,6 +100,14 @@ class SplashScreenTest extends DukeApplicationTest {
     clickOn(nameField).write(expected);
     clickOn(startBtn);
     assertEquals(nameField.getText(), expected);
+  }
+
+  @Test
+  public void testEnteringOpponentName() {
+    clickOn(twoPlayerOnlineBtn);
+    String expected = "Opponent";
+    writeInputsToDialog(expected);
+    assertEquals(splashScreen.getOpponentName(), expected);
   }
 
 
