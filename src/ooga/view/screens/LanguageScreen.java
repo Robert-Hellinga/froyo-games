@@ -37,25 +37,25 @@ public class LanguageScreen extends GridPane {
     result.setAlignment(Pos.CENTER);
     result.setSpacing(SCREEN_SPACING);
 
-    LabeledDropdown<Locale> languageSelector = getLanguageDropdown();
+    LabeledDropdown languageSelector = getLanguageDropdown();
     result.getChildren().add(languageSelector);
 
     ButtonGroup startButton = new ButtonGroup(result, START_BTN_WIDTH, START_BTN_HEIGHT);
     startButton.addButtons(START_BTN_TEXT);
     startButton
-        .setOnButtonPushed(event -> new SplashScreen(languageSelector.getValue(), controller));
+        .setOnButtonPushed(event -> new SplashScreen((Locale) languageSelector.getValue(), controller));
     startButton.setButtonStyles(ButtonGroup.SUCCESS_STYLE);
 
     return result;
   }
 
   private LabeledDropdown getLanguageDropdown() {
-    LabeledDropdown<Locale> languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT,
-        AVAILABLE_LOCALES);
+    LabeledDropdown languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT, AVAILABLE_LOCALES);
     languageDropdown.setConverter(new StringConverter<>() {
+
       @Override
-      public String toString(Locale locale) {
-        return locale.getDisplayName();
+      public String toString(Object object) {
+        return ((Locale) object).getDisplayName();
       }
 
       @Override

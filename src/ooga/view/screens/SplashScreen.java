@@ -51,7 +51,7 @@ public class SplashScreen extends VBox {
       2, "Connect4"
   );
 
-  private Resources resources, error;
+  private Resources resources;
   private ToggleButtonGroup gameButtonGroup, playerButtonGroup;
   private IFroyoController controller;
   private String opponentName;
@@ -59,7 +59,6 @@ public class SplashScreen extends VBox {
 
   public SplashScreen(Locale locale, IFroyoController controller) {
     resources = new Resources(locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
-    error = new Resources(Resources.ERROR_MESSAGES_FILE);
     this.controller = controller;
 
     setAlignment(Pos.CENTER);
@@ -154,7 +153,7 @@ public class SplashScreen extends VBox {
             .getText().isEmpty();
 
     if(!checkValidUsername(playerName.getText()) || !checkValidUsername(opponentName)) {
-      String errorMessage = String.format(error.getString(INVALID_USERNAME), playerName.getText(), opponentName);
+      String errorMessage = String.format(resources.getString(INVALID_USERNAME), playerName.getText(), opponentName);
       Alert alert = new Alert(AlertType.ERROR, errorMessage, ButtonType.OK);
       alert.showAndWait();
       playerName.clear();

@@ -7,15 +7,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 
-public class LabeledDropdown<T> extends VBox {
+public class LabeledDropdown extends VBox {
 
   private static final int LABEL_SPACING = 10;
   private static final int SELECTOR_WIDTH = 120;
   private static final Font LABEL_FONT = new Font(16);
 
-  private ComboBox<T> selector;
+  private ComboBox<Object> selector;
 
-  public LabeledDropdown(String text, T... values) {
+  public LabeledDropdown(String text, Object... values) {
     selector = new ComboBox<>();
     selector.getItems().addAll(values);
     selector.setValue(values[0]);
@@ -30,11 +30,11 @@ public class LabeledDropdown<T> extends VBox {
     getChildren().addAll(label, selector);
   }
 
-  public T getValue() {
+  public Object getValue() {
     return selector.getValue();
   }
 
-  public void setConverter(StringConverter<T> converter) {
+  public void setConverter(StringConverter<Object> converter) {
     selector.setConverter(converter);
   }
 }
