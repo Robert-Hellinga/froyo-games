@@ -8,4 +8,6 @@ public interface IGameController {
 
   void setClickingEnabled(boolean clickingEnabled);
 
+  String getGameType();
+
 }

@@ -24,7 +24,7 @@ public class CheckersGame extends Game {
       } else {
         updateDatabase();
         playerTakeTurn();
-        checkersBoard.resetFinishAround();
+        checkersBoard.resetFinishARound();
       }
     }
     notifyObservers();

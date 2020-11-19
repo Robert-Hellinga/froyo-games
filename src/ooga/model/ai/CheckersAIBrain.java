@@ -33,11 +33,11 @@ public class CheckersAIBrain implements AIBrain {
       for (int i = 0; i < newCheckBoard.getAllBlocks().getBlockStructureHeight(); i++) {
         for (int j = 0; j < newCheckBoard.getAllBlocks().getBlockStructureWidth(); j++) {
           Coordinate chosenCoordinate = new Coordinate(j, i);
-          if (newCheckBoard.getAllBlocks().getBlock(chosenCoordinate).getBlockState()
+          if (newCheckBoard.getAllBlocks().getBlock(chosenCoordinate)
               .getPlayerID()
               == currentPlayerIndex) {
             List<Coordinate> potentialMoves = newCheckBoard.getAllBlocks()
-                .getBlock(new Coordinate(j, i)).getAvailablePosition(currentPlayerIndex,
+                .getBlock(new Coordinate(j, i)).getAvailablePositions(currentPlayerIndex,
                     newCheckBoard.getAllBlocks());
             for (Coordinate potentialCoordinate : potentialMoves) {
               BlockGrid newGrid = new CheckersBlockGrid(newCheckBoard);
@@ -63,11 +63,11 @@ public class CheckersAIBrain implements AIBrain {
       for (int i = 0; i < newCheckBoard.getAllBlocks().getBlockStructureHeight(); i++) {
         for (int j = 0; j < newCheckBoard.getAllBlocks().getBlockStructureWidth(); j++) {
           Coordinate chosenCoordinate = new Coordinate(j, i);
-          if (newCheckBoard.getAllBlocks().getBlock(chosenCoordinate).getBlockState()
+          if (newCheckBoard.getAllBlocks().getBlock(chosenCoordinate)
               .getPlayerID()
               == currentPlayerIndex) {
             List<Coordinate> potentialMoves = newCheckBoard.getAllBlocks()
-                .getBlock(new Coordinate(j, i)).getAvailablePosition(currentPlayerIndex,
+                .getBlock(new Coordinate(j, i)).getAvailablePositions(currentPlayerIndex,
                     newCheckBoard.getAllBlocks());
             for (Coordinate potentialCoordinate : potentialMoves) {
               BlockGrid newGrid = new CheckersBlockGrid(newCheckBoard);
