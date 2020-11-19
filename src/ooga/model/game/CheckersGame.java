@@ -37,10 +37,7 @@ public class CheckersGame extends Game {
 
   @Override
   public Player getWinningPlayer() {
-    if (wonGame) {
-      return currentPlayer;
-    }
-    return null;
+    return wonGame ? currentPlayer : null;
   }
 
   @Override

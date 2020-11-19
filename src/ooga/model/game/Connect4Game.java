@@ -37,14 +37,11 @@ public class Connect4Game extends Game {
 
   @Override
   public Player getWinningPlayer() {
-    if (wonGame) {
-      return currentPlayer;
-    }
-    return null;
+    return wonGame ? currentPlayer : null;
   }
 
   @Override
   public boolean currentPlayerHavePotentialMoves() {
-    return false;
+    return true;
   }
 }
