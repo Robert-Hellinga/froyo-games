@@ -1,7 +1,9 @@
 package ooga.view.screens;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -27,9 +29,11 @@ public class SplashScreen extends VBox {
   private static final String OPPONENT_NAME = "OpponentNameMessage";
   private static final String NO_NAME_MESSAGE = "NoNameMessage";
   private static final String FIELD_STRING = "Field";
+  private static final String INVALID_USERNAME = "InvalidUsername";
 
   private static final String[] GAME_BUTTONS = {"Othello", "Checkers", "Connect4"};
   private static final String[] PLAYER_BUTTONS = {"OnePlayer", "TwoPlayer", "TwoPlayerOnline"};
+  private static final List<Character> INVALID_USERNAME_CHARACTERS = List.of('.', '#', '[', ']');
 
   private static final int TITLE_IMG_WIDTH = 500; // Shrink to 500px
   private static final int SCREEN_WIDTH = 600;
@@ -47,7 +51,7 @@ public class SplashScreen extends VBox {
       2, "Connect4"
   );
 
-  private Resources resources;
+  private Resources resources, error;
   private ToggleButtonGroup gameButtonGroup, playerButtonGroup;
   private IFroyoController controller;
   private String opponentName;
@@ -55,6 +59,7 @@ public class SplashScreen extends VBox {
 
   public SplashScreen(Locale locale, IFroyoController controller) {
     resources = new Resources(locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
+    error = new Resources(Resources.ERROR_MESSAGES_FILE);
     this.controller = controller;
 
     setAlignment(Pos.CENTER);
@@ -111,6 +116,15 @@ public class SplashScreen extends VBox {
     opponentName = dialog.getEditor().getText();
   }
 
+  private boolean checkValidUsername(String username) {
+    for(char c : username.toCharArray()) {
+      if(INVALID_USERNAME_CHARACTERS.contains(c)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public String getOpponentName() {
     return opponentName;
   }
@@ -138,6 +152,14 @@ public class SplashScreen extends VBox {
     boolean readyToStart =
         gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle() && !playerName
             .getText().isEmpty();
+
+    if(!checkValidUsername(playerName.getText()) || !checkValidUsername(opponentName)) {
+      String errorMessage = String.format(error.getString(INVALID_USERNAME), playerName.getText(), opponentName);
+      Alert alert = new Alert(AlertType.ERROR, errorMessage, ButtonType.OK);
+      alert.showAndWait();
+      playerName.clear();
+      return;
+    }
 
     if (readyToStart) {
       String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());

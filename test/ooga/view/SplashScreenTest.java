@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
 import java.util.Locale;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -33,7 +35,6 @@ class SplashScreenTest extends DukeApplicationTest {
   private ToggleGroup gameToggle;
   private ToggleGroup playerToggle;
   private TextField nameField;
-  private TextField opponentField;
   private Button startBtn;
 
 
@@ -121,6 +122,17 @@ class SplashScreenTest extends DukeApplicationTest {
     assertNotNull(playerToggle.getSelectedToggle());
   }
 
+  @Test
+  public void testBadUsernames() {
 
+    char[] badUsernames = {'.', '#', '[', ']'};
+    for(char c : badUsernames) {
+      clickOn(twoPlayerOnlineBtn);
+      writeInputsToDialog(""+c);
+      clickOn(nameField).write(c);
+      clickOn(startBtn);
+      assertEquals(getDialogMessage(), "\""+c+"\" or \""+c+"\" contains one of '.', '#', '[', ']'. Please provide a different username.");
+    }
+  }
 }
 
