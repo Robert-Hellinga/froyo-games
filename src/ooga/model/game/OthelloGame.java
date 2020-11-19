@@ -57,7 +57,7 @@ public class OthelloGame extends Game {
     } else {
       currentPlayer = allPlayers.get(currentPlayerIndex + 1);
     }
-    othelloBoard.setAvailablePosition(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
-    othelloBoard.resetFinishAround();
+    othelloBoard.setAvailablePositions(getCurrentPlayerIndex(), Coordinate.INVALID_COORDINATE);
+    othelloBoard.resetFinishARound();
   }
 }
