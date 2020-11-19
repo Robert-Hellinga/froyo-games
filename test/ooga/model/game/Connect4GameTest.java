@@ -35,14 +35,28 @@ class Connect4GameTest {
     assertEquals(expectedBlockState, connect4Game.getAllBlockStates());
   }
 
-  @Test public void testHorizontalPieces(){
-    connect4Game.play(new Coordinate(0, 2));
-    connect4Game.play(new Coordinate( 0, 3));
+  @Test
+  public void testHorizontalPieces(){
+    connect4Game.play(new Coordinate(2, 0));
+    connect4Game.play(new Coordinate( 3, 0));
     List<List<Integer>> expectedBlockState = new ArrayList<>() {
       {
         add(List.of(0, 0, 0, 0));
         add(List.of(0, 0, 0, 0));
         add(List.of(0, 0, 1, 2));
+      }};
+    assertEquals(expectedBlockState, connect4Game.getAllBlockStates());
+  }
+
+  @Test
+  public void testDroppingPieces(){
+    connect4Game.play(new Coordinate(0, 1));
+    connect4Game.play(new Coordinate( 1, 1));
+    List<List<Integer>> expectedBlockState = new ArrayList<>() {
+      {
+        add(List.of(0, 0, 0, 0));
+        add(List.of(0, 0, 0, 0));
+        add(List.of(1, 2, 0, 0));
       }};
     assertEquals(expectedBlockState, connect4Game.getAllBlockStates());
   }
