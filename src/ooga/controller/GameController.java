@@ -43,13 +43,9 @@ public class GameController implements IGameController {
         for (Coordinate coord : coords) {
           game.getCurrentPlayer().makePlay(coord);
         }
+        setClickingEnabled(true);
       }
     }
-  }
-
-  @Override
-  public void createGame() {
-
   }
 
   @Override
@@ -57,6 +53,9 @@ public class GameController implements IGameController {
     if (clickingEnabled) {
       Player currentPlayer = game.getCurrentPlayer();
       currentPlayer.makePlay(coordinate);
+      if (mode.equals(PlayerMode.PLAY_WITH_AI) && game.getCurrentPlayerIndex() == 2){
+        setClickingEnabled(false);
+      }
     }
   }
 
