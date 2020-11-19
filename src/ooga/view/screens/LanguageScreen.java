@@ -1,11 +1,9 @@
 package ooga.view.screens;
 
-import java.util.Arrays;
 import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
 import ooga.Util;
 import ooga.controller.IFroyoController;
 import ooga.view.elements.ButtonGroup;
@@ -56,7 +54,6 @@ public class LanguageScreen extends GridPane {
     for(int i = 0; i < AVAILABLE_LOCALES.length; i++) {
       displayLanguages[i] = AVAILABLE_LOCALES[i].getDisplayName();
     }
-    LabeledDropdown languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT, displayLanguages);
-    return languageDropdown;
+    return new LabeledDropdown(DROPDOWN_LABEL_TEXT, displayLanguages);
   }
 }

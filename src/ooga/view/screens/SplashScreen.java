@@ -3,7 +3,6 @@ package ooga.view.screens;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -44,6 +43,7 @@ public class SplashScreen extends VBox {
   private static final int LARGE_SPACING = 20;
   private static final int MEDIUM_SPACING = 15;
   private static final int SMALL_SPACING = 10;
+  private static final int USERNAME_TEXT_FIELD_WIDTH = 8;
 
   private static final Map<Integer, String> gameClasses = Map.of(
       0, "Othello",
@@ -60,7 +60,7 @@ public class SplashScreen extends VBox {
   public SplashScreen(Locale locale, IFroyoController controller) {
     resources = new Resources(locale, Resources.UI_RESOURCE_PACKAGE, RESOURCE_FILE);
     this.controller = controller;
-    opponentName = new String();
+    opponentName = "";
 
     setAlignment(Pos.CENTER);
     setWidth(SCREEN_WIDTH);
@@ -135,7 +135,7 @@ public class SplashScreen extends VBox {
     result.setSpacing(MEDIUM_SPACING);
 
     playerName = new TextField();
-    playerName.setPrefColumnCount(8);
+    playerName.setPrefColumnCount(USERNAME_TEXT_FIELD_WIDTH);
     playerName.setPromptText(resources.getString(PLAYER_NAME_FIELD));
     playerName.setId(PLAYER_NAME_FIELD + FIELD_STRING);
     result.getChildren().add(playerName);
@@ -148,25 +148,30 @@ public class SplashScreen extends VBox {
     return result;
   }
 
-  private void startGame() {
-    boolean readyToStart =
-        gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle() && !playerName
-            .getText().isEmpty();
-
+  private boolean checkUsernamesValid() {
     if(!checkValidUsername(playerName.getText()) || !checkValidUsername(opponentName)) {
       String errorMessage = String.format(resources.getString(INVALID_USERNAME), playerName.getText(), opponentName);
       Alert alert = new Alert(AlertType.ERROR, errorMessage, ButtonType.OK);
       alert.showAndWait();
       playerName.clear();
-      return;
+      return false;
     }
+    return true;
+  }
+
+  private void startGame() {
+
+    if(!checkUsernamesValid()) return;
+
+    boolean readyToStart =
+        gameButtonGroup.hasSelectedToggle() && playerButtonGroup.hasSelectedToggle() && !playerName
+            .getText().isEmpty();
 
     if (readyToStart) {
       String gameType = gameClasses.get(gameButtonGroup.getToggleIndexSelected());
       boolean onePlayer = playerButtonGroup.getToggleIndexSelected() == 0;
       boolean online = playerButtonGroup.getToggleIndexSelected() == 2;
-      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online,
-          opponentName);
+      controller.startGame(resources.getLocale(), gameType, onePlayer, playerName.getText(), online, opponentName);
     } else {
       Alert alert = new Alert(AlertType.NONE, resources.getString(NO_NAME_MESSAGE), ButtonType.OK);
       alert.showAndWait();
