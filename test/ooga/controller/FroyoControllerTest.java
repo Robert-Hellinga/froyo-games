@@ -3,7 +3,6 @@ package ooga.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Locale;
 import javafx.scene.Node;
@@ -42,7 +41,7 @@ class FroyoControllerTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testSettingLayout(){
+  public void testSettingLayout() {
     Pane testLayout = new Pane();
     javafxRun(() -> froyoController.setNewLayout(testLayout));
     Scene scene = myStage.getScene();
@@ -59,15 +58,17 @@ class FroyoControllerTest extends DukeApplicationTest {
 
   @Test
   // Tests that the scene contains a GameScreen as its root once a game is started.
-  public void testStartingLocalGame(){
-    javafxRun(() ->froyoController.startGame(Locale.ENGLISH, "Checkers", false, "John", false, "Bob"));
+  public void testStartingLocalGame() {
+    javafxRun(
+        () -> froyoController.startGame(Locale.ENGLISH, "Checkers", false, "John", false, "Bob"));
     Scene scene = myStage.getScene();
     assertEquals(GameScreen.class, scene.getRoot().getClass());
   }
 
   @Test
-  public void testStartingOnlineGame(){
-    javafxRun(() ->froyoController.startGame(Locale.ENGLISH, "Checkers", false, "Test P1", true, "Test P2"));
+  public void testStartingOnlineGame() {
+    javafxRun(() -> froyoController
+        .startGame(Locale.ENGLISH, "Checkers", false, "Test P1", true, "Test P2"));
     Scene scene = myStage.getScene();
     assertEquals(GameScreen.class, scene.getRoot().getClass());
   }

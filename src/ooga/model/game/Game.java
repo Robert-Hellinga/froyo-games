@@ -1,7 +1,5 @@
 package ooga.model.game;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
@@ -10,10 +8,6 @@ import ooga.exceptions.FileException;
 import ooga.fileHandler.FileReader;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.player.Player;
-import ooga.model.player.Player;
-import ooga.model.checkerboard.BlockStructure;
-import ooga.model.checkerboard.block.Block;
-//import ooga.model.player.Player.PlayerType;
 import ooga.view.ModelObserver;
 
 public abstract class Game {
@@ -39,12 +33,12 @@ public abstract class Game {
     observers = new ArrayList<>();
     this.gameType = gameType;
     wonGame = false;
-//    haveNoPotentialMove = false;
     turnsEnabled = true;
   }
 
 
-  protected List<List<Integer>> getInitiationBlockConfig(String gameType, String startPattern) throws FileException {
+  protected List<List<Integer>> getInitiationBlockConfig(String gameType, String startPattern)
+      throws FileException {
     FileReader fileReader = new FileReader(gameType, startPattern);
     return fileReader.readBlockLayout();
   }
@@ -68,7 +62,7 @@ public abstract class Game {
     }
   }
 
-  public Player getCurrentPlayer(){
+  public Player getCurrentPlayer() {
     return currentPlayer;
   }
 
@@ -110,21 +104,15 @@ public abstract class Game {
     return allPlayers;
   }
 
-  public String getGameType(){ return gameType;}
+  public String getGameType() {
+    return gameType;
+  }
 
   public boolean isPlayerWonGame() {
     return wonGame;
   }
 
   public abstract Player getWinningPlayer();
-
-//  public boolean isHaveNoPotentialMove() {
-//    return haveNoPotentialMove;
-//  }
-
-//  public void resetHaveNotPotentialMove() {
-//    haveNoPotentialMove = false;
-//  }
 
   public abstract boolean currentPlayerHavePotentialMoves();
 

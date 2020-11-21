@@ -67,7 +67,8 @@ class CheckersGameTest {
     Coordinate pieceToMoveTo = new Coordinate(2, 2);
     checkersGame.play(pieceToChoose);
     checkersGame.play(pieceToMoveTo);
-    CheckersBlock possibleKing = new CheckersBlock(checkersGame.getBoard().getAllBlocks().getBlock(pieceToMoveTo));
+    CheckersBlock possibleKing = new CheckersBlock(
+        checkersGame.getBoard().getAllBlocks().getBlock(pieceToMoveTo));
     assertTrue(
         possibleKing.isKing());
   }

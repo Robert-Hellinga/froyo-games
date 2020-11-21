@@ -43,14 +43,11 @@ public class OthelloGame extends Game {
 
   @Override
   public Player getWinningPlayer() {
-    if (wonGame) {
-      return allPlayers.get(othelloBoard.getWinningPlayerIndex());
-    }
-    return null;
+    return wonGame ? allPlayers.get(othelloBoard.getWinningPlayerIndex()) : null;
   }
 
   @Override
-  public void playerTakeTurn(){
+  public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
     if (currentPlayerIndex == allPlayers.size() - 1) {
       currentPlayer = allPlayers.get(0);

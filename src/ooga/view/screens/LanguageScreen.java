@@ -1,11 +1,9 @@
 package ooga.view.screens;
 
-import java.util.Arrays;
 import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
 import ooga.Util;
 import ooga.controller.IFroyoController;
 import ooga.view.elements.ButtonGroup;
@@ -45,7 +43,9 @@ public class LanguageScreen extends GridPane {
     ButtonGroup startButton = new ButtonGroup(result, START_BTN_WIDTH, START_BTN_HEIGHT);
     startButton.addButtons(START_BTN_TEXT);
     startButton
-        .setOnButtonPushed(event -> new SplashScreen(AVAILABLE_LOCALES[languageSelector.getSelectedIndex()], controller));
+        .setOnButtonPushed(
+            event -> new SplashScreen(AVAILABLE_LOCALES[languageSelector.getSelectedIndex()],
+                controller));
     startButton.setButtonStyles(ButtonGroup.SUCCESS_STYLE);
 
     return result;
@@ -53,10 +53,9 @@ public class LanguageScreen extends GridPane {
 
   private LabeledDropdown getLanguageDropdown() {
     String[] displayLanguages = new String[AVAILABLE_LOCALES.length];
-    for(int i = 0; i < AVAILABLE_LOCALES.length; i++) {
+    for (int i = 0; i < AVAILABLE_LOCALES.length; i++) {
       displayLanguages[i] = AVAILABLE_LOCALES[i].getDisplayName();
     }
-    LabeledDropdown languageDropdown = new LabeledDropdown(DROPDOWN_LABEL_TEXT, displayLanguages);
-    return languageDropdown;
+    return new LabeledDropdown(DROPDOWN_LABEL_TEXT, displayLanguages);
   }
 }

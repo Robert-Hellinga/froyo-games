@@ -29,6 +29,7 @@ public class SocialController {
   private static final String BOARD_STATE_KEY = "boardState";
   private static final String GAME_TYPE_KEY = "gameType";
   private static final String GAMES_REFERENCE = "/games";
+  private static final String GAME_NOT_CREATED_KEY = "GameNotCreated";
 
   private Resources error;
   private DatabaseReference ref, gameRef;
@@ -138,14 +139,18 @@ public class SocialController {
       dataToUpload += "-1";
     }
 
-    gameRef.child(BOARD_STATE_KEY).setValue(game.getAllBlockStatesAsString(),
-        (databaseError, databaseReference) -> {
-          if (databaseError != null) {
-            throw new DatabaseException(databaseError.getMessage());
-          } else {
-            waitForOpponentTurn();
+    try {
+      gameRef.child(BOARD_STATE_KEY).setValue(dataToUpload,
+          (databaseError, databaseReference) -> {
+            if (databaseError != null) {
+              throw new DatabaseException(databaseError.getMessage());
+            } else {
+              waitForOpponentTurn();
+            }
           }
-        }
-    );
+      );
+    } catch (NullPointerException e) {
+      throw new DatabaseException(error.getString(GAME_NOT_CREATED_KEY));
+    }
   }
 }
