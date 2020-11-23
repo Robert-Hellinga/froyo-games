@@ -44,4 +44,12 @@ public class OthelloGameTest {
     }};
     assertEquals(expectedBlockState, othelloGame.getAllBlockStates());
   }
+
+  @Test
+  public void checkWinner(){
+    othelloGame = FroyoController.createGame(gameType, playerOne, playerTwo, "full_test");
+    othelloGame.endGame();
+    assertEquals(playerOne, othelloGame.getWinningPlayer());
+
+  }
 }
