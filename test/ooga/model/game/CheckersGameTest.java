@@ -55,7 +55,7 @@ class CheckersGameTest {
     List<List<Integer>> expectedBlockState = new ArrayList<>() {{
       add(List.of(0, 0, 1, 0));
       add(List.of(0, 0, 0, 0));
-      add(List.of(0, 0, 6, 0));
+      add(List.of(0, 0, 5, 0));
     }};
     assertEquals(expectedBlockState, checkersGame.getAllBlockStates());
   }
@@ -87,7 +87,7 @@ class CheckersGameTest {
     List<List<Integer>> expectedBlockState = new ArrayList<>() {{
       add(List.of(1, 0, 0, 0));
       add(List.of(0, 2, 0, 0));
-      add(List.of(0, 0, 6, 0));
+      add(List.of(0, 0, 5, 0));
     }};
     assertEquals(expectedBlockState, checkersGame.getAllBlockStates());
   }
