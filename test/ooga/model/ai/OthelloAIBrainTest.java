@@ -37,11 +37,11 @@ class OthelloAIBrainTest {
     List<List<Integer>> expectedBlockState = new ArrayList<>() {{
       add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
       add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
-      add(List.of(0, 0, 0, 0, 0, 5, 0, 0));
-      add(List.of(0, 0, 0, 2, 1, 5, 0, 0));
-      add(List.of(0, 0, 0, 2, 1, 5, 0, 0));
-      add(List.of(0, 0, 0, 1, 1, 5, 0, 0));
-      add(List.of(0, 0, 1, 5, 0, 5, 0, 0));
+      add(List.of(0, 0, 0, 0, 0, 3, 0, 0));
+      add(List.of(0, 0, 0, 2, 1, 3, 0, 0));
+      add(List.of(0, 0, 0, 2, 1, 3, 0, 0));
+      add(List.of(0, 0, 0, 1, 1, 3, 0, 0));
+      add(List.of(0, 0, 1, 3, 0, 3, 0, 0));
       add(List.of(0, 0, 0, 0, 0, 0, 0, 0));
     }};
     assertEquals(expectedBlockState, othelloGame.getAllBlockStates());
@@ -52,7 +52,7 @@ class OthelloAIBrainTest {
 
 //    Check whether the AI Move is a valid potential move.
     assertEquals(expectedBlockState.get(aiCoordinate.yCoordinate()).get(aiCoordinate.xCoordinate()),
-        5);
+        3);
     othelloGame.play(aiCoordinate);
     assertNotEquals(expectedBlockState, othelloGame.getAllBlockStates());
   }
