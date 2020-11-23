@@ -15,18 +15,19 @@ public class CheckersBlock extends Block {
   protected boolean isKing;
 
   public CheckersBlock(Integer blockConfig, Coordinate coordinate) {
-
     super(blockConfig, coordinate);
+  }
+
+  @Override
+  public void initiateBlockState(int blockConfig) {
+    super.initiateBlockState(blockConfig);
     this.isChosen = false;
-    this.isPotentialMove = false;
-    this.isKing = false;
-    ;
+    this.isPotentialMove = (blockConfig == POTENTIAL_MOVE);
+    this.isKing = (blockConfig == KING + playerID);
   }
 
   public CheckersBlock(Block newBlock) {
-    super(newBlock.getState(), newBlock.getCoordinate());
-    this.isEmpty = newBlock.getIsEmpty();
-    this.playerID = newBlock.getPlayerID();
+    this(newBlock.getState(), newBlock.getCoordinate());
   }
 
 
@@ -152,7 +153,7 @@ public class CheckersBlock extends Block {
 
   public void makeKing() {
     isKing = true;
-    state = state + KING;
+    state = KING + playerID;
   }
 
 
