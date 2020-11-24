@@ -16,6 +16,10 @@ import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.PlayerTurnBox;
 import ooga.view.grid.PieceGrid;
 
+/**
+ * GameScreen class containing display elements for playing the game
+ * @author Nate Mela (nrm27)
+ */
 public class GameScreen extends GridPane implements ModelObserver {
 
   private static final String RESOURCE_FILE = "GameScreen";
@@ -89,11 +93,17 @@ public class GameScreen extends GridPane implements ModelObserver {
     return result;
   }
 
+  /**
+   * Method called when save game button is pressed. Currently not implemented
+   */
   private void saveGame() {
     // Save game feature was not implemented
     throw new UnsupportedOperationException();
   }
 
+  /**
+   * Method called periodically by model observer, updates grid with new block states
+   */
   @Override
   public void update() {
     grid.update(game.getAllBlockStates());

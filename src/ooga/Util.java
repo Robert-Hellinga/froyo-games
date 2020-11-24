@@ -6,6 +6,10 @@ import java.util.List;
 import javafx.scene.layout.Pane;
 import ooga.exceptions.ClassOrMethodNotFoundException;
 
+/**
+ * Util class used for applying stylesheets to Panes and for using reflection
+ * @author Nate Mela (nrm27)
+ */
 public class Util {
 
   private static final String STYLE_SHEET = "resources/style/default.css";

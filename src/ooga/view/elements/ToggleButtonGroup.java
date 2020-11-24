@@ -7,6 +7,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import ooga.fileHandler.Resources;
 
+/**
+ * Class extending functionality of ButtonGroup to work with toggle buttons
+ * @author Nate Mela (nrm27)
+ */
 public class ToggleButtonGroup extends ButtonGroup {
 
   private static final int DEFAULT_TOGGLE_BTN_WIDTH = 230;
@@ -34,6 +38,10 @@ public class ToggleButtonGroup extends ButtonGroup {
     });
   }
 
+  /**
+   * Method to add buttons to the button group and the toggle group
+   * @param labels is an array of String keys to create the buttons with. Keys must be in resource
+   */
   @Override
   public void addButtons(String... labels) {
     for (String label : labels) {
@@ -44,6 +52,9 @@ public class ToggleButtonGroup extends ButtonGroup {
     addButtonsToPane();
   }
 
+  /**
+   * Method to retrieve the index of the selected button
+   */
   public int getToggleIndexSelected() {
     ObservableList<Toggle> toggles = toggleGroup.getToggles();
     for (int i = 0; i < toggles.size(); i++) {
@@ -54,6 +65,9 @@ public class ToggleButtonGroup extends ButtonGroup {
     return -1; // No toggle selected
   }
 
+  /**
+   * Method to check if at least one toggle button in the group is selected
+   */
   public boolean hasSelectedToggle() {
     return toggleGroup.getSelectedToggle() != null;
   }

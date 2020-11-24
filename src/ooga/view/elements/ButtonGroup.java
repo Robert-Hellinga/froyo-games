@@ -11,6 +11,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import ooga.fileHandler.Resources;
 
+/**
+ * Class to encapsulate groups of buttons in the view.
+ * Typical use case would be creating a ButtonGroup with an HBox or a VBox in the pane parameter
+ * Contains multiple constructors, with default values for every parameter if not used.
+ * @author Nate Mela
+ */
 public class ButtonGroup {
 
   public static final String SUCCESS_STYLE = "success";
@@ -51,6 +57,11 @@ public class ButtonGroup {
     buttons = new ArrayList<>();
   }
 
+  /**
+   * Method to add buttons to the button group
+   * @param labels is an array of String keys to create the buttons with. Keys must be in resource
+   *               file of the ButtonGroup
+   */
   public void addButtons(String... labels) {
     for (String label : labels) {
       ButtonBase btn = new Button();
@@ -59,10 +70,18 @@ public class ButtonGroup {
     addButtonsToPane();
   }
 
+  /**
+   * Method to update the Pane associated with this ButtonGroup to have the new buttons
+   */
   public void addButtonsToPane() {
     pane.getChildren().addAll(buttons);
   }
 
+  /**
+   * Method to set the button styles for all buttons contained within the button group. Default
+   * CSS classes are listed as public variables for the ButtonGroup class
+   * @param styleClass is the string CSS class to set all the buttons to
+   */
   public void setButtonStyles(String styleClass) {
     for (ButtonBase btn : buttons) {
       btn.getStyleClass().add(styleClass);
@@ -73,17 +92,27 @@ public class ButtonGroup {
     setOnButtonPushed(event, 0);
   }
 
+  /**
+   * Method to assign an action to multiple buttons in the ButtonGroup
+   */
   public void setOnButtonsPushed(EventHandler<ActionEvent> event, int... buttonIndices) {
     for (int i : buttonIndices) {
       setOnButtonPushed(event, i);
     }
   }
 
+  /**
+   * Method to assign an action to a specific button in the ButtonGroup
+   */
   public void setOnButtonPushed(EventHandler<ActionEvent> event, int buttonIndex) {
     ButtonBase btn = buttons.get(buttonIndex);
     btn.setOnAction(event);
   }
 
+  /**
+   * Button configuration method to set the characteristics of every button and add them to the
+   * list of buttons in the group
+   */
   public void addButton(ButtonBase button, String label) {
     button.setAlignment(Pos.CENTER);
     button.setText(label);
@@ -94,6 +123,10 @@ public class ButtonGroup {
     buttons.add(button);
   }
 
+  /**
+   * Method to retrieve the text for a button from the resources file associated with this group
+   * @param label is the string key to retrieve from the resources file
+   */
   public String getText(String label) {
     return resources == null ? label : resources.getString(label);
   }

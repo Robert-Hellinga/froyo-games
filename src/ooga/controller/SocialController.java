@@ -21,6 +21,11 @@ import ooga.fileHandler.Resources;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
 
+/**
+ * Class used to interface with Firebase RealtimeDB
+ * Updates database with new board values, and listens for changes depending on the turn
+ * @author Nate Mela
+ */
 public class SocialController {
 
   private static final String KEY_PATH = "../../resources/social/database-key.txt";
@@ -47,6 +52,9 @@ public class SocialController {
     initializeDB();
   }
 
+  /**
+   * Method which connects to the database and throws appropriate errors if unsuccessful
+   */
   private void initializeDB() {
     try {
       File keyFile = new File(getClass().getResource(KEY_PATH).getPath());
@@ -64,6 +72,10 @@ public class SocialController {
     }
   }
 
+  /**
+   * Method called to join a game (existing or not existing). Callback requires both methods to be
+   * defined, hence the syntax. The callback feeds the DataSnapshot to startGame method
+   */
   public void joinGame() {
     ref.child(opponent.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
@@ -78,6 +90,11 @@ public class SocialController {
     });
   }
 
+  /**
+   * Method which uses the information from joinGame() to either create a new game or join an
+   * existing game.
+   * @param snapshot contains the initial data in the database when the game is created
+   */
   private void startGame(DataSnapshot snapshot) {
     // This logic asks "does the game exist, and is the existing game the same type?
     // If yes, join the game, otherwise, create a new game
@@ -95,7 +112,13 @@ public class SocialController {
     }
   }
 
-
+  /**
+   * Method to create a listener for a change in the database which indicates the opponent player
+   * has moved. Callback requires all five ChildEventListener() methods to be defined.
+   *
+   * Once the listener senses a change, it updates the current block states with the new states and
+   * forces the game to take a turn.
+   */
   private void waitForOpponentTurn() {
     gameController.setClickingEnabled(false);
     gameRef.addChildEventListener(new ChildEventListener() {
@@ -133,6 +156,12 @@ public class SocialController {
 
   }
 
+  /**
+   * Method which pushes the current game states to the database
+   * @param forceTurnSwitch is a boolean used to force the opponent turn. This is currently only
+   *                        used by Othello when the opponent has no moves and the turns have to
+   *                        cycle.
+   */
   public void updateGame(boolean forceTurnSwitch) {
     String dataToUpload = game.getAllBlockStatesAsString();
     if (forceTurnSwitch) {

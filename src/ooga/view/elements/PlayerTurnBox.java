@@ -7,6 +7,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
+/**
+ * Class that contains view element for the player turn boxes in the GameScreen
+ * @author Nate Mela (nrm27)
+ */
 public class PlayerTurnBox extends HBox {
 
   private static final String STYLE_CLASS = "turnbox";

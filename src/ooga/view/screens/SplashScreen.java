@@ -18,6 +18,10 @@ import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.ImageBox;
 import ooga.view.elements.ToggleButtonGroup;
 
+/**
+ * SplashScreen class representing the main menu of the game
+ * @author Nate Mela (nrm27)
+ */
 public class SplashScreen extends VBox {
 
   private static final String BACKGROUND_STYLE_CLASS = "background";
@@ -160,6 +164,10 @@ public class SplashScreen extends VBox {
     return true;
   }
 
+  /**
+   * Method called when start game button is clicked. Contains logic for creating games of different
+   * types and validating usernames
+   */
   private void startGame() {
 
     if (!checkUsernamesValid()) {

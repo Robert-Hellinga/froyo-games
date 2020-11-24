@@ -5,6 +5,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Utility view class for displaying an image and setting its width
+ * @author Nate Mela (nrm27)
+ */
 public class ImageBox extends HBox {
 
   public ImageBox(String path, int width) {

@@ -9,6 +9,10 @@ import ooga.controller.IFroyoController;
 import ooga.view.elements.ButtonGroup;
 import ooga.view.elements.LabeledDropdown;
 
+/**
+ * LanguageScreen class containing display elements for selecting language
+ * @author Nate Mela (nrm27)
+ */
 public class LanguageScreen extends GridPane {
 
   private static final String START_BTN_TEXT = "Start / Debut / Start";

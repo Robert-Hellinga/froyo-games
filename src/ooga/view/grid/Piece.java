@@ -13,6 +13,12 @@ import javafx.scene.shape.Rectangle;
 import ooga.Coordinate;
 import ooga.exceptions.ResourceException;
 
+/**
+ * Class representing a single piece displayed on the game board
+ * @author Yixuan Li
+ * @author Jincheng He
+ * @author Nate Mela
+ */
 public class Piece {
 
   private static final int SIZE = 20;
