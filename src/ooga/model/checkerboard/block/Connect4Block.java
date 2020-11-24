@@ -12,7 +12,7 @@ public class Connect4Block extends Block {
   }
 
   @Override
-  public List<Coordinate> getAvailablePosition(int currentPlayerIndex, BlockStructure allBlocks) {
+  public List<Coordinate> getAvailablePositions(int currentPlayerIndex, BlockStructure allBlocks) {
     List<Coordinate> availablePositions = new ArrayList<>();
 
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
@@ -26,4 +26,11 @@ public class Connect4Block extends Block {
     }
     return availablePositions;
   }
+
+  @Override
+  public void setPlayerID(int player){
+    super.setPlayerID(player);
+    state = playerID;
+  }
+
 }

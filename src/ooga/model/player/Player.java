@@ -5,12 +5,10 @@ import java.util.List;
 import ooga.Coordinate;
 import ooga.model.game.Game;
 
-public abstract class Player{
+public abstract class Player {
 
   private String name;
-  private int ID;
   private Game myGame;
-  private Coordinate nextCoordinate;
 
   public String getName() {
     return name;
@@ -20,30 +18,21 @@ public abstract class Player{
     this.name = name;
   }
 
-  public void setMyGame(Game game, String gameType){
+  public void setMyGame(Game game, String gameType) {
     this.myGame = game;
   }
 
-  public int getID() {
-    return ID;
+  public List<Coordinate> calculateNextCoordinates() {
+    return new ArrayList<>();
   }
 
-  public void setID(int ID) {
-    this.ID = ID;
-  }
-
-  public List<Coordinate> calculateNextCoordinates(){
-    return new ArrayList<Coordinate>();
-  }
-
-  public void makePlay(Coordinate coordinate){
+  public void makePlay(Coordinate coordinate) {
     myGame.play(coordinate);
   }
 
-  protected Game getMyGame(){
+  protected Game getMyGame() {
     return myGame;
   }
-
 
 
 }

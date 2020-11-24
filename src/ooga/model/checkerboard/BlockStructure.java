@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.block.Block;
-import ooga.model.BlockGrid;
+import ooga.model.checkerboard.blockgrid.BlockGrid;
 
 public class BlockStructure {
 
-  private List<List<Block>> blockStructure = new ArrayList<>();
+  private List<List<Block>> blockStructure;
 
-  public BlockStructure(String gameType, BlockConfigStructure allBlockConfig) {
+  public BlockStructure(String gameType, List<List<Integer>> allBlockConfig) {
+    blockStructure = new ArrayList<>();
     initiateBlockStructure(allBlockConfig, gameType);
   }
 
-  private void initiateBlockStructure(BlockConfigStructure allBlockConfig, String gameType) {
-    for (int i = 0; i < allBlockConfig.getBlockConfigStructureHeight(); i++) {
+  private void initiateBlockStructure(List<List<Integer>> allBlockConfig, String gameType) {
+    for (int i = 0; i < allBlockConfig.size(); i++) {
       List<Block> blockLine = new ArrayList<>();
-      for (int j = 0; j < allBlockConfig.getBlockConfigStructureWidth(); j++) {
-        Integer cellConfig = allBlockConfig.getBlockConfigStructure().get(i).get(j);
+      for (int j = 0; j < allBlockConfig.get(i).size(); j++) {
+        Integer cellConfig = allBlockConfig.get(i).get(j);
         blockLine.add(BlockGrid.createBlock(gameType, cellConfig, new Coordinate(j, i)));
       }
       blockStructure.add(blockLine);
@@ -45,20 +46,15 @@ public class BlockStructure {
     return blockStructure.get(0).size();
   }
 
-  public BlockConfigStructure getBlockConfigStructure(){
+  public List<List<Integer>> getBlockConfigStructure() {
     List<List<Integer>> allBlockConfig = new ArrayList<>();
-    for (List<Block> bLockList: blockStructure){
+    for (List<Block> blockList : blockStructure) {
       List<Integer> configList = new ArrayList<>();
-      for (Block block: bLockList){
-        if (block.getIsEmpty()){
-          configList.add(0);
-        }
-        else{
-          configList.add(block.getPlayerID());
-        }
+      for (Block block : blockList) {
+        configList.add(block.getState());
       }
       allBlockConfig.add(configList);
     }
-    return new BlockConfigStructure(allBlockConfig);
+    return allBlockConfig;
   }
 }
