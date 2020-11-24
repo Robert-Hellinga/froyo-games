@@ -9,7 +9,7 @@ import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.Connect4BlockGrid;
 
 /**
- * This it he Connect4AIBrain which implements AIBrain interface, the function is to give the AI
+ * This is the Connect4AIBrain which implements AIBrain interface, the function is to give the AI
  * decision to play Connect4 Game
  *
  * @author Jincheng He
