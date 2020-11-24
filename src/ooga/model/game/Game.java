@@ -23,6 +23,14 @@ public abstract class Game {
   protected SocialController socialController;
   protected boolean turnsEnabled;
 
+  /**
+   * This is the constructor
+   *
+   * @param gameType     The String represents the type of the game
+   * @param playerOne    Player class of player one
+   * @param playerTwo    Player class of player two
+   * @param startPattern String represents the start pattern
+   */
   public Game(String gameType, Player playerOne, Player playerTwo, String startPattern) {
     this.gameType = gameType;
     socialController = null;
@@ -38,12 +46,12 @@ public abstract class Game {
 
   /**
    * get initiation block configuration
-   * @param gameType the game type
+   *
+   * @param gameType     the game type
    * @param startPattern the start pattern
    * @return the block configuration
    * @throws FileException
    */
-
   protected List<List<Integer>> getInitiationBlockConfig(String gameType, String startPattern)
       throws FileException {
     FileReader fileReader = new FileReader(gameType, startPattern);
@@ -52,6 +60,7 @@ public abstract class Game {
 
   /**
    * set the data base
+   *
    * @param socialController social controller
    */
 
@@ -84,6 +93,7 @@ public abstract class Game {
 
   /**
    * get the current player
+   *
    * @return
    */
 
@@ -93,6 +103,7 @@ public abstract class Game {
 
   /**
    * get the index of the current player
+   *
    * @return the index of the current player
    */
 
@@ -102,6 +113,7 @@ public abstract class Game {
 
   /**
    * get the block grid
+   *
    * @return the block grid
    */
 
@@ -109,6 +121,7 @@ public abstract class Game {
 
   /**
    * play the game
+   *
    * @param passInCoordinate the coordinate to be played on
    */
 
@@ -116,6 +129,7 @@ public abstract class Game {
 
   /**
    * set all the block state
+   *
    * @param stateString state string
    */
 
@@ -125,6 +139,7 @@ public abstract class Game {
 
   /**
    * get all the block states
+   *
    * @return all the block states
    */
 
@@ -134,6 +149,7 @@ public abstract class Game {
 
   /**
    * get all the block state as string
+   *
    * @return all the block state as string
    */
 
@@ -143,6 +159,7 @@ public abstract class Game {
 
   /**
    * register observer
+   *
    * @param observer
    */
 
@@ -166,6 +183,7 @@ public abstract class Game {
 
   /**
    * get all the players
+   *
    * @return all the players
    */
 
@@ -175,6 +193,7 @@ public abstract class Game {
 
   /**
    * get the game type
+   *
    * @return the game type
    */
 
@@ -184,6 +203,7 @@ public abstract class Game {
 
   /**
    * is any player winning the game
+   *
    * @return whether a player is winning the game
    */
 
@@ -193,6 +213,7 @@ public abstract class Game {
 
   /**
    * get the winning player
+   *
    * @return
    */
 
@@ -200,6 +221,7 @@ public abstract class Game {
 
   /**
    * check whether the current player have potential moves
+   *
    * @return the current player have potential moves
    */
 
