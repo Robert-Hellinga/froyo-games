@@ -17,6 +17,7 @@ public class CheckersGame extends Game {
 
   /**
    * play the game according to the give coordinate
+   *
    * @param passInCoordinate the given coordinate
    */
 
@@ -37,6 +38,7 @@ public class CheckersGame extends Game {
 
   /**
    * get the whole block grid
+   *
    * @return the whole block grid
    */
 
@@ -47,6 +49,7 @@ public class CheckersGame extends Game {
 
   /**
    * get the winning player
+   *
    * @return the winning player
    */
 
@@ -57,6 +60,7 @@ public class CheckersGame extends Game {
 
   /**
    * check whether the current player has potential moves to make
+   *
    * @return
    */
 
