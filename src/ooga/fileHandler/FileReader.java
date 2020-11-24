@@ -10,15 +10,27 @@ import java.util.List;
 import ooga.exceptions.FileException;
 
 
+
 public class FileReader {
 
   private String filePath;
   private Resources error;
 
+  /**
+   * Constructor specifically for reading in a new game's starting configuration.
+   * Exists to make reflection easier
+   * @param gameType - the type of game being played, used as part of file path
+   * @param patternType - the type of pattern being used
+   *                    (i.e default, test, any relevant custom patterns)
+   */
   public FileReader(String gameType, String patternType) {
     this("configuration/" + gameType + "_" + patternType + ".csv");
   }
 
+  /**
+   *
+   * @param filePathName
+   */
   public FileReader(String filePathName) {
     this.filePath = filePathName;
     error = new Resources(Resources.ERROR_MESSAGES_FILE);
@@ -28,9 +40,10 @@ public class FileReader {
   // ------------------ Helper Methods ------------------
 
   /**
-   * Reads in dimensions, alive/dead values from start.csv Method written by Robert Duvall - Piazza
+   * Reads in data from a CSV file as a List<List<Integer>> , the primary format of a BlockStructure
    *
-   * @return List of each row from the configuration file
+   * @return a CSVFile's output as a List<List<Integer>>
+   * @author rbh13
    */
   public List<List<Integer>> readBlockLayout() {
     List<String[]> grid = readData();
@@ -49,6 +62,12 @@ public class FileReader {
   }
 
 
+  /***
+   * Reads in data from a CSV file
+   * @return A List<String> where each row is a line in the CSV file </String>
+   * @author  rbh13, Robert Duvall - code primarily repurposed from simulation project
+   * @throws FileException
+   */
   public List<String[]> readData() throws FileException {
     try {
       InputStream streamData = CSVReader.class.getClassLoader().getResourceAsStream(filePath);

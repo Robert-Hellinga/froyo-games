@@ -15,6 +15,11 @@ public class CheckersGame extends Game {
         getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 
+  /**
+   * play the game according to the give coordinate
+   * @param passInCoordinate the given coordinate
+   */
+
   @Override
   public void play(Coordinate passInCoordinate) {
     checkersBoard.play(passInCoordinate, getCurrentPlayerIndex());
@@ -30,15 +35,30 @@ public class CheckersGame extends Game {
     notifyObservers();
   }
 
+  /**
+   * get the whole block grid
+   * @return the whole block grid
+   */
+
   @Override
   public BlockGrid getBoard() {
     return checkersBoard;
   }
 
+  /**
+   * get the winning player
+   * @return the winning player
+   */
+
   @Override
   public Player getWinningPlayer() {
     return wonGame ? currentPlayer : null;
   }
+
+  /**
+   * check whether the current player has potential moves to make
+   * @return
+   */
 
   @Override
   public boolean currentPlayerHavePotentialMoves() {
