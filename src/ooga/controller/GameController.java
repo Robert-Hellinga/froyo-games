@@ -11,6 +11,12 @@ import ooga.Coordinate;
 import ooga.model.game.Game;
 import ooga.model.player.Player;
 
+/**
+ * Controls the interaction between the user/view and the game model. Also facilitates AI players
+ * making their move.
+ *
+ * @author Lucas Carter (with additions by teammates)
+ */
 public class GameController implements IGameController {
 
   private static final double FRAMES_PER_SECOND = 0.4;
@@ -30,6 +36,12 @@ public class GameController implements IGameController {
   private final PlayerMode mode;
   private boolean clickingEnabled;
 
+  /**
+   * Creates a game controller
+   *
+   * @param game the game this controller will interact with
+   * @param playerMode an enum representing if the game is against an AI player or not
+   */
   public GameController(Game game, PlayerMode playerMode) {
     this.game = game;
     this.mode = playerMode;
@@ -45,11 +57,16 @@ public class GameController implements IGameController {
           game.getCurrentPlayer().makePlay(coord);
         }
         setClickingEnabled(true);
-        game.notifyObservers();
       }
     }
   }
 
+  /**
+   * @see IGameController#clickPiece(Coordinate)
+   *
+   * If clicking is enabled, performs make a play and then if the game is against an AI, it enables
+   * clicking to false while the AI makes its move.
+   */
   @Override
   public void clickPiece(Coordinate coordinate) {
     if (clickingEnabled) {
@@ -61,16 +78,25 @@ public class GameController implements IGameController {
     }
   }
 
+  /**
+   * @see IGameController#setClickingEnabled(boolean)
+   */
   @Override
   public void setClickingEnabled(boolean enabled) {
     clickingEnabled = enabled;
   }
 
+  /**
+   * @see IGameController#getGameType()
+   */
   @Override
   public String getGameType() {
     return game.getGameType();
   }
 
+  /**
+   * Creates and sets the timeline used for the step function.
+   */
   private void setupAnimation() {
     KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step());
     animation = new Timeline();
@@ -79,6 +105,10 @@ public class GameController implements IGameController {
     animation.play();
   }
 
+  /**
+   * Checks if a player has won the game and if so creates an alert letting the user know who has
+   * won.
+   */
   private void checkPlayerWonGame() {
     if (game.isPlayerWonGame()) {
       animation.stop();
@@ -90,6 +120,10 @@ public class GameController implements IGameController {
     }
   }
 
+  /**
+   * Checks if a player has any valid moves left and sends an alert letting them know they must skip
+   * this turn. Also displays who has won if the game is Othello and there are no valid moves left.
+   */
   private void checkIfPlayerHaveNoPotentialMove() {
     if (!game.currentPlayerHavePotentialMoves() && !game.isPlayerWonGame()) {
       Alert alert = new Alert(AlertType.NONE,
@@ -102,10 +136,13 @@ public class GameController implements IGameController {
         alert2.show();
         game.endGame();
       }
-      game.notifyObservers();
+
     }
   }
 
+  /**
+   * Performs all of the necessary checks in a game and notifies observers.
+   */
   private void step() {
     checkForAITurn();
     checkPlayerWonGame();

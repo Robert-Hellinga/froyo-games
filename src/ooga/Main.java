@@ -6,6 +6,9 @@ import ooga.controller.FroyoController;
 import ooga.controller.IFroyoController;
 import ooga.view.screens.LanguageScreen;
 
+/**
+ * Main class for running the game
+ */
 public class Main extends Application {
 
   private static final boolean RESIZABLE_WINDOW = false;

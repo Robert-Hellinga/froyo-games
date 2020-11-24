@@ -5,6 +5,10 @@ import javafx.scene.layout.GridPane;
 import ooga.Coordinate;
 import ooga.controller.IGameController;
 
+/**
+ * Class containing view elements for displaying the game pieces
+ * @author Nate Mela (nrm27)
+ */
 public class PieceGrid extends GridPane {
 
   private static final int GRID_SPACING = 4;
@@ -18,6 +22,9 @@ public class PieceGrid extends GridPane {
     update(initialPieceLayout);
   }
 
+  /**
+   * Method called periodically by observer in GameScreen to update the grid with new piece states
+   */
   public void update(List<List<Integer>> newPieceStates) {
     getChildren().clear();
 

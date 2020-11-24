@@ -6,6 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+/**
+ * Wrapper class for ComboBox which also contains a label and helper methods for finding selection
+ * index
+ * @author Nate Mela (nrm27)
+ */
 public class LabeledDropdown extends VBox {
 
   private static final int LABEL_SPACING = 10;
@@ -36,10 +41,17 @@ public class LabeledDropdown extends VBox {
     getChildren().addAll(label, selector);
   }
 
+  /**
+   * Method to retrieve index of item selected in ComboBox
+   * @return integer index of selected item (0 is first item)
+   */
   public int getSelectedIndex() {
     return selector.getSelectionModel().getSelectedIndex();
   }
 
+  /**
+   * Method to retrieve selected object from ComboBox
+   */
   public Object getValue() {
     return selector.getValue();
   }
