@@ -11,7 +11,7 @@ import ooga.model.checkerboard.BlockStructure;
 
 public abstract class Block {
 
-  private final int EMPTY = 0;
+  protected final int EMPTY = 0;
   private final int PLAYER_1 = 1;
   private final int PLAYER_2 = 2;
 
@@ -37,7 +37,6 @@ public abstract class Block {
     setPlayerID(blockConfig);
     this.isEmpty = blockConfig == 0;
     this.isChosen = false;
-    this.isPotentialMove = false;
   }
 
   public abstract List<Coordinate> getAvailablePositions(int currentPlayerIndex,
@@ -53,7 +52,7 @@ public abstract class Block {
 
   public void setPlayerID(int player) {
     isEmpty = false;
-    if(player == 0){playerID = 0;}
+    if(player == EMPTY){playerID = 0;}
     else if(player % 2 == 1){
       playerID = 1;}
     else if(player % 2 == 0){playerID = 2;}

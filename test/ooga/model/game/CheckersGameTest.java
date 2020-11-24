@@ -55,7 +55,7 @@ class CheckersGameTest {
     List<List<Integer>> expectedBlockState = new ArrayList<>() {{
       add(List.of(0, 0, 1, 0));
       add(List.of(0, 0, 0, 0));
-      add(List.of(0, 0, 6, 0));
+      add(List.of(0, 0, 5, 0));
     }};
     assertEquals(expectedBlockState, checkersGame.getAllBlockStates());
   }
@@ -87,9 +87,31 @@ class CheckersGameTest {
     List<List<Integer>> expectedBlockState = new ArrayList<>() {{
       add(List.of(1, 0, 0, 0));
       add(List.of(0, 2, 0, 0));
-      add(List.of(0, 0, 6, 0));
+      add(List.of(0, 0, 5, 0));
     }};
     assertEquals(expectedBlockState, checkersGame.getAllBlockStates());
+  }
+
+  @Test
+  public void testKingMovementOffKingingSquares(){
+    checkersGame = FroyoController.createGame(gameType, playerOne, playerTwo, "king_test");
+    checkersGame.play(new Coordinate(2, 6));
+    checkersGame.play(new Coordinate(3, 7));
+    checkersGame.playerTakeTurn();
+    checkersGame.play(new Coordinate(3, 7));
+    checkersGame.play(new Coordinate(2, 6));
+    checkersGame.playerTakeTurn();
+    checkersGame.play(new Coordinate(2, 6));
+    checkersGame.play(new Coordinate(1,5));
+    checkersGame.playerTakeTurn();
+    checkersGame.play(new Coordinate( 1, 5));
+    List<Coordinate> expectedMoves = new ArrayList<>() {{
+      add(new Coordinate(0, 4));
+      add(new Coordinate(2, 6));
+    }};
+    assertEquals(expectedMoves, checkersGame.getBoard().getAllBlocks().
+            getBlock(new Coordinate(1, 5)).getAvailablePositions(2,
+            checkersGame.getBoard().getAllBlocks()));
   }
 
 }
