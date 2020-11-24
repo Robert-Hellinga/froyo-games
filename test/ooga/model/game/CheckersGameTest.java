@@ -108,7 +108,6 @@ class CheckersGameTest {
     List<Coordinate> expectedMoves = new ArrayList<>() {{
       add(new Coordinate(0, 4));
       add(new Coordinate(3, 3));
-      add(new Coordinate(2, 6));
     }};
     assertEquals(expectedMoves, checkersGame.getBoard().getAllBlocks().
             getBlock(new Coordinate(1, 5)).getAvailablePositions(2,
