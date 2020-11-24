@@ -40,12 +40,9 @@
 
 #### What Features are Easy to Add
 
+* new game that is also grid-based
 
-## High-level Design
-
-
-#### Core Classes
-
+* more player playing the game, if it is achievable in the game
 
 ## Assumptions that Affect the Design
 * Grid is a 2d list of lists, stored in BlockStructure
@@ -64,11 +61,18 @@ controls 7 types of soldiers) may have logical errors
 
 ## Significant differences from Original Plan
 
+* The AIBrain was not considered when we first made the plan
+
 
 ## New Features HowTo
 
 #### Easy to Add Features
 
+* add new game that also grid-piece based
+   
+    * Create a block class extending the block abstraction, create a blockgrid class extending the 
+    blockgrid abstraction, and then create a game class that extends the game abstraction. Implement
+     the respective game rule in these classes. 
 
 #### Other Features not yet Done
 
