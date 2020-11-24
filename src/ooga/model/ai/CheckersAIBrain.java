@@ -10,7 +10,7 @@ import ooga.model.checkerboard.blockgrid.CheckersBlockGrid;
 import ooga.model.game.CheckersGame;
 
 /**
- * This it he CheckersAIBrain which implements AIBrain interface, the function is to give the AI
+ * This is the CheckersAIBrain which implements AIBrain interface, the function is to give the AI
  * decision to play Checkers Game
  *
  * @author Yixuan Li
@@ -117,6 +117,15 @@ public class CheckersAIBrain implements AIBrain {
     return bestMove;
   }
 
+  /**
+   * This is the method which would apply the move to a given board and return a new board which
+   * reacts to this applied move
+   *
+   * @param checkBoard         The given checker block grid
+   * @param currentPlayerIndex An Integer represents the index of the current player
+   * @param moves              Given moves to be applied
+   * @return return a new board which reacts to this applied move
+   */
   private BlockGrid applyMove(BlockGrid checkBoard, int currentPlayerIndex,
       Vector<Coordinate> moves) {
     for (Coordinate move : moves) {
@@ -126,6 +135,13 @@ public class CheckersAIBrain implements AIBrain {
   }
 
 
+  /**
+   * Evaluate the score of the given board
+   *
+   * @param checkBoard         The given checker block grid
+   * @param currentPlayerIndex An Integer represents the index of the current player
+   * @return return a float value which represents the score of the evaluation
+   */
   private float evaluateMove(BlockGrid checkBoard, int currentPlayerIndex) {
     float score = 0;
     for (List<Block> blockList : checkBoard.getAllBlocks().getBlockStructure()) {
