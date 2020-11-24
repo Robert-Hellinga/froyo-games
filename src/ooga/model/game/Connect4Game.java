@@ -21,7 +21,9 @@ public class Connect4Game extends Game {
   }
 
   /**
-   * @see Game#play(Coordinate)
+   * play the game
+   *
+   * @param passInCoordinate the coordinate to be played on
    */
   @Override
   public void play(Coordinate passInCoordinate) {

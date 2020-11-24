@@ -50,7 +50,7 @@ public abstract class Game {
    * @param gameType     the game type
    * @param startPattern the start pattern
    * @return the block configuration
-   * @throws FileException
+   * @throws FileException Throw FileException if there has error when reading the file
    */
   protected List<List<Integer>> getInitiationBlockConfig(String gameType, String startPattern)
       throws FileException {
@@ -63,7 +63,6 @@ public abstract class Game {
    *
    * @param socialController social controller
    */
-
   public void setDatabase(SocialController socialController) {
     this.socialController = socialController;
   }
@@ -71,7 +70,6 @@ public abstract class Game {
   /**
    * update the database
    */
-
   public void updateDatabase() {
     if (socialController != null) {
       socialController.updateGame(false);
@@ -81,7 +79,6 @@ public abstract class Game {
   /**
    * player take turn
    */
-
   public void playerTakeTurn() {
     int currentPlayerIndex = allPlayers.indexOf(currentPlayer);
     if (currentPlayerIndex == allPlayers.size() - 1) {
@@ -94,9 +91,8 @@ public abstract class Game {
   /**
    * get the current player
    *
-   * @return
+   * @return return the current player
    */
-
   public Player getCurrentPlayer() {
     return currentPlayer;
   }
@@ -106,7 +102,6 @@ public abstract class Game {
    *
    * @return the index of the current player
    */
-
   public int getCurrentPlayerIndex() {
     return allPlayers.indexOf(currentPlayer) + 1;
   }
@@ -116,7 +111,6 @@ public abstract class Game {
    *
    * @return the block grid
    */
-
   public abstract BlockGrid getBoard();
 
   /**
@@ -124,7 +118,6 @@ public abstract class Game {
    *
    * @param passInCoordinate the coordinate to be played on
    */
-
   public abstract void play(Coordinate passInCoordinate);
 
   /**
@@ -132,7 +125,6 @@ public abstract class Game {
    *
    * @param stateString state string
    */
-
   public void setAllBlockStates(String stateString) {
     getBoard().setAllBlockStates(stateString);
   }
@@ -142,7 +134,6 @@ public abstract class Game {
    *
    * @return all the block states
    */
-
   public List<List<Integer>> getAllBlockStates() {
     return getBoard().getAllBlockStates();
   }
@@ -152,7 +143,6 @@ public abstract class Game {
    *
    * @return all the block state as string
    */
-
   public String getAllBlockStatesAsString() {
     return getBoard().getAllBlockStatesAsString();
   }
@@ -160,9 +150,8 @@ public abstract class Game {
   /**
    * register observer
    *
-   * @param observer
+   * @param observer The observer which need to be registered
    */
-
   public void registerObserver(ModelObserver observer) {
     observers.add(observer);
   }
@@ -174,7 +163,6 @@ public abstract class Game {
   /**
    * notify the observer
    */
-
   public void notifyObservers() {
     for (ModelObserver observer : observers) {
       observer.update();
@@ -186,7 +174,6 @@ public abstract class Game {
    *
    * @return all the players
    */
-
   public List<Player> getAllPlayers() {
     return allPlayers;
   }
@@ -196,7 +183,6 @@ public abstract class Game {
    *
    * @return the game type
    */
-
   public String getGameType() {
     return gameType;
   }
@@ -206,7 +192,6 @@ public abstract class Game {
    *
    * @return whether a player is winning the game
    */
-
   public boolean isPlayerWonGame() {
     return wonGame;
   }
@@ -214,9 +199,8 @@ public abstract class Game {
   /**
    * get the winning player
    *
-   * @return
+   * @return the winning player
    */
-
   public abstract Player getWinningPlayer();
 
   /**
@@ -224,13 +208,11 @@ public abstract class Game {
    *
    * @return the current player have potential moves
    */
-
   public abstract boolean currentPlayerHavePotentialMoves();
 
   /**
    * end the game
    */
-
   public void endGame() {
     wonGame = true;
   }
