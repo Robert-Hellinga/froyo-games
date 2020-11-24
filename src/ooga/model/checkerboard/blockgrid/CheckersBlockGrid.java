@@ -119,13 +119,15 @@ public class CheckersBlockGrid extends BlockGrid {
   }
 
   public void makeBlockKing(Coordinate newCoordinate) {
-    if ((newCoordinate.yCoordinate() == 0
+    if (((newCoordinate.yCoordinate() == 0
         && allBlocks.getBlock(newCoordinate).getPlayerID() == 2) ||
-        newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight() - 1
-            && allBlocks.getBlock(newCoordinate).getPlayerID() == 1) {
+            (newCoordinate.yCoordinate() == allBlocks.getBlockStructureHeight() - 1
+            && allBlocks.getBlock(newCoordinate).getPlayerID() == 1))) {
       CheckersBlock newKing = new CheckersBlock(allBlocks.getBlock(newCoordinate));
-      newKing.makeKing();
-      allBlocks.setBlock(newKing);
+      if(!newKing.isKing()) {
+        newKing.makeKing();
+        allBlocks.getBlock(newCoordinate).initiateBlockState(newKing.getState());
+      }
     }
   }
 

@@ -1,13 +1,17 @@
 package ooga.model.checkerboard.block;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import ooga.Coordinate;
 import ooga.exceptions.FileException;
 import ooga.model.checkerboard.BlockStructure;
 
 public abstract class Block {
 
-  private final int EMPTY = 0;
+  protected final int EMPTY = 0;
   private final int PLAYER_1 = 1;
   private final int PLAYER_2 = 2;
 
@@ -24,7 +28,7 @@ public abstract class Block {
     this.coordinate = coordinate;
   }
 
-  public Block(Block newBlock) {
+  public Block(Block newBlock){
     this(newBlock.getState(), newBlock.getCoordinate());
   }
 
@@ -33,11 +37,10 @@ public abstract class Block {
     setPlayerID(blockConfig);
     this.isEmpty = blockConfig == 0;
     this.isChosen = false;
-    this.isPotentialMove = false;
   }
 
   public abstract List<Coordinate> getAvailablePositions(int currentPlayerIndex,
-      BlockStructure allBlocks);
+                                                         BlockStructure allBlocks);
 
   public boolean getIsEmpty() {
     return isEmpty;
@@ -49,18 +52,16 @@ public abstract class Block {
 
   public void setPlayerID(int player) {
     isEmpty = false;
-    if (player == 0) {
-      playerID = 0;
-    } else if (player % 2 == 1) {
-      playerID = 1;
-    } else if (player % 2 == 0) {
-      playerID = 2;
-    } else {
+    if(player == EMPTY){playerID = 0;}
+    else if(player % 2 == 1){
+      playerID = 1;}
+    else if(player % 2 == 0){playerID = 2;}
+    else{
       throw new FileException("Invalid block state");
     }
   }
 
-  public void setEmpty() {
+  public void setEmpty(){
     this.playerID = EMPTY;
     this.isEmpty = true;
     this.state = EMPTY;
@@ -74,8 +75,7 @@ public abstract class Block {
 
   public void unmakePotentialMove() {
     isPotentialMove = false;
-    setEmpty();
-  }
+    setEmpty();}
 
   public boolean isPotentialMove() {
     return isPotentialMove;
@@ -85,21 +85,17 @@ public abstract class Block {
     isChosen = true;
   }
 
-  public void unchoose() {
+  public void unchoose(){
     isChosen = false;
   }
 
-  public int getState() {
-    return state;
-  }
+  public int getState(){return state;}
 
   public boolean isChosen() {
     return isChosen;
   }
 
-  public Coordinate getCoordinate() {
-    return coordinate;
-  }
+  public Coordinate getCoordinate(){return coordinate;}
 
 
 }

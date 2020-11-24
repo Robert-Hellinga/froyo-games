@@ -22,7 +22,7 @@ public class SplashScreen extends VBox {
 
   private static final String BACKGROUND_STYLE_CLASS = "background";
   private static final String RESOURCE_FILE = "SplashScreen";
-  private static final String TITLE_IMG_PATH = "resources/img/title.png";
+  private static final String TITLE_IMG_PATH = "resources/ui/game_pieces/img/title.png";
   private static final String START_BTN = "Start";
   private static final String PLAYER_NAME_FIELD = "Username";
   private static final String OPPONENT_NAME = "OpponentNameMessage";

@@ -20,7 +20,7 @@ public class PlayerTurnBox extends HBox {
     Label text = new Label(playerName);
     text.setFont(new Font(20));
     fillColorBundle = ResourceBundle
-        .getBundle("resources.ui." + gameType + "PieceFillColor");
+        .getBundle("resources.ui.game_pieces." + gameType + "PieceFillColor");
 
     getChildren().addAll(text, makePlayerCircle(colorKey));
   }

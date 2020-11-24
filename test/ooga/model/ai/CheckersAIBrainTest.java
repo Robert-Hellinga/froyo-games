@@ -91,7 +91,7 @@ class CheckersAIBrainTest {
       add(List.of(2, 0, 0, 0, 0, 0, 2, 0));
       add(List.of(0, 0, 0, 0, 0, 2, 0, 2));
       add(List.of(2, 0, 2, 0, 0, 0, 2, 0));
-      add(List.of(0, 2, 0, 2, 0, 6, 0, 2));
+      add(List.of(0, 2, 0, 2, 0, 5, 0, 2));
     }};
     assertEquals(expectedBlockState, checkersGame.getAllBlockStates());
 

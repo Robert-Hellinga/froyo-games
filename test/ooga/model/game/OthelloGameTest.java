@@ -23,10 +23,10 @@ public class OthelloGameTest {
   public void checkPotentialMovesForPlayer1() {
     othelloGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
     List<List<Integer>> expectedBlockState = new ArrayList<>() {{
-      add(List.of(0, 0, 5, 0));
-      add(List.of(0, 1, 2, 5));
-      add(List.of(5, 2, 1, 0));
-      add(List.of(0, 5, 0, 0));
+      add(List.of(0, 0, 3, 0));
+      add(List.of(0, 1, 2, 3));
+      add(List.of(3, 2, 1, 0));
+      add(List.of(0, 3, 0, 0));
     }};
     assertEquals(expectedBlockState, othelloGame.getAllBlockStates());
   }
@@ -37,9 +37,23 @@ public class OthelloGameTest {
     Coordinate playCoordinate = new Coordinate(2, 0);
     othelloGame.play(playCoordinate);
     List<List<Integer>> expectedBlockState = new ArrayList<>() {{
-      add(List.of(0, 5, 1, 5));
+      add(List.of(0, 3, 1, 3));
       add(List.of(0, 1, 1, 0));
-      add(List.of(0, 2, 1, 5));
+      add(List.of(0, 2, 1, 3));
+      add(List.of(0, 0, 0, 0));
+    }};
+    assertEquals(expectedBlockState, othelloGame.getAllBlockStates());
+  }
+
+  @Test
+  public void checkPlacedPiece() {
+    othelloGame = FroyoController.createGame(gameType, playerOne, playerTwo, startPattern);
+    Coordinate playCoordinate = new Coordinate(2, 0);
+    othelloGame.play(playCoordinate);
+    List<List<Integer>> expectedBlockState = new ArrayList<>() {{
+      add(List.of(0, 3, 1, 3));
+      add(List.of(0, 1, 1, 0));
+      add(List.of(0, 2, 1, 3));
       add(List.of(0, 0, 0, 0));
     }};
     assertEquals(expectedBlockState, othelloGame.getAllBlockStates());

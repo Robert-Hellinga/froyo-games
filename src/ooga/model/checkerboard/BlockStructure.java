@@ -38,11 +38,6 @@ public class BlockStructure {
     return blockStructure.get(blockCoordinate.yCoordinate()).get(blockCoordinate.xCoordinate());
   }
 
-  public void setBlock(Block block) {
-    blockStructure.get(block.getCoordinate().yCoordinate())
-        .set(block.getCoordinate().xCoordinate(), block);
-  }
-
   public int getBlockStructureHeight() {
     return blockStructure.size();
   }
@@ -56,11 +51,7 @@ public class BlockStructure {
     for (List<Block> blockList : blockStructure) {
       List<Integer> configList = new ArrayList<>();
       for (Block block : blockList) {
-        if (block.getIsEmpty()) {
-          configList.add(0);
-        } else {
-          configList.add(block.getPlayerID());
-        }
+        configList.add(block.getState());
       }
       allBlockConfig.add(configList);
     }

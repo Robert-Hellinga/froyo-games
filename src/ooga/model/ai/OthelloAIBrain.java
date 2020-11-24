@@ -10,7 +10,7 @@ import ooga.model.checkerboard.blockgrid.OthelloBlockGrid;
 public class OthelloAIBrain implements AIBrain {
 
   private static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
-  private static final int DEPTH = 5;
+  private static final int DEPTH = 3;
   private int AIID;
 
 
@@ -46,7 +46,6 @@ public class OthelloAIBrain implements AIBrain {
         return new Pair<>(null, evaluateBoardValue(othelloGrid, AIID));
       }
     }
-
     BlockGrid newOthelloGrid = new OthelloBlockGrid(othelloGrid);
     List<Coordinate> potentialMoves = getPotentialMoves(newOthelloGrid, currentPlayerIndex);
 

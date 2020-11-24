@@ -61,11 +61,7 @@ Known Bugs:
  * Names do not display properly on top/bottom with online (both players see the same name on top and bottom)
  * Othello does not work properly with online feature. 
  * Save button does not work
- * Connect 4 clicking does not work (can't play pieces)
-    * Due to attempted refactor
- * Othello clicking does not work (can't play pieces)
-    * Due to attempted refactor
-
+ * Kings can only jump in a normal piece's direction after the first jump
  
 ### Impressions
 

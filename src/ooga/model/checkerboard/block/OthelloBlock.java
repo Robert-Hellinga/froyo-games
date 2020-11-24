@@ -6,11 +6,19 @@ import ooga.Coordinate;
 import ooga.model.checkerboard.BlockStructure;
 
 public class OthelloBlock extends Block {
-
   private final int POTENTIAL_MOVE = 3;
+
 
   public OthelloBlock(Integer blockConfig, Coordinate coordinate) {
     super(blockConfig, coordinate);
+  }
+
+  @Override
+  public void initiateBlockState(int blockConfig) {
+    this.state = blockConfig;
+    setPlayerID(blockConfig);
+    this.isEmpty = blockConfig == 0;
+    this.isChosen = false;
   }
 
   @Override
@@ -31,7 +39,7 @@ public class OthelloBlock extends Block {
                 .getBlockStructureHeight()) {
               break;
             }
-            if (allBlocks.getBlock(extendedNeighbor).isEmpty) {
+            if (allBlocks.getBlock(extendedNeighbor).isEmpty || allBlocks.getBlock(extendedNeighbor).isPotentialMove) {
               availablePositions.add(extendedNeighbor);
               break;
             } else if (allBlocks.getBlock(extendedNeighbor).getPlayerID()
@@ -79,7 +87,20 @@ public class OthelloBlock extends Block {
   }
 
   @Override
-  public void makePotentialMove() {
+  public void setPlayerID(int player){
+    if(player == POTENTIAL_MOVE){
+      isPotentialMove = true;
+    }
+    else{
+      super.setPlayerID(player);
+      isPotentialMove = false;
+      state = playerID;
+    }
+
+  }
+
+  @Override
+  public void makePotentialMove(){
     super.makePotentialMove();
     state = POTENTIAL_MOVE;
   }
