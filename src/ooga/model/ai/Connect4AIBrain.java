@@ -8,6 +8,13 @@ import ooga.Coordinate;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.Connect4BlockGrid;
 
+/**
+ * This it he Connect4AIBrain which implements AIBrain interface, the function is to give the AI
+ * decision to play Connect4 Game
+ *
+ * @author Jincheng He
+ * @see ooga.model.ai.AIBrain
+ */
 public class Connect4AIBrain implements AIBrain {
 
   private static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
@@ -15,6 +22,14 @@ public class Connect4AIBrain implements AIBrain {
   private static final int WINDOWLENGTH = 4;
   private int AIID;
 
+  /**
+   * AIBrain would make a list of decisions based on the blockGrid and who is the currentPlayer.
+   *
+   * @param connect4Grid       The connect4Grid of the connect4 Game
+   * @param currentPlayerIndex An Integer represents the index of the current player
+   * @return return a List of Coordinates represents the AI decision
+   * @see AIBrain#decideMove(BlockGrid, Integer)
+   */
   @Override
   public List<Coordinate> decideMove(BlockGrid connect4Grid, Integer currentPlayerIndex) {
     AIID = currentPlayerIndex;
@@ -28,6 +43,22 @@ public class Connect4AIBrain implements AIBrain {
     return aiMoves;
   }
 
+  /**
+   * This method is the miniMax algorithm, this algorithm is how Connect4 AI works
+   *
+   * @param connect4Grid       The blockGrid of connect4 game
+   * @param depth              The remaining AI search depth
+   * @param alpha              The parameter alpha, this is a parameter for pruning in miniMax
+   *                           algorithm
+   * @param beta               The parameter beta, this is a parameter for pruning in miniMax
+   *                           algorithm
+   * @param maximizingPlayer   A boolean parameter, it is true when the score of this player should
+   *                           be maximized, and it is false when the score of this player should be
+   *                           minimized
+   * @param currentPlayerIndex An Integer represents the index of the current player
+   * @return return a Pair of Coordinate and a Float value which represents the value of the miniMax
+   * algorithm
+   */
   private Pair<Coordinate, Float> miniMax(BlockGrid connect4Grid, int depth, float alpha,
       float beta, boolean maximizingPlayer, int currentPlayerIndex) {
 
@@ -54,6 +85,23 @@ public class Connect4AIBrain implements AIBrain {
         maximizingPlayer);
   }
 
+  /**
+   * This is a step in miniMax algorithm, this method returns a Pair of Coordinate and a Float
+   * value
+   *
+   * @param potentialMoves     A List of Coordinate represents potential moves
+   * @param newConnect4Board   A copied version of Connnect4 Board
+   * @param currentPlayerIndex A Integer which represents the index of the current player in the
+   *                           player List
+   * @param depth              The integer represents the remaining depth to search
+   * @param alpha              The alpha parameter which would be used in pruning search
+   * @param beta               The beta parameter which would be used in pruning search
+   * @param maximizingPlayer   A boolean parameter, it is true when the score of this player should
+   *                           be maximized, and it is false when the score of this player should be
+   *                           minimized
+   * @return return a Pair of Coordinate and a Float value which represents a good move in the
+   * current search depth
+   */
   private Pair<Coordinate, Float> getGoodMove(List<Coordinate> potentialMoves,
       BlockGrid newConnect4Board, int currentPlayerIndex, int depth, float alpha, float beta,
       boolean maximizingPlayer) {
@@ -91,6 +139,13 @@ public class Connect4AIBrain implements AIBrain {
     return new Pair<Coordinate, Float>(coordinate_move, value);
   }
 
+  /**
+   * This method is to find which row is open for play given the known column
+   *
+   * @param connect4Grid The connect4Grid of the game
+   * @param col          The column number
+   * @return return an integer which represents the row which is open to play
+   */
   private int get_next_open_row(BlockGrid connect4Grid, int col) {
     for (int row = connect4Grid.getAllBlocks().getBlockStructureHeight() - 1; row >= 0; row--) {
       if (connect4Grid.getAllBlocks().getBlock(new Coordinate(col, row)).getIsEmpty()) {
@@ -101,6 +156,12 @@ public class Connect4AIBrain implements AIBrain {
   }
 
 
+  /**
+   * Change the current Player in each searching depth
+   *
+   * @param currentPlayerIndex The integer which represents the index of the current player
+   * @return return an Integer of another player
+   */
   private int playerTakeTurn(Integer currentPlayerIndex) {
     int index = PLAYER_INDEX_POLL.indexOf(currentPlayerIndex);
     if (index == PLAYER_INDEX_POLL.size() - 1) {
@@ -110,6 +171,13 @@ public class Connect4AIBrain implements AIBrain {
     }
   }
 
+  /**
+   * This method is to determine whether the game would be terminated given a known connect4 block
+   * grid
+   *
+   * @param connect4grid The given connect4 block grid
+   * @return return true if the game would be terminated and false the vice versa
+   */
   private boolean isTerminalNode(BlockGrid connect4grid) {
     return connect4grid.isWinningMove(PLAYER_INDEX_POLL.get(0)) || connect4grid.isWinningMove(
         PLAYER_INDEX_POLL.get(1)) || connect4grid.getAllBlocks().getBlock(new Coordinate(0, 0))
@@ -117,6 +185,13 @@ public class Connect4AIBrain implements AIBrain {
   }
 
 
+  /**
+   * This method is to evaluate the score of a given board
+   *
+   * @param connect4grid The given connect4 board
+   * @param playerID     The integer which represents the player ID
+   * @return return a float which represents the evaluation score of the given connect4 board
+   */
   private float scorePositoin(BlockGrid connect4grid, int playerID) {
     float score = 0;
 
@@ -135,6 +210,13 @@ public class Connect4AIBrain implements AIBrain {
     return score;
   }
 
+  /**
+   * This is a help function which is used in scorePosition method
+   *
+   * @param connect4grid The given connect4 board
+   * @param playerID     The integer which represents the player ID
+   * @return return a integer of this part of the score
+   */
   private int centerCount(BlockGrid connect4grid, int playerID) {
     // Center column score
     int col = connect4grid.getAllBlocks().getBlockStructureWidth() / 2;
@@ -148,6 +230,13 @@ public class Connect4AIBrain implements AIBrain {
     return centerCount;
   }
 
+  /**
+   * This is a help function which is used in scorePosition method
+   *
+   * @param connect4grid The given connect4 board
+   * @param playerID     The integer which represents the player ID
+   * @return return a integer of this part of the score
+   */
   private int horizontalScore(BlockGrid connect4grid, int playerID) {
     int score = 0;
     for (int r = connect4grid.getAllBlocks().getBlockStructureHeight() - 1; r >= 0; r--) {
@@ -167,6 +256,13 @@ public class Connect4AIBrain implements AIBrain {
     return score;
   }
 
+  /**
+   * This is a help function which is used in scorePosition method
+   *
+   * @param connect4grid The given connect4 board
+   * @param playerID     The integer which represents the player ID
+   * @return return a integer of this part of the score
+   */
   private int verticalScore(BlockGrid connect4grid, int playerID) {
     int score = 0;
     for (int c = 0; c < connect4grid.getAllBlocks().getBlockStructureWidth(); c++) {
@@ -186,6 +282,13 @@ public class Connect4AIBrain implements AIBrain {
     return score;
   }
 
+  /**
+   * This is a help function which is used in scorePosition method
+   *
+   * @param connect4grid The given connect4 board
+   * @param playerID     The integer which represents the player ID
+   * @return return a integer of this part of the score
+   */
   private int diagonalScore(BlockGrid connect4grid, int playerID) {
     int score = 0;
     for (int r = connect4grid.getAllBlocks().getBlockStructureHeight() - 1; r >= 3; r--) {
@@ -209,6 +312,14 @@ public class Connect4AIBrain implements AIBrain {
   }
 
 
+  /**
+   * This is a helper method which would be used in other score evaluation methods such as
+   * horizontalScore, verticalScore, diagonalScore
+   *
+   * @param window   A List of Integer which represents the window
+   * @param playerID The integer which represents the player ID
+   * @return return a float value which represents this evaluation score
+   */
   private float evaluateWindow(List<Integer> window, int playerID) {
     float score = 0;
     int thisPlayerCount = Collections.frequency(window, playerID);
