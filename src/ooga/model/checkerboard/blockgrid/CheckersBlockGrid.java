@@ -15,6 +15,13 @@ public class CheckersBlockGrid extends BlockGrid {
     super(checkBoard);
   }
 
+
+  /**
+   * set all the available positions in a checkers game
+   * @param currentPlayerIndex the index of the current player
+   * @param chosenBlock the coordinate of the chosen block
+   */
+
   @Override
   public void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock) {
     if (!chosenBlock.equals(Coordinate.INVALID_COORDINATE)) {
@@ -25,6 +32,12 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
+
+  /**
+   * play checkers game
+   * @param passInCoordinate the given coordinate
+   * @param currentPlayerIndex the index of the current player
+   */
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex) {
@@ -55,6 +68,11 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
+  /**
+   * remove a checked piece
+   * @param newPosition the new coordinate of the piece
+   * @param originalPosition the original coordinate of the piece
+   */
 
   public void removeCheckedPiece(Coordinate newPosition, Coordinate originalPosition) {
     int xMovement = newPosition.xCoordinate() - originalPosition.xCoordinate();
@@ -93,6 +111,11 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
+  /**
+   * get the coordinate of the chosen block
+   * @return the coordinate of the chosen block
+   */
+
   public Coordinate getChosenBlockCoordinate() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
@@ -104,6 +127,10 @@ public class CheckersBlockGrid extends BlockGrid {
     return Coordinate.INVALID_COORDINATE;
   }
 
+  /**
+   * unchoose all the block at once
+   */
+
   public void unChooseAllBlocks() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
       for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
@@ -114,9 +141,19 @@ public class CheckersBlockGrid extends BlockGrid {
     }
   }
 
+  /**
+   * cross a piece
+   * @param pieceToRemoveCoordinate the coordinate of the piece to cross
+   */
+
   private void crossPiece(Coordinate pieceToRemoveCoordinate) {
     allBlocks.getBlock(pieceToRemoveCoordinate).setEmpty();
   }
+
+  /**
+   * make a block to be a king piece
+   * @param newCoordinate the coordinate of the piece
+   */
 
   public void makeBlockKing(Coordinate newCoordinate) {
     if (((newCoordinate.yCoordinate() == 0
@@ -130,6 +167,12 @@ public class CheckersBlockGrid extends BlockGrid {
       }
     }
   }
+
+  /**
+   * check whether last move is a winning move for checkers game
+   * @param playerID the current index of the player
+   * @return whether last move is a winning move
+   */
 
 
   public boolean isWinningMove(int playerID) {

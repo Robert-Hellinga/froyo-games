@@ -19,6 +19,12 @@ public class OthelloBlockGrid extends BlockGrid {
     super(othelloGrid);
   }
 
+  /**
+   * set all the available position for the current player in a othello game
+   * @param currentPlayerIndex the index of the current player
+   * @param chosenBlock the coordinate of the chosen block
+   */
+
   @Override
   public void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock) {
     for (Coordinate coordinate : getAllPotentialMoves(currentPlayerIndex)) {
@@ -26,6 +32,11 @@ public class OthelloBlockGrid extends BlockGrid {
     }
   }
 
+  /**
+   * play the othello game
+   * @param passInCoordinate the given coordinate
+   * @param currentPlayerIndex the index of the current player
+   */
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex) {
@@ -35,6 +46,12 @@ public class OthelloBlockGrid extends BlockGrid {
     }
     unsetAllBlockPotentials();
   }
+
+  /**
+   * flip the pieces in the othello game
+   * @param passInCoordinate the coordinate that is chosen
+   * @param currentPlayerIndex index of the current player
+   */
 
   private void flipPiece(Coordinate passInCoordinate, int currentPlayerIndex) {
     for (Coordinate neighbors : OthelloBlock.getValidNeighbor(allBlocks, passInCoordinate)) {
@@ -68,6 +85,14 @@ public class OthelloBlockGrid extends BlockGrid {
     }
   }
 
+  /**
+   * change the state of a series of piece at once
+   * @param startCoordinate the starting coordinate of the series of pieces
+   * @param endCoordinate the ending coordinate of the series of pieces
+   * @param targetPlayerID the target player ID
+   * @param allBlocks all the blocks
+   */
+
   private void changePieceSeriesState(Coordinate startCoordinate, Coordinate endCoordinate,
       int targetPlayerID, BlockStructure allBlocks) {
     int xIncrement = 0;
@@ -92,6 +117,11 @@ public class OthelloBlockGrid extends BlockGrid {
     }
   }
 
+  /**
+   * check whether the last move is a winning move
+   * @param playerID the current index of the player
+   * @return whether the last move is a winning move
+   */
 
   @Override
   public boolean isWinningMove(int playerID) {
@@ -107,6 +137,10 @@ public class OthelloBlockGrid extends BlockGrid {
     return !haveEmptyBlock;
   }
 
+  /**
+   * get the index of the winning player
+   * @return the index of the winning player
+   */
 
   public int getWinningPlayerIndex() {
     List<Integer> pieceCounter = new ArrayList<>();

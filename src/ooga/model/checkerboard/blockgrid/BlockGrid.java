@@ -36,6 +36,11 @@ public abstract class BlockGrid {
     this.numPlayers = numPlayers;
   }
 
+  /**
+   * set all the block state
+   * @param stateString new block state
+   */
+
   public void setAllBlockStates(String stateString) {
     List<List<Block>> newBlockStates = new ArrayList<>();
     String[] rows = stateString.split("~");
@@ -54,6 +59,11 @@ public abstract class BlockGrid {
     allBlocks.setBlockStructure(newBlockStates);
   }
 
+  /**
+   * get all the block states
+   * @return all the block states
+   */
+
   public List<List<Integer>> getAllBlockStates() {
     List<List<Integer>> blockState = new ArrayList<>();
     for (int i = 0; i < allBlocks.getBlockStructureHeight(); i++) {
@@ -66,6 +76,11 @@ public abstract class BlockGrid {
     }
     return blockState;
   }
+
+  /**
+   * get all the block as String
+   * @return all the block state as String
+   */
 
   public String getAllBlockStatesAsString() {
     BlockStructure blocks = getAllBlocks();
@@ -80,6 +95,15 @@ public abstract class BlockGrid {
     return result;
   }
 
+  /**
+   * create a block
+   * @param gameType given type of the game
+   * @param blockConfig block configuration
+   * @param coordinate the coordinate of the block
+   * @return the block
+   * @throws ClassOrMethodNotFoundException
+   */
+
   public static Block createBlock(String gameType, int blockConfig, Coordinate coordinate)
       throws ClassOrMethodNotFoundException {
     return Util.reflect(
@@ -89,10 +113,21 @@ public abstract class BlockGrid {
     );
   }
 
+  /**
+   * get all the blocks
+   * @return all the blocks
+   */
+
   public BlockStructure getAllBlocks() {
     return allBlocks;
   }
 
+
+  /**
+   * set all the available position for the next round
+   * @param currentPlayerIndex the index of the current player
+   * @param chosenBlock the coordinate of the chosen block
+   */
   public abstract void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock);
 
   public void unsetAllBlockPotentials() {
@@ -105,6 +140,10 @@ public abstract class BlockGrid {
     }
   }
 
+  /**
+   * check if there is a chosen block on the grid
+   * @return whether there is a chosen block on the grid
+   */
 
   public boolean hasChosenBlock() {
     for (int j = 0; j < allBlocks.getBlockStructureHeight(); j++) {
@@ -117,22 +156,48 @@ public abstract class BlockGrid {
     return false;
   }
 
+  /**
+   * move the piece to a new position
+   * @param originalCoordinate the original coordinate of the piece
+   * @param newCoordinate the new coordinate of the piece
+   */
+
   public void moveBlock(Coordinate originalCoordinate, Coordinate newCoordinate) {
     allBlocks.getBlock(newCoordinate).initiateBlockState
         (allBlocks.getBlock(originalCoordinate).getState());
     allBlocks.getBlock(originalCoordinate).setEmpty();
   }
 
+  /**
+   * check whether a round is finished
+   * @return whether a round is finished
+   */
+
   public boolean isFinishARound() {
     return finishARound;
   }
+
+  /**
+   * reset the round finishing checker
+   */
 
   public void resetFinishARound() {
     this.finishARound = false;
   }
 
+  /**
+   * play the game according to the given coordinate
+   * @param passInCoordinate the given coordinate
+   * @param currentPlayerIndex the index of the current player
+   */
+
   public abstract void play(Coordinate passInCoordinate, Integer currentPlayerIndex);
 
+  /**
+   * check whether the last move is a winning move
+   * @param playerID the current index of the player
+   * @return whether the move is a winning move
+   */
   public abstract boolean isWinningMove(int playerID);
 
   public static int playerTakeTurn(Integer currentPlayerIndex, List<Integer> playerIndexPoll) {
@@ -145,6 +210,12 @@ public abstract class BlockGrid {
       throw new FileException("Invalid player");
     }
   }
+
+  /**
+   * get all the potential moves that the player can play
+   * @param currentPlayerIndex the index of the current player
+   * @return the coordinates of all the moves that the player can play
+   */
 
   public List<Coordinate> getAllPotentialMoves(int currentPlayerIndex) {
     List<Coordinate> allPotentialMoves = new ArrayList<>();

@@ -26,25 +26,56 @@ public class BlockStructure {
     }
   }
 
+  /**
+   * get all the blocks
+   * @return all the blocks
+   */
+
   public List<List<Block>> getBlockStructure() {
     return blockStructure;
   }
+
+  /**
+   * set all the block
+   * @param blockStructure all the new blocks
+   */
 
   public void setBlockStructure(List<List<Block>> blockStructure) {
     this.blockStructure = blockStructure;
   }
 
+  /**
+   * get the block at the given coordinate
+   * @param blockCoordinate the coordinate of the block
+   * @return the block at that coordinate
+   */
+
   public Block getBlock(Coordinate blockCoordinate) {
     return blockStructure.get(blockCoordinate.yCoordinate()).get(blockCoordinate.xCoordinate());
   }
+
+  /**
+   * get the height of the block grid
+   * @return the height of the block grid
+   */
 
   public int getBlockStructureHeight() {
     return blockStructure.size();
   }
 
+  /**
+   * get the width of the block grid
+   * @return the width of the block grid
+   */
+
   public int getBlockStructureWidth() {
     return blockStructure.get(0).size();
   }
+
+  /**
+   * get the all the block configurations
+   * @return all the block configurations
+   */
 
   public List<List<Integer>> getBlockConfigStructure() {
     List<List<Integer>> allBlockConfig = new ArrayList<>();

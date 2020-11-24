@@ -13,6 +13,12 @@ public class Connect4BlockGrid extends BlockGrid {
     super(connect4Grid);
   }
 
+  /**
+   * set all the available position for the current player in a connect4 game
+   * @param currentPlayerIndex the index of the current player
+   * @param chosenBlock the coordinate of the chosen block
+   */
+
   @Override
   public void setAvailablePositions(int currentPlayerIndex, Coordinate chosenBlock) {
     for (int i = 0; i < allBlocks.getBlockStructureWidth(); i++) {
@@ -25,6 +31,12 @@ public class Connect4BlockGrid extends BlockGrid {
       }
     }
   }
+
+  /**
+   * play the connect4 game
+   * @param passInCoordinate the given coordinate
+   * @param currentPlayerIndex the index of the current player
+   */
 
   @Override
   public void play(Coordinate passInCoordinate, Integer currentPlayerIndex) {
@@ -39,6 +51,12 @@ public class Connect4BlockGrid extends BlockGrid {
     }
     unsetAllBlockPotentials();
   }
+
+  /**
+   * check if last move is a winning move in a connect4 game
+   * @param playerID the current index of the player
+   * @return whether last move is a winning move in a connect4 game
+   */
 
   public boolean isWinningMove(int playerID) {
     // Check horizontal locations for win
