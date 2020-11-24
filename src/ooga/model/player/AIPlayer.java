@@ -24,7 +24,8 @@ public class AIPlayer extends Player {
 
   /**
    * Sets the AI player's game and creates the AI brain based on the type of game.
-   * @param game the game to be played
+   *
+   * @param game     the game to be played
    * @param gameType the type of game being played
    */
   @Override
@@ -36,6 +37,7 @@ public class AIPlayer extends Player {
 
   /**
    * Calculates the AI player's moves (multiple if checkers) based on the current game state
+   *
    * @return a list of coordinates to be played
    */
   @Override
@@ -46,6 +48,7 @@ public class AIPlayer extends Player {
 
   /**
    * Uses reflection to create an AI brain based on the game type
+   *
    * @param gameType the type of game
    * @return an AI brain based on the game type
    */

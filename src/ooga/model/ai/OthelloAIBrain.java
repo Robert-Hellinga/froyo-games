@@ -8,7 +8,11 @@ import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.OthelloBlockGrid;
 
 /**
+ * This is the OthelloAIBrain which implements AIBrain interface, the function is to give the AI
+ * decision to play Othello Game
+ *
  * @author Jincheng He
+ * @see ooga.model.ai.AIBrain
  */
 public class OthelloAIBrain implements AIBrain {
 

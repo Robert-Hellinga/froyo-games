@@ -5,6 +5,12 @@ import java.util.List;
 import ooga.Coordinate;
 import ooga.model.checkerboard.BlockStructure;
 
+/**
+ * This class extends the abstract class Block, it is the block for checkers game
+ *
+ * @author Yixuan Li, Jincheng He, Robert Hellinga
+ * @see ooga.model.checkerboard.block.Block
+ */
 public class CheckersBlock extends Block {
 
 
@@ -14,10 +20,22 @@ public class CheckersBlock extends Block {
 
   protected boolean isKing;
 
+  /**
+   * The constructor
+   *
+   * @param blockConfig The input integer which represents the config of the block
+   * @param coordinate  The Coordinate parameter which represents the coordinate of the block
+   */
   public CheckersBlock(Integer blockConfig, Coordinate coordinate) {
     super(blockConfig, coordinate);
   }
 
+  /**
+   * This is the initialization of the block state
+   *
+   * @param blockConfig The integer which represents the state config of the block state
+   * @see Block#initiateBlockState(int)
+   */
   @Override
   public void initiateBlockState(int blockConfig) {
     super.initiateBlockState(blockConfig);
@@ -26,11 +44,24 @@ public class CheckersBlock extends Block {
     this.isKing = (blockConfig == KING + playerID);
   }
 
+  /**
+   * This is a copy constructor
+   *
+   * @param newBlock The block to be copied
+   */
   public CheckersBlock(Block newBlock) {
     this(newBlock.getState(), newBlock.getCoordinate());
   }
 
 
+  /**
+   * This method is to get the available positions given by the known current player and the whole
+   * block structure
+   *
+   * @param currentPlayerIndex The integer which represents the index of the current player
+   * @param allBlocks          The BlockStructure which represents the whole blocks
+   * @return return a List of Coordinate which represents those positions which are available
+   */
   @Override
   public List<Coordinate> getAvailablePositions(int currentPlayerIndex, BlockStructure allBlocks) {
     List<Coordinate> allAvailablePosition = new ArrayList<>();
@@ -59,6 +90,16 @@ public class CheckersBlock extends Block {
     return allAvailablePosition;
   }
 
+  /**
+   * This is the helper method which can get the potential neighbour move
+   *
+   * @param currentPlayerIndex The integer which represents the index of the current player
+   * @param allBlocks          The BlockStructure which represents the whole blocks
+   * @param isDownDirection    A boolean which is true if it is down direction and false if it is
+   *                           the up direction
+   * @return return a List of Coordinate which represents those positions which are potential
+   * neighbour moves
+   */
   private List<Coordinate> getPotentialNeighbourMove(int currentPlayerIndex,
       BlockStructure allBlocks, boolean isDownDirection) {
 
@@ -78,6 +119,16 @@ public class CheckersBlock extends Block {
     return availableMoves;
   }
 
+  /**
+   * This is the helper method which can get the potential step move
+   *
+   * @param currentPlayerIndex The integer which represents the index of the current player
+   * @param allBlocks          The BlockStructure which represents the whole blocks
+   * @param isDownDirection    A boolean which is true if it is down direction and false if it is
+   *                           the up direction
+   * @return return a List of Coordinate which represents those positions which are potential step
+   * moves
+   */
   private List<Coordinate> getPotentialStepMove(int currentPlayerIndex, BlockStructure allBlocks,
       boolean isDownDirection) {
     List<Coordinate> tmpNeighbourMoves = new ArrayList<>();
@@ -107,6 +158,14 @@ public class CheckersBlock extends Block {
     return availableMoves;
   }
 
+  /**
+   * This method is to get the neighbour move no matter it is potential or not
+   *
+   * @param allBlocks       The BlockStructure which represents the whole blocks
+   * @param isDownDirection A boolean which is true if it is down direction and false if it is the
+   *                        up direction
+   * @return return a List of Coordinate which represents those positions which are neighbour moves
+   */
   private List<Coordinate> getNeighbourMove(BlockStructure allBlocks, boolean isDownDirection) {
     List<Coordinate> tmpAvailableMoves = new ArrayList<>();
     List<Coordinate> availableMoves = new ArrayList<>();
@@ -130,31 +189,50 @@ public class CheckersBlock extends Block {
     return availableMoves;
   }
 
+  /**
+   * This method is to check whether the input coordinate is inside the grid
+   *
+   * @param coor      The input coordinate
+   * @param allBlocks The BlockStructure which represents the whole blocks
+   * @return return true if it is inside the grid and false if it is not
+   */
   private boolean checkInGrid(Coordinate coor, BlockStructure allBlocks) {
     return coor.xCoordinate() >= 0 && coor.xCoordinate() < allBlocks.getBlockStructureWidth()
         && coor.yCoordinate() >= 0 && coor.yCoordinate() < allBlocks.getBlockStructureHeight();
   }
 
+  /**
+   * @see Block#setEmpty()
+   */
   @Override
   public void setEmpty() {
     super.setEmpty();
     isKing = false;
   }
 
+  /**
+   * @see Block#makePotentialMove()
+   */
   @Override
   public void makePotentialMove() {
     super.makePotentialMove();
     state = POTENTIAL_MOVE;
   }
 
+  /**
+   * This method is to check whether this block is king
+   *
+   * @return return true if it is king and false if it is not
+   */
   public boolean isKing() {
     return isKing;
   }
 
+  /**
+   * This method is to make the block to be king
+   */
   public void makeKing() {
     isKing = true;
     state = KING + playerID;
   }
-
-
 }
