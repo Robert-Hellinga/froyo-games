@@ -9,16 +9,41 @@ import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.CheckersBlockGrid;
 import ooga.model.game.CheckersGame;
 
+/**
+ * This it he CheckersAIBrain which implements AIBrain interface, the function is to give the AI
+ * decision to play Checkers Game
+ *
+ * @author Yixuan Li
+ * @see ooga.model.ai.AIBrain
+ */
 public class CheckersAIBrain implements AIBrain {
 
   public static final int SEARCH_LAYER = 2;
 
+  /**
+   * AIBrain would make a list of decisions based on the blockGrid and who is the currentPlayer.
+   *
+   * @param checkBoard         The checker block grid of the checkers game
+   * @param currentPlayerIndex An Integer represents the index of the current player
+   * @return return a List of Coordinates represents the AI decision
+   */
   @Override
   public List<Coordinate> decideMove(BlockGrid checkBoard, Integer currentPlayerIndex) {
     Vector<Coordinate> bestMove = miniMax(SEARCH_LAYER, checkBoard, currentPlayerIndex, true);
     return new ArrayList<>(bestMove);
   }
 
+  /**
+   * This method is the miniMax algorithm, this algorithm is how Connect4 AI works
+   *
+   * @param searchLayer        An integer represents the remaining search depth
+   * @param checkBoard         The given checkers block grid
+   * @param currentPlayerIndex An Integer represents the index of the current player
+   * @param maxPlayer          A boolean parameter, it is true when the score of this player should
+   *                           be maximized, and it is false when the score of this player should be
+   *                           minimized
+   * @return return a Vector of Coordinates which is the decision that miniMax algorithm give
+   */
   public Vector<Coordinate> miniMax(Integer searchLayer, BlockGrid checkBoard,
       Integer currentPlayerIndex, boolean maxPlayer) {
     if (searchLayer == 0) {

@@ -7,6 +7,9 @@ import ooga.Coordinate;
 import ooga.model.checkerboard.blockgrid.BlockGrid;
 import ooga.model.checkerboard.blockgrid.OthelloBlockGrid;
 
+/**
+ * @author Jincheng He
+ */
 public class OthelloAIBrain implements AIBrain {
 
   private static final List<Integer> PLAYER_INDEX_POLL = new ArrayList<>(List.of(1, 2));
@@ -14,6 +17,14 @@ public class OthelloAIBrain implements AIBrain {
   private int AIID;
 
 
+  /**
+   * AIBrain would make a list of decisions based on the blockGrid and who is the currentPlayer.
+   *
+   * @param othelloBoard       The othelloBoard of the othello game
+   * @param currentPlayerIndex An Integer represents the index of the current player
+   * @return return a List of Coordinates represents the AI decision
+   * @see AIBrain#decideMove(BlockGrid, Integer)
+   */
   @Override
   public List<Coordinate> decideMove(BlockGrid othelloBoard, Integer currentPlayerIndex) {
     AIID = currentPlayerIndex;
@@ -29,6 +40,22 @@ public class OthelloAIBrain implements AIBrain {
     return aiMoves;
   }
 
+  /**
+   * This method is the miniMax algorithm, this algorithm is how Othello AI works
+   *
+   * @param othelloGrid        The blockGrid of othello game
+   * @param depth              The AI search depth
+   * @param alpha              The parameter alpha, this is a parameter for pruning in miniMax
+   *                           algorithm
+   * @param beta               The parameter beta, this is a parameter for pruning in miniMax
+   *                           algorithm
+   * @param maximizingPlayer   A boolean parameter, it is true when the score of this player should
+   *                           be maximized, and it is false when the score of this player should be
+   *                           minimized
+   * @param currentPlayerIndex An Integer represents the index of the current player
+   * @return return a Pair of Coordinate and a Float value which represents the value of the miniMax
+   * algorithm
+   */
   private Pair<Coordinate, Float> miniMax(BlockGrid othelloGrid, int depth, float alpha, float beta,
       boolean maximizingPlayer, int currentPlayerIndex) {
 
@@ -93,6 +120,13 @@ public class OthelloAIBrain implements AIBrain {
     }
   }
 
+  /**
+   * This is the method which evaluate the value of the given board
+   *
+   * @param blockGrid          A given othello block grid
+   * @param currentPlayerIndex A integer which represents the index of a given player
+   * @return return a float value which represents the evaluation value
+   */
   private float evaluateBoardValue(BlockGrid blockGrid, int currentPlayerIndex) {
     float currentPlayerCount = 0;
     float otherPlayerCount = 0;
@@ -109,6 +143,13 @@ public class OthelloAIBrain implements AIBrain {
     return currentPlayerCount - otherPlayerCount;
   }
 
+  /**
+   * This method gives a List of Coordinate which represents the potential moves
+   *
+   * @param othelloBoard       A given othello glock grid
+   * @param currentPlayerIndex A integer which represents the index
+   * @return return a List of Coordinates which represents the potential moves
+   */
   private List<Coordinate> getPotentialMoves(BlockGrid othelloBoard, Integer currentPlayerIndex) {
     List<Coordinate> potentialMove = new ArrayList<>();
     for (int i = 0; i < othelloBoard.getAllBlocks().getBlockStructureWidth(); i++) {
@@ -121,6 +162,12 @@ public class OthelloAIBrain implements AIBrain {
     return potentialMove;
   }
 
+  /**
+   * This method would check whether the board is full
+   *
+   * @param blockGrid A given block grid
+   * @return return true if the given board is full and false the vice versa
+   */
   private boolean checkBoardIsFull(BlockGrid blockGrid) {
     for (int i = 0; i < blockGrid.getAllBlocks().getBlockStructureWidth(); i++) {
       for (int j = 0; j < blockGrid.getAllBlocks().getBlockStructureHeight(); j++) {
@@ -133,6 +180,12 @@ public class OthelloAIBrain implements AIBrain {
   }
 
 
+  /**
+   * Change the current player to be another one
+   *
+   * @param currentPlayerIndex A integer which represents the index of the current player
+   * @return return a integer which represents the index of another player
+   */
   private int playerTakeTurn(Integer currentPlayerIndex) {
     int index = PLAYER_INDEX_POLL.indexOf(currentPlayerIndex);
     if (index == PLAYER_INDEX_POLL.size() - 1) {
