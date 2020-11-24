@@ -193,7 +193,7 @@ public abstract class Game {
 
   /**
    * get the winning player
-   * @return
+   * @return the winning player
    */
 
   public abstract Player getWinningPlayer();

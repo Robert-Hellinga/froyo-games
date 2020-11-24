@@ -15,6 +15,11 @@ public class Connect4Game extends Game {
         getInitiationBlockConfig(gameType, startPattern), numPlayers);
   }
 
+  /**
+   * play the game
+   * @param passInCoordinate the coordinate to be played on
+   */
+
   @Override
   public void play(Coordinate passInCoordinate) {
     connect4Board.play(passInCoordinate, getCurrentPlayerIndex());
@@ -30,15 +35,30 @@ public class Connect4Game extends Game {
     notifyObservers();
   }
 
+  /**
+   * get the board
+   * @return get the whole board
+   */
+
   @Override
   public BlockGrid getBoard() {
     return connect4Board;
   }
 
+  /**
+   * get the winning player
+   * @return the winning player
+   */
+
   @Override
   public Player getWinningPlayer() {
     return wonGame ? currentPlayer : null;
   }
+
+  /**
+   * get whether the current player have potential moves
+   * @return whether the current player have potential moves
+   */
 
   @Override
   public boolean currentPlayerHavePotentialMoves() {

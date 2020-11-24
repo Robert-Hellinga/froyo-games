@@ -25,14 +25,15 @@
 	BlockState, making states subclass-specific/open to extension
 	
 * Jincheng
-    * Week 1: Wireframe, Temp model framework, CheckersGame, CheckersBlockGrid, Block, CheckersBlock, BlockState*,
-    BlockConfigStructure*, BlockStructure
-    * Week 2: Model dependencies, AI: Game, Connect4Game, Connect4Block, etc
-        CheckersAI framework, Connect4AI framework
-    * Week 3: Othello/Othello classes, OthelloAI
+    * Week 1: Temp model framework, API and use cases CheckersGame, CheckersBlockGrid
+    * Week 2: model refactoring, Model dependencies, AI: Game, Connect4Game, etc, Connect4AI framework, Player framework
+    * Week 3: OthelloAI, enable player skipping round
 
 *Yixuan
-    [TODO: distribute model Classes with Jincheng]
+    * Week 1: Design Wireframe, Temp model framework, API and use cases for Block, CheckersBlock, BlockState,BlockConfigStructure
+    BlockStructure
+    * Week 2: model refactoring, Model dependencies, AI: Conncet4 Blocks, etc, CheckersAI framework, Player framework, 
+    * Week 3: Othello game, othello block, check player winning game
 
 
 ## Design goals
