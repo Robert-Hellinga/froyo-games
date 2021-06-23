@@ -1,8 +1,8 @@
 Froyo Games
 ====
-This project has our submission for the CS307 final project. We chose to write a game that can play
-Connect 4, Othello, and Checkers. It can also create artificial players and interact with Firebase
-RealtimeDB for online play. 
+This is a game that can play Connect 4, Othello, and Checkers. It can also create artificial players
+and interact with Firebase RealtimeDB for online play. The AI portion of the code and algorithm used
+for turn-taking could use some cleaning, but otherwise we're happy with how it turned out.
 
 Authors: Nate Mela, Robert Hellinga, Lucas Carter, Yixuan Li, Jincheng He
 
@@ -16,9 +16,9 @@ Hours Spent: 100+ (Cumulative)
 
 ### Primary Roles
 
+Robert - Project Leader/Data + Resources
 Jincheng - Model
 Yixuan - Model
-Robert - Data/Resource
 Lucas - Controller
 Nate - View
 
